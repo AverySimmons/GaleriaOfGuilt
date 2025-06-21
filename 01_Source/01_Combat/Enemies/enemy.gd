@@ -1,18 +1,21 @@
 class_name Enemy
-extends Node2D
+extends Area2D
 
 var hp: float = 0
-var type: String = ''
+var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
 var death_state: bool = false
+var movement_type: String = '' #will these be a seperate scene?? 
 
-
+func _ready() -> void:
+	$AnimatedSprite2D.play('WormDevWalk')
+	
 #timers
 var death_timer = 1 #a little delay for the animation to play, is there a better way?
 
 func start_death() -> void:
 	death_state = true
-	emit_signal(enemy_killed)
-	start.animation('death')
+	#emit_signal(enemy_killed)
+	#start.animation('death')
 	
 
 func _physics_process(delta: float) -> void:
