@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlic7c080mnck"]
+[gd_scene load_steps=3 format=3 uid="uid://dlic7c080mnck"]
 
-[ext_resource type="Script" uid="uid://0vsqwrgw45wr" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
+[ext_resource type="Script" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
 [ext_resource type="PackedScene" uid="uid://cdbc88ye3bth1" path="res://01_Source/01_Combat/Enemies/worm.tscn" id="1_exnof"]
 
 [node name="EnemyTest" type="Node2D"]

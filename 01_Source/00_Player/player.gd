@@ -13,12 +13,14 @@ var most_recent_press: Vector2 = Vector2(0, 0)
 var current_hp: float
 
 # Blood Bar stuff
-var blood_bar = 0
+var blood_bar = 250
 @export var bb_max: float = 250
 @export var bb_hit: float = 1
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
-@export var bb_hit_speed: float = 1.0/250.0
+var bb_spd_inc: float = 1.0
+@export var bb_hitspd: float = 1.0/500.0
+var bb_hitspd_inc: float = 1.0
 @export var bb_timer_time: float = 3
 @onready var bb_timer: float = bb_timer_time
 @export var bb_to_health_ratio: float = 1.0
@@ -30,7 +32,7 @@ var bb_decrease: float = 0
 @export var attack_cooldown: float = 0.75
 var actual_attack_cooldown: float = 0
 var attack_timer: float = 0
-
+var test_timer = 1
 
 func _ready() -> void:
 	current_hp = max_hp
@@ -47,15 +49,13 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	position += velocity * delta
+	position += velocity * delta * bb_spd_inc
 	
 	# Attacks
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0:
 			$blood_swipe.initiate_attack()
-			attack_timer = attack_cooldown
-		else:
-			$blood_swipe.attack_not_ready()
+			attack_timer = attack_cooldown - bb_hitspd_inc
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	
@@ -65,14 +65,21 @@ func _physics_process(delta: float) -> void:
 	else:
 		bb_timer = bb_timer_time
 		bb_decrease = 0
+		dealt_damage_took_damage = false
 	
 	if bb_timer == 0:
+		# Visuals?
+		#
+		#
+		
 		bb_decrease += bb_decrease_rate * delta
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
 		heal_amt -= blood_bar
 		heal_damage(heal_amt * bb_to_health_ratio)
 	
+	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
+	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
 	
 	pass
 
