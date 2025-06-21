@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://c77hxwwvvxule"]
+
+[ext_resource type="Script" uid="uid://bygl5fc4r2hp0" path="res://01_Source/01_Combat/Enemies/enemy.gd" id="1_qkbr7"]
+[ext_resource type="Texture2D" uid="uid://da4qtgrrgackq" path="res://00_Assets/00_Sprites/Enemies/Dev/WormDevSheet.png" id="2_yahaq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjw3h"]
+atlas = ExtResource("2_yahaq")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dm4l"]
+atlas = ExtResource("2_yahaq")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ag72f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjw3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dm4l")
+}],
+"loop": true,
+"name": &"WormDevWalk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yahaq"]
+size = Vector2(222.75, 59)
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_qkbr7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ag72f")
+animation = &"WormDevWalk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.625, 56.5)
+shape = SubResource("RectangleShape2D_yahaq")
