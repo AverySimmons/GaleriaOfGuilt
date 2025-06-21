@@ -19,12 +19,22 @@ func _physics_process(delta: float) -> void:
 	elif !Input.is_action_pressed("right") && !Input.is_action_pressed("left"):
 		most_recent_press.x = 0
 	
+	if Input.is_action_just_released("left") && Input.is_action_pressed("right"):
+		most_recent_press.x = 1
+	elif Input.is_action_just_released("right") && Input.is_action_pressed("left"):
+		most_recent_press.y = -1
+	
 	if Input.is_action_just_pressed("up") && most_recent_press.y >= 0:
 		most_recent_press.y = -1
 	elif Input.is_action_just_pressed("down") && most_recent_press.y <= 0:
 		most_recent_press.y = 1
 	elif !Input.is_action_pressed("up") && !Input.is_action_pressed("down"):
 		most_recent_press.y = 0
+	
+	if Input.is_action_just_released("up") && Input.is_action_pressed("down"):
+		most_recent_press.x = 1
+	elif Input.is_action_just_released("down") && Input.is_action_pressed("up"):
+		most_recent_press.y = -1
 	
 	var movement_vector: Vector2 = most_recent_press.normalized()
 	
