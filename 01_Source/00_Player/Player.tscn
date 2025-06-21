@@ -1,11 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwq2kamalcrwp"]
+[gd_scene load_steps=5 format=3 uid="uid://dwq2kamalcrwp"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_et3bk"]
+[ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_g7rcs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g7rcs"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_et3bk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_et3bk")
+
+[node name="blood_swipe" type="Area2D" parent="."]
+script = ExtResource("2_g7rcs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="blood_swipe"]
+
+[node name="Sprite2D" type="Sprite2D" parent="blood_swipe"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blood_swipe"]
+shape = SubResource("CircleShape2D_g7rcs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
