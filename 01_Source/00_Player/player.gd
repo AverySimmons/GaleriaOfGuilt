@@ -3,6 +3,7 @@ extends CharacterBody2D
 # Velocity stuff
 @export var top_speed: float = 250
 @export var acceleration: float = 700
+@export var reverse_acceleration: float = 1400
 @export var idle_friction: float = 600
 # For handling priority. -1 means left/up, 1 means right/down, 0 means idle
 var most_recent_press: Vector2 = Vector2(0, 0)
@@ -12,17 +13,22 @@ var most_recent_press: Vector2 = Vector2(0, 0)
 var current_hp: float
 
 # Blood Bar stuff
+var blood_bar = 0
 @export var bb_max: float = 250
 @export var bb_hit: float = 1
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
 @export var bb_hit_speed: float = 1.0/250.0
-@export var bb_timer_time: float = 4
+@export var bb_timer_time: float = 3
 @onready var bb_timer: float = bb_timer_time
-@export var bb_to_health: float = 1.0
+@export var bb_to_health_ratio: float = 1.0
+var dealt_damage_took_damage: bool = false
+@export var bb_decrease_rate: float = 10
+var bb_decrease: float = 0
 
 # Attack stuff
 @export var attack_cooldown: float = 0.75
+var actual_attack_cooldown: float = 0
 var attack_timer: float = 0
 
 
@@ -35,7 +41,10 @@ func _physics_process(delta: float) -> void:
 	var movement_vector: Vector2 = get_movement_vector()
 	
 	if movement_vector != Vector2.ZERO:
-		velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
+		if velocity.normalized().dot(movement_vector) < -0.5:
+			velocity = velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
+		else: 
+			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
 	position += velocity * delta
@@ -51,6 +60,18 @@ func _physics_process(delta: float) -> void:
 	attack_timer = move_toward(attack_timer, 0, delta)
 	
 	# Blood Bar stuff
+	if dealt_damage_took_damage == false:
+		bb_timer = move_toward(bb_timer, 0, delta)
+	else:
+		bb_timer = bb_timer_time
+		bb_decrease = 0
+	
+	if bb_timer == 0:
+		bb_decrease += bb_decrease_rate * delta
+		var heal_amt = blood_bar
+		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
+		heal_amt -= blood_bar
+		heal_damage(heal_amt * bb_to_health_ratio)
 	
 	
 	pass
