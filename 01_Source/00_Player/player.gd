@@ -36,6 +36,7 @@ var test_timer = 1
 
 func _ready() -> void:
 	current_hp = max_hp
+	GameData.player = self
 	pass
 
 func _physics_process(delta: float) -> void:
