@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://6f67n6fgmbn6"]
+
+[node name="Bite" type="Area2D"]

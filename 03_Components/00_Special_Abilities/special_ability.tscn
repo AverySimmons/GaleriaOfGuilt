@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://n86f7flp5wc4"]
+
+[ext_resource type="Script" uid="uid://bqdchncam0o4v" path="res://03_Components/00_Special_Abilities/special_ability.gd" id="1_f160e"]
+
+[node name="SpecialAbility" type="Area2D"]
+script = ExtResource("1_f160e")

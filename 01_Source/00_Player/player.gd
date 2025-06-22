@@ -30,13 +30,16 @@ var bb_decrease: float = 0
 
 # Attack stuff
 @export var attack_cooldown: float = 0.75
-var actual_attack_cooldown: float = 0
+var attack_cooldown_timer: float = 0
 var attack_timer: float = 0
-var test_timer = 1
+var special_ability_timer: float # Relative to current special ability timer in code
 
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
+	
+	# Set special ability to bite
+	
 	pass
 
 func _physics_process(delta: float) -> void:
