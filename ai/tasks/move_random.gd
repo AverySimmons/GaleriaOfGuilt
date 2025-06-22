@@ -1,7 +1,6 @@
 @tool
 extends BTAction
 
-
 @export var max_dist : float = 300.0
 @export var min_dist : float = 150.0
 
@@ -39,15 +38,15 @@ func pick_destination() -> Vector2: #this also flips the sprite
 	
 	#flip sprite
 	if agent.global_position.x < new_destination.x: #target is right of the enemy
-		if agent.sprite.scale.x == -1:
-			agent.sprite.scale.x = 1
+		if agent.sprite.scale.x < 0:
+			agent.sprite.scale.x *= -1
 	else: #reached when the target location is left of the enemy
-		if agent.sprite.scale.x == 1:
-			agent.sprite.scale.x = -1
+		if agent.sprite.scale.x > 0:
+			agent.sprite.scale.x *= -1
 	
 	return new_destination
 	
-func move():
+func move(): # we have a path
 	var next_path = agent.navigation.get_next_path_position()
 	var move_direction = agent.global_position.direction_to(next_path)
 	var new_velocity = move_direction * agent.move_speed
