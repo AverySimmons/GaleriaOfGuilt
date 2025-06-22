@@ -69,12 +69,12 @@ debug_color = Color(0.839216, 0.192157, 0.815686, 0.419608)
 position = Vector2(0, -93)
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_gilhy")
 texture = ExtResource("5_t37aw")
 lifetime = 0.7
 one_shot = true
 explosiveness = 0.7
 fixed_fps = 60
 local_coords = true
+process_material = SubResource("ParticleProcessMaterial_gilhy")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
