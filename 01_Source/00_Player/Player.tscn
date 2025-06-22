@@ -16,7 +16,7 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g7rcs"]
 
-[node name="Player2" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
 
