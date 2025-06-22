@@ -7,6 +7,8 @@ var active_timer: float
 var hit_enemies: Dictionary = {}
 var enemies_just_entered: Array
 var damage: float = 20
+var attack_slowdown: float = 0.3
+var attack_slowdown_actual: float = 1.0
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
@@ -25,8 +27,9 @@ func _physics_process(delta: float) -> void:
 	
 	active_timer = move_toward(active_timer, 0, delta)
 	if active_timer <= 0:
-		is_active = false	
+		is_active = false
 		hit_enemies.clear()
+		attack_slowdown_actual = 1.0
 	pass
 
 func initiate_attack() -> void:
@@ -36,6 +39,8 @@ func initiate_attack() -> void:
 	# Animation player stuff
 	# Audio
 	active_timer = active_time
+	attack_slowdown_actual = attack_slowdown
+	is_active = true
 	
 	if has_overlapping_areas():
 		parent.dealt_damage_took_damage = true

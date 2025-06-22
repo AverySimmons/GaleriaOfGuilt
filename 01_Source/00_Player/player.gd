@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	position += velocity * delta * bb_spd_inc
+	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual
 	
 	# Attacks
 	if Input.is_action_just_pressed("main_attack"):

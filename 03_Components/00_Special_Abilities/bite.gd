@@ -1,6 +1,6 @@
 extends SpecialAbility
 
-@onready var parent: CharacterBody2D = get_parent()
+@onready var parent = get_parent()
 var is_active: bool = false
 var active_time: float = 0.6
 var active_timer: float

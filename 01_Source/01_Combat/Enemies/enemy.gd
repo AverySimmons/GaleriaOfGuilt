@@ -22,7 +22,6 @@ func start_death() -> void:
 	death_state = true
 	#emit_signal(enemy_killed)
 	#start.animation('death')
-	
 
 func _physics_process(delta: float) -> void:
 	#death
