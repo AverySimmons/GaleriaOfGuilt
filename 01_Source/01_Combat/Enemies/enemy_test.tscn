@@ -3,8 +3,16 @@
 [ext_resource type="Script" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
 [ext_resource type="PackedScene" uid="uid://cdbc88ye3bth1" path="res://01_Source/01_Combat/Enemies/worm.tscn" id="1_exnof"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_digse"]
+vertices = PackedVector2Array(1230.98, 48.9766, 1230.01, 677, 47.9297, 677.992, 44.0625, 47.0078)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(34, 37, 1241, 39, 1240, 687, 38, 688)])
+
 [node name="EnemyTest" type="Node2D"]
 script = ExtResource("1_digse")
 
 [node name="Worm" parent="." instance=ExtResource("1_exnof")]
 position = Vector2(573, 316)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_digse")

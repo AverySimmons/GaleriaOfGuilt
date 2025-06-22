@@ -1,10 +1,13 @@
 class_name Enemy
-extends Area2D
+extends CharacterBody2D
+
+@export var move_speed: float = 100
 
 var hp: float = 1 #change this
 var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
 var death_state: bool = false
 var movement_type: String = '' #will these be a seperate scene?? 
+
 
 func _ready() -> void:
 	
