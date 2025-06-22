@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://clka6aw5ssvse" path="res://03_Components/00_Special_Abilities/bite.gd" id="1_01fqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncxjq"]
+size = Vector2(50, 30)
 
 [node name="Bite" type="Area2D"]
 script = ExtResource("1_01fqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(35, 0)
 shape = SubResource("RectangleShape2D_ncxjq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

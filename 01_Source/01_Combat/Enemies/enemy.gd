@@ -32,3 +32,9 @@ func _physics_process(delta: float) -> void:
 		
 	if death_timer <= 0: #time to die
 		queue_free()
+
+func take_damage(damage: float, flinch: float) -> void:
+	hp -= damage
+	# Flash red somehow
+	# Flinch for amount of time in flinch - Brian how do this?
+	return

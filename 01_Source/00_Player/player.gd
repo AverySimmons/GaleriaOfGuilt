@@ -34,13 +34,16 @@ var bb_decrease: float = 0
 var attack_cooldown_timer: float = 0
 var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
+var using_attack_or_special: bool = false
+var current_ability: SpecialAbility = null
 
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
 	
 	# Set special ability to bite
-	
+	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
+	set_ability(bite_scene)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -54,15 +57,21 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual
+	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 	
 	# Attacks
 	if Input.is_action_just_pressed("main_attack"):
-		if attack_timer == 0:
+		if attack_timer == 0 && using_attack_or_special == false:
 			$blood_swipe.initiate_attack()
-			attack_timer = attack_cooldown - bb_hitspd_inc
+			attack_timer = attack_cooldown * bb_hitspd_inc
+	
+	if Input.is_action_just_pressed("special_attack"):
+		if special_ability_timer == 0 && using_attack_or_special == false:
+			current_ability.use_ability()
+			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
+	special_ability_timer = move_toward(special_ability_timer, 0, delta)
 	
 	# Blood Bar stuff
 	if dealt_damage_took_damage == false:
@@ -76,7 +85,6 @@ func _physics_process(delta: float) -> void:
 		# Visuals?
 		#
 		#
-		
 		bb_decrease += bb_decrease_rate * delta
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
@@ -127,4 +135,14 @@ func take_damage(amount: float) -> void:
 
 func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
+	return
+
+func set_ability(ability) -> void:
+	var new_ability = ability.instantiate()
+	new_ability.global_position = global_position
+	add_child(new_ability)
+	if current_ability != null:
+		remove_child(current_ability)
+		current_ability.queue_free()
+	current_ability = new_ability
 	return
