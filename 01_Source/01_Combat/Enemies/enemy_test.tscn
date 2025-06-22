@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlic7c080mnck"]
+[gd_scene load_steps=5 format=3 uid="uid://dlic7c080mnck"]
 
-[ext_resource type="Script" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
+[ext_resource type="Script" uid="uid://0vsqwrgw45wr" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
 [ext_resource type="PackedScene" uid="uid://cdbc88ye3bth1" path="res://01_Source/01_Combat/Enemies/worm.tscn" id="1_exnof"]
+[ext_resource type="PackedScene" uid="uid://dwq2kamalcrwp" path="res://01_Source/00_Player/Player.tscn" id="2_ubvju"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_digse"]
 vertices = PackedVector2Array(1230.98, 48.9766, 1230.01, 677, 47.9297, 677.992, 44.0625, 47.0078)
@@ -10,6 +11,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(34, 37, 1241, 39, 1240,
 
 [node name="EnemyTest" type="Node2D"]
 script = ExtResource("1_digse")
+
+[node name="Player" parent="." instance=ExtResource("2_ubvju")]
+position = Vector2(350, 315)
 
 [node name="Worm" parent="." instance=ExtResource("1_exnof")]
 position = Vector2(573, 316)

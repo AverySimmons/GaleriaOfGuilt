@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=24 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
-[ext_resource type="Texture2D" uid="uid://da4qtgrrgackq" path="res://00_Assets/00_Sprites/Enemies/Dev/WormDevSheet.png" id="2_whe2v"]
+[ext_resource type="Texture2D" uid="uid://5wtl81l0obsc" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
 [ext_resource type="Script" uid="uid://ctjyjad3y6egp" path="res://ai/tasks/go_to_point.gd" id="3_l36l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
-size = Vector2(225.5, 37)
+size = Vector2(132, 95)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_whe2v"]
 
@@ -23,7 +23,7 @@ animation_name = &"walk"
 [sub_resource type="BTAction" id="BTAction_g4adi"]
 script = ExtResource("3_l36l6")
 max_dist = 600.0
-min_dist = null
+min_dist = 150.0
 
 [sub_resource type="BTSequence" id="BTSequence_vb6xg"]
 custom_name = "Walk"
@@ -41,14 +41,18 @@ animation_player = SubResource("BBNode_l36l6")
 animation_name = &"idle"
 
 [sub_resource type="BTWait" id="BTWait_rbwy0"]
-duration = 1.5
+duration = 0.3
 
-[sub_resource type="BTSequence" id="BTSequence_1xfk5"]
+[sub_resource type="BTSequence" id="BTSequence_g4adi"]
 custom_name = "Pause"
 children = [SubResource("BTConsolePrint_l36l6"), SubResource("BTPlayAnimation_g4adi"), SubResource("BTWait_rbwy0")]
 
+[sub_resource type="BTProbability" id="BTProbability_rbwy0"]
+run_chance = 0.2
+children = [SubResource("BTSequence_g4adi")]
+
 [sub_resource type="BTSequence" id="BTSequence_l36l6"]
-children = [SubResource("BTSequence_vb6xg"), SubResource("BTSequence_1xfk5")]
+children = [SubResource("BTSequence_vb6xg"), SubResource("BTProbability_rbwy0")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_l36l6"]
 blackboard_plan = SubResource("BlackboardPlan_whe2v")
@@ -61,7 +65,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GodotSprite:frame")
+tracks/0/path = NodePath("WormSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -77,14 +81,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GodotSprite:frame")
+tracks/0/path = NodePath("WormSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [8]
 }
 
 [sub_resource type="Animation" id="Animation_whe2v"]
@@ -93,14 +97,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GodotSprite:frame")
+tracks/0/path = NodePath("WormSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333334, 0.466667),
+"times": PackedFloat32Array(0, 0.433333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [1, 0]
+"values": [8, 9]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4adi"]
@@ -111,15 +115,17 @@ _data = {
 }
 
 [node name="Worm" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_whe2v")
 
-[node name="GodotSprite" type="Sprite2D" parent="."]
+[node name="WormSprite" type="Sprite2D" parent="."]
 position = Vector2(-3, -62)
-texture = ExtResource("2_whe2v")
-hframes = 2
+texture = ExtResource("2_l36l6")
+hframes = 4
+vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.25, 6.5)
+position = Vector2(3, -48.5)
 shape = SubResource("RectangleShape2D_g4adi")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
@@ -130,6 +136,5 @@ blackboard_plan = SubResource("BlackboardPlan_g4adi")
 libraries = {
 &"": SubResource("AnimationLibrary_g4adi")
 }
-autoplay = "walk"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

@@ -28,7 +28,7 @@ func _tick(delta: float) -> Status:
 	
 	return RUNNING
 	
-func pick_destination() -> Vector2:
+func pick_destination() -> Vector2: #this also flips the sprite
 	var offset1 = rng.randf_range(min_dist, max_dist) #if the point is illegal, reroll?
 	var offset2 = rng.randf_range(min_dist, max_dist)
 	
@@ -36,6 +36,14 @@ func pick_destination() -> Vector2:
 	offset2 *= [-1, 1].pick_random()
 	#var offset = 250
 	var new_destination = Vector2(agent.global_position.x + offset1, agent.global_position.y + offset2)
+	
+	#flip sprite
+	if agent.global_position.x < new_destination.x: #target is right of the enemy
+		if agent.sprite.scale.x == -1:
+			agent.sprite.scale.x = 1
+	else: #reached when the target location is left of the enemy
+		if agent.sprite.scale.x == 1:
+			agent.sprite.scale.x = -1
 	
 	return new_destination
 	
