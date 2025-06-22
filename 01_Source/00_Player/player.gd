@@ -65,7 +65,13 @@ func _physics_process(delta: float) -> void:
 			$blood_swipe.initiate_attack()
 			attack_timer = attack_cooldown - bb_hitspd_inc
 	
+	if Input.is_action_just_pressed("special_attack"):
+		if special_ability_timer == 0:
+			current_ability.use_ability()
+			special_ability_timer = current_ability.cooldown
+	
 	attack_timer = move_toward(attack_timer, 0, delta)
+	special_ability_timer = move_toward(special_ability_timer, 0, delta)
 	
 	# Blood Bar stuff
 	if dealt_damage_took_damage == false:
@@ -79,7 +85,6 @@ func _physics_process(delta: float) -> void:
 		# Visuals?
 		#
 		#
-		
 		bb_decrease += bb_decrease_rate * delta
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
@@ -139,4 +144,5 @@ func set_ability(ability) -> void:
 	if current_ability != null:
 		remove_child(current_ability)
 		current_ability.queue_free()
+	current_ability = new_ability
 	return

@@ -41,8 +41,8 @@ func _physics_process(delta: float) -> void:
 	pass
 
 
-func use_ability(mouse_position: Vector2) -> void:
-	super.use_ability(mouse_position)
+func use_ability() -> void:
+	super.use_ability()
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = mouse_pos - global_position
 	var angle: float = direction.angle()

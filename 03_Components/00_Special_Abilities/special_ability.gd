@@ -6,7 +6,7 @@ var damage: float
 var cooldown: float
 var chargeup: float
 
-func use_ability(mouse_position: Vector2) -> void:
+func use_ability() -> void:
 	monitoring = true
 	parent.using_attack_or_special = true
 	return

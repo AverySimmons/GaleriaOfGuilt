@@ -20,6 +20,17 @@ size = Vector2(20, 40)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
+top_speed = null
+max_hp = null
+bb_max = null
+bb_hit = null
+bb_kill = null
+bb_spd = null
+bb_hitspd = null
+bb_timer_time = null
+bb_to_health_ratio = null
+bb_decrease_rate = null
+attack_cooldown = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_et3bk")
