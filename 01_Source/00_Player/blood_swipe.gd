@@ -6,6 +6,7 @@ var active_time: float = 0.6
 var active_timer: float
 var hit_enemies: Dictionary = {}
 var enemies_just_entered: Array
+var damage: float = 20
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
