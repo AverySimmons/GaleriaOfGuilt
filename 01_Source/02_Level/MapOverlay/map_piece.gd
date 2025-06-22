@@ -1,3 +1,4 @@
+class_name MapPiece
 extends Sprite2D
 
 var connections = [false, false, false, false]

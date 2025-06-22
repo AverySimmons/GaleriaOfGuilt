@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cb4fpuk0m1ov3"]
+[gd_scene load_steps=2 format=3 uid="uid://cb4fpuk0m1ov3"]
 
 [ext_resource type="Script" uid="uid://cocr3ai82tvfv" path="res://01_Source/02_Level/level_generator.gd" id="1_44pj5"]
-[ext_resource type="PackedScene" uid="uid://boqmp5tsrdpvh" path="res://01_Source/02_Level/MapOverlay/map_overlay.tscn" id="2_bqomf"]
 
 [node name="LevelGenerator" type="Node"]
 script = ExtResource("1_44pj5")
-
-[node name="MapOverlay" parent="." instance=ExtResource("2_bqomf")]

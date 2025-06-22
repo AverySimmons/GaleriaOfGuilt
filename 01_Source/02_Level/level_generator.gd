@@ -1,25 +1,68 @@
 extends Node
 
-var levels: Dictionary[Vector2, Level] = {}
-
-var level_scenes: Array[PackedScene] = [
+var small_level_scenes: Array[PackedScene] = [
 	preload("res://01_Source/02_Level/level.tscn")
 ]
 
-func _ready() -> void:
-	while not await generate_map(100): continue
-	$MapOverlay.generate_map(levels.values())
+var small_medium_level_scenes: Array[PackedScene] = [
+	preload("res://01_Source/02_Level/level.tscn")
+]
+
+var big_medium_level_scenes: Array[PackedScene] = [
+	preload("res://01_Source/02_Level/level.tscn")
+]
+
+var big_level_scenes: Array[PackedScene] = [
+	preload("res://01_Source/02_Level/level.tscn")
+]
+
+var map: Dictionary[Vector2, MapNode] = {}
+
+class MapNode:
+	var map: Dictionary[Vector2, MapNode]
+	var pos: Vector2
+	var is_end: bool
+	var cons: Array[bool] = [false, false, false, false]
+	
+	func _init(map: Dictionary[Vector2, MapNode], pos: Vector2) -> void:
+		self.pos = pos
+		self.map = map
+	
+	func connect_node(dir: Vector2):
+		var target_node = map[self.pos + dir]
+		self.cons[GameData.DIRECTIONS[dir]] = true
+		target_node.cons[GameData.DIRECTIONS[dir*-1]] = true
+
+func get_levels(node_num) -> Dictionary[Vector2, Level]:
+	while not generate_map(node_num): continue
+	
+	var levels: Dictionary[Vector2, Level] = {}
+	for node: MapNode in map.values():
+		var con_num = 0
+		for c in node.cons:
+			if c: con_num += 1
+		
+		var lvl_list: Array[PackedScene]
+		match con_num:
+			1: lvl_list = small_level_scenes
+			2: lvl_list = small_medium_level_scenes
+			3: lvl_list = big_medium_level_scenes
+			4: lvl_list = big_level_scenes
+		
+		var new_level: Level = lvl_list.pick_random().instantiate()
+		new_level.is_end = node.is_end
+		new_level.map_pos = node.pos
+		new_level.connections = node.cons
+		levels[node.pos] = new_level
+	
+	return levels
 
 func generate_map(tile_num):
-	var start_level = setup_level(Vector2.ZERO)
-	start_level.is_start = true
-	var second_level = setup_level(Vector2.UP)
-	start_level.connections[GameData.DIRECTIONS[Vector2.UP]] = second_level
-	second_level.connections[GameData.DIRECTIONS[Vector2.DOWN]] = start_level
-	levels[Vector2.ZERO] = start_level
-	levels[Vector2.UP] = second_level
-	$MapOverlay.generate_map(levels.values())
-	await get_tree().create_timer(0.05).timeout
+	var start_node = MapNode.new(map, Vector2.ZERO)
+	var second_level = MapNode.new(map, Vector2.UP)
+	map[Vector2.ZERO] = start_node
+	map[Vector2.UP] = second_level
+	start_node.connect_node(Vector2.UP)
 	
 	var empty_connections = {
 		Vector2.UP + Vector2.RIGHT : null,
@@ -30,13 +73,13 @@ func generate_map(tile_num):
 	for i in tile_num:
 		var new_pos = empty_connections.keys().pick_random()
 		empty_connections.erase(new_pos)
-		levels[new_pos] = setup_level(new_pos)
+		map[new_pos] = MapNode.new(map, new_pos)
 		
 		var connected_rooms = []
 		
 		for dir in GameData.DIRECTIONS:
 			var adj = new_pos + dir
-			if adj not in levels:
+			if adj not in map:
 				empty_connections[adj] = null
 			
 			else:
@@ -50,19 +93,16 @@ func generate_map(tile_num):
 			if new_pos + dir == Vector2.ZERO: continue
 			if randf() <= con_chance:
 				con_num += 1
-				connect_level(new_pos, dir)
-			con_chance /= 2.
+				map[new_pos].connect_node(dir)
+			con_chance *= 0.35
 		if con_num == 0: return false
-		
-		$MapOverlay.generate_map(levels.values())
-		await get_tree().create_timer(0.05).timeout
 	
 	spawn_exit()
 	return true
 
 func spawn_exit():
 	var seen = {Vector2.ZERO : null}
-	var queue = [levels[Vector2.UP]]
+	var queue = [Vector2.UP]
 	var possible_ends = []
 	while queue:
 		var next_queue = []
@@ -70,15 +110,15 @@ func spawn_exit():
 		while queue:
 			var cur_lvl = queue.pop_front()
 			for dir in GameData.DIRECTIONS:
-				if cur_lvl.map_pos + dir in seen: continue
-				if cur_lvl.map_pos + dir in levels:
-					var dir_lvl = cur_lvl.connections[GameData.DIRECTIONS[dir]]
-					if dir_lvl:
-						next_queue.push_back(dir_lvl)
-						seen[cur_lvl.map_pos + dir] = null
+				var dir_pos = cur_lvl + dir
+				if dir_pos in seen: continue
+				if dir_pos in map:
+					if map[cur_lvl].cons[GameData.DIRECTIONS[dir]]:
+						next_queue.push_back(dir_pos)
+						seen[dir_pos] = null
 				
 				else:
-					new_ends.append([cur_lvl.map_pos, dir])
+					new_ends.append([cur_lvl, dir])
 		
 		queue = next_queue
 		possible_ends.push_front(new_ends)
@@ -88,19 +128,14 @@ func spawn_exit():
 		if cur_ends:
 			var picked_end = cur_ends.pick_random()
 			var end_pos = picked_end[0] + picked_end[1]
-			var end = setup_level(end_pos)
-			levels[end_pos] = end
+			var end = MapNode.new(map, end_pos)
 			end.is_end = true
-			connect_level(picked_end[0], picked_end[1])
+			map[end_pos] = end
+			map[picked_end[0]].connect_node(picked_end[1])
 			return
 
 func connect_level(level_pos, dir):
 	var dir_ind = GameData.DIRECTIONS[dir]
 	var inv_dir_ind = GameData.DIRECTIONS[dir*-1]
-	levels[level_pos].connections[dir_ind] = levels[level_pos+dir]
-	levels[level_pos+dir].connections[inv_dir_ind] = levels[level_pos]
-
-func setup_level(pos) -> Level:
-	var new_level: Level = level_scenes.pick_random().instantiate()
-	new_level.map_pos = pos
-	return new_level
+	map[level_pos].connections[dir_ind] = map[level_pos+dir]
+	map[level_pos+dir].connections[inv_dir_ind] = map[level_pos]
