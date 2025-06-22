@@ -57,18 +57,18 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual
+	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 	
 	# Attacks
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0:
 			$blood_swipe.initiate_attack()
-			attack_timer = attack_cooldown - bb_hitspd_inc
+			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
 		if special_ability_timer == 0:
 			current_ability.use_ability()
-			special_ability_timer = current_ability.cooldown
+			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)

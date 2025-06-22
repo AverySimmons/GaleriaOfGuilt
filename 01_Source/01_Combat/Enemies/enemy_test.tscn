@@ -14,17 +14,6 @@ script = ExtResource("1_digse")
 
 [node name="Player" parent="." instance=ExtResource("2_ubvju")]
 position = Vector2(350, 315)
-top_speed = null
-max_hp = null
-bb_max = null
-bb_hit = null
-bb_kill = null
-bb_spd = null
-bb_hitspd = null
-bb_timer_time = null
-bb_to_health_ratio = null
-bb_decrease_rate = null
-attack_cooldown = null
 
 [node name="Worm" parent="." instance=ExtResource("1_exnof")]
 position = Vector2(573, 316)

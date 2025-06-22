@@ -48,7 +48,7 @@ func initiate_attack() -> void:
 	rotation = angle
 	# Make player face direction of swing
 	
-	active_timer = active_time
+	active_timer = active_time * parent.bb_hitspd_inc
 	attack_slowdown_actual = attack_slowdown
 	is_active = true
 	monitoring = true
