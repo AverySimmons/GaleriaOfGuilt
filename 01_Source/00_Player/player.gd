@@ -114,9 +114,12 @@ func get_movement_vector() -> Vector2:
 	return most_recent_press.normalized()
 
 func take_damage(amount: float) -> void:
-	current_hp -= amount
+	current_hp = move_toward(current_hp, 0, amount)
+	if current_hp <= 0:
+		print("Ouch!")
+	dealt_damage_took_damage = true
 	return
 
 func heal_damage(amount: float) -> void:
-	current_hp += amount
+	current_hp = move_toward(current_hp, max_hp, amount)
 	return
