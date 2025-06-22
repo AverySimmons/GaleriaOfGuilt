@@ -1,6 +1,5 @@
 extends SpecialAbility
 
-@onready var parent = get_parent()
 var is_active: bool = false
 var active_time: float = 0.6
 var active_timer: float
@@ -34,15 +33,25 @@ func _physics_process(delta: float) -> void:
 	
 	active_timer = move_toward(active_timer, 0, delta)
 	if active_timer <= 0:
+		parent.using_attack_or_special = false
+		monitoring = false
 		is_active = false	
 		hit_enemies.clear()
+		attack_slowdown_actual = 1.0
 	pass
 
 
 func use_ability(mouse_position: Vector2) -> void:
 	super.use_ability(mouse_position)
-	active_timer = active_time
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var direction: Vector2 = mouse_pos - global_position
+	var angle: float = direction.angle()
+	rotation = angle
+	# Make player face direction of swing
 	
+	active_timer = active_time
+	attack_slowdown_actual = attack_slowdown
+	is_active = true
 	if has_overlapping_areas():
 		parent.dealt_damage_took_damage = true
 	

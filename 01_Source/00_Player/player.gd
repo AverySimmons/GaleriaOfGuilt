@@ -34,13 +34,16 @@ var bb_decrease: float = 0
 var attack_cooldown_timer: float = 0
 var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
+var using_attack_or_special: bool = false
+var current_ability: SpecialAbility = null
 
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
 	
 	# Set special ability to bite
-	
+	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
+	set_ability(bite_scene)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -127,4 +130,13 @@ func take_damage(amount: float) -> void:
 
 func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
+	return
+
+func set_ability(ability) -> void:
+	var new_ability = ability.instantiate()
+	new_ability.global_position = global_position
+	add_child(new_ability)
+	if current_ability != null:
+		remove_child(current_ability)
+		current_ability.queue_free()
 	return

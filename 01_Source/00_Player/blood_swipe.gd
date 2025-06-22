@@ -13,6 +13,7 @@ var flinch_amount: float = 0.2
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
+	monitoring = false
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -29,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	
 	active_timer = move_toward(active_timer, 0, delta)
 	if active_timer <= 0:
+		parent.using_attack_or_special = false
 		monitoring = false
 		is_active = false
 		hit_enemies.clear()
@@ -50,6 +52,8 @@ func initiate_attack() -> void:
 	attack_slowdown_actual = attack_slowdown
 	is_active = true
 	monitoring = true
+	parent.using_attack_or_special = true
+	
 	if has_overlapping_areas():
 		parent.dealt_damage_took_damage = true
 	
