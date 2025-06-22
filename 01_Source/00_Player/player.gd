@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 # Velocity stuff
@@ -30,12 +31,16 @@ var bb_decrease: float = 0
 
 # Attack stuff
 @export var attack_cooldown: float = 0.75
-var actual_attack_cooldown: float = 0
+var attack_cooldown_timer: float = 0
 var attack_timer: float = 0
-var test_timer = 1
+var special_ability_timer: float # Relative to current special ability timer in code
 
 func _ready() -> void:
 	current_hp = max_hp
+	GameData.player = self
+	
+	# Set special ability to bite
+	
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -49,7 +54,7 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	position += velocity * delta * bb_spd_inc
+	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual
 	
 	# Attacks
 	if Input.is_action_just_pressed("main_attack"):
