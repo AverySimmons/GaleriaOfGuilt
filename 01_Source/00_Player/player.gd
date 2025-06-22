@@ -61,12 +61,12 @@ func _physics_process(delta: float) -> void:
 	
 	# Attacks
 	if Input.is_action_just_pressed("main_attack"):
-		if attack_timer == 0:
+		if attack_timer == 0 && using_attack_or_special == false:
 			$blood_swipe.initiate_attack()
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
-		if special_ability_timer == 0:
+		if special_ability_timer == 0 && using_attack_or_special == false:
 			current_ability.use_ability()
 			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	

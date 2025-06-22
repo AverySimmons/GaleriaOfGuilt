@@ -20,7 +20,6 @@ func use_ability() -> void:
 	# Chargeup
 	special_slowdown_actual = chargeup_slowdown
 	await get_tree().create_timer(chargeup).timeout
-	print("Yo")
 	
 	monitoring = true
 	parent.using_attack_or_special = true
