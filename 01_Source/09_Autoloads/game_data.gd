@@ -6,3 +6,5 @@ const DIRECTIONS = {
 	Vector2.LEFT : 2,
 	Vector2.DOWN : 3
 }
+
+var player

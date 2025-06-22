@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 # Velocity stuff
 @export var top_speed: float = 250
-@export var acceleration: float = 700
-@export var reverse_acceleration: float = 1400
-@export var idle_friction: float = 600
+@export var acceleration: float = top_speed / 0.1 #700
+@export var reverse_acceleration: float = top_speed / 0.05 #1400 * 4
+@export var idle_friction: float = top_speed / 0.07 #600 * 4
 # For handling priority. -1 means left/up, 1 means right/down, 0 means idle
 var most_recent_press: Vector2 = Vector2(0, 0)
 
