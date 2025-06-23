@@ -21,6 +21,7 @@ func _tick(delta: float) -> Status:
 	
 	if not agent.navigation.is_navigation_finished():
 		move()
+		
 	if find_player_timer <= 0:
 		check_path()
 		find_player_timer = 0.1
@@ -30,12 +31,17 @@ func _tick(delta: float) -> Status:
 	
 	return RUNNING
 	
+func _exit() -> void:
+	enemy.velocity = Vector2.ZERO 
+
 ## think about helper functions down here
 
 func move() -> void:
 	var next_path = enemy.navigation.get_next_path_position()
 	var move_direction = enemy.global_position.direction_to(next_path)
 	var new_velocity = move_direction * enemy.move_speed
+	
+	enemy.facing_direction = move_direction
 	
 	enemy.velocity = new_velocity
 	

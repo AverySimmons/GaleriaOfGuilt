@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=36 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="Texture2D" uid="uid://5wtl81l0obsc" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
@@ -13,20 +13,35 @@ size = Vector2(83, 90)
 [sub_resource type="BTAction" id="BTAction_rbwy0"]
 script = ExtResource("3_g4adi")
 
-[sub_resource type="BTSequence" id="BTSequence_1xfk5"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_g4adi"]
+time_limit = 2.0
 children = [SubResource("BTAction_rbwy0")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_g4adi"]
+children = [SubResource("BTTimeLimit_g4adi")]
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_rbwy0"]
+text = "playing idle animation"
+
+[sub_resource type="BBNode" id="BBNode_g4adi"]
+saved_value = NodePath("Animations")
+resource_name = "Animations"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_rbwy0"]
+animation_player = SubResource("BBNode_g4adi")
+animation_name = &"idle"
+
+[sub_resource type="BTWait" id="BTWait_g4adi"]
+
+[sub_resource type="BTSequence" id="BTSequence_1xfk5"]
+children = [SubResource("BTAlwaysSucceed_g4adi"), SubResource("BTConsolePrint_rbwy0"), SubResource("BTPlayAnimation_rbwy0"), SubResource("BTWait_g4adi")]
+
+[sub_resource type="BTProbability" id="BTProbability_g4adi"]
+run_chance = 1.0
+children = [SubResource("BTSequence_1xfk5")]
 
 [sub_resource type="BTConsolePrint" id="BTConsolePrint_g4adi"]
 text = "starting walk"
-
-[sub_resource type="BBNode" id="BBNode_1xfk5"]
-saved_value = NodePath("AnimationPlayer")
-resource_name = "AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_dl58o"]
-animation_player = SubResource("BBNode_1xfk5")
-animation_name = &"walk"
-blend = 0.1
 
 [sub_resource type="BTAction" id="BTAction_g4adi"]
 script = ExtResource("3_l36l6")
@@ -35,7 +50,7 @@ min_dist = 150.0
 
 [sub_resource type="BTSequence" id="BTSequence_vb6xg"]
 custom_name = "Walk"
-children = [SubResource("BTConsolePrint_g4adi"), SubResource("BTPlayAnimation_dl58o"), SubResource("BTAction_g4adi")]
+children = [SubResource("BTConsolePrint_g4adi"), SubResource("BTAction_g4adi")]
 
 [sub_resource type="BTProbability" id="BTProbability_1xfk5"]
 run_chance = 0.0
@@ -44,28 +59,19 @@ children = [SubResource("BTSequence_vb6xg")]
 [sub_resource type="BTConsolePrint" id="BTConsolePrint_l36l6"]
 text = "starting idle"
 
-[sub_resource type="BBNode" id="BBNode_l36l6"]
-saved_value = NodePath("AnimationPlayer")
-resource_name = "AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_g4adi"]
-animation_player = SubResource("BBNode_l36l6")
-animation_name = &"idle"
-blend = 0.1
-
 [sub_resource type="BTWait" id="BTWait_rbwy0"]
 duration = 0.3
 
 [sub_resource type="BTSequence" id="BTSequence_g4adi"]
 custom_name = "Pause"
-children = [SubResource("BTConsolePrint_l36l6"), SubResource("BTPlayAnimation_g4adi"), SubResource("BTWait_rbwy0")]
+children = [SubResource("BTConsolePrint_l36l6"), SubResource("BTWait_rbwy0")]
 
 [sub_resource type="BTProbability" id="BTProbability_rbwy0"]
 run_chance = 0.0
 children = [SubResource("BTSequence_g4adi")]
 
 [sub_resource type="BTSequence" id="BTSequence_l36l6"]
-children = [SubResource("BTSequence_1xfk5"), SubResource("BTProbability_1xfk5"), SubResource("BTProbability_rbwy0")]
+children = [SubResource("BTProbability_g4adi"), SubResource("BTProbability_1xfk5"), SubResource("BTProbability_rbwy0")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_l36l6"]
 blackboard_plan = SubResource("BlackboardPlan_whe2v")
@@ -104,6 +110,36 @@ tracks/0/keys = {
 "values": [8]
 }
 
+[sub_resource type="Animation" id="Animation_1xfk5"]
+resource_name = "move_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WormSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5, 4]
+}
+
+[sub_resource type="Animation" id="Animation_rbwy0"]
+resource_name = "move_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WormSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [11, 10]
+}
+
 [sub_resource type="Animation" id="Animation_whe2v"]
 resource_name = "walk"
 loop_mode = 1
@@ -117,14 +153,53 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.433333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [8, 9]
+"values": [9, 8]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4adi"]
 _data = {
 &"RESET": SubResource("Animation_l36l6"),
 &"idle": SubResource("Animation_g4adi"),
+&"move_down": SubResource("Animation_1xfk5"),
+&"move_up": SubResource("Animation_rbwy0"),
 &"walk": SubResource("Animation_whe2v")
+}
+
+[sub_resource type="Animation" id="Animation_vb6xg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WormSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dl58o"]
+resource_name = "hit_flash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WormSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(39.226, 37.569, 37.569, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wri7i"]
+_data = {
+&"RESET": SubResource("Animation_vb6xg"),
+&"hit_flash": SubResource("Animation_dl58o")
 }
 
 [node name="Worm" type="CharacterBody2D"]
@@ -146,9 +221,14 @@ shape = SubResource("RectangleShape2D_g4adi")
 behavior_tree = SubResource("BehaviorTree_l36l6")
 blackboard_plan = SubResource("BlackboardPlan_g4adi")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_g4adi")
+}
+
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wri7i")
 }
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

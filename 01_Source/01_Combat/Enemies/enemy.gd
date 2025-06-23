@@ -3,8 +3,11 @@ extends CharacterBody2D
 
 @export var move_speed: float = 100
 
-var hp: float = 1 #change this
-var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
+@export var hp: float = 10 #change this
+@export var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
+@export var flinch_guard: float = 0
+
+var facing_direction: Vector2 = Vector2.RIGHT
 var death_state: bool = false
 var movement_type: String = '' #will these be a seperate scene?? 
 
@@ -25,6 +28,9 @@ func start_death() -> void:
 
 func _physics_process(delta: float) -> void:
 	#death
+	if Input.is_action_just_pressed('take_damage_debug'):
+		take_damage(1, 1) #take 1 damage and flinch for a second
+	
 	if hp <= 0:
 		if not death_state:
 			start_death() #emits signal and plays animation right now
@@ -35,6 +41,8 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: float, flinch: float) -> void:
 	hp -= damage
-	# Flash red somehow
+	
+	$HitFlash.play('hit_flash')
+	# Flash red somehow #sorry joey I'm doing white instead
 	# Flinch for amount of time in flinch - Brian how do this?
 	return
