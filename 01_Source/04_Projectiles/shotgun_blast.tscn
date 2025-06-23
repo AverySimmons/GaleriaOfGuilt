@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dqvmxsx0vsyql" path="res://01_Source/04_Projectiles/shotgun_blast.gd" id="1_rcbtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wyyi"]
+size = Vector2(10, 5)
 
 [node name="ShotgunBlast" type="Area2D"]
 collision_layer = 0

@@ -44,6 +44,8 @@ func _ready() -> void:
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
+	var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
+	set_ability(shotgun_scene)
 	pass
 
 func _physics_process(delta: float) -> void:

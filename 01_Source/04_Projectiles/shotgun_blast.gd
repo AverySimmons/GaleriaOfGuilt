@@ -25,9 +25,9 @@ func _physics_process(delta: float) -> void:
 	pass
 
 # Shotgun tip should be slightly offset for each bullet
-func get_shot(shotgun_tip: Vector2, angle_from: float, angle_to: float, shot_speed: float, 
-			  bb_hitspd_inc, shot_dmg: float, flinch: float) -> void:
-	speed = shot_speed * bb_hitspd_inc
+func get_shot(angle_from: float, angle_to: float, shot_speed: float,
+			 shot_dmg: float, flinch: float) -> void:
+	speed = shot_speed
 	var actual_angle: float = randf_range(angle_from, angle_to)
 	direction = Vector2(cos(actual_angle), sin(actual_angle))
 	velocity = direction * speed
@@ -35,9 +35,6 @@ func get_shot(shotgun_tip: Vector2, angle_from: float, angle_to: float, shot_spe
 	
 	damage = shot_dmg
 	flinch_amt = flinch
-	
-	if has_overlapping_areas():
-		pass
 	return
 
 func _on_area_entered(enemy) -> void:
