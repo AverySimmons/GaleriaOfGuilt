@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://deymd28wy827u"]
+
+[ext_resource type="Script" uid="uid://bu432sd406on7" path="res://01_Source/01_Combat/Blood/blood_particle.gd" id="1_xw0oc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p70bt"]
+size = Vector2(4, 4)
+
+[sub_resource type="Gradient" id="Gradient_sq2iy"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 0, 0.301961)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wrk4p"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_sq2iy")
+width = 6
+height = 6
+
+[node name="BloodParticle" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_xw0oc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p70bt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_wrk4p")

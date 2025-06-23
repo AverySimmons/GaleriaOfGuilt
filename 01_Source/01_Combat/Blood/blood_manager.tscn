@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bka1wtsyvvvgk"]
+
+[ext_resource type="Script" uid="uid://cq2qu261eft73" path="res://01_Source/01_Combat/Blood/blood_manager.gd" id="1_2pf3l"]
+
+[node name="BloodManager" type="MultiMeshInstance2D"]
+script = ExtResource("1_2pf3l")
