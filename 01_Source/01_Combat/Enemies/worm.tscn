@@ -1,9 +1,9 @@
 [gd_scene load_steps=36 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
-[ext_resource type="Texture2D" uid="uid://5wtl81l0obsc" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
+[ext_resource type="Texture2D" uid="uid://cq0xhgq3hlbrt" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
 [ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="3_g4adi"]
-[ext_resource type="Script" uid="uid://ctjyjad3y6egp" path="res://ai/tasks/move_random.gd" id="3_l36l6"]
+[ext_resource type="Script" path="res://ai/tasks/move_random.gd" id="3_l36l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
 size = Vector2(83, 90)
@@ -13,32 +13,32 @@ size = Vector2(83, 90)
 [sub_resource type="BTAction" id="BTAction_rbwy0"]
 script = ExtResource("3_g4adi")
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_g4adi"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_1xfk5"]
 time_limit = 2.0
 children = [SubResource("BTAction_rbwy0")]
 
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_g4adi"]
-children = [SubResource("BTTimeLimit_g4adi")]
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_dl58o"]
+children = [SubResource("BTTimeLimit_1xfk5")]
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_rbwy0"]
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_vb6xg"]
 text = "playing idle animation"
 
-[sub_resource type="BBNode" id="BBNode_g4adi"]
+[sub_resource type="BBNode" id="BBNode_wri7i"]
 saved_value = NodePath("Animations")
 resource_name = "Animations"
 
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_rbwy0"]
-animation_player = SubResource("BBNode_g4adi")
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_58x27"]
+animation_player = SubResource("BBNode_wri7i")
 animation_name = &"idle"
 
-[sub_resource type="BTWait" id="BTWait_g4adi"]
+[sub_resource type="BTWait" id="BTWait_2ho74"]
 
-[sub_resource type="BTSequence" id="BTSequence_1xfk5"]
-children = [SubResource("BTAlwaysSucceed_g4adi"), SubResource("BTConsolePrint_rbwy0"), SubResource("BTPlayAnimation_rbwy0"), SubResource("BTWait_g4adi")]
+[sub_resource type="BTSequence" id="BTSequence_ct5x7"]
+children = [SubResource("BTAlwaysSucceed_dl58o"), SubResource("BTConsolePrint_vb6xg"), SubResource("BTPlayAnimation_58x27"), SubResource("BTWait_2ho74")]
 
 [sub_resource type="BTProbability" id="BTProbability_g4adi"]
 run_chance = 1.0
-children = [SubResource("BTSequence_1xfk5")]
+children = [SubResource("BTSequence_ct5x7")]
 
 [sub_resource type="BTConsolePrint" id="BTConsolePrint_g4adi"]
 text = "starting walk"

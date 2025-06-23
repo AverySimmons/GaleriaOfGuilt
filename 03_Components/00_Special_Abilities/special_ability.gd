@@ -20,24 +20,19 @@ func use_ability() -> void:
 	# Chargeup
 	special_slowdown_actual = chargeup_slowdown
 	await get_tree().create_timer(chargeup).timeout
+	# Make player face direction of swing
 	
 	monitoring = true
 	parent.using_attack_or_special = true
 	active_timer = active_time * parent.bb_hitspd_inc
 	special_slowdown_actual = special_slowdown
 	is_active = true
-	if has_overlapping_areas():
-		parent.dealt_damage_took_damage = true
 	
-	var enemies_hit = get_overlapping_areas()
-	for enemy in enemies_hit:
-		if enemy is not Enemy:
-			continue
-		parent.blood_bar += parent.bb_hit * blood_gain_multiplier
-		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount)
 	return
 
 func _ready() -> void:
 	monitoring = false
+	pass
+
+func _physics_process(delta: float) -> void:
 	pass

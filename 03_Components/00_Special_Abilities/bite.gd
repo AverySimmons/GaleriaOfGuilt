@@ -15,6 +15,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
 	if !is_active:
 		return
 	for enemy in enemies_just_entered:
@@ -40,8 +41,18 @@ func use_ability() -> void:
 	var direction: Vector2 = mouse_pos - global_position
 	var angle: float = direction.angle()
 	rotation = angle
-	# Make player face direction of swing
+	
 	super.use_ability()
+	if has_overlapping_areas():
+		parent.dealt_damage_took_damage = true
+	
+	var enemies_hit = get_overlapping_areas()
+	for enemy in enemies_hit:
+		if enemy is not Enemy:
+			continue
+		parent.blood_bar += parent.bb_hit * blood_gain_multiplier
+		hit_enemies[enemy] = null
+		enemy.take_damage(damage, flinch_amount)
 	return
 
 func _on_area_entered(area: Area2D) -> void:

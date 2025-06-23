@@ -1,7 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://34yi132g8tbd"]
+[gd_scene load_steps=3 format=3 uid="uid://34yi132g8tbd"]
 
 [ext_resource type="Script" uid="uid://deo3wulw16mkl" path="res://03_Components/00_Special_Abilities/shotgun.gd" id="1_oup2a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oup2a"]
 
 [node name="Shotgun" type="Area2D"]
 script = ExtResource("1_oup2a")
 metadata/_custom_type_script = "uid://bqdchncam0o4v"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oup2a")
