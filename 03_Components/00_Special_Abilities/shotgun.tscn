@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://deo3wulw16mkl" path="res://03_Components/00_Special_Abilities/shotgun.gd" id="1_oup2a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oup2a"]
-size = Vector2(30, 10)
+size = Vector2(20, 10)
 
 [node name="Shotgun" type="Area2D"]
-position = Vector2(10, 0)
 script = ExtResource("1_oup2a")
 metadata/_custom_type_script = "uid://bqdchncam0o4v"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(25, 0)
 shape = SubResource("RectangleShape2D_oup2a")

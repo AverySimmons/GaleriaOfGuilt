@@ -27,15 +27,16 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func use_ability() -> void:
+	is_active = true
+	active_timer = active_time * parent.bb_hitspd_inc + chargeup
+	parent.using_attack_or_special = true
 	# Chargeup
 	special_slowdown_actual = chargeup_slowdown
 	await get_tree().create_timer(chargeup).timeout
 	# Make player face direction of swing
 	# Also maybe screenshake
 	
-	parent.using_attack_or_special = true
 	active_timer = active_time * parent.bb_hitspd_inc
 	special_slowdown_actual = special_slowdown
-	is_active = true
 	
 	return

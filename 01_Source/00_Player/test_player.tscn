@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckg74efsutj2b"]
+
+[ext_resource type="Script" uid="uid://duti1tiy5kj1g" path="res://01_Source/00_Player/test_player.gd" id="1_gg7jn"]
+
+[node name="TestPlayer" type="Node2D"]
+script = ExtResource("1_gg7jn")
+
+[node name="Projectiles" type="Node2D" parent="."]

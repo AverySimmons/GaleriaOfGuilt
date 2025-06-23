@@ -1,7 +1,7 @@
 extends Area2D
 
 var velocity: Vector2
-var max_distance: float = 1200
+var max_distance: float = 500
 var cur_distance: float = 0
 var speed: float
 var damage: float
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	position += velocity * delta
-	cur_distance += velocity.length() * delta
+	cur_distance += abs(velocity.length() * delta)
 	
 	if cur_distance >= (max_distance*0.8):
 		velocity -= direction * air_drag * delta
@@ -31,7 +31,7 @@ func get_shot(angle_from: float, angle_to: float, shot_speed: float,
 	var actual_angle: float = randf_range(angle_from, angle_to)
 	direction = Vector2(cos(actual_angle), sin(actual_angle))
 	velocity = direction * speed
-	air_drag = velocity.length() * 1.5
+	air_drag = velocity.length() * 2.5
 	
 	damage = shot_dmg
 	flinch_amt = flinch
@@ -52,4 +52,4 @@ func despawn() -> void:
 	return
 
 func is_moving() -> bool:
-	return velocity > Vector2.ZERO
+	return abs(velocity) > Vector2.ZERO
