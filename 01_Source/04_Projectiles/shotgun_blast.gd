@@ -4,8 +4,8 @@ var velocity: Vector2
 var max_distance: float = 1200
 var cur_distance: float = 0
 var speed: float
-var damage: float = 15
-var flinch_amt: float = 0.1
+var damage: float
+var flinch_amt: float
 var direction: Vector2
 var air_drag: float
 
@@ -25,12 +25,16 @@ func _physics_process(delta: float) -> void:
 	pass
 
 # Shotgun tip should be slightly offset for each bullet
-func get_shot(shotgun_tip: Vector2, angle_from: float, angle_to: float, shot_speed: float, bb_hitspd_inc) -> void:
+func get_shot(shotgun_tip: Vector2, angle_from: float, angle_to: float, shot_speed: float, 
+			  bb_hitspd_inc, shot_dmg: float, flinch: float) -> void:
 	speed = shot_speed * bb_hitspd_inc
 	var actual_angle: float = randf_range(angle_from, angle_to)
 	direction = Vector2(cos(actual_angle), sin(actual_angle))
 	velocity = direction * speed
 	air_drag = velocity.length() * 1.5
+	
+	damage = shot_dmg
+	flinch_amt = flinch
 	
 	if has_overlapping_areas():
 		pass

@@ -16,23 +16,26 @@ var special_slowdown_actual: float = 1.0
 var flinch_amount: float
 var blood_gain_multiplier: float = 1.0
 
+func _ready() -> void:
+	monitoring = false
+	pass
+
+func _physics_process(delta: float) -> void:
+	if !is_active:
+		return
+	
+	pass
+
 func use_ability() -> void:
 	# Chargeup
 	special_slowdown_actual = chargeup_slowdown
 	await get_tree().create_timer(chargeup).timeout
 	# Make player face direction of swing
+	# Also maybe screenshake
 	
-	monitoring = true
 	parent.using_attack_or_special = true
 	active_timer = active_time * parent.bb_hitspd_inc
 	special_slowdown_actual = special_slowdown
 	is_active = true
 	
 	return
-
-func _ready() -> void:
-	monitoring = false
-	pass
-
-func _physics_process(delta: float) -> void:
-	pass
