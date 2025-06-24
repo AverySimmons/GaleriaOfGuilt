@@ -13,6 +13,8 @@ extends CharacterBody2D
 # For handling priority. -1 means left/up, 1 means right/down, 0 means idle
 var most_recent_press: Vector2 = Vector2(0, 0)
 
+var base_velocity := Vector2.ZERO
+
 # HP stuff
 @export var max_hp: float = 100
 var current_hp: float
@@ -59,25 +61,27 @@ func _physics_process(delta: float) -> void:
 	var movement_vector: Vector2 = get_movement_vector()
 	
 	if movement_vector != Vector2.ZERO:
-		if velocity.normalized().dot(movement_vector) < -0.5:
-			velocity = velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
+		if base_velocity.normalized().dot(movement_vector) < -0.5:
+			base_velocity = base_velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
 		else: 
-			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
+			base_velocity = base_velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
+		base_velocity = base_velocity.move_toward(Vector2.ZERO, idle_friction * delta)
 	
-	var actual_velocity: Vector2 = velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
-	position += actual_velocity * delta
+	velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+	move_and_slide()
 	
 	
 	# Attacks ---------------------------------------------------------------
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0 && using_attack_or_special == false:
+			animation_player.play("slash_left")
 			$blood_swipe.initiate_attack()
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
 		if special_ability_timer == 0 && using_attack_or_special == false:
+			animation_player.play("bite_left")
 			current_ability.use_ability()
 			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
@@ -109,13 +113,13 @@ func _physics_process(delta: float) -> void:
 	
 	# Animation stuff -------------------------------------------------------
 	
-	if attack_timer: return
+	if attack_timer or special_ability_timer: return
 	
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
-	animation_player.speed_scale = 1.0 * actual_velocity.length() / velocity.length()
+	animation_player.speed_scale = 1.0 * bb_spd_inc
 	
-	if !is_moving():
+	if movement_vector == Vector2.ZERO:
 		animation_player.play("idle")
 	var facing_dir = get_facing_direction()
 	

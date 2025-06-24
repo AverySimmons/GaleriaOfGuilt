@@ -14,6 +14,7 @@ var movement_type: String = '' #will these be a seperate scene??
 var undamaged: bool = true
 var distance_to_player: Vector2 = Vector2.ZERO
 
+signal death
 
 func _ready() -> void:
 	
@@ -26,7 +27,7 @@ var death_timer = 1 #a little delay for the animation to play, is there a better
 
 func start_death() -> void:
 	death_state = true
-	#emit_signal(enemy_killed)
+	death.emit()
 	#start.animation('death')
 
 func _physics_process(delta: float) -> void:

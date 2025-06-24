@@ -12,7 +12,6 @@ var move_state = true
 
 var bullet_node : Node2D
 
-
 func _ready() -> void:
 	super._ready()
 	

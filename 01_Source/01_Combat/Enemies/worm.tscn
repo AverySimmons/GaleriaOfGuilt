@@ -1,7 +1,7 @@
 [gd_scene load_steps=37 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
-[ext_resource type="Texture2D" uid="uid://3egff48mxy1b" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
+[ext_resource type="Texture2D" uid="uid://ceghy351n6mtm" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
 [ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="3_g4adi"]
 [ext_resource type="Script" uid="uid://ctjyjad3y6egp" path="res://ai/tasks/move_random.gd" id="3_l36l6"]
 
