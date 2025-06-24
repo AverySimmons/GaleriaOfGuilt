@@ -10,6 +10,8 @@ var Animations : AnimationPlayer
 
 var move_state = true
 
+var bullet_node : Node2D
+
 
 func _ready() -> void:
 	super._ready()
@@ -22,6 +24,8 @@ func _physics_process(delta: float) -> void:
 	if velocity.length() > 1:
 		print('movement animations')
 		select_movement_animations()
+		
+	
 	
 	#right - 0
 	#-pi/4 topside 45

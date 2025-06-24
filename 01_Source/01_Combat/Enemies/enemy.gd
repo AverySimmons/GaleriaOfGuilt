@@ -11,6 +11,9 @@ var facing_direction: Vector2 = Vector2.RIGHT
 var death_state: bool = false
 var movement_type: String = '' #will these be a seperate scene?? 
 
+var undamaged: bool = true
+var distance_to_player: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	
@@ -43,6 +46,8 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage: float, flinch: float) -> void:
 	hp -= damage
 	$HitFlash.play('hit_flash') #this always happens
+	if undamaged:
+		undamaged = false
 	
 	#check if the flinch duration is gonna flinch the enemy
 	var flinch_dur = flinch - flinch_guard
