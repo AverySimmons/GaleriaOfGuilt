@@ -4,9 +4,6 @@ var piece_scene = preload("res://01_Source/02_Level/MapOverlay/map_piece.tscn")
 
 var map_position = Vector2.ZERO
 
-func _ready() -> void:
-	display()
-
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("down"): map_position += Vector2.DOWN
 	if Input.is_action_just_pressed("up"): map_position += Vector2.UP

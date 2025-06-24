@@ -1,24 +1,36 @@
 class_name Level
 extends Node2D
 
+@onready var entities: Node2D = $Entities
+@onready var doors: Node2D = $Doors
+
 # 0 is no connection
 # 1 is up
 # 2 is down
-var connections: Array[bool] = [0, 0, 0, 0]
+var connections: Array[int] = [0, 0, 0, 0]
 var is_end: bool = false
 var map_pos: Vector2 = Vector2.ZERO
 var map_piece: MapPiece = null
 
-var player: Player
+signal exited_room(dir: Vector2)
 
-var blood_scene = preload("res://01_Source/01_Combat/Blood/blood_particle.tscn")
+func _ready() -> void:
+	for d: Door in doors.get_children():
+		d.exit.connect(exit)
+
+func enter(dir: Vector2) -> void:
+	if map_pos == Vector2.ZERO:
+		GameData.player.global_position = Vector2(1280,720) * 0.5
+		entities.add_child(GameData.player)
+	
+	for d: Door in doors.get_children():
+		if d.direction == dir * -1:
+			GameData.player.global_position = d.player_spawn.global_position
+			entities.add_child(GameData.player)
+			break
+
+func exit(dir: Vector2):
+	exited_room.emit(dir)
 
 func _physics_process(delta: float) -> void:
-	print(Engine.get_frames_per_second())
-	if Input.is_action_just_pressed("main_attack"):
-		blood_splatter(get_global_mouse_position())
-
-func blood_splatter(pos):
-	for i in 5:
-		$BloodManager.spawn_blood_clump(pos,  \
-			Vector2.from_angle(randf_range(-PI,PI)) * randf_range(300, 600))
+	pass

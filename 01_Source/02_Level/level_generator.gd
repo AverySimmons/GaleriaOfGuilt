@@ -52,8 +52,16 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 		var new_level: Level = lvl_list.pick_random().instantiate()
 		new_level.is_end = node.is_end
 		new_level.map_pos = node.pos
-		new_level.connections = node.cons
 		levels[node.pos] = new_level
+	
+	for node: MapNode in map.values():
+		var cur_lvl = levels[node.pos]
+		for i in 4:
+			if node.cons[i] and not cur_lvl.connections[i]:
+				var other_lvl = levels[node.pos + GameData.INVERSE_DIRECTIONS[i]]
+				var r = randi_range(0, 1)
+				cur_lvl.connections[i] = 1 if r else 2
+				other_lvl.connections[(i + 2) % 4] = 2 if r else 1
 	
 	return levels
 
