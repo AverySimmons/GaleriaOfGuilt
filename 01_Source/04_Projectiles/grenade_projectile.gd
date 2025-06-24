@@ -2,6 +2,7 @@ extends Area2D
 
 var velocity: Vector2
 var target_location: Vector2
+var min_distance: float = 300
 
 var explosion_time: float = 0.5
 var timer_until_explosion: float = 2.0
@@ -21,6 +22,10 @@ var z: float
 var z_speed: float
 var z_gravity: float = -500
 
+# Rotation stuff
+var rotation_velocity: float = 6
+var rotation_friction: float = 2
+
 func _ready() -> void:
 	monitoring = false
 	connect("area_entered", Callable(self, "_on_area_entered"))
@@ -36,15 +41,25 @@ func _physics_process(delta: float) -> void:
 	$Sprite2D.position.y = z
 	if z >= 0:
 		explode()
+	$Sprite2D.rotation += rotation_velocity * delta
+	rotation_velocity -= rotation_friction * delta
 	pass
 
 func get_thrown(location: Vector2, shot_speed: float, explo_damage: float, explo_flinch_amt: float, explo_kb: float) -> void:
-	target_location = Vector2((location.x + randf_range(-50, 50)), location.y + randf_range(-50, 50))
-	var distance = target_location - global_position
+	var distance = location - global_position
+	
+	# Ensure that distance is far enough
+	if distance.length() < 300:
+		location = distance.normalized() * 300
+		distance = distance.normalized() * 300
+	target_location = location + Vector2(randf_range(-50, 50), randf_range(-50, 50))
+	distance = target_location - global_position
+	
 	velocity = shot_speed * distance.normalized()
 	damage = explo_damage
 	flinch_amt = explo_flinch_amt
 	knockback_amt = explo_kb
+	
 	var time = distance.length() / velocity.length()
 	z_speed = -0.5 * gravity * time
 	return
@@ -65,6 +80,7 @@ func explode() -> void:
 			dealt_damage = true
 			blood_bar += bb_hit
 			enemies_hit[enemy] = null
+	
 	await get_tree().create_timer(explosion_time).timeout
 	queue_free()
 	return

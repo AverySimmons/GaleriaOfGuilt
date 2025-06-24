@@ -41,5 +41,5 @@ func use_ability() -> void:
 	var grenade = grenade_scene.instantiate()
 	grenade.global_position = global_position
 	projectiles_scene.add_child(grenade)
-	grenade.get_thrown(mouse_pos, speed)
+	grenade.get_thrown(mouse_pos, speed, damage, flinch_amount, knockback_amount)
 	return
