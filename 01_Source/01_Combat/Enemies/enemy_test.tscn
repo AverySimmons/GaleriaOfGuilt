@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
 [ext_resource type="PackedScene" uid="uid://cdbc88ye3bth1" path="res://01_Source/01_Combat/Enemies/worm.tscn" id="1_exnof"]
-[ext_resource type="PackedScene" uid="uid://dvbabi2s60kn0" path="res://01_Source/00_Player/player.tscn" id="2_ubvju"]
+[ext_resource type="PackedScene" uid="uid://buborx3dew21n" path="res://01_Source/00_Player/player.tscn" id="2_ubvju"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_digse"]
 vertices = PackedVector2Array(1230.98, 48.9766, 1230.01, 677, 47.9297, 677.992, 44.0625, 47.0078)
