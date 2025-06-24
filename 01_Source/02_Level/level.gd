@@ -1,7 +1,10 @@
 class_name Level
 extends Node2D
 
-var connections: Array[bool] = [false, false, false, false]
+# 0 is no connection
+# 1 is up
+# 2 is down
+var connections: Array[bool] = [0, 0, 0, 0]
 var is_end: bool = false
 var map_pos: Vector2 = Vector2.ZERO
 var map_piece: MapPiece = null
@@ -16,6 +19,6 @@ func _physics_process(delta: float) -> void:
 		blood_splatter(get_global_mouse_position())
 
 func blood_splatter(pos):
-	for i in 50:
+	for i in 5:
 		$BloodManager.spawn_blood_clump(pos,  \
-			Vector2.from_angle(randfn(-PI / 2., PI / 8.)) * randf_range(100, 200))
+			Vector2.from_angle(randf_range(-PI,PI)) * randf_range(300, 600))
