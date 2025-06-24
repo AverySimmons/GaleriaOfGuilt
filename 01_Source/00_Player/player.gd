@@ -48,8 +48,8 @@ func _ready() -> void:
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
-	var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
-	set_ability(shotgun_scene)
+	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
+	#set_ability(shotgun_scene)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -63,7 +63,9 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+	
+	var actual_velocity: Vector2 = velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+	position += actual_velocity * delta
 	
 	
 	# Attacks ---------------------------------------------------------------
@@ -109,7 +111,8 @@ func _physics_process(delta: float) -> void:
 	
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
-	animation_player.speed_scale = 1.0
+	animation_player.speed_scale = 1.0 * actual_velocity.length() / velocity.length()
+	print(animation_player.speed_scale)
 	
 	if !is_moving():
 		animation_player.play("idle")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddjg7w4r3uby2"]
+[gd_scene load_steps=4 format=3 uid="uid://ddjg7w4r3uby2"]
 
-[ext_resource type="Script" path="res://01_Source/04_Projectiles/grenade_projectile.gd" id="1_npbrj"]
+[ext_resource type="Script" uid="uid://pywfcjgyrl8s" path="res://01_Source/04_Projectiles/grenade_projectile.gd" id="1_npbrj"]
+[ext_resource type="Texture2D" uid="uid://c4g5kqg5d87fa" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_kijbu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kijbu"]
 
@@ -9,3 +10,6 @@ script = ExtResource("1_npbrj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kijbu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kijbu")
