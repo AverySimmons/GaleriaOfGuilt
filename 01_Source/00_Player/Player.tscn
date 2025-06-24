@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbgxcsldg4v6j"]
+[gd_scene load_steps=8 format=3 uid="uid://dbgxcsldg4v6j"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
+[ext_resource type="Texture2D" uid="uid://dcegp62oxxnkw" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_idle_spritesheet.png" id="3_i8wje"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 
@@ -20,6 +21,17 @@ size = Vector2(20, 40)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
+top_speed = null
+max_hp = null
+bb_max = null
+bb_hit = null
+bb_kill = null
+bb_spd = null
+bb_hitspd = null
+bb_timer_time = null
+bb_to_health_ratio = null
+bb_decrease_rate = null
+attack_cooldown = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_et3bk")
@@ -42,3 +54,4 @@ shape = SubResource("RectangleShape2D_olyoe")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_i8wje")

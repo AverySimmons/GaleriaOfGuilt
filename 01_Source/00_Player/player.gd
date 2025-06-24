@@ -49,7 +49,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	# Movement
+	# Movement --------------------------------------------------------------
 	var movement_vector: Vector2 = get_movement_vector()
 	
 	if movement_vector != Vector2.ZERO:
@@ -61,7 +61,8 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, idle_friction * delta)
 	position += velocity * delta * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 	
-	# Attacks
+	
+	# Attacks ---------------------------------------------------------------
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0 && using_attack_or_special == false:
 			$blood_swipe.initiate_attack()
@@ -75,7 +76,8 @@ func _physics_process(delta: float) -> void:
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)
 	
-	# Blood Bar stuff
+	
+	# Blood Bar stuff -------------------------------------------------------
 	if dealt_damage_took_damage == false:
 		bb_timer = move_toward(bb_timer, 0, delta)
 	else:
@@ -95,6 +97,14 @@ func _physics_process(delta: float) -> void:
 	
 	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
+	
+	
+	# Animation stuff -------------------------------------------------------
+	if !is_moving()
+	
+	var facing_dir = get_facing_direction()
+	
+	
 	
 	pass
 
@@ -128,6 +138,18 @@ func get_movement_vector() -> Vector2:
 	
 	return most_recent_press.normalized()
 
+func get_facing_direction() -> String:
+	if most_recent_press.x > 0:
+		return "right"
+	elif most_recent_press.x < 0:
+		return "left"
+	elif most_recent_press.y > 0:
+		return "down"
+	elif most_recent_press.y < 0:
+		return "up"
+	else:
+		return "idle"
+
 func take_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, 0, amount)
 	if current_hp <= 0:
@@ -148,3 +170,6 @@ func set_ability(ability) -> void:
 		current_ability.queue_free()
 	current_ability = new_ability
 	return
+
+func is_moving() -> bool:
+	return abs(velocity).length() > 0
