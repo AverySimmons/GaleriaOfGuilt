@@ -9,4 +9,7 @@ script = ExtResource("1_uaasl")
 
 [node name="LevelGenerator" parent="." instance=ExtResource("2_l3sx1")]
 
-[node name="MapOverlay" parent="." instance=ExtResource("3_wvjyu")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MapOverlay" parent="CanvasLayer" instance=ExtResource("3_wvjyu")]
+modulate = Color(1, 1, 1, 0.360784)
