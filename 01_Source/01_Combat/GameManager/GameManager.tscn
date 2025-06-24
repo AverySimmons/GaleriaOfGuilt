@@ -1,8 +1,62 @@
-[gd_scene load_steps=4 format=3 uid="uid://c16ryaaqw6wrm"]
+[gd_scene load_steps=8 format=3 uid="uid://c16ryaaqw6wrm"]
 
 [ext_resource type="Script" uid="uid://wstp8f51pacm" path="res://01_Source/01_Combat/GameManager/game_manager.gd" id="1_uaasl"]
 [ext_resource type="PackedScene" uid="uid://cb4fpuk0m1ov3" path="res://01_Source/02_Level/level_generator.tscn" id="2_l3sx1"]
 [ext_resource type="PackedScene" uid="uid://boqmp5tsrdpvh" path="res://01_Source/02_Level/MapOverlay/map_overlay.tscn" id="3_wvjyu"]
+
+[sub_resource type="Animation" id="Animation_wvjyu"]
+resource_name = "on"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_d6io1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ttsk8"]
+resource_name = "off"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1dyq"]
+_data = {
+&"RESET": SubResource("Animation_d6io1"),
+&"off": SubResource("Animation_ttsk8"),
+&"on": SubResource("Animation_wvjyu")
+}
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_uaasl")
@@ -12,4 +66,9 @@ script = ExtResource("1_uaasl")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MapOverlay" parent="CanvasLayer" instance=ExtResource("3_wvjyu")]
-modulate = Color(1, 1, 1, 0.360784)
+modulate = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/MapOverlay"]
+libraries = {
+&"": SubResource("AnimationLibrary_q1dyq")
+}

@@ -20,4 +20,4 @@ func generate_map(tiles: Array[Level]):
 	display()
 
 func display():
-	$MapPieces.position = Vector2(1280,720) / 2. - map_position * (128 + 10) / 2.
+	$MapPieces.position = Vector2(1280,720) / 2. - map_position * (128 + 10)

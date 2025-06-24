@@ -21,6 +21,12 @@ func _ready() -> void:
 	add_child(current_level)
 	current_level.enter(Vector2.ZERO)
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("map"):
+		$CanvasLayer/MapOverlay/AnimationPlayer.play("on")
+	if Input.is_action_just_released("map"):
+		$CanvasLayer/MapOverlay/AnimationPlayer.play("off")
+
 func transition_levels(dir: Vector2) -> void:
 	if current_level:
 		remove_child(current_level)
@@ -29,7 +35,5 @@ func transition_levels(dir: Vector2) -> void:
 	add_child(current_level)
 	current_level.enter(dir)
 	
-	print(current_level.map_pos)
-	
-	#map_overlay.map_position = current_level.map_pos
+	map_overlay.map_position = current_level.map_pos
 	map_overlay.display()

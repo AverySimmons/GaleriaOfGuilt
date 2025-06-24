@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://boqmp5tsrdpvh"]
+[gd_scene load_steps=3 format=3 uid="uid://boqmp5tsrdpvh"]
 
 [ext_resource type="Script" uid="uid://5ifqqhgquj6n" path="res://01_Source/02_Level/MapOverlay/map_overlay.gd" id="1_dpbjn"]
+[ext_resource type="Texture2D" uid="uid://ci3rn81yyvyyc" path="res://00_Assets/00_Sprites/Charcter_sprites/bite_effect_spritesheet.png" id="2_qdemy"]
 
 [node name="MapOverlay" type="Control"]
 layout_mode = 3
@@ -9,7 +10,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_dpbjn")
 
 [node name="MapPieces" type="Node2D" parent="."]
 position = Vector2(640, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.883333, 1)
+position = Vector2(640, 360)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdemy")
+hframes = 2
+vframes = 2
