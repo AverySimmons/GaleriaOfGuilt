@@ -1,36 +1,25 @@
-class_name Level
-extends Node2D
+extends Node
 
-@onready var entities: Node2D = $Entities
-@onready var doors: Node2D = $Doors
+@onready var level_generator = $LevelGenerator
+@onready var map_overlay = $MapOverlay
 
-# 0 is no connection
-# 1 is up
-# 2 is down
-var connections: Array[int] = [0, 0, 0, 0]
-var is_end: bool = false
-var map_pos: Vector2 = Vector2.ZERO
-var map_piece: MapPiece = null
+var levels: Dictionary[Vector2, Level]
 
+var current_level: Level
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
-	for d: Door in doors.get_children():
-		d.exit.connect(exit)
-
-func enter(dir: Vector2) -> void:
-	if map_pos == Vector2.ZERO:
-		GameData.player.global_position = Vector2(1280,720) * 0.5
-		entities.add_child(GameData.player)
+	levels = level_generator.get_levels(10)
+	map_overlay.generate_map(levels.values())
 	
-	for d: Door in doors.get_children():
-		if d.direction == dir * -1:
-			GameData.player.global_position = d.player_spawn.global_position
-			entities.add_child(GameData.player)
-			break
+	current_level = levels[Vector2.ZERO]
+	add_child(current_level)
+	current_level.enter(Vector2.ZERO)
 
-func exit(dir: Vector2):
-	exited_room.emit(dir)
-
-func _physics_process(delta: float) -> void:
-	pass
+func transition_levels(dir: Vector2) -> void:
+	if current_level:
+		remove_child(current_level)
+	
+	current_level = levels[current_level.map_pos + dir]
+	add_child(current_level)
+	current_level.enter(dir)
