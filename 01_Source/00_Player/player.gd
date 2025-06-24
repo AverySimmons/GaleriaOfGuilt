@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+const WALL_LAYER: int = 1
+
 @onready var animation_player: AnimationPlayer = $PlayerSpriteAP
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -78,10 +80,27 @@ func _physics_process(delta: float) -> void:
 		else:
 			base_velocity = base_velocity.move_toward(Vector2.ZERO, idle_friction * delta)
 		velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+		move_and_slide()
 	else:
 		# In a dash: If it hits a wall, should end the dash
+		var distance: Vector2 = velocity * delta
+		while distance.length() > 0:
+			print(distance)
+			var collision = move_and_collide(distance)
+			if collision != null:
+				var collider = collision.get_collider()
+				if collider is TileMap:
+					$Dash.end_dash()
+					distance = Vector2.ZERO
+				elif collider is Enemy:
+					# Maybe do something with upgrades?
+					distance = collision.get_remainder()
+				else:
+					distance = Vector2.ZERO
+			else:
+				break
+		
 		pass
-	move_and_slide()
 	
 	
 	# Attacks ---------------------------------------------------------------
@@ -99,6 +118,8 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("dash"):
 		if dash_timer == 0 && using_attack_or_special_or_dash == false:
+			if movement_vector == Vector2.ZERO:
+				movement_vector = Vector2(0, 1)
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
 	
@@ -223,3 +244,6 @@ func set_ability(ability) -> void:
 
 func is_moving() -> bool:
 	return abs(velocity).length() > 0
+
+func is_on_wall_layer(collider) -> bool:
+	return (collider.collision_layer & WALL_LAYER) == 1

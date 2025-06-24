@@ -17,7 +17,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	
+	if !is_active:
+		return
 	if active_timer <= 0:
 		parent.using_attack_or_special_or_dash = false
 		is_active = false
