@@ -3,7 +3,7 @@ extends BTAction
 
 var enemy : Enemy
 
-var find_player_timer = 0
+var find_player_timer : float
 
 ## variables at the top
 
