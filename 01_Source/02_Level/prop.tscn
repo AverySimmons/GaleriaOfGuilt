@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvt7hwxx0n4lx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghfsf"]
+
+[node name="Prop" type="Sprite2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ghfsf")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
