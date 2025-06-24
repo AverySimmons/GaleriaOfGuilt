@@ -4,10 +4,9 @@ extends Node2D
 @onready var entities: Node2D = $Entities
 @onready var camera: Camera2D = $Camera2D
 @onready var blood_manager: BloodManager = $BloodManager
+@onready var doors: Node2D = $Doors
 
 var enemies_left = 0
-
-var doors: Array[Door] = []
 
 var top_left: Vector2
 var bot_right: Vector2
@@ -40,11 +39,20 @@ func _ready() -> void:
 	var size = Vector3(bot_right.x-top_left.x, bot_right.y-top_left.y, 0)
 	blood_manager.multimesh.custom_aabb = AABB(center, size)
 	
-	for d in entities.get_children():
-		if not d is Door: continue
-		if connections[GameData.DIRECTIONS[d.direction]]:
+	for d in doors.get_children():
+		var con_value = connections[GameData.DIRECTIONS[d.direction]]
+		if con_value:
 			d.exit.connect(exit, ConnectFlags.CONNECT_DEFERRED)
-			doors.push_back(d)
+			
+			if con_value > 2:
+				d.is_stair = true
+				con_value -= 2
+			
+			if con_value == 2:
+				d.is_top = true
+			
+			d.setup_sprite()
+			
 		else:
 			d.queue_free()
 	
@@ -103,7 +111,7 @@ func enter(dir: Vector2) -> void:
 		entities.add_child(GameData.player)
 		return
 	
-	for d: Door in doors:
+	for d: Door in doors.get_children():
 		if d.direction == dir * -1:
 			GameData.player.global_position = d.player_spawn.global_position
 			entities.add_child(GameData.player)

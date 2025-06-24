@@ -62,6 +62,10 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 				var r = randi_range(0, 1)
 				cur_lvl.connections[i] = 1 if r else 2
 				other_lvl.connections[(i + 2) % 4] = 2 if r else 1
+				r = randi_range(0, 1)
+				if r:
+					cur_lvl.connections[i] += 2
+					other_lvl.connections[(i + 2) % 4] += 2
 	
 	return levels
 
