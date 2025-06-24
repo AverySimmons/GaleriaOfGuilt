@@ -12,6 +12,7 @@ extends CharacterBody2D
 @export var idle_friction: float = top_speed / 0.07 #600 * 4
 # For handling priority. -1 means left/up, 1 means right/down, 0 means idle
 var most_recent_press: Vector2 = Vector2(0, 0)
+var movement_vector: Vector2
 
 var base_velocity := Vector2.ZERO
 
@@ -40,8 +41,17 @@ var bb_decrease: float = 0
 var attack_cooldown_timer: float = 0
 var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
-var using_attack_or_special: bool = false
+var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
+
+var is_dashing: bool = false
+var dash_distance: float = 150
+var dash_speed: float = 1250
+var dash_time: float = dash_distance/dash_speed
+var dash_direction: Vector2
+var dash_cd: float = 2
+var dash_timer: float = 0
+var is_invincible: bool = false
 
 func _ready() -> void:
 	current_hp = max_hp
@@ -52,41 +62,49 @@ func _ready() -> void:
 	set_ability(bite_scene)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
 	#set_ability(shotgun_scene)
-	var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
-	set_ability(grenade_scene)
+	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
+	#set_ability(grenade_scene)
 	pass
 
 func _physics_process(delta: float) -> void:
 	# Movement --------------------------------------------------------------
-	var movement_vector: Vector2 = get_movement_vector()
-	
-	if movement_vector != Vector2.ZERO:
-		if base_velocity.normalized().dot(movement_vector) < -0.5:
-			base_velocity = base_velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
-		else: 
-			base_velocity = base_velocity.move_toward(movement_vector * top_speed, acceleration * delta)
+	if !is_dashing:
+		movement_vector = get_movement_vector()
+		if movement_vector != Vector2.ZERO:
+			if base_velocity.normalized().dot(movement_vector) < -0.5:
+				base_velocity = base_velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
+			else: 
+				base_velocity = base_velocity.move_toward(movement_vector * top_speed, acceleration * delta)
+		else:
+			base_velocity = base_velocity.move_toward(Vector2.ZERO, idle_friction * delta)
+		velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 	else:
-		base_velocity = base_velocity.move_toward(Vector2.ZERO, idle_friction * delta)
-	
-	velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+		# In a dash: If it hits a wall, should end the dash
+		pass
 	move_and_slide()
 	
 	
 	# Attacks ---------------------------------------------------------------
 	if Input.is_action_just_pressed("main_attack"):
-		if attack_timer == 0 && using_attack_or_special == false:
+		if attack_timer == 0 && using_attack_or_special_or_dash == false:
 			animation_player.play("slash_left")
 			$blood_swipe.initiate_attack()
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
-		if special_ability_timer == 0 && using_attack_or_special == false:
+		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
 			animation_player.play("bite_left")
 			current_ability.use_ability()
 			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
+	if Input.is_action_just_pressed("dash"):
+		if dash_timer == 0 && using_attack_or_special_or_dash == false:
+			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
+			dash_timer = dash_cd * bb_hitspd_inc
+	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)
+	dash_timer = move_toward(dash_timer, 0, delta)
 	
 	
 	# Blood Bar stuff -------------------------------------------------------
@@ -183,8 +201,9 @@ func get_facing_direction() -> String:
 
 func take_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, 0, amount)
+	print("I got hit!")
 	if current_hp <= 0:
-		print("Ouch!")
+		print("I died!")
 	dealt_damage_took_damage = true
 	return
 

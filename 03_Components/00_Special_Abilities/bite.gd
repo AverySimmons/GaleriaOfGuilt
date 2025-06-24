@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	
 	active_timer = move_toward(active_timer, 0, delta)
 	if active_timer <= 0:
-		parent.using_attack_or_special = false
+		parent.using_attack_or_special_or_dash = false
 		monitoring = false
 		is_active = false	
 		hit_enemies.clear()

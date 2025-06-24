@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
 	if active_timer <= 0:
-		parent.using_attack_or_special = false
+		parent.using_attack_or_special_or_dash = false
 		is_active = false
 		special_slowdown_actual = 1.0
 	active_timer = move_toward(active_timer, 0, delta)

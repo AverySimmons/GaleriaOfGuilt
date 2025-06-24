@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 func use_ability() -> void:
 	is_active = true
 	active_timer = active_time * parent.bb_hitspd_inc + chargeup
-	parent.using_attack_or_special = true
+	parent.using_attack_or_special_or_dash = true
 	# Chargeup
 	special_slowdown_actual = chargeup_slowdown
 	await get_tree().create_timer(chargeup).timeout
