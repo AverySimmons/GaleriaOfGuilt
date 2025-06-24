@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=40 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="Texture2D" uid="uid://5wtl81l0obsc" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
 [ext_resource type="Script" uid="uid://dabtng0qvrhdi" path="res://ai/tasks/run_away.gd" id="3_g4adi"]
+[ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_1xfk5"]
 [ext_resource type="Script" uid="uid://dxr3ecdqdtty2" path="res://ai/tasks/sand_shot.gd" id="4_rbwy0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
@@ -18,8 +19,8 @@ size = Vector2(73.5, 68.5)
 
 [sub_resource type="BBVariant" id="BBVariant_1xfk5"]
 type = 3
-saved_value = 200.0
-resource_name = "200.0"
+saved_value = 275.0
+resource_name = "275.0"
 
 [sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_dl58o"]
 property = &"distance_to_player"
@@ -30,21 +31,52 @@ value = SubResource("BBVariant_1xfk5")
 script = ExtResource("3_g4adi")
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_wri7i"]
+time_limit = 0.5
 children = [SubResource("BTAction_vb6xg")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_g4adi"]
+children = [SubResource("BTTimeLimit_wri7i")]
 
 [sub_resource type="BTSequence" id="BTSequence_58x27"]
 custom_name = "Run Away"
-children = [SubResource("BTCheckAgentProperty_dl58o"), SubResource("BTTimeLimit_wri7i")]
+children = [SubResource("BTCheckAgentProperty_dl58o"), SubResource("BTAlwaysSucceed_g4adi")]
+
+[sub_resource type="BTAction" id="BTAction_dl58o"]
+script = ExtResource("4_1xfk5")
+
+[sub_resource type="BBNode" id="BBNode_g4adi"]
+saved_value = NodePath("Animations")
+resource_name = "Animations"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_rbwy0"]
+animation_player = SubResource("BBNode_g4adi")
+animation_name = &"shoot_projectile"
+blend = -0.5
+
+[sub_resource type="BTWait" id="BTWait_1xfk5"]
+duration = 0.55
 
 [sub_resource type="BTAction" id="BTAction_2ho74"]
 script = ExtResource("4_rbwy0")
 proj_speed = 0.0
 
+[sub_resource type="BTWait" id="BTWait_dl58o"]
+duration = 0.2
+
+[sub_resource type="BBNode" id="BBNode_vb6xg"]
+saved_value = NodePath("Animations")
+resource_name = "Animations"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_wri7i"]
+animation_player = SubResource("BBNode_vb6xg")
+animation_name = &"idle"
+
 [sub_resource type="BTWait" id="BTWait_ct5x7"]
+custom_name = "End Lag"
 
 [sub_resource type="BTSequence" id="BTSequence_w6w3u"]
 custom_name = "Shoot Projectile"
-children = [SubResource("BTAction_2ho74"), SubResource("BTWait_ct5x7")]
+children = [SubResource("BTAction_dl58o"), SubResource("BTPlayAnimation_rbwy0"), SubResource("BTWait_1xfk5"), SubResource("BTAction_2ho74"), SubResource("BTWait_dl58o"), SubResource("BTPlayAnimation_wri7i"), SubResource("BTWait_ct5x7")]
 
 [sub_resource type="BTSelector" id="BTSelector_cs4dq"]
 children = [SubResource("BTSequence_58x27"), SubResource("BTSequence_w6w3u")]
@@ -147,6 +179,21 @@ tracks/0/keys = {
 "values": [9, 8]
 }
 
+[sub_resource type="Animation" id="Animation_58x27"]
+resource_name = "shoot_projectile"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WormSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4adi"]
 _data = {
 &"RESET": SubResource("Animation_l36l6"),
@@ -154,6 +201,7 @@ _data = {
 &"idle": SubResource("Animation_g4adi"),
 &"move_down": SubResource("Animation_1xfk5"),
 &"move_up": SubResource("Animation_rbwy0"),
+&"shoot_projectile": SubResource("Animation_58x27"),
 &"walk": SubResource("Animation_whe2v")
 }
 
@@ -197,6 +245,7 @@ _data = {
 [node name="Worm" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_whe2v")
+move_speed = 60.0
 
 [node name="WormSprite" type="Sprite2D" parent="."]
 position = Vector2(-3, -62)
