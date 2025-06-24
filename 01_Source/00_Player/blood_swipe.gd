@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 			continue
 		parent.blood_bar += parent.bb_hit
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount)
+		enemy.take_damage(damage, flinch_amount, 0)
 		# Enemy take damage thing
 	enemies_just_entered.clear()
 	
@@ -63,7 +63,7 @@ func initiate_attack() -> void:
 			continue
 		parent.blood_bar += parent.bb_hit
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount)
+		enemy.take_damage(damage, flinch_amount, 0)
 	# Functions:
 	# Deal dmg
 	# Gain blood for each enemy hit and killed

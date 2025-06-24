@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	#death
 	#DEBUG DAMAGE TESTABLE
 	if Input.is_action_just_pressed('take_damage_debug'):
-		take_damage(1, 0.5) #take 1 damage and flinch for a second
+		take_damage(1, 0.5, 0) #take 1 damage and flinch for a second
 	
 	if hp <= 0:
 		if not death_state:
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 	if death_timer <= 0: #time to die
 		queue_free()
 
-func take_damage(damage: float, flinch: float) -> void:
+func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	hp -= damage
 	$HitFlash.play('hit_flash') #this always happens
 	if undamaged:

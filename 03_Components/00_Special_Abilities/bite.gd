@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 			continue
 		parent.blood_bar += parent.bb_hit * blood_gain_multiplier
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount)
+		enemy.take_damage(damage, flinch_amount, 0)
 	enemies_just_entered.clear()
 	
 	active_timer = move_toward(active_timer, 0, delta)
@@ -52,7 +52,7 @@ func use_ability() -> void:
 			continue
 		parent.blood_bar += parent.bb_hit * blood_gain_multiplier
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount)
+		enemy.take_damage(damage, flinch_amount, 0)
 	return
 
 func _on_area_entered(area: Area2D) -> void:

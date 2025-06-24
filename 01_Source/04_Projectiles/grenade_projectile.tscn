@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c4g5kqg5d87fa" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_kijbu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kijbu"]
+radius = 125.79
 
 [node name="GrenadeProjectile" type="Area2D"]
 script = ExtResource("1_npbrj")
