@@ -24,7 +24,6 @@ func _physics_process(delta: float) -> void:
 		despawn()
 	pass
 
-# Shotgun tip should be slightly offset for each bullet
 func get_shot(angle_from: float, angle_to: float, shot_speed: float,
 			 shot_dmg: float, flinch: float) -> void:
 	speed = shot_speed

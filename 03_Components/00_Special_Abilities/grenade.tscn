@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://detoueacl6p7y"]
 
-[ext_resource type="Script" uid="uid://bqdchncam0o4v" path="res://03_Components/00_Special_Abilities/special_ability.gd" id="1_4gd5i"]
+[ext_resource type="Script" path="res://03_Components/00_Special_Abilities/grenade.gd" id="1_4gd5i"]
 
 [node name="Grenade" type="Area2D"]
 script = ExtResource("1_4gd5i")

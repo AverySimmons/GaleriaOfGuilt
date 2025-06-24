@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $PlayerSpriteAP
 @onready var sprite: Sprite2D = $Sprite2D
 
 
@@ -109,7 +109,7 @@ func _physics_process(delta: float) -> void:
 	
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
-	animation_player.speed_scale = 1.
+	animation_player.speed_scale = 1.0
 	
 	if !is_moving():
 		animation_player.play("idle")
