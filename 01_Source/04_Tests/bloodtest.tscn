@@ -20,7 +20,7 @@ noise = SubResource("FastNoiseLite_oorvq")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qidyc"]
 shader = ExtResource("1_oorvq")
 shader_parameter/blood_scale = 2.5
-shader_parameter/blood_intensity = 0.723
+shader_parameter/blood_intensity = 0.8
 shader_parameter/offset_x = 0.1
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_qidyc")
