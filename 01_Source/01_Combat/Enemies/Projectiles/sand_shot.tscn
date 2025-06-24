@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://vd7e1yjuvit3"]
+[gd_scene load_steps=4 format=3 uid="uid://vd7e1yjuvit3"]
 
 [ext_resource type="Script" uid="uid://nrox43c7pya7" path="res://01_Source/01_Combat/Enemies/Projectiles/sand_shot.gd" id="1_48uy4"]
+[ext_resource type="Texture2D" uid="uid://fra8l0di70a4" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_elrbt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_elrbt"]
 
@@ -8,6 +9,7 @@
 script = ExtResource("1_48uy4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_elrbt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_elrbt")

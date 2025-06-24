@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dlic7c080mnck"]
 
-[ext_resource type="Script" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
+[ext_resource type="Script" uid="uid://0vsqwrgw45wr" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
 [ext_resource type="PackedScene" uid="uid://cdbc88ye3bth1" path="res://01_Source/01_Combat/Enemies/worm.tscn" id="1_exnof"]
-[ext_resource type="PackedScene" uid="uid://dbgxcsldg4v6j" path="res://01_Source/00_Player/player.tscn" id="2_ubvju"]
+[ext_resource type="PackedScene" uid="uid://dbgxcsldg4v6j" path="res://01_Source/00_Player/Player.tscn" id="2_ubvju"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_digse"]
 vertices = PackedVector2Array(1230.98, 48.9766, 1230.01, 677, 47.9297, 677.992, 44.0625, 47.0078)
@@ -14,6 +14,17 @@ script = ExtResource("1_digse")
 
 [node name="Player" parent="." instance=ExtResource("2_ubvju")]
 position = Vector2(350, 315)
+top_speed = 250.0
+max_hp = 100.0
+bb_max = 250.0
+bb_hit = 1.0
+bb_kill = 5.0
+bb_spd = 0.004
+bb_hitspd = 0.002
+bb_timer_time = 3.0
+bb_to_health_ratio = 1.0
+bb_decrease_rate = 10.0
+attack_cooldown = 0.75
 
 [node name="Worm" parent="." instance=ExtResource("1_exnof")]
 position = Vector2(573, 316)
