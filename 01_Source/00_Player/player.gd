@@ -201,8 +201,9 @@ func get_facing_direction() -> String:
 
 func take_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, 0, amount)
+	print("I got hit!")
 	if current_hp <= 0:
-		print("Ouch!")
+		print("I died!")
 	dealt_damage_took_damage = true
 	return
 

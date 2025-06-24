@@ -21,9 +21,14 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
 	if velocity.length() > 1:
-		print('movement animations')
+		#print('movement animations')
 		select_movement_animations()
 		
+	#deal damage to player
+	var overlapping_areas = $Hitbox.get_overlapping_areas()
+	if overlapping_areas:
+		var player : Player = overlapping_areas[0].owner
+		player.take_damage(10)
 	
 	
 	#right - 0

@@ -12,7 +12,7 @@ var death_state: bool = false
 var movement_type: String = '' #will these be a seperate scene?? 
 
 var undamaged: bool = true
-var distance_to_player: Vector2 = Vector2.ZERO
+var distance_to_player: float = 1000000
 
 signal death
 
@@ -31,6 +31,9 @@ func start_death() -> void:
 	#start.animation('death')
 
 func _physics_process(delta: float) -> void:
+	#update distance to player
+	distance_to_player = GameData.player.global_position.distance_to(global_position)
+	
 	#death
 	#DEBUG DAMAGE TESTABLE
 	if Input.is_action_just_pressed('take_damage_debug'):

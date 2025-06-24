@@ -1,9 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=30 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="Texture2D" uid="uid://5wtl81l0obsc" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
-[ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="3_g4adi"]
-[ext_resource type="Script" uid="uid://ctjyjad3y6egp" path="res://ai/tasks/move_random.gd" id="3_l36l6"]
+[ext_resource type="Script" uid="uid://dabtng0qvrhdi" path="res://ai/tasks/run_away.gd" id="3_g4adi"]
+[ext_resource type="Script" uid="uid://dxr3ecdqdtty2" path="res://ai/tasks/sand_shot.gd" id="4_rbwy0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
 size = Vector2(83, 90)
@@ -16,72 +16,42 @@ size = Vector2(73.5, 68.5)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_whe2v"]
 
-[sub_resource type="BTAction" id="BTAction_rbwy0"]
+[sub_resource type="BBVariant" id="BBVariant_1xfk5"]
+type = 3
+saved_value = 200.0
+resource_name = "200.0"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_dl58o"]
+property = &"distance_to_player"
+check_type = 1
+value = SubResource("BBVariant_1xfk5")
+
+[sub_resource type="BTAction" id="BTAction_vb6xg"]
 script = ExtResource("3_g4adi")
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_1xfk5"]
-time_limit = 2.0
-children = [SubResource("BTAction_rbwy0")]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_wri7i"]
+children = [SubResource("BTAction_vb6xg")]
 
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_dl58o"]
-children = [SubResource("BTTimeLimit_1xfk5")]
+[sub_resource type="BTSequence" id="BTSequence_58x27"]
+custom_name = "Run Away"
+children = [SubResource("BTCheckAgentProperty_dl58o"), SubResource("BTTimeLimit_wri7i")]
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_vb6xg"]
-text = "playing idle animation"
+[sub_resource type="BTAction" id="BTAction_2ho74"]
+script = ExtResource("4_rbwy0")
+proj_speed = 0.0
 
-[sub_resource type="BBNode" id="BBNode_wri7i"]
-saved_value = NodePath("Animations")
-resource_name = "Animations"
+[sub_resource type="BTWait" id="BTWait_ct5x7"]
 
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_58x27"]
-animation_player = SubResource("BBNode_wri7i")
-animation_name = &"idle"
+[sub_resource type="BTSequence" id="BTSequence_w6w3u"]
+custom_name = "Shoot Projectile"
+children = [SubResource("BTAction_2ho74"), SubResource("BTWait_ct5x7")]
 
-[sub_resource type="BTWait" id="BTWait_2ho74"]
-
-[sub_resource type="BTSequence" id="BTSequence_ct5x7"]
-children = [SubResource("BTAlwaysSucceed_dl58o"), SubResource("BTConsolePrint_vb6xg"), SubResource("BTPlayAnimation_58x27"), SubResource("BTWait_2ho74")]
-
-[sub_resource type="BTProbability" id="BTProbability_g4adi"]
-run_chance = 1.0
-children = [SubResource("BTSequence_ct5x7")]
-
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_g4adi"]
-text = "starting walk"
-
-[sub_resource type="BTAction" id="BTAction_g4adi"]
-script = ExtResource("3_l36l6")
-max_dist = 600.0
-min_dist = 150.0
-
-[sub_resource type="BTSequence" id="BTSequence_vb6xg"]
-custom_name = "Walk"
-children = [SubResource("BTConsolePrint_g4adi"), SubResource("BTAction_g4adi")]
-
-[sub_resource type="BTProbability" id="BTProbability_1xfk5"]
-run_chance = 0.0
-children = [SubResource("BTSequence_vb6xg")]
-
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_l36l6"]
-text = "starting idle"
-
-[sub_resource type="BTWait" id="BTWait_rbwy0"]
-duration = 0.3
-
-[sub_resource type="BTSequence" id="BTSequence_g4adi"]
-custom_name = "Pause"
-children = [SubResource("BTConsolePrint_l36l6"), SubResource("BTWait_rbwy0")]
-
-[sub_resource type="BTProbability" id="BTProbability_rbwy0"]
-run_chance = 0.0
-children = [SubResource("BTSequence_g4adi")]
-
-[sub_resource type="BTSequence" id="BTSequence_l36l6"]
-children = [SubResource("BTProbability_g4adi"), SubResource("BTProbability_1xfk5"), SubResource("BTProbability_rbwy0")]
+[sub_resource type="BTSelector" id="BTSelector_cs4dq"]
+children = [SubResource("BTSequence_58x27"), SubResource("BTSequence_w6w3u")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_l36l6"]
 blackboard_plan = SubResource("BlackboardPlan_whe2v")
-root_task = SubResource("BTSequence_l36l6")
+root_task = SubResource("BTSelector_cs4dq")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_g4adi"]
 
