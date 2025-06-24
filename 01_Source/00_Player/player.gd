@@ -1,6 +1,10 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite: Sprite2D = $Sprite2D
+
+
 # Velocity stuff
 @export var top_speed: float = 250
 @export var acceleration: float = top_speed / 0.1 #700
@@ -100,11 +104,30 @@ func _physics_process(delta: float) -> void:
 	
 	
 	# Animation stuff -------------------------------------------------------
+	
+	if attack_timer: return
+	
+	## JOEY this is setting the animation player run speed
+	## idk how to scale this with speed exactly
+	animation_player.speed_scale = 1.
+	
 	if !is_moving():
-		pass
+		animation_player.play("idle")
 	var facing_dir = get_facing_direction()
 	
-	
+	match facing_dir:
+		"right":
+			sprite.scale.x = -0.5
+			animation_player.play("run_left")
+		"left":
+			sprite.scale.x = 0.5
+			animation_player.play("run_left")
+		"down":
+			animation_player.play("run_down")
+		"up":
+			animation_player.play("run_up")
+		"idle":
+			animation_player.play("idle")
 	
 	pass
 
