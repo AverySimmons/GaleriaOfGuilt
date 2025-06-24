@@ -8,8 +8,10 @@ var player_scene = preload("res://01_Source/00_Player/player.tscn")
 var levels: Dictionary[Vector2, Level]
 var current_level: Level
 
+var size: float = 10
+
 func _ready() -> void:
-	levels = level_generator.get_levels(10)
+	levels = level_generator.get_levels(size)
 	map_overlay.generate_map(levels.values())
 	
 	for lvl: Level in levels.values():
