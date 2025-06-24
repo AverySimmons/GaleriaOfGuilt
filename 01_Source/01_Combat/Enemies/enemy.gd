@@ -28,8 +28,9 @@ func start_death() -> void:
 
 func _physics_process(delta: float) -> void:
 	#death
+	#DEBUG DAMAGE TESTABLE
 	if Input.is_action_just_pressed('take_damage_debug'):
-		take_damage(1, 1) #take 1 damage and flinch for a second
+		take_damage(1, 0.5) #take 1 damage and flinch for a second
 	
 	if hp <= 0:
 		if not death_state:
@@ -41,8 +42,26 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: float, flinch: float) -> void:
 	hp -= damage
+	$HitFlash.play('hit_flash') #this always happens
 	
-	$HitFlash.play('hit_flash')
+	#check if the flinch duration is gonna flinch the enemy
+	var flinch_dur = flinch - flinch_guard
+	if flinch_dur <= 0:
+		return
+	#this will proceed only if flinch_dur > 0
+	velocity = Vector2.ZERO
+	var btplayer := get_node_or_null(^"BTPlayer") as BTPlayer
+	if btplayer:
+		btplayer.set_active(false)
+		
+	$Animations.play('hurt')
+	print('played hurt animation')
+	await get_tree().create_timer(flinch_dur).timeout #wait for flinch time
+	if btplayer and hp >= 1:
+		btplayer.restart()
+	
+	
+	
 	# Flash red somehow #sorry joey I'm doing white instead
 	# Flinch for amount of time in flinch - Brian how do this?
 	return
