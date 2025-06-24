@@ -1,7 +1,7 @@
 class_name BloodParticle
 extends CharacterBody2D
 
-const DEACC = 4000
+const DEACC = 500
 
 signal stopped(pos: Vector2, rot: float)
 

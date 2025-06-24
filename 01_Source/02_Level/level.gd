@@ -18,4 +18,4 @@ func _physics_process(delta: float) -> void:
 func blood_splatter(pos):
 	for i in 50:
 		$BloodManager.spawn_blood_clump(pos,  \
-			Vector2.from_angle(randf_range(-PI, PI)) * randf_range(500, 2000))
+			Vector2.from_angle(randfn(-PI / 2., PI / 8.)) * randf_range(100, 200))
