@@ -100,8 +100,8 @@ func _physics_process(delta: float) -> void:
 	
 	
 	# Animation stuff -------------------------------------------------------
-	if !is_moving()
-	
+	if !is_moving():
+		pass
 	var facing_dir = get_facing_direction()
 	
 	
