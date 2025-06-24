@@ -1,12 +1,18 @@
-[gd_scene load_steps=37 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=39 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
-[ext_resource type="Texture2D" uid="uid://3egff48mxy1b" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
+[ext_resource type="Texture2D" uid="uid://5wtl81l0obsc" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
 [ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="3_g4adi"]
 [ext_resource type="Script" uid="uid://ctjyjad3y6egp" path="res://ai/tasks/move_random.gd" id="3_l36l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
 size = Vector2(83, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbwy0"]
+size = Vector2(79, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xfk5"]
+size = Vector2(73.5, 68.5)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_whe2v"]
 
@@ -232,6 +238,22 @@ vframes = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -46)
 shape = SubResource("RectangleShape2D_g4adi")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-5, -52)
+shape = SubResource("RectangleShape2D_rbwy0")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-10, -53)
+shape = SubResource("RectangleShape2D_1xfk5")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = SubResource("BehaviorTree_l36l6")
