@@ -112,7 +112,6 @@ func _physics_process(delta: float) -> void:
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
 	animation_player.speed_scale = 1.0 * actual_velocity.length() / velocity.length()
-	print(animation_player.speed_scale)
 	
 	if !is_moving():
 		animation_player.play("idle")
