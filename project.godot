@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameData="*res://01_Source/09_Autoloads/game_data.gd"
 SignalBus="*res://01_Source/09_Autoloads/signal_bus.gd"
+UpgradeData="*res://01_Source/09_Autoloads/upgrade_data.gd"
 
 [display]
 
