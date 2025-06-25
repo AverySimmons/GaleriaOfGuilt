@@ -26,6 +26,15 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
+[file_customization]
+
+folder_colors={
+"res://00_Assets/": "orange",
+"res://01_Source/": "yellow",
+"res://02_Recources/": "green",
+"res://03_Components/": "blue"
+}
+
 [input]
 
 up={
