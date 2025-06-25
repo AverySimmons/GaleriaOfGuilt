@@ -106,6 +106,7 @@ func enemy_died() -> void:
 	enemies_left -= 1
 
 func enter(dir: Vector2) -> void:
+	blood_manager.spawn()
 	if map_pos == Vector2.ZERO:
 		GameData.player.global_position = Vector2(1280,720) * 0.5
 		entities.add_child(GameData.player)
@@ -116,6 +117,8 @@ func enter(dir: Vector2) -> void:
 			GameData.player.global_position = d.player_spawn.global_position
 			entities.add_child(GameData.player)
 			break
+	
+	
 
 func exit(dir: Vector2):
 	if enemies_left > 0:

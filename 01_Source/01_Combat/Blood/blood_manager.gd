@@ -3,8 +3,14 @@ extends MultiMeshInstance2D
 
 var blood_scene = preload("res://01_Source/01_Combat/Blood/blood_particle.tscn")
 
-func _ready() -> void:
+func spawn():
 	SignalBus.spawn_blood.connect(spawn_blood_particle)
+
+func despawn():
+	SignalBus.spawn_blood.disconnect(spawn_blood_particle)
+	for child in get_children():
+		if child is BloodParticle:
+			child.queue_free()
 
 func add_blood(pos: Vector2, rot: float) -> void:
 	var mm := multimesh
@@ -21,8 +27,3 @@ func spawn_blood_particle(pos: Vector2, vel: Vector2) -> BloodParticle:
 	new_blood.stopped.connect(add_blood)
 	add_child(new_blood)
 	return new_blood
-
-func clear_active_blood() -> void:
-	for child in get_children():
-		if child is BloodParticle:
-			child.queue_free()

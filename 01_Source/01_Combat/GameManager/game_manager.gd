@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 
 func transition_levels(dir: Vector2) -> void:
 	if current_level:
-		current_level.blood_manager.clear_active_blood()
+		current_level.blood_manager.despawn()
 		remove_child(current_level)
 	
 	current_level = levels[current_level.map_pos + dir]
