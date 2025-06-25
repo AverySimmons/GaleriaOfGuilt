@@ -1,13 +1,40 @@
-[gd_scene load_steps=26 format=3 uid="uid://dvbabi2s60kn0"]
+[gd_scene load_steps=27 format=3 uid="uid://dvbabi2s60kn0"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
-[ext_resource type="Texture2D" uid="uid://7knr7kb3u1nw" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
-[ext_resource type="Texture2D" uid="uid://bm8jcp0y4osmm" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_spritesheet.png" id="3_i8wje"]
+[ext_resource type="Texture2D" uid="uid://cx07mjwkod8aq" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
 [ext_resource type="Script" uid="uid://daalbp4x5irfh" path="res://01_Source/00_Player/dash.gd" id="4_fmg42"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
+[ext_resource type="Texture2D" uid="uid://cgwoo2fm0tx1y" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_new_spritesheet.png" id="5_sy4wu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
+
+[sub_resource type="Animation" id="Animation_bj30f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Slash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/Slash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_g7rcs"]
 resource_name = "blood_swipe"
@@ -36,33 +63,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_bj30f"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D/Slash:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Slash:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_orea5"]
@@ -254,12 +254,29 @@ tracks/0/keys = {
 "values": [41, 64]
 }
 
+[sub_resource type="Animation" id="Animation_f38sp"]
+resource_name = "dash_left"
+length = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [70]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bj30f"]
 _data = {
 &"RESET": SubResource("Animation_6ukc1"),
 &"bite_down": SubResource("Animation_04u2c"),
 &"bite_left": SubResource("Animation_3f5sj"),
 &"bite_up": SubResource("Animation_iksxy"),
+&"dash_left": SubResource("Animation_f38sp"),
 &"idle": SubResource("Animation_i8wje"),
 &"run_down": SubResource("Animation_iobk5"),
 &"run_left": SubResource("Animation_y65rc"),
@@ -313,9 +330,9 @@ autoplay = "idle"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -52.562)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_i8wje")
+texture = ExtResource("5_sy4wu")
 hframes = 23
-vframes = 3
+vframes = 4
 frame = 23
 
 [node name="Hurtbox" type="Area2D" parent="."]
