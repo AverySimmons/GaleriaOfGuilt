@@ -21,9 +21,10 @@ var base_velocity := Vector2.ZERO
 var current_hp: float
 
 # Blood Bar stuff
-var blood_bar = 250
+var blood_bar = 0
 @export var bb_max: float = 250
 @export var bb_hit: float = 1
+var bb_multiplier: float = 1.0
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
 var bb_spd_inc: float = 1.0
@@ -45,7 +46,7 @@ var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
 
 var is_dashing: bool = false
-var dash_distance: float = 150
+var dash_distance: float = 250
 var dash_speed: float = 1250
 var dash_time: float = dash_distance/dash_speed
 var dash_direction: Vector2
@@ -138,6 +139,10 @@ func _physics_process(delta: float) -> void:
 		if dash_timer == 0 && using_attack_or_special_or_dash == false:
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
+			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
+			animation_player.speed_scale = 1.0 * bb_spd_inc
+			animation_player.play(dash_animation)
+			
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
 	
@@ -169,7 +174,8 @@ func _physics_process(delta: float) -> void:
 	
 	
 	# Animation stuff -------------------------------------------------------
-	
+	if is_dashing:
+		return
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
 	animation_player.speed_scale = 1.0 * bb_spd_inc
