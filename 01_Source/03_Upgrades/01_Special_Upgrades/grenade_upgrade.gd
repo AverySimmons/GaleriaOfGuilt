@@ -1,19 +1,19 @@
 extends Upgrade
 
 func _ready() -> void:
-	upgrade_name = "Bite"
-	upgrade_description = "Replace your special with a bite that provides more blood."
+	upgrade_name = "Blood Grenade"
+	upgrade_description = "Replace your special with a blood grenade, dealing damage and knockback over a large radius"
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png")
-	upgrade_number = UpgradeData.BITE
-	upgrade_scene = UpgradeData.BITE_SCENE
+	upgrade_number = UpgradeData.GRENADE
+	upgrade_scene = UpgradeData.GRENADE_SCENE
 	pass
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
+	var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	# For adding back old special abilities
 	var old_ability_scene = player.current_ability_scene
 	UpgradeData.selectable_upgrades.append(old_ability_scene)
 	# Set the ability
-	player.set_ability(bite_scene, upgrade_scene)
+	player.set_ability(grenade_scene, upgrade_scene)
 	return
