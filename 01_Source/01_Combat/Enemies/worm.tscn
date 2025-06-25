@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dxr3ecdqdtty2" path="res://ai/tasks/sand_shot.gd" id="4_rbwy0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
-size = Vector2(83, 90)
+size = Vector2(108, 136)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rbwy0"]
 size = Vector2(79, 68)
@@ -260,7 +260,7 @@ position = Vector2(72.8571, -58.5714)
 scale = Vector2(1.42857, 1.42857)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -46)
+position = Vector2(-12, -69)
 shape = SubResource("RectangleShape2D_g4adi")
 
 [node name="Hitbox" type="Area2D" parent="."]
