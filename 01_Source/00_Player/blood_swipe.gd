@@ -1,5 +1,9 @@
 extends Area2D
 
+@onready var slash: Sprite2D = $Slash
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 @onready var parent: CharacterBody2D = get_parent()
 var is_active: bool = false
 var active_time: float = 0.5
@@ -43,10 +47,25 @@ func initiate_attack() -> void:
 	# Animation player stuff
 	# Audio
 	var mouse_pos: Vector2 = get_global_mouse_position()
-	var direction: Vector2 = mouse_pos - global_position
+	var direction: Vector2 = parent.global_position.direction_to(mouse_pos)
 	var angle: float = direction.angle()
-	rotation = angle
+	
+	collision_shape_2d.rotation = angle
+	
+	slash.global_position = parent.global_position + direction * 150
+	var abs_dir_ang = Vector2(abs(direction.x), direction.y).angle()
+	slash.rotation = abs_dir_ang
+	if direction.x < 0:
+		slash.scale.x = 1
+		slash.rotation *= -1
+	else:
+		slash.scale.x = -1
+	
+	
+	animation_player.play("blood_swipe")
+	
 	# Make player face direction of swing
+	
 	
 	active_timer = active_time * parent.bb_hitspd_inc
 	attack_slowdown_actual = attack_slowdown

@@ -55,6 +55,13 @@ var dash_cd: float = 2
 var dash_timer: float = 0
 var is_invincible: bool = false
 
+var movement_animations = {
+	"idle" : null,
+	"run_up" : null,
+	"run_left" : null,
+	"run_down" : null
+}
+
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
@@ -106,13 +113,23 @@ func _physics_process(delta: float) -> void:
 	# Attacks ---------------------------------------------------------------
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0 && using_attack_or_special_or_dash == false:
-			animation_player.play("slash_left")
+			
+			var dir = global_position.direction_to(get_global_mouse_position())
+			var facing_dir = name_from_vect_dir(dir)
+			facing_dir = update_facing_direction(facing_dir)
+			animation_player.play("slash_" + facing_dir)
+			
 			$blood_swipe.initiate_attack()
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
 		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
-			animation_player.play("bite_left")
+			
+			var dir = global_position.direction_to(get_global_mouse_position())
+			var facing_dir = name_from_vect_dir(dir)
+			facing_dir = update_facing_direction(facing_dir)
+			animation_player.play("bite_" + facing_dir)
+			
 			current_ability.use_ability()
 			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
@@ -152,32 +169,25 @@ func _physics_process(delta: float) -> void:
 	
 	# Animation stuff -------------------------------------------------------
 	
-	if attack_timer or special_ability_timer: return
-	
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
 	animation_player.speed_scale = 1.0 * bb_spd_inc
+	
+	if animation_player.is_playing() and \
+		animation_player.current_animation not in movement_animations: return
 	
 	if movement_vector == Vector2.ZERO:
 		animation_player.play("idle")
 	var facing_dir = get_facing_direction()
 	
-	match facing_dir:
-		"right":
-			sprite.scale.x = -0.5
-			animation_player.play("run_left")
-		"left":
-			sprite.scale.x = 0.5
-			animation_player.play("run_left")
-		"down":
-			animation_player.play("run_down")
-		"up":
-			animation_player.play("run_up")
-		"idle":
-			animation_player.play("idle")
+	facing_dir = update_facing_direction(facing_dir)
+	
+	if facing_dir == "idle":
+		animation_player.play("idle")
+	else:
+		animation_player.play("run_" + facing_dir)
 	
 	pass
-
 
 func get_movement_vector() -> Vector2:
 	# Most recent key press overrides movement
@@ -208,6 +218,17 @@ func get_movement_vector() -> Vector2:
 	
 	return most_recent_press.normalized()
 
+func name_from_vect_dir(dir: Vector2) -> String:
+	var ang = dir.angle()
+	if ang <= PI * 0.25 and ang >= -PI * 0.25:
+		return "right"
+	elif ang < -PI * 0.25 and ang > -PI * 0.75:
+		return "up"
+	elif ang < PI * 0.75 and ang > PI * 0.25:
+		return "down"
+	else:
+		return "left"
+
 func get_facing_direction() -> String:
 	if most_recent_press.x > 0:
 		return "right"
@@ -219,6 +240,15 @@ func get_facing_direction() -> String:
 		return "up"
 	else:
 		return "idle"
+
+func update_facing_direction(facing_dir: String) -> String:
+	if facing_dir == "right":
+		facing_dir = "left"
+		sprite.scale.x = -0.5
+	elif facing_dir == "left":
+		sprite.scale.x = 0.5
+	
+	return facing_dir
 
 func take_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, 0, amount)
