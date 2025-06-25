@@ -2,15 +2,15 @@ extends Enemy
 
 @onready var navigation = $NavigationAgent2D
 @onready var sprite = $WormSprite
+@onready var mouth_pos = $WormSprite/Marker2D
 
 var going_up: bool = false
 var going_down: bool = false
 
 var Animations : AnimationPlayer
 
-var move_state = true
-
 var bullet_node : Node2D
+
 
 func _ready() -> void:
 	super._ready()

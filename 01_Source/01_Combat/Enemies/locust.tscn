@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://bj5h3s11xhapu"]
+
+[ext_resource type="Texture2D" uid="uid://wgd542ncimsc" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
+[ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvb30"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elxkq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5ri8"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_l72ei"]
+
+[sub_resource type="BTSequence" id="BTSequence_tcqde"]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_oe0yt"]
+blackboard_plan = SubResource("BlackboardPlan_l72ei")
+root_task = SubResource("BTSequence_tcqde")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_prp80"]
+
+[node name="Locust" type="CharacterBody2D"]
+script = ExtResource("1_qlpsa")
+
+[node name="LocustSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_popms")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jvb30")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_elxkq")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_x5ri8")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_oe0yt")
+blackboard_plan = SubResource("BlackboardPlan_prp80")
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

@@ -5,6 +5,8 @@ var sand_proj_scene : PackedScene = preload("res://01_Source/01_Combat/Enemies/P
 
 @export var proj_speed : float = 0 #does this need to be in setup?
 
+var mouth_pos : Marker2D
+
 ## variables at the top
 
 func _generate_name() -> String:
@@ -14,12 +16,17 @@ func _setup() -> void:
 	pass
 	
 func _enter() -> void:
+	mouth_pos = agent.mouth_pos
+	
+	
 	#if !agent.bullet_node:
 		#return
 	var sand_proj = sand_proj_scene.instantiate()
 	var dir = agent.global_position.direction_to(GameData.player.global_position)
 	sand_proj.velocity = dir * 400
-	agent.add_child(sand_proj)
+	sand_proj.global_position = mouth_pos.global_position
+	
+	agent.bullet_node.add_child(sand_proj)
 	
 	
 	
