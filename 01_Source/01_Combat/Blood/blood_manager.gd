@@ -4,8 +4,7 @@ extends MultiMeshInstance2D
 var blood_scene = preload("res://01_Source/01_Combat/Blood/blood_particle.tscn")
 
 func _ready() -> void:
-	#SignalBus.spawn_blood.connect(spawn_blood_particle)
-	pass
+	SignalBus.spawn_blood.connect(spawn_blood_particle)
 
 func add_blood(pos: Vector2, rot: float) -> void:
 	var mm := multimesh

@@ -25,9 +25,9 @@ func _tick(delta: float) -> Status:
 	if enemy.sprite.scale.x > 0:
 		facing_right = true
 	
-	print('start of tick')
-	print('player_on_right: ', player_on_right)
-	print('facing_right: ', facing_right)
+	#print('start of tick')
+	#print('player_on_right: ', player_on_right)
+	#print('facing_right: ', facing_right)
 	if player_on_right:
 		if !facing_right: #not facing right
 			enemy.sprite.scale.x *= -1

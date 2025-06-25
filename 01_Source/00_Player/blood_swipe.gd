@@ -1,6 +1,5 @@
 extends Area2D
 
-@onready var slash: Sprite2D = $Slash
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
@@ -50,36 +49,50 @@ func initiate_attack() -> void:
 	var direction: Vector2 = parent.global_position.direction_to(mouse_pos)
 	var angle: float = direction.angle()
 	
-	collision_shape_2d.rotation = angle
+	## this vector2 controls the distance of the slash from the player
+	var offset = direction * Vector2(125, 75)
+	collision_shape_2d.global_position = parent.global_position + offset
 	
-	slash.global_position = parent.global_position + direction * 150
+	## this is some wonkey code to make sure the slash always goes
+	## top to bottom on both sides
 	var abs_dir_ang = Vector2(abs(direction.x), direction.y).angle()
-	slash.rotation = abs_dir_ang
+	collision_shape_2d.rotation = abs_dir_ang
 	if direction.x < 0:
-		slash.scale.x = 1
-		slash.rotation *= -1
+		collision_shape_2d.scale.x = 1
+		collision_shape_2d.rotation *= -1
 	else:
-		slash.scale.x = -1
-	
+		collision_shape_2d.scale.x = -1
 	
 	animation_player.play("blood_swipe")
 	
 	# Make player face direction of swing
-	
+	## for now I've moved the player animation code to the
+	## player script since it had more easy access to the
+	## animation player / helper functions - change anything u want !
 	
 	active_timer = active_time * parent.bb_hitspd_inc
 	attack_slowdown_actual = attack_slowdown
 	is_active = true
 	monitoring = true
+	
+	## I've added this to detect something after setting monitoring to true
+	## it needs a physics frame to update
+	await get_tree().physics_frame
+	
 	parent.using_attack_or_special_or_dash = true
 	
 	if has_overlapping_areas():
 		parent.dealt_damage_took_damage = true
 	
 	var enemies_hit = get_overlapping_areas()
-	for enemy in enemies_hit:
+	for area in enemies_hit:
+		## I've switched this to the area's owner, since enemy's hurtbox
+		## is just an area - owner gives us the root node of the scene
+		var enemy = area.owner
 		if enemy is not Enemy:
 			continue
+		var enemy_dir = parent.global_position.direction_to(enemy.global_position)
+		$BloodModule.enemy_hit(enemy.global_position, enemy_dir)
 		parent.blood_bar += parent.bb_hit
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)

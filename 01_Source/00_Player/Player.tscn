@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvbabi2s60kn0"]
+[gd_scene load_steps=26 format=3 uid="uid://dvbabi2s60kn0"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
 [ext_resource type="Texture2D" uid="uid://7knr7kb3u1nw" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
 [ext_resource type="Texture2D" uid="uid://bm8jcp0y4osmm" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_spritesheet.png" id="3_i8wje"]
 [ext_resource type="Script" uid="uid://daalbp4x5irfh" path="res://01_Source/00_Player/dash.gd" id="4_fmg42"]
+[ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 
@@ -15,7 +16,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Slash:frame")
+tracks/0/path = NodePath("CollisionShape2D/Slash:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,7 +28,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Slash:visible")
+tracks/1/path = NodePath("CollisionShape2D/Slash:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -42,7 +43,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Slash:frame")
+tracks/0/path = NodePath("CollisionShape2D/Slash:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -54,7 +55,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Slash:visible")
+tracks/1/path = NodePath("CollisionShape2D/Slash:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -71,7 +72,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olyoe"]
-size = Vector2(20, 40)
+size = Vector2(170, 122)
 
 [sub_resource type="Animation" id="Animation_6ukc1"]
 length = 0.001
@@ -285,20 +286,23 @@ collision_layer = 0
 collision_mask = 4
 script = ExtResource("2_i8wje")
 
-[node name="Slash" type="Sprite2D" parent="blood_swipe"]
-visible = false
-texture = ExtResource("3_fsf3c")
-hframes = 2
-vframes = 2
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="blood_swipe"]
 libraries = {
 &"": SubResource("AnimationLibrary_orea5")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blood_swipe"]
-position = Vector2(20, 0)
+position = Vector2(1, -2)
 shape = SubResource("RectangleShape2D_olyoe")
+
+[node name="Slash" type="Sprite2D" parent="blood_swipe/CollisionShape2D"]
+visible = false
+position = Vector2(-43, 2)
+texture = ExtResource("3_fsf3c")
+hframes = 2
+vframes = 2
+
+[node name="BloodModule" parent="blood_swipe" instance=ExtResource("4_iobk5")]
 
 [node name="PlayerSpriteAP" type="AnimationPlayer" parent="."]
 libraries = {
