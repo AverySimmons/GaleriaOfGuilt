@@ -65,10 +65,6 @@ func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
 
-func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("main_attack"):
-		$BloodModule.enemy_hit(get_global_mouse_position(), Vector2.UP)
-
 func populate_enemies():
 	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()

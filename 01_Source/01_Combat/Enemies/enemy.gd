@@ -74,6 +74,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	hp -= damage
+	$HitFlash.reset_section()
 	$HitFlash.play('hit_flash') #this always happens
 	if undamaged:
 		undamaged = false
@@ -87,7 +88,7 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	var btplayer := get_node_or_null(^"BTPlayer") as BTPlayer
 	if btplayer:
 		btplayer.set_active(false)
-		
+	
 	$Animations.play('hurt')
 	print('played hurt animation')
 	await get_tree().create_timer(flinch_dur).timeout #wait for flinch time
