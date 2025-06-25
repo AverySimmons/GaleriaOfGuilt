@@ -1,8 +1,8 @@
 extends Upgrade
 
 func _ready() -> void:
-	upgrade_name = "Blood Shotgun"
-	upgrade_description = "Replace your special ability with a blood shotgun. Hey guys :D"
+	upgrade_name = "Vomit"
+	upgrade_description = "Replace your special ability with a shotgun-style attack. Hey guys :D"
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png")
 	upgrade_number = UpgradeData.SHOTGUN
 	upgrade_scene = UpgradeData.SHOTGUN_SCENE

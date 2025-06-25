@@ -9,10 +9,14 @@ var active_time: float = 0.5
 var active_timer: float
 var hit_enemies: Dictionary = {}
 var enemies_just_entered: Array
-var damage: float = 20
+var damage_unmodified: float = 20
+var damage: float = damage_unmodified
 var attack_slowdown: float = 0.4
 var attack_slowdown_actual: float = 1.0
 var flinch_amount: float = 0.2
+
+# For upgrades
+var retractable_counter: int = 0
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
@@ -38,6 +42,9 @@ func _physics_process(delta: float) -> void:
 		is_active = false
 		hit_enemies.clear()
 		attack_slowdown_actual = 1.0
+		if UpgradeData.upgrades_gained[UpgradeData.RETRACT_SWIPE]:
+			damage = damage_unmodified
+			collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1, 1)
 	pass
 
 func initiate_attack() -> void:
@@ -65,6 +72,13 @@ func initiate_attack() -> void:
 	else:
 		collision_shape_2d.scale.x = -1
 	
+	if UpgradeData.upgrades_gained[UpgradeData.RETRACT_SWIPE]:
+		retractable_counter += 1
+		print(retractable_counter)
+		if retractable_counter >= 3:
+			retractable_counter = 0
+			damage = damage * 2
+			collision_shape_2d.get_node("Slash").modulate = Color(1, 0, 0)
 	animation_player.play("blood_swipe")
 	
 	# Make player face direction of swing
