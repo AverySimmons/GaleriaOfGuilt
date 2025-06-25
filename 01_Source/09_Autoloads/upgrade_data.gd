@@ -7,6 +7,6 @@ const jfdbkjdj: int = 1
 var upgrades_gained: Array
 
 func _ready() -> void:
-	for i in range(2):
+	for i in range(NUM_UPGRADES):
 		upgrades_gained.append(false)
 	pass

@@ -23,8 +23,10 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 0
 @export var bb_max: float = 250
-@export var bb_hit: float = 1
-var bb_hit_actual: float = 1
+@export var swipe_bb_gain: float = 1
+@export var special_bb_gain: float = 2
+var swipe_bb_actual: float = 1
+var special_bb_actual: float = 2
 var bb_multiplier: float = 1.0
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
@@ -172,7 +174,9 @@ func _physics_process(delta: float) -> void:
 	
 	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
-	bb_hit_actual = bb_hit * bb_hitspd_inc
+	bb_multiplier = bb_hitspd_inc
+	swipe_bb_actual = swipe_bb_gain * bb_multiplier
+	special_bb_actual = special_bb_gain * bb_multiplier
 	
 	# Animation stuff -------------------------------------------------------
 	if is_dashing:
@@ -272,6 +276,18 @@ func take_damage(amount: float) -> void:
 
 func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
+	return
+
+func gain_blood(attack_type: String, mult: float) -> void:
+	if blood_bar >= bb_max:
+		return
+	var gain: float = swipe_bb_actual
+	match attack_type:
+		"swipe": 
+			gain = swipe_bb_actual
+		"special":
+			gain = special_bb_actual
+	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	return
 
 func set_ability(ability) -> void:

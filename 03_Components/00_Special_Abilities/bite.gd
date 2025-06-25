@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 		var enemy = area.owner
 		if enemy is not Enemy || hit_enemies.has(enemy):
 			continue
-		parent.blood_bar += parent.bb_hit_actual * blood_gain_multiplier
+		parent.gain_blood("special", blood_gain_multiplier)
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
 	enemies_just_entered.clear()
@@ -53,7 +53,7 @@ func use_ability() -> void:
 		var enemy = area.owner
 		if enemy is not Enemy:
 			continue
-		parent.blood_bar += parent.bb_hit_actual * blood_gain_multiplier
+		parent.gain_blood("special", blood_gain_multiplier)
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
 	return
