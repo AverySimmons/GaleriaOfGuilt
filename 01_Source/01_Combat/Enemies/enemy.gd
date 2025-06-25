@@ -18,8 +18,8 @@ var movement_type: String = '' #will these be a seperate scene??
 var undamaged: bool = true
 var distance_to_player: float = 1000000
 
-var going_up: bool = false
-var going_down: bool = false
+var going_up: bool = false #nearly going straight up
+var going_down: bool = false #approximately stright down
 
 var Animations : AnimationPlayer
 

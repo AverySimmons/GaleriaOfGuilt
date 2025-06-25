@@ -15,7 +15,7 @@ var enemies_hit: Dictionary
 # Player references
 var blood_bar = GameData.player.blood_bar
 var dealt_damage = GameData.player.dealt_damage_took_damage
-var bb_hit = GameData.player.bb_hit
+var bb_hit_actual = GameData.bb_hit_actual
 
 # Z variable for grenade arc
 var z: float
@@ -79,7 +79,7 @@ func explode() -> void:
 		if enemy is Enemy:
 			enemy.take_damage(damage, flinch_amt, knockback_amt)
 			dealt_damage = true
-			blood_bar += bb_hit
+			blood_bar += bb_hit_actual
 			enemies_hit[enemy] = null
 	
 	await get_tree().create_timer(explosion_time).timeout
@@ -92,6 +92,6 @@ func _on_area_entered(area) -> void:
 		return
 	enemy.take_damage(damage, flinch_amt, knockback_amt)
 	dealt_damage = true
-	blood_bar += bb_hit
+	blood_bar += bb_hit_actual
 	enemies_hit[enemy] = null
 	pass
