@@ -13,7 +13,7 @@ var big_medium_level_scenes: Array[PackedScene] = [
 ]
 
 var big_level_scenes: Array[PackedScene] = [
-	preload("res://01_Source/02_Level/Levels/BigLevels/level0.tscn")
+	preload("res://01_Source/02_Level/level.tscn")
 ]
 
 var map: Dictionary[Vector2, MapNode] = {}
