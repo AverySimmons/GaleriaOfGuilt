@@ -75,3 +75,13 @@ modulate = Color(1, 1, 1, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_q1dyq")
 }
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://00_Assets/01_LongAudio/FMOD/Master.strings.bank", "res://00_Assets/01_LongAudio/FMOD/Master.bank"]
+
+[node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/Layers"
+event_guid = "{06900c83-ed5f-48f5-a7e5-6442f8d2e374}"
+autoplay = true
+
+[node name="FmodListener2D" type="FmodListener2D" parent="."]

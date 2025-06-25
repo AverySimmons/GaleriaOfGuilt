@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://xoikojyvkrrx"]
+[gd_scene load_steps=15 format=3 uid="uid://xoikojyvkrrx"]
 
 [ext_resource type="Script" uid="uid://bolvkavyt28qx" path="res://01_Source/05_UI/overlay.gd" id="1_aqb7b"]
 [ext_resource type="Shader" uid="uid://orva0wcfmaii" path="res://01_Source/05_UI/blood_bar.gdshader" id="1_v104o"]
@@ -8,6 +8,9 @@
 [ext_resource type="Shader" uid="uid://bjqbs23grvarw" path="res://01_Source/05_UI/health_bar.gdshader" id="5_aqb7b"]
 [ext_resource type="Texture2D" uid="uid://dqro6ei1a5nx3" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_meter.png" id="6_4qtrq"]
 [ext_resource type="Texture2D" uid="uid://d0u405efoms67" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_outline.png" id="7_h7e3t"]
+[ext_resource type="Texture2D" uid="uid://cfyqby1bfgt1b" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar_greyed.png" id="9_4qtrq"]
+[ext_resource type="Shader" uid="uid://o6sexqq22nic" path="res://01_Source/05_UI/xp_bar.gdshader" id="10_d3c2y"]
+[ext_resource type="Texture2D" uid="uid://6yrhmtfjcsat" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar.png" id="11_sn08a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_db786"]
 shader = ExtResource("1_v104o")
@@ -16,6 +19,10 @@ shader_parameter/fill_percent = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3c2y"]
 shader = ExtResource("5_aqb7b")
 shader_parameter/fill_percent = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlcx7"]
+shader = ExtResource("10_d3c2y")
+shader_parameter/fill_percent = 0.0
 
 [node name="Overlay" type="Control"]
 layout_mode = 3
@@ -28,7 +35,7 @@ script = ExtResource("1_aqb7b")
 
 [node name="BloodBar" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_db786")
-position = Vector2(1175, 152)
+position = Vector2(1211, 155)
 texture = ExtResource("2_llo78")
 
 [node name="BloodMeter" type="Sprite2D" parent="BloodBar"]
@@ -36,7 +43,7 @@ texture = ExtResource("3_6miwi")
 
 [node name="HealthBar" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.745098)
-position = Vector2(100, 150)
+position = Vector2(107, 167)
 texture = ExtResource("4_cvdph")
 
 [node name="Fill" type="Sprite2D" parent="HealthBar"]
@@ -45,3 +52,13 @@ texture = ExtResource("6_4qtrq")
 
 [node name="Sprite2D2" type="Sprite2D" parent="HealthBar"]
 texture = ExtResource("7_h7e3t")
+
+[node name="XPBar" type="Sprite2D" parent="."]
+self_modulate = Color(0.423651, 0.423651, 0.423651, 1)
+position = Vector2(640, 670)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("9_4qtrq")
+
+[node name="Fill" type="Sprite2D" parent="XPBar"]
+material = SubResource("ShaderMaterial_xlcx7")
+texture = ExtResource("11_sn08a")
