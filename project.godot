@@ -39,7 +39,7 @@ GameData="*res://01_Source/09_Autoloads/game_data.gd"
 SignalBus="*res://01_Source/09_Autoloads/signal_bus.gd"
 UpgradeData="*res://01_Source/09_Autoloads/upgrade_data.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-FmodManager="res://addons/fmod/FmodManager.gd"
+FmodManager="*res://addons/fmod/FmodManager.gd"
 
 [dialogic]
 
@@ -57,7 +57,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/fmod/plugin.cfg")
 
 [file_customization]
 
