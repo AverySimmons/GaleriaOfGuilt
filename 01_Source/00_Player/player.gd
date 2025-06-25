@@ -114,6 +114,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0 && using_attack_or_special_or_dash == false:
 			
+			## get direction to mouse, turn it into a word, 
+			## then play that animation
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var facing_dir = name_from_vect_dir(dir)
 			facing_dir = update_facing_direction(facing_dir)
@@ -125,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("special_attack"):
 		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
 			
+			## same here as above (blah blah blah repeating code)
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var facing_dir = name_from_vect_dir(dir)
 			facing_dir = update_facing_direction(facing_dir)
@@ -173,6 +176,8 @@ func _physics_process(delta: float) -> void:
 	## idk how to scale this with speed exactly
 	animation_player.speed_scale = 1.0 * bb_spd_inc
 	
+	## changed this so that if we are playing an attack animation
+	## we dont switch
 	if animation_player.is_playing() and \
 		animation_player.current_animation not in movement_animations: return
 	
@@ -218,6 +223,7 @@ func get_movement_vector() -> Vector2:
 	
 	return most_recent_press.normalized()
 
+## takes the angle of a vector and gives the direction as a string
 func name_from_vect_dir(dir: Vector2) -> String:
 	var ang = dir.angle()
 	if ang <= PI * 0.25 and ang >= -PI * 0.25:
@@ -241,6 +247,7 @@ func get_facing_direction() -> String:
 	else:
 		return "idle"
 
+## flips the sprite if facing right (or reverts flip if facing left)
 func update_facing_direction(facing_dir: String) -> String:
 	if facing_dir == "right":
 		facing_dir = "left"

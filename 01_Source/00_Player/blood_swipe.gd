@@ -49,7 +49,10 @@ func initiate_attack() -> void:
 	var direction: Vector2 = parent.global_position.direction_to(mouse_pos)
 	var angle: float = direction.angle()
 	
+	## remove my comments !! if u want
+	
 	## this vector2 controls the distance of the slash from the player
+	## I've made it slightly closer vertically cause it was looking weird
 	var offset = direction * Vector2(125, 75)
 	collision_shape_2d.global_position = parent.global_position + offset
 	
@@ -68,7 +71,7 @@ func initiate_attack() -> void:
 	# Make player face direction of swing
 	## for now I've moved the player animation code to the
 	## player script since it had more easy access to the
-	## animation player / helper functions - change anything u want !
+	## animation player / helper functions
 	
 	active_timer = active_time * parent.bb_hitspd_inc
 	attack_slowdown_actual = attack_slowdown
