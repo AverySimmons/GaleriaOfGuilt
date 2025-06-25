@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=4 uid="uid://gkr8clxdw5o5"]
+[gd_scene load_steps=3 format=4 uid="uid://86by6ulp2swc"]
 
-[ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_jngc6"]
-[ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_8nudm"]
+[ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_r7jwi"]
+[ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_jxct1"]
 
-[node name="Level" instance=ExtResource("1_jngc6")]
+[node name="Level" instance=ExtResource("1_r7jwi")]
 
 [node name="TopLeft" parent="." index="1"]
 position = Vector2(-896, -704)
@@ -29,7 +29,7 @@ position = Vector2(832, 0)
 
 [node name="GroundEffect" type="Sprite2D" parent="GroundEffects" index="0"]
 position = Vector2(-15, -99)
-texture = ExtResource("2_8nudm")
+texture = ExtResource("2_jxct1")
 hframes = 4
 vframes = 4
 
