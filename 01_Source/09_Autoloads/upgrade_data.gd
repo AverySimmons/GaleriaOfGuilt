@@ -12,6 +12,8 @@ func _ready() -> void:
 		upgrades_gained.append(false)
 	pass
 
-const BITE_SCENE = 1
-const SHOTGUN_SCENE = 2
-const GRENADE_SCENE = 3
+const BITE_SCENE = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/bite_upgrade.gd")
+const SHOTGUN_SCENE = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/shotgun_upgrade.gd")
+const GRENADE_SCENE = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/grenade_upgrade.gd")
+
+var selectable_upgrades: Array = []

@@ -47,6 +47,7 @@ var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
 var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
+var current_ability_scene = null
 
 var is_dashing: bool = false
 var dash_distance: float = 250
@@ -70,7 +71,7 @@ func _ready() -> void:
 	
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
-	set_ability(bite_scene)
+	set_ability(bite_scene, UpgradeData.BITE_SCENE)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
 	#set_ability(shotgun_scene)
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
@@ -290,7 +291,7 @@ func gain_blood(attack_type: String, mult: float) -> void:
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	return
 
-func set_ability(ability) -> void:
+func set_ability(ability, upgrade_scene) -> void:
 	var new_ability = ability.instantiate()
 	new_ability.global_position = global_position
 	add_child(new_ability)
@@ -298,6 +299,7 @@ func set_ability(ability) -> void:
 		remove_child(current_ability)
 		current_ability.queue_free()
 	current_ability = new_ability
+	current_ability_scene = upgrade_scene
 	return
 
 func is_moving() -> bool:
