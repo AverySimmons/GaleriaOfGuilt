@@ -36,7 +36,8 @@ func get_shot(angle_from: float, angle_to: float, shot_speed: float,
 	flinch_amt = flinch
 	return
 
-func _on_area_entered(enemy) -> void:
+func _on_area_entered(area) -> void:
+	var enemy = area.owner
 	if enemy is Enemy:
 		GameData.player.dealt_damage_took_damage = true
 		GameData.player.blood_bar += GameData.player.bb_hit

@@ -18,7 +18,8 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	if !is_active:
 		return
-	for enemy in enemies_just_entered:
+	for area in enemies_just_entered:
+		var enemy = area.owner
 		if enemy is not Enemy || hit_enemies.has(enemy):
 			continue
 		parent.blood_bar += parent.bb_hit * blood_gain_multiplier
@@ -48,7 +49,8 @@ func use_ability() -> void:
 		parent.dealt_damage_took_damage = true
 	
 	var enemies_hit = get_overlapping_areas()
-	for enemy in enemies_hit:
+	for area in enemies_hit:
+		var enemy = area.owner
 		if enemy is not Enemy:
 			continue
 		parent.blood_bar += parent.bb_hit * blood_gain_multiplier
