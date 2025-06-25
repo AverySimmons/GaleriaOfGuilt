@@ -1,11 +1,15 @@
 class_name Enemy
 extends CharacterBody2D
 
+@onready var sprite = $Sprite2D
+
 @export var move_speed: float = 100
 
 @export var hp: float = 10 #change this
 @export var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
 @export var flinch_guard: float = 0
+
+
 
 var facing_direction: Vector2 = Vector2.RIGHT
 var death_state: bool = false
@@ -13,6 +17,11 @@ var movement_type: String = '' #will these be a seperate scene??
 
 var undamaged: bool = true
 var distance_to_player: float = 1000000
+
+var going_up: bool = false
+var going_down: bool = false
+
+var Animations : AnimationPlayer
 
 signal death
 
@@ -46,9 +55,26 @@ func _physics_process(delta: float) -> void:
 		
 	if death_timer <= 0: #time to die
 		queue_free()
+		
+	#MOVEMENT ANIMATIONS
+	if velocity.length() > 1:
+		#print('movement animations')
+		select_movement_animations()
+		
+	#deal damage to player
+	var overlapping_areas = $Hitbox.get_overlapping_areas()
+	if overlapping_areas:
+		var player : Player = overlapping_areas[0].owner
+		player.take_damage(10)
+	
+	
+	#right - 0
+	#-pi/4 topside 45
+	#pi/4 bot side 45
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	hp -= damage
+	$HitFlash.reset_section()
 	$HitFlash.play('hit_flash') #this always happens
 	if undamaged:
 		undamaged = false
@@ -62,7 +88,7 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	var btplayer := get_node_or_null(^"BTPlayer") as BTPlayer
 	if btplayer:
 		btplayer.set_active(false)
-		
+	
 	$Animations.play('hurt')
 	print('played hurt animation')
 	await get_tree().create_timer(flinch_dur).timeout #wait for flinch time
@@ -74,3 +100,28 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	# Flash red somehow #sorry joey I'm doing white instead
 	# Flinch for amount of time in flinch - Brian how do this?
 	return
+	
+func select_movement_animations():
+	if facing_direction.angle() > -3/4. * PI && facing_direction.angle() < -1/4. * PI: #going hard upward
+		going_up = true
+	else: 
+		going_up = false
+	
+	if facing_direction.angle() > 1/4. * PI && facing_direction.angle() < 3/4. * PI: #going hard downward
+		going_down = true
+	else: 
+		going_down = false
+	
+	if going_up:
+		$Animations.play('move_up')
+	elif going_down:
+		$Animations.play('move_down')
+	elif facing_direction.x > 0: #going right
+		if sprite.scale.x < 0:
+			sprite.scale.x *= -1
+		$Animations.play('walk')
+	else: #going left
+		if sprite.scale.x > 0:
+			sprite.scale.x *= -1
+		$Animations.play('walk')
+		

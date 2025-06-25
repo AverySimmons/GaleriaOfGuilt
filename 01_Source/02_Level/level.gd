@@ -65,11 +65,6 @@ func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
 
-
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("main_attack"):
-		blood_manager.spawn_blood_clump(get_global_mouse_position(), Vector2.UP * 1000)
-
 func populate_enemies():
 	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()
@@ -92,13 +87,15 @@ func populate_enemies():
 			
 			if collided: continue
 			
-			spawn_enemy(rand_pos)
+			spawn_enemy(rand_pos, 0)
 			enemies_left += 1
 			break
 
-func spawn_enemy(pos: Vector2) -> void:
-	var new_enemy = enemy_scenes[0].instantiate()
+func spawn_enemy(pos: Vector2, index: int) -> void:
+	var new_enemy = enemy_scenes[index].instantiate()
 	new_enemy.death.connect(enemy_died)
+	if index == 0:
+		new_enemy.bullet_node = entities
 	var new_enemy_spawn = enemy_spawn_scene.instantiate()
 	new_enemy_spawn.entities_node = entities
 	new_enemy_spawn.global_position = pos

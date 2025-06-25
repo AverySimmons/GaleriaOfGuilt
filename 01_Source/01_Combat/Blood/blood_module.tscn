@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkvfwytj6lxdc"]
+
+[ext_resource type="Script" uid="uid://ln74sqd28fr1" path="res://01_Source/01_Combat/Blood/blood_module.gd" id="1_1f6ea"]
+
+[node name="BloodModule" type="Node2D"]
+script = ExtResource("1_1f6ea")
