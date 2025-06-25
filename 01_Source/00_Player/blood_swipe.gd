@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	for enemy in enemies_just_entered:
 		if enemy is not Enemy || hit_enemies.has(enemy):
 			continue
-		parent.blood_bar += parent.bb_hit
+		parent.blood_bar += parent.bb_hit_actual
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
 		# Enemy take damage thing
@@ -95,7 +95,7 @@ func initiate_attack() -> void:
 			continue
 		var enemy_dir = parent.global_position.direction_to(enemy.global_position)
 		$BloodModule.enemy_hit(enemy.global_position, enemy_dir)
-		parent.blood_bar += parent.bb_hit
+		parent.blood_bar += parent.bb_hit_actual
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
 	# Functions:

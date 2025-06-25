@@ -24,6 +24,7 @@ var current_hp: float
 var blood_bar = 0
 @export var bb_max: float = 250
 @export var bb_hit: float = 1
+var bb_hit_actual: float = 1
 var bb_multiplier: float = 1.0
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
@@ -171,7 +172,7 @@ func _physics_process(delta: float) -> void:
 	
 	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
-	
+	bb_hit_actual = bb_hit * bb_hitspd_inc
 	
 	# Animation stuff -------------------------------------------------------
 	if is_dashing:
