@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=22 format=3 uid="uid://bj5h3s11xhapu"]
 
 [ext_resource type="Texture2D" uid="uid://wgd542ncimsc" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
+[ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
+[ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvb30"]
 
@@ -11,7 +13,17 @@
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_l72ei"]
 
+[sub_resource type="BTAction" id="BTAction_tcqde"]
+script = ExtResource("3_x5ri8")
+
+[sub_resource type="BTWait" id="BTWait_oe0yt"]
+custom_name = "Wait and Shake - Arrow?"
+
+[sub_resource type="BTAction" id="BTAction_prp80"]
+script = ExtResource("4_l72ei")
+
 [sub_resource type="BTSequence" id="BTSequence_tcqde"]
+children = [SubResource("BTAction_tcqde"), SubResource("BTWait_oe0yt"), SubResource("BTAction_prp80")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_oe0yt"]
 blackboard_plan = SubResource("BlackboardPlan_l72ei")
@@ -19,11 +31,69 @@ root_task = SubResource("BTSequence_tcqde")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_prp80"]
 
+[sub_resource type="Animation" id="Animation_x5ri8"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_l72ei"]
+resource_name = "move_up"
+
+[sub_resource type="Animation" id="Animation_tcqde"]
+resource_name = "move_down"
+
+[sub_resource type="Animation" id="Animation_oe0yt"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_prp80"]
+resource_name = "hurt"
+
+[sub_resource type="Animation" id="Animation_x4uw2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eeflq"]
+_data = {
+&"RESET": SubResource("Animation_x4uw2"),
+&"hurt": SubResource("Animation_prp80"),
+&"idle": SubResource("Animation_oe0yt"),
+&"move_down": SubResource("Animation_tcqde"),
+&"move_up": SubResource("Animation_l72ei"),
+&"walk": SubResource("Animation_x5ri8")
+}
+
 [node name="Locust" type="CharacterBody2D"]
 script = ExtResource("1_qlpsa")
+move_speed = null
+hp = null
+type = null
+flinch_guard = null
 
-[node name="LocustSprite" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_popms")
+hframes = 2
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jvb30")
@@ -43,6 +113,9 @@ behavior_tree = SubResource("BehaviorTree_oe0yt")
 blackboard_plan = SubResource("BlackboardPlan_prp80")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_eeflq")
+}
 
 [node name="HitFlash" type="AnimationPlayer" parent="."]
 
