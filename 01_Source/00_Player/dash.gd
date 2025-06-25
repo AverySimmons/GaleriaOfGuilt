@@ -7,11 +7,9 @@ func start_dash(speed: float, distance: float, direction: Vector2) -> void:
 	speed = speed*dash_speed_mult
 	parent.velocity = speed*direction
 	var time = distance/speed
-	print(parent.using_attack_or_special_or_dash)
 	parent.is_dashing = true
 	parent.using_attack_or_special_or_dash = true
 	await get_tree().create_timer(time).timeout
-	print("JAHSHUHDH")
 	end_dash()
 	return
 

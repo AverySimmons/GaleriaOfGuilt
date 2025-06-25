@@ -24,10 +24,13 @@ var connections: Array[int] = [0, 0, 0, 0]
 var is_end: bool = false
 var map_pos: Vector2 = Vector2.ZERO
 var map_piece: MapPiece = null
+var tint: Color = Color(0,0,0,0)
 
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
+	$MultiplyLayer.color = tint
+	
 	top_left = $TopLeft.global_position
 	bot_right = $BottomRight.global_position
 	camera.limit_left = top_left.x

@@ -36,6 +36,8 @@ class MapNode:
 func get_levels(node_num) -> Dictionary[Vector2, Level]:
 	while not generate_map(node_num): continue
 	
+	var tint = Color(randf(), randf(), randf(), randf_range(0.1, 0.2))
+	
 	var levels: Dictionary[Vector2, Level] = {}
 	for node: MapNode in map.values():
 		var con_num = 0
@@ -52,6 +54,7 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 		var new_level: Level = lvl_list.pick_random().instantiate()
 		new_level.is_end = node.is_end
 		new_level.map_pos = node.pos
+		new_level.tint = tint
 		levels[node.pos] = new_level
 	
 	for node: MapNode in map.values():

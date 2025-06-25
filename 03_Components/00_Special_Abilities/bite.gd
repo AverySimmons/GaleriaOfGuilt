@@ -16,7 +16,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	
+	if !is_active:
+		return
 	for enemy in enemies_just_entered:
 		if enemy is not Enemy || hit_enemies.has(enemy):
 			continue
