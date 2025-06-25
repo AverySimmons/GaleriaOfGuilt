@@ -74,7 +74,8 @@ func explode() -> void:
 	#
 	#
 	var enemies = get_overlapping_areas()
-	for enemy in enemies:
+	for area in enemies:
+		var enemy = area.owner
 		if enemy is Enemy:
 			enemy.take_damage(damage, flinch_amt, knockback_amt)
 			dealt_damage = true
@@ -85,7 +86,8 @@ func explode() -> void:
 	queue_free()
 	return
 
-func _on_area_entered(enemy) -> void:
+func _on_area_entered(area) -> void:
+	var enemy = area.owner
 	if enemy is not Enemy || enemies_hit.has(enemy):
 		return
 	enemy.take_damage(damage, flinch_amt, knockback_amt)
