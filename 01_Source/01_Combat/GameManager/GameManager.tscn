@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c16ryaaqw6wrm"]
+[gd_scene load_steps=9 format=3 uid="uid://c16ryaaqw6wrm"]
 
 [ext_resource type="Script" uid="uid://wstp8f51pacm" path="res://01_Source/01_Combat/GameManager/game_manager.gd" id="1_uaasl"]
 [ext_resource type="PackedScene" uid="uid://cb4fpuk0m1ov3" path="res://01_Source/02_Level/level_generator.tscn" id="2_l3sx1"]
+[ext_resource type="PackedScene" uid="uid://xoikojyvkrrx" path="res://01_Source/05_UI/overlay.tscn" id="3_d6io1"]
 [ext_resource type="PackedScene" uid="uid://boqmp5tsrdpvh" path="res://01_Source/02_Level/MapOverlay/map_overlay.tscn" id="3_wvjyu"]
 
 [sub_resource type="Animation" id="Animation_d6io1"]
@@ -64,6 +65,8 @@ script = ExtResource("1_uaasl")
 [node name="LevelGenerator" parent="." instance=ExtResource("2_l3sx1")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" parent="CanvasLayer" instance=ExtResource("3_d6io1")]
 
 [node name="MapOverlay" parent="CanvasLayer" instance=ExtResource("3_wvjyu")]
 modulate = Color(1, 1, 1, 0)

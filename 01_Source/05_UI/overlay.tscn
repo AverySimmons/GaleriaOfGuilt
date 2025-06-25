@@ -1,4 +1,21 @@
-[gd_scene format=3 uid="uid://xoikojyvkrrx"]
+[gd_scene load_steps=11 format=3 uid="uid://xoikojyvkrrx"]
+
+[ext_resource type="Script" uid="uid://bolvkavyt28qx" path="res://01_Source/05_UI/overlay.gd" id="1_aqb7b"]
+[ext_resource type="Shader" uid="uid://orva0wcfmaii" path="res://01_Source/05_UI/blood_bar.gdshader" id="1_v104o"]
+[ext_resource type="Texture2D" uid="uid://b8d2tp4l7e38c" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter_inside.png" id="2_llo78"]
+[ext_resource type="Texture2D" uid="uid://dfgutgrgvaso" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter.png" id="3_6miwi"]
+[ext_resource type="Texture2D" uid="uid://bthqafaem4ery" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_background.png" id="4_cvdph"]
+[ext_resource type="Shader" uid="uid://bjqbs23grvarw" path="res://01_Source/05_UI/health_bar.gdshader" id="5_aqb7b"]
+[ext_resource type="Texture2D" uid="uid://dqro6ei1a5nx3" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_meter.png" id="6_4qtrq"]
+[ext_resource type="Texture2D" uid="uid://d0u405efoms67" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_outline.png" id="7_h7e3t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_db786"]
+shader = ExtResource("1_v104o")
+shader_parameter/fill_percent = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3c2y"]
+shader = ExtResource("5_aqb7b")
+shader_parameter/fill_percent = 0.5
 
 [node name="Overlay" type="Control"]
 layout_mode = 3
@@ -7,3 +24,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_aqb7b")
+
+[node name="BloodBar" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_db786")
+position = Vector2(1175, 152)
+texture = ExtResource("2_llo78")
+
+[node name="BloodMeter" type="Sprite2D" parent="BloodBar"]
+texture = ExtResource("3_6miwi")
+
+[node name="HealthBar" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.745098)
+position = Vector2(100, 150)
+texture = ExtResource("4_cvdph")
+
+[node name="Fill" type="Sprite2D" parent="HealthBar"]
+material = SubResource("ShaderMaterial_d3c2y")
+texture = ExtResource("6_4qtrq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="HealthBar"]
+texture = ExtResource("7_h7e3t")
