@@ -1,7 +1,7 @@
 extends Area2D
 
 var velocity: Vector2
-var max_distance: float = 500
+var max_distance: float = 300
 var cur_distance: float = 0
 var speed: float
 var damage: float
