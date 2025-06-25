@@ -65,11 +65,6 @@ func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
 
-
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("main_attack"):
-		blood_manager.spawn_blood_clump(get_global_mouse_position(), Vector2.UP * 1000)
-
 func populate_enemies():
 	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()
