@@ -37,9 +37,11 @@ func _ready() -> void:
 @onready var HIGH_BB_REGEN_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/high_blood_regen.gd").new()
 @onready var BEUP_HPDOWN_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/inc_blood_effect_less_hp.gd").new()
 @onready var BG_KILL_HPDOWN_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/kills_gain_blood_less_hp.gd").new()
+@onready var SPDUP_BGDOWN_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/more_spd_less_blood_gain.gd").new()
+@onready var KILL_LOWER_SPCD_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/special_cd_red_health_cost.gd").new()
 
 @onready var selectable_upgrades: Array = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
 											INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
-											BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS]
+											BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS]
 
 @onready var current_ability_class = BITE_CLASS

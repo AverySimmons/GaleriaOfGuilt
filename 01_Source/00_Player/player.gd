@@ -64,7 +64,9 @@ var dashed_into_enemies: Dictionary
 var dash_blood_cost: float = 0
 var swipe_blood_cost: float = 0
 var special_blood_cost: float = 0
+
 var hp_regen: float = 3
+var baseline_speed: float = 0
 
 var movement_animations = {
 	"idle" : null,
@@ -84,7 +86,7 @@ func _ready() -> void:
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	print(UpgradeData.selectable_upgrades.size())
-	UpgradeData.selectable_upgrades[9].choose_upgrade()
+	UpgradeData.selectable_upgrades[11].choose_upgrade()
 	print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -100,6 +102,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			base_velocity = base_velocity.move_toward(Vector2.ZERO, idle_friction * delta)
 		velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+		if UpgradeData.upgrades_gained[UpgradeData.MORE_SPD_LESS_BG]:
+			velocity += baseline_speed * movement_vector * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 		move_and_slide()
 	else:
 		var collided_enemies = $DashChecker.get_overlapping_areas()
@@ -149,15 +153,25 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("special_attack"):
 		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
-			
+			# Sorry this is basically to check just for one upgrade, usually it doesn't matter so completely ignore it
+			var guysthiscodesucksbutimrushing: bool = true
+			print(current_hp)
+			if UpgradeData.upgrades_gained[UpgradeData.SPECIAL_CD_RED_COST_HP]:
+				if (current_hp - max_hp/10) <= 0:
+					print("Heya!")
+					guysthiscodesucksbutimrushing = false
+				else:
+					print("Yo!")
+					take_damage(current_hp/10)
 			## same here as above (blah blah blah repeating code)
-			var dir = global_position.direction_to(get_global_mouse_position())
-			var facing_dir = name_from_vect_dir(dir)
-			facing_dir = update_facing_direction(facing_dir)
-			animation_player.play("bite_" + facing_dir)
+			if guysthiscodesucksbutimrushing:
+				var dir = global_position.direction_to(get_global_mouse_position())
+				var facing_dir = name_from_vect_dir(dir)
+				facing_dir = update_facing_direction(facing_dir)
+				animation_player.play("bite_" + facing_dir)
 			
-			current_ability.use_ability()
-			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
+				current_ability.use_ability()
+				special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("dash"):
 		if dash_timer == 0 && using_attack_or_special_or_dash == false && (blood_bar-dash_blood_cost>=0):
@@ -352,4 +366,8 @@ func kill_gain_blood() -> void:
 	return
 
 func kill_lower_spcd() -> void:
+	print(special_ability_timer)
+	if special_ability_timer >= 0:
+		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc)/3)
+	print(special_ability_timer)
 	return
