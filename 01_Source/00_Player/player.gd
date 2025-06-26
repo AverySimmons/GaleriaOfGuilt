@@ -23,7 +23,7 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 250
 @export var bb_max: float = 250
-@export var swipe_bb_gain: float = 1
+@export var swipe_bb_gain: float = 5
 @export var special_bb_gain: float = 2
 var swipe_bb_actual: float = 1
 var special_bb_actual: float = 2
@@ -81,7 +81,7 @@ func _ready() -> void:
 	#set_ability(shotgun_scene)
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
-	#UpgradeData.selectable_upgrades[4].choose_upgrade()
+	UpgradeData.selectable_upgrades[5].choose_upgrade()
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -105,6 +105,8 @@ func _physics_process(delta: float) -> void:
 				# Upgrade stuff?
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DAMAGE]:
 					enemy.take_damage(swipe.damage, 0.2, 0)
+				if UpgradeData.upgrades_gained[UpgradeData.MARK_DASH]:
+					enemy.get_marked()
 				dashed_into_enemies[enemy] = null
 		# In a dash: If it hits a wall, should end the dash
 		var distance: Vector2 = velocity * delta
@@ -296,9 +298,12 @@ func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
 	return
 
-func gain_blood(attack_type: String, mult: float) -> void:
+func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 	if blood_bar >= bb_max:
 		return
+	if enemy != null:
+		if enemy.is_marked:
+			mult = mult * 2.5
 	var gain: float = swipe_bb_actual
 	match attack_type:
 		"swipe": 

@@ -78,7 +78,7 @@ func explode() -> void:
 		if enemy is Enemy:
 			enemy.take_damage(damage, flinch_amt, knockback_amt)
 			dealt_damage = true
-			player.gain_blood("special", 1.0)
+			player.gain_blood("special", 1.0, enemy)
 			enemies_hit[enemy] = null
 	
 	await get_tree().create_timer(explosion_time).timeout
@@ -91,6 +91,6 @@ func _on_area_entered(area) -> void:
 		return
 	enemy.take_damage(damage, flinch_amt, knockback_amt)
 	dealt_damage = true
-	player.gain_blood("special", 1.0)
+	player.gain_blood("special", 1.0, enemy)
 	enemies_hit[enemy] = null
 	pass

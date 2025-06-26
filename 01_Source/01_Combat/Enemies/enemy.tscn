@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2gra6ofvq5ej"]
+[gd_scene load_steps=8 format=3 uid="uid://b2gra6ofvq5ej"]
 
 [ext_resource type="Script" uid="uid://bygl5fc4r2hp0" path="res://01_Source/01_Combat/Enemies/enemy.gd" id="1_qkbr7"]
 [ext_resource type="Texture2D" uid="uid://da4qtgrrgackq" path="res://00_Assets/00_Sprites/Enemies/Dev/WormDevSheet.png" id="2_yahaq"]
+[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="3_qjw3h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjw3h"]
 atlas = ExtResource("2_yahaq")
@@ -38,3 +39,6 @@ animation = &"WormDevWalk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.625, 56.5)
 shape = SubResource("RectangleShape2D_yahaq")
+
+[node name="DashMark" type="Sprite2D" parent="."]
+texture = ExtResource("3_qjw3h")

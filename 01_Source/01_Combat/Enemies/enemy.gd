@@ -23,12 +23,20 @@ var going_down: bool = false #approximately stright down
 
 var Animations : AnimationPlayer
 
+# For upgrades:
+var is_marked: bool = false
+var marked_time: float = 3
+var marked_timer: float = marked_time
+
 signal death
 
 func _ready() -> void:
 	
 	#var animation = the specific enemies animation?
 	#$AnimatedSprite2D.play(animation)
+	
+	# For upgrades:
+	$DashMark.visibility = false
 	pass
 	
 #timers
@@ -67,6 +75,13 @@ func _physics_process(delta: float) -> void:
 		var player : Player = overlapping_areas[0].owner
 		player.take_damage(10)
 	
+	# For upgrades:
+	if is_marked:
+		marked_timer = move_toward(marked_timer, 0, delta)
+		if marked_timer <= 0:
+			marked_timer = marked_time
+			is_marked = false
+			$DashMark.visibility = false
 	
 	#right - 0
 	#-pi/4 topside 45
@@ -125,3 +140,9 @@ func select_movement_animations():
 			sprite.scale.x *= -1
 		$Animations.play('walk')
 		
+
+func get_marked() -> void:
+	is_marked = true
+	marked_timer = marked_time
+	$DashMark.visibility = true
+	return
