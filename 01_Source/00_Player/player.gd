@@ -71,12 +71,12 @@ func _ready() -> void:
 	GameData.player = self
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
-	set_ability(bite_scene, UpgradeData.BITE_CLASS)
+	set_ability(bite_scene)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
-	#set_ability(shotgun_scene, null)
+	#set_ability(shotgun_scene)
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
-	#set_ability(grenade_scene, null)
-	UpgradeData.selectable_upgrades[3].choose_upgrade()
+	#set_ability(grenade_scene)
+	UpgradeData.selectable_upgrades[2].choose_upgrade()
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -302,15 +302,14 @@ func gain_blood(attack_type: String, mult: float) -> void:
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	return
 
-func set_ability(ability, upgrade_scene) -> void:
+func set_ability(ability) -> void:
 	var new_ability = ability.instantiate()
-	new_ability.global_position = global_position
 	add_child(new_ability)
+	new_ability.global_position = global_position
 	if current_ability != null:
 		remove_child(current_ability)
 		current_ability.queue_free()
 	current_ability = new_ability
-	current_ability_scene = upgrade_scene
 	return
 
 func is_moving() -> bool:

@@ -12,8 +12,9 @@ func choose_upgrade() -> void:
 	super.choose_upgrade()
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	# For adding back old special abilities
-	var old_ability_scene = player.current_ability_scene
+	var old_ability_scene = UpgradeData.current_ability_class
 	UpgradeData.selectable_upgrades.append(old_ability_scene)
 	# Set the ability
-	player.set_ability(bite_scene, upgrade_scene)
+	GameData.player.set_ability(bite_scene)
+	UpgradeData.current_ability_class = upgrade_scene
 	return

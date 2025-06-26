@@ -22,3 +22,5 @@ func _ready() -> void:
 
 @onready var selectable_upgrades: Array = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
 								  ]
+
+@onready var current_ability_class = BITE_CLASS

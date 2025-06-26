@@ -10,5 +10,4 @@ func _init() -> void:
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	print("Amt: ", UpgradeData.selectable_upgrades.size())
 	return
