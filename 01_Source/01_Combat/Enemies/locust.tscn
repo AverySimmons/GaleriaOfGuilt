@@ -1,10 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=29 format=3 uid="uid://bj5h3s11xhapu"]
 
-[ext_resource type="Texture2D" uid="uid://wgd542ncimsc" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
+[ext_resource type="Texture2D" uid="uid://oo28u6wosw3w" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
-[ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="3_l72ei"]
 [ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
 [ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
+[ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvb30"]
 
@@ -14,8 +14,16 @@
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_l72ei"]
 
+[sub_resource type="BTAction" id="BTAction_x5ri8"]
+script = ExtResource("3_x5ri8")
+
+[sub_resource type="BTAction" id="BTAction_x4uw2"]
+script = ExtResource("4_tcqde")
+
+[sub_resource type="BTWait" id="BTWait_l72ei"]
+
 [sub_resource type="BTAction" id="BTAction_oe0yt"]
-script = ExtResource("3_l72ei")
+script = ExtResource("4_l72ei")
 
 [sub_resource type="BTAction" id="BTAction_tcqde"]
 script = ExtResource("3_x5ri8")
@@ -34,7 +42,7 @@ run_chance = 0.0
 children = [SubResource("BTSequence_prp80")]
 
 [sub_resource type="BTSequence" id="BTSequence_tcqde"]
-children = [SubResource("BTAction_oe0yt"), SubResource("BTProbability_x4uw2")]
+children = [SubResource("BTAction_x5ri8"), SubResource("BTAction_x4uw2"), SubResource("BTWait_l72ei"), SubResource("BTAction_oe0yt"), SubResource("BTProbability_x4uw2")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_oe0yt"]
 blackboard_plan = SubResource("BlackboardPlan_l72ei")

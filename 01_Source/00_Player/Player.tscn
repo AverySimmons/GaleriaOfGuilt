@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dvbabi2s60kn0"]
+[gd_scene load_steps=30 format=3 uid="uid://dvbabi2s60kn0"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
@@ -324,6 +324,8 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyrli"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sy4wu"]
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
@@ -383,3 +385,10 @@ script = ExtResource("4_fmg42")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dash"]
 shape = SubResource("RectangleShape2D_dyrli")
+
+[node name="DashChecker" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashChecker"]
+shape = SubResource("CircleShape2D_sy4wu")

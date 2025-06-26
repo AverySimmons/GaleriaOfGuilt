@@ -14,7 +14,8 @@ var bot_right: Vector2
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
 
 var enemy_scenes = [
-	preload("res://01_Source/01_Combat/Enemies/worm.tscn")
+	preload("res://01_Source/01_Combat/Enemies/worm.tscn"),
+	preload("res://01_Source/01_Combat/Enemies/locust.tscn")
 ]
 
 # 0 is no connection
@@ -64,6 +65,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
+	
+	if enemies_left:
+		GameData.music_event.set_parameter("combat state", 1)
+	else:
+		GameData.music_event.set_parameter("combat state", 0)
+	
 
 func populate_enemies():
 	var space_state = get_world_2d().direct_space_state
@@ -75,7 +82,7 @@ func populate_enemies():
 			var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 				randf_range(top_left.y+100, bot_right.y-100))
 			
-			if rand_pos.distance_to(GameData.player.global_position) < 100:
+			if rand_pos.distance_to(GameData.player.global_position) < 200:
 				continue
 			
 			var params = PhysicsShapeQueryParameters2D.new()
@@ -87,7 +94,7 @@ func populate_enemies():
 			
 			if collided: continue
 			
-			spawn_enemy(rand_pos, 0)
+			spawn_enemy(rand_pos, randi_range(0, 1))
 			enemies_left += 1
 			break
 

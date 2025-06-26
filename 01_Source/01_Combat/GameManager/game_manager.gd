@@ -11,6 +11,7 @@ var current_level: Level
 var size: float = 10
 
 func _ready() -> void:
+	GameData.music_event = $FmodEventEmitter2D
 	levels = level_generator.get_levels(size)
 	map_overlay.generate_map(levels.values())
 	
