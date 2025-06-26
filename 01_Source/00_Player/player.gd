@@ -21,7 +21,7 @@ var base_velocity := Vector2.ZERO
 var current_hp: float
 
 # Blood Bar stuff
-var blood_bar = 0
+var blood_bar = 250
 @export var bb_max: float = 250
 @export var swipe_bb_gain: float = 1
 @export var special_bb_gain: float = 2
@@ -59,6 +59,11 @@ var dash_timer: float = 0
 var is_invincible: bool = false
 var dashed_into_enemies: Dictionary
 
+# Upgrade stuff ----------------------------------------
+var dash_blood_cost: float = 0
+var swipe_blood_cost: float = 0
+var special_blood_cost: float = 0
+
 var movement_animations = {
 	"idle" : null,
 	"run_up" : null,
@@ -76,7 +81,7 @@ func _ready() -> void:
 	#set_ability(shotgun_scene)
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
-	UpgradeData.selectable_upgrades[2].choose_upgrade()
+	#UpgradeData.selectable_upgrades[4].choose_upgrade()
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -149,7 +154,7 @@ func _physics_process(delta: float) -> void:
 			special_ability_timer = current_ability.cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("dash"):
-		if dash_timer == 0 && using_attack_or_special_or_dash == false:
+		if dash_timer == 0 && using_attack_or_special_or_dash == false && (blood_bar-dash_blood_cost>=0):
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
 			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
@@ -158,6 +163,7 @@ func _physics_process(delta: float) -> void:
 			
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
+			blood_bar -= dash_blood_cost
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)

@@ -1,2 +1,3 @@
-# Project Name
-Description
+# Blood (final name TBD) Game Jam
+
+wow! yipee!
