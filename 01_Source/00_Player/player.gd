@@ -65,6 +65,8 @@ var dash_blood_cost: float = 0
 var swipe_blood_cost: float = 0
 var special_blood_cost: float = 0
 
+var upgrade_swipe_mult: float = 1.0
+
 var hp_regen: float = 3
 var baseline_speed: float = 0
 
@@ -86,7 +88,7 @@ func _ready() -> void:
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	print(UpgradeData.selectable_upgrades.size())
-	UpgradeData.selectable_upgrades[11].choose_upgrade()
+	UpgradeData.selectable_upgrades[14].choose_upgrade()
 	print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -140,7 +142,8 @@ func _physics_process(delta: float) -> void:
 	# Attacks ---------------------------------------------------------------
 	if Input.is_action_just_pressed("main_attack"):
 		if attack_timer == 0 && using_attack_or_special_or_dash == false:
-			
+			if UpgradeData.upgrades_gained[UpgradeData.COSTS_BLOOD_MORE_DMG] && blood_bar-swipe_blood_cost>=0:
+				blood_bar -= swipe_blood_cost
 			## get direction to mouse, turn it into a word, 
 			## then play that animation
 			var dir = global_position.direction_to(get_global_mouse_position())
@@ -148,7 +151,7 @@ func _physics_process(delta: float) -> void:
 			facing_dir = update_facing_direction(facing_dir)
 			animation_player.play("slash_" + facing_dir)
 			
-			$blood_swipe.initiate_attack()
+			$blood_swipe.initiate_attack(upgrade_swipe_mult)
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
