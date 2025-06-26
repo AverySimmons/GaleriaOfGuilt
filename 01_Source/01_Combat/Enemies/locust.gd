@@ -19,3 +19,8 @@ func _physics_process(delta: float) -> void:
 			sprite.scale.y *= -1
 			going_up = true
 			going_down = false
+	else: #not going up or down
+		if sprite.scale.y < 0:
+			sprite.scale.y *= -1
+			going_up = true
+			going_down = false
