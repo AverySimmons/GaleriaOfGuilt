@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://uv6n8vwwakt0"]
+[gd_scene load_steps=2 format=3 uid="uid://uv6n8vwwakt0"]
+
+[ext_resource type="Texture2D" uid="uid://deefpophre6rn" path="res://00_Assets/00_Sprites/upgrade_icons/blood.png" id="1_8m1r4"]
 
 [node name="UpgradeScreen" type="Control"]
 layout_mode = 3
@@ -8,29 +10,80 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Choice1" type="Control" parent="."]
-custom_minimum_size = Vector2(293, 0)
-anchors_preset = 0
-offset_left = 125.0
-offset_right = 418.0
-offset_bottom = 40.0
-
-[node name="Choice2" type="Control" parent="."]
-custom_minimum_size = Vector2(293, 0)
-anchors_preset = 0
-offset_left = 493.0
-offset_right = 786.0
-offset_bottom = 40.0
-
-[node name="Choice3" type="Control" parent="."]
-custom_minimum_size = Vector2(293, 0)
-anchors_preset = 0
-offset_left = 861.0
-offset_right = 1154.0
-offset_bottom = 40.0
-
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.94, 0, 0, 0.2)
+
+[node name="Choice1" type="Control" parent="."]
+custom_minimum_size = Vector2(293, 420)
+anchors_preset = 0
+offset_left = 125.0
+offset_top = 150.0
+offset_right = 418.0
+offset_bottom = 570.0
+
+[node name="ColorRect" type="ColorRect" parent="Choice1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Name" type="Label" parent="Choice1"]
+layout_mode = 2
+offset_top = 15.0
+offset_right = 293.0
+offset_bottom = 38.0
+text = "Boom!!!"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Choice1"]
+layout_mode = 2
+offset_left = 9.0
+offset_top = 223.0
+offset_right = 302.0
+offset_bottom = 246.0
+text = "Blah blah blah"
+
+[node name="Sprite2D" type="Sprite2D" parent="Choice1"]
+position = Vector2(146.5, 127)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_8m1r4")
+
+[node name="Choice2" type="Control" parent="."]
+custom_minimum_size = Vector2(293, 420)
+anchors_preset = 0
+offset_left = 493.0
+offset_top = 150.0
+offset_right = 786.0
+offset_bottom = 570.0
+
+[node name="ColorRect" type="ColorRect" parent="Choice2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="Choice3" type="Control" parent="."]
+custom_minimum_size = Vector2(293, 420)
+anchors_preset = 0
+offset_left = 861.0
+offset_top = 150.0
+offset_right = 1154.0
+offset_bottom = 570.0
+
+[node name="ColorRect" type="ColorRect" parent="Choice3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
