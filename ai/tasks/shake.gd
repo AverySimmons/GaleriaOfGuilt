@@ -4,7 +4,7 @@ extends BTAction
 ## variables at the top
 
 func _generate_name() -> String:
-	return ''
+	return 'shake in anticipation for attack'
 	
 func _setup() -> void:
 	pass
