@@ -21,7 +21,7 @@ var base_velocity := Vector2.ZERO
 var current_hp: float
 
 # Blood Bar stuff
-var blood_bar = 250
+var blood_bar = 0
 @export var bb_max: float = 250
 @export var swipe_bb_gain: float = 10
 @export var special_bb_gain: float = 2
@@ -84,7 +84,7 @@ func _ready() -> void:
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	print(UpgradeData.selectable_upgrades.size())
-	#UpgradeData.selectable_upgrades[8].choose_upgrade()
+	UpgradeData.selectable_upgrades[9].choose_upgrade()
 	print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -337,4 +337,19 @@ func is_moving() -> bool:
 	return abs(velocity).length() > 0
 
 func get_signal_upgrade(upgrade_name: String) -> void:
+	match upgrade_name:
+		"kill_blood_gain":
+			SignalBus.death.connect(kill_gain_blood)
+		"kill_lower_special_cd":
+			SignalBus.death.connect(kill_lower_spcd)
+	return
+
+#Upgrade stuff
+func kill_gain_blood() -> void:
+	if blood_bar >= bb_max:
+		return
+	blood_bar = move_toward(blood_bar, bb_max, 10*bb_multiplier)
+	return
+
+func kill_lower_spcd() -> void:
 	return

@@ -100,7 +100,7 @@ func populate_enemies():
 
 func spawn_enemy(pos: Vector2, index: int) -> void:
 	var new_enemy = enemy_scenes[index].instantiate()
-	new_enemy.death.connect(enemy_died)
+	SignalBus.death.connect(enemy_died)
 	if index == 0:
 		new_enemy.bullet_node = entities
 	var new_enemy_spawn = enemy_spawn_scene.instantiate()
