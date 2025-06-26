@@ -32,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		parent.gain_blood("swipe", 1.0, enemy)
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
+		print(damage)
 		# Enemy take damage thing
 	enemies_just_entered.clear()
 	
@@ -42,16 +43,17 @@ func _physics_process(delta: float) -> void:
 		is_active = false
 		hit_enemies.clear()
 		attack_slowdown_actual = 1.0
+		damage = damage_unmodified
 		if UpgradeData.upgrades_gained[UpgradeData.RETRACT_SWIPE]:
-			damage = damage_unmodified
 			collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1, 1)
 	pass
 
-func initiate_attack() -> void:
+func initiate_attack(upgrade_mult: float) -> void:
 	# Animations:
 	# Enemies flash red - In enemy take damage thing
 	# Animation player stuff
 	# Audio
+	damage *= upgrade_mult
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = parent.global_position.direction_to(mouse_pos)
 	var angle: float = direction.angle()
@@ -112,6 +114,7 @@ func initiate_attack() -> void:
 		parent.gain_blood("swipe", 1.0, enemy)
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
+		parent.heal_damage(2)
 	# Functions:
 	# Deal dmg
 	# Gain blood for each enemy hit and killed
