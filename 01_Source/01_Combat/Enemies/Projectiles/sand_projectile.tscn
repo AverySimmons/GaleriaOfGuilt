@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://vd7e1yjuvit3"]
 
 [ext_resource type="Script" uid="uid://nrox43c7pya7" path="res://01_Source/01_Combat/Enemies/Projectiles/sand_projectile.gd" id="1_ietp8"]
-[ext_resource type="Texture2D" uid="uid://cnhr0egal0qma" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_qg7v2"]
+[ext_resource type="Texture2D" uid="uid://b6osnu6rhbuc1" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_qg7v2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_elrbt"]
 radius = 20.0

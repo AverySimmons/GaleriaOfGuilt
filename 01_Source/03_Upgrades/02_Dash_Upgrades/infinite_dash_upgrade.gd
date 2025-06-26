@@ -10,6 +10,6 @@ func _init() -> void:
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	GameData.player.dash_blood_cost += 10
+	GameData.player.dash_blood_cost += 7
 	GameData.player.dash_cd = 0.5
 	return

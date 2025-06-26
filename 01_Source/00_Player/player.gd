@@ -51,11 +51,11 @@ var current_ability: SpecialAbility = null
 var current_ability_scene = null
 
 var is_dashing: bool = false
-var dash_distance: float = 250
+var dash_distance: float = 200
 var dash_speed: float = 1250
 var dash_time: float = dash_distance/dash_speed
 var dash_direction: Vector2
-var dash_cd: float = 2
+var dash_cd: float = 1.5
 var dash_timer: float = 0
 var is_invincible: bool = false
 var dashed_into_enemies: Dictionary
@@ -67,8 +67,14 @@ var special_blood_cost: float = 0
 
 var upgrade_swipe_mult: float = 1.0
 
+var spcd_increase: float = 1.0
+var sp_blood_mult: float = 1.0
+
 var hp_regen: float = 3
 var baseline_speed: float = 0
+
+var dash_charges: int = 1
+var dash_charges_amt: int = 1
 
 var movement_animations = {
 	"idle" : null,
@@ -88,7 +94,7 @@ func _ready() -> void:
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	print(UpgradeData.selectable_upgrades.size())
-	UpgradeData.selectable_upgrades[14].choose_upgrade()
+	#UpgradeData.selectable_upgrades[16].choose_upgrade()
 	print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -117,6 +123,10 @@ func _physics_process(delta: float) -> void:
 					enemy.take_damage(swipe.damage, 0.2, 0)
 				if UpgradeData.upgrades_gained[UpgradeData.MARK_DASH]:
 					enemy.get_marked()
+				if UpgradeData.upgrades_gained[UpgradeData.DASH_DISTANCE_BLOOD_GAIN]:
+					if !(blood_bar >= bb_max):
+						blood_bar = move_toward(blood_bar, bb_max, 15*bb_multiplier)
+					
 				dashed_into_enemies[enemy] = null
 		# In a dash: If it hits a wall, should end the dash
 		var distance: Vector2 = velocity * delta
@@ -158,7 +168,6 @@ func _physics_process(delta: float) -> void:
 		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
 			# Sorry this is basically to check just for one upgrade, usually it doesn't matter so completely ignore it
 			var guysthiscodesucksbutimrushing: bool = true
-			print(current_hp)
 			if UpgradeData.upgrades_gained[UpgradeData.SPECIAL_CD_RED_COST_HP]:
 				if (current_hp - max_hp/10) <= 0:
 					print("Heya!")
@@ -174,10 +183,10 @@ func _physics_process(delta: float) -> void:
 				animation_player.play("bite_" + facing_dir)
 			
 				current_ability.use_ability()
-				special_ability_timer = current_ability.cooldown * bb_hitspd_inc
+				special_ability_timer = current_ability.cooldown * bb_hitspd_inc * spcd_increase
 	
 	if Input.is_action_just_pressed("dash"):
-		if dash_timer == 0 && using_attack_or_special_or_dash == false && (blood_bar-dash_blood_cost>=0):
+		if dash_charges > 0 && using_attack_or_special_or_dash == false && (blood_bar-dash_blood_cost>=0):
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
 			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
@@ -186,11 +195,14 @@ func _physics_process(delta: float) -> void:
 			
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
+			dash_charges -= 1
 			blood_bar -= dash_blood_cost
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)
 	dash_timer = move_toward(dash_timer, 0, delta)
+	if dash_timer <= 0:
+		dash_charges = dash_charges_amt
 	
 	
 	# Blood Bar stuff -------------------------------------------------------
@@ -335,7 +347,7 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 		"swipe": 
 			gain = swipe_bb_actual
 		"special":
-			gain = special_bb_actual
+			gain = special_bb_actual * sp_blood_mult
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	print(gain)
 	return
@@ -371,6 +383,6 @@ func kill_gain_blood() -> void:
 func kill_lower_spcd() -> void:
 	print(special_ability_timer)
 	if special_ability_timer >= 0:
-		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc)/3)
+		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc * spcd_increase)/3)
 	print(special_ability_timer)
 	return
