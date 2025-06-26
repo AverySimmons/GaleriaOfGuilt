@@ -36,7 +36,7 @@ func _ready() -> void:
 	#$AnimatedSprite2D.play(animation)
 	
 	# For upgrades:
-	$DashMark.visibility = false
+	$DashMark.visible = false
 	pass
 	
 #timers
@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		if marked_timer <= 0:
 			marked_timer = marked_time
 			is_marked = false
-			$DashMark.visibility = false
+			$DashMark.visible = false
 	
 	#right - 0
 	#-pi/4 topside 45
@@ -144,5 +144,5 @@ func select_movement_animations():
 func get_marked() -> void:
 	is_marked = true
 	marked_timer = marked_time
-	$DashMark.visibility = true
+	$DashMark.visible = true
 	return
