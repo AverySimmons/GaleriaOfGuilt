@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var animation_player: AnimationPlayer = $PlayerSpriteAP
 @onready var sprite: Sprite2D = $Sprite2D
-
+@onready var swipe = $blood_swipe
 
 # Velocity stuff
 @export var top_speed: float = 250
@@ -57,6 +57,7 @@ var dash_direction: Vector2
 var dash_cd: float = 2
 var dash_timer: float = 0
 var is_invincible: bool = false
+var dashed_into_enemies: Dictionary
 
 var movement_animations = {
 	"idle" : null,
@@ -68,14 +69,14 @@ var movement_animations = {
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
-	
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
-	set_ability(bite_scene, UpgradeData.BITE_CLASS)
+	set_ability(bite_scene)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
-	#set_ability(shotgun_scene, null)
-	var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
-	set_ability(grenade_scene, null)
+	#set_ability(shotgun_scene)
+	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
+	#set_ability(grenade_scene)
+	UpgradeData.selectable_upgrades[2].choose_upgrade()
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -92,10 +93,17 @@ func _physics_process(delta: float) -> void:
 		velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 		move_and_slide()
 	else:
+		var collided_enemies = $DashChecker.get_overlapping_areas()
+		for area in collided_enemies:
+			var enemy = area.owner
+			if enemy is Enemy && !dashed_into_enemies.has(enemy):
+				# Upgrade stuff?
+				if UpgradeData.upgrades_gained[UpgradeData.DASH_DAMAGE]:
+					enemy.take_damage(swipe.damage, 0.2, 0)
+				dashed_into_enemies[enemy] = null
 		# In a dash: If it hits a wall, should end the dash
 		var distance: Vector2 = velocity * delta
 		while distance.length() > 0:
-			print(distance)
 			var collision = move_and_collide(distance)
 			if collision != null:
 				var collider = collision.get_collider()
@@ -103,7 +111,6 @@ func _physics_process(delta: float) -> void:
 					$Dash.end_dash()
 					distance = Vector2.ZERO
 				elif collider is Enemy:
-					# Maybe do something with upgrades?
 					distance = collision.get_remainder()
 				else:
 					distance = Vector2.ZERO
@@ -111,6 +118,8 @@ func _physics_process(delta: float) -> void:
 				break
 		
 		pass
+	
+
 	
 	
 	# Attacks ---------------------------------------------------------------
@@ -268,6 +277,8 @@ func update_facing_direction(facing_dir: String) -> String:
 	return facing_dir
 
 func take_damage(amount: float) -> void:
+	if is_invincible:
+		return
 	current_hp = move_toward(current_hp, 0, amount)
 	print("I got hit!")
 	if current_hp <= 0:
@@ -291,15 +302,14 @@ func gain_blood(attack_type: String, mult: float) -> void:
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	return
 
-func set_ability(ability, upgrade_scene) -> void:
+func set_ability(ability) -> void:
 	var new_ability = ability.instantiate()
-	new_ability.global_position = global_position
 	add_child(new_ability)
+	new_ability.global_position = global_position
 	if current_ability != null:
 		remove_child(current_ability)
 		current_ability.queue_free()
 	current_ability = new_ability
-	current_ability_scene = upgrade_scene
 	return
 
 func is_moving() -> bool:

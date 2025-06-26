@@ -1,10 +1,11 @@
 extends Node
 
-const NUM_UPGRADES: int = 4
+const NUM_UPGRADES: int = 5
 const BITE: int = 0
 const SHOTGUN: int = 1
 const GRENADE: int = 2
 const RETRACT_SWIPE: int = 3
+const DASH_DAMAGE: int = 4
 
 var upgrades_gained: Array
 
@@ -13,9 +14,13 @@ func _ready() -> void:
 		upgrades_gained.append(false)
 	pass
 
-const BITE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/bite_upgrade.gd")
-const SHOTGUN_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/shotgun_upgrade.gd")
-const GRENADE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/grenade_upgrade.gd")
-const CHARGE_SWIPE_CLASS = preload("res://01_Source/03_Upgrades/00_Swipe_Upgrades/third_slash_more_dmg.gd")
+@onready var BITE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/bite_upgrade.gd").new()
+@onready var SHOTGUN_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/shotgun_upgrade.gd").new()
+@onready var GRENADE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/grenade_upgrade.gd").new()
+@onready var RETRACT_SWIPE_CLASS = preload("res://01_Source/03_Upgrades/00_Swipe_Upgrades/third_slash_more_dmg.gd").new()
+@onready var DASH_DAMAGE_CLASS = preload("res://01_Source/03_Upgrades/02_Dash_Upgrades/dash_damage.gd").new()
 
-var selectable_upgrades: Array = [BITE_CLASS.new()]
+@onready var selectable_upgrades: Array = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
+								  ]
+
+@onready var current_ability_class = BITE_CLASS
