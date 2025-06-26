@@ -23,15 +23,16 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 250
 @export var bb_max: float = 250
-@export var swipe_bb_gain: float = 5
+@export var swipe_bb_gain: float = 10
 @export var special_bb_gain: float = 2
 var swipe_bb_actual: float = 1
 var special_bb_actual: float = 2
 var bb_multiplier: float = 1.0
+var bb_multiplier2: float = 1.0 # If you want to know what this is ask me bc tbh idrk anymore
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
 var bb_spd_inc: float = 1.0
-@export var bb_hitspd: float = 1.0/500.0
+@export var bb_hitspd: float = 1.0/600.0
 var bb_hitspd_inc: float = 1.0
 @export var bb_timer_time: float = 3
 @onready var bb_timer: float = bb_timer_time
@@ -63,6 +64,7 @@ var dashed_into_enemies: Dictionary
 var dash_blood_cost: float = 0
 var swipe_blood_cost: float = 0
 var special_blood_cost: float = 0
+var hp_regen: float = 3
 
 var movement_animations = {
 	"idle" : null,
@@ -81,7 +83,9 @@ func _ready() -> void:
 	#set_ability(shotgun_scene)
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
-	UpgradeData.selectable_upgrades[5].choose_upgrade()
+	print(UpgradeData.selectable_upgrades.size())
+	#UpgradeData.selectable_upgrades[8].choose_upgrade()
+	print(UpgradeData.selectable_upgrades.size())
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -188,11 +192,16 @@ func _physics_process(delta: float) -> void:
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
 		heal_amt -= blood_bar
-		heal_damage(heal_amt * bb_to_health_ratio)
+		if !UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN]:
+			heal_damage(heal_amt * bb_to_health_ratio)
 	
+	if UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN] && blood_bar >= 200:
+		heal_damage(hp_regen*delta)
 	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
-	bb_multiplier = bb_hitspd_inc
+	if bb_hitspd_inc <= 0.1:
+		bb_hitspd_inc = 0.1
+	bb_multiplier = bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
 	
@@ -311,6 +320,7 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 		"special":
 			gain = special_bb_actual
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
+	print(gain)
 	return
 
 func set_ability(ability) -> void:
@@ -325,3 +335,6 @@ func set_ability(ability) -> void:
 
 func is_moving() -> bool:
 	return abs(velocity).length() > 0
+
+func get_signal_upgrade(upgrade_name: String) -> void:
+	return
