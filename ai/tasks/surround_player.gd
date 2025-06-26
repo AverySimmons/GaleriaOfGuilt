@@ -95,21 +95,7 @@ func move() -> void:
 	
 		enemy.move_and_slide()
 		
-		#
-		#if enemy.going_up:
-			#if enemy.sprite.scale.y > 0: #facing down
-				#enemy.sprite.scale.y *= -1
-				#enemy.going_up = false
-				#enemy.going_down = true
-			#
-		#elif enemy.going_down:
-			#if enemy.sprite.scale.y < 0:
-				#enemy.sprite.scale.y *= -1
-				#enemy.going_up = true
-				#enemy.going_down = false
-		#else: #not going up or down
-			#if enemy.sprite.scale.y < 0:
-				#enemy.sprite.scale.y *= -1
+		
 		
 
 func check_path() -> void:
