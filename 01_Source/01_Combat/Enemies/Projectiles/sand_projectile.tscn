@@ -1,10 +1,48 @@
-[gd_scene load_steps=6 format=3 uid="uid://vd7e1yjuvit3"]
+[gd_scene load_steps=9 format=3 uid="uid://vd7e1yjuvit3"]
 
 [ext_resource type="Script" uid="uid://nrox43c7pya7" path="res://01_Source/01_Combat/Enemies/Projectiles/sand_projectile.gd" id="1_ietp8"]
-[ext_resource type="Texture2D" uid="uid://fra8l0di70a4" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_qg7v2"]
+[ext_resource type="Texture2D" uid="uid://cnhr0egal0qma" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_qg7v2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_elrbt"]
 radius = 20.0
+
+[sub_resource type="Animation" id="Animation_ietp8"]
+resource_name = "default"
+length = 0.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1.68179, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.95, 0.95)]
+}
+
+[sub_resource type="Animation" id="Animation_qg7v2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qj0xt"]
+_data = {
+&"RESET": SubResource("Animation_qg7v2"),
+&"default": SubResource("Animation_ietp8")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ietp8"]
 radius = 13.0
@@ -23,6 +61,10 @@ texture = ExtResource("2_qg7v2")
 shape = SubResource("CircleShape2D_elrbt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qj0xt")
+}
+autoplay = "default"
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
