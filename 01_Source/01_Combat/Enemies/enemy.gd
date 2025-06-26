@@ -47,7 +47,8 @@ func start_death() -> void:
 
 func _physics_process(delta: float) -> void:
 	#update distance to player
-	distance_to_player = GameData.player.global_position.distance_to(global_position)
+	if GameData.player:
+		distance_to_player = GameData.player.global_position.distance_to(global_position)
 	
 	#death
 	#DEBUG DAMAGE TESTABLE
