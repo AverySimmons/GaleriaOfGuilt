@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://uv6n8vwwakt0"]
+
+[node name="UpgradeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Choice1" type="Control" parent="."]
+custom_minimum_size = Vector2(293, 0)
+anchors_preset = 0
+offset_left = 125.0
+offset_right = 418.0
+offset_bottom = 40.0
+
+[node name="Choice2" type="Control" parent="."]
+custom_minimum_size = Vector2(293, 0)
+anchors_preset = 0
+offset_left = 493.0
+offset_right = 786.0
+offset_bottom = 40.0
+
+[node name="Choice3" type="Control" parent="."]
+custom_minimum_size = Vector2(293, 0)
+anchors_preset = 0
+offset_left = 861.0
+offset_right = 1154.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.94, 0, 0, 0.2)
