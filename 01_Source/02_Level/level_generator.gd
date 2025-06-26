@@ -1,19 +1,27 @@
 extends Node
 
 var small_level_scenes: Array[PackedScene] = [
-	preload("res://01_Source/02_Level/level.tscn")
+	preload("res://01_Source/02_Level/Levels/SmallLevels/level0.tscn"),
+	preload("res://01_Source/02_Level/Levels/SmallLevels/level1.tscn"),
+	preload("res://01_Source/02_Level/Levels/SmallLevels/level2.tscn"),
 ]
 
 var small_medium_level_scenes: Array[PackedScene] = [
-	preload("res://01_Source/02_Level/level.tscn")
+	preload("res://01_Source/02_Level/Levels/MediumSmallLevels/level0.tscn"),
+	preload("res://01_Source/02_Level/Levels/MediumSmallLevels/level1.tscn"),
+	preload("res://01_Source/02_Level/Levels/MediumSmallLevels/level2.tscn"),
 ]
 
 var big_medium_level_scenes: Array[PackedScene] = [
-	preload("res://01_Source/02_Level/level.tscn")
+	preload("res://01_Source/02_Level/Levels/MediumBigLevels/level0.tscn"),
+	preload("res://01_Source/02_Level/Levels/MediumBigLevels/level1.tscn"),
+	preload("res://01_Source/02_Level/Levels/MediumBigLevels/level2.tscn"),
 ]
 
 var big_level_scenes: Array[PackedScene] = [
-	preload("res://01_Source/02_Level/level.tscn")
+	preload("res://01_Source/02_Level/Levels/BigLevels/level0.tscn"),
+	preload("res://01_Source/02_Level/Levels/BigLevels/level1.tscn"),
+	preload("res://01_Source/02_Level/Levels/BigLevels/level2.tscn"),
 ]
 
 var map: Dictionary[Vector2, MapNode] = {}
@@ -112,8 +120,7 @@ func generate_map(tile_num):
 			con_chance *= 0.35
 		if con_num == 0: return false
 	
-	spawn_exit()
-	return true
+	return spawn_exit()
 
 func spawn_exit():
 	var seen = {Vector2.ZERO : null}
@@ -147,7 +154,9 @@ func spawn_exit():
 			end.is_end = true
 			map[end_pos] = end
 			map[picked_end[0]].connect_node(picked_end[1])
-			return
+			return true
+	
+	return false
 
 func connect_level(level_pos, dir):
 	var dir_ind = GameData.DIRECTIONS[dir]

@@ -17,7 +17,7 @@ corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
-shadow_color = Color(1, 0, 0, 0.117647)
+shadow_color = Color(1, 0, 0, 0.176471)
 shadow_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_ypphk"]
@@ -83,16 +83,17 @@ offset_bottom = 36.0
 color = Color(1, 0.14, 0.14, 1)
 
 [node name="Description" type="Label" parent="Choice1"]
-custom_minimum_size = Vector2(250, 150)
+custom_minimum_size = Vector2(220, 150)
 layout_mode = 2
-offset_left = 21.5
+offset_left = 36.5
 offset_top = 238.0
-offset_right = 271.5
+offset_right = 256.5
 offset_bottom = 388.0
-text = "Blah blah blah"
+text = "Replace your special ability with"
 
 [node name="Icon" type="Panel" parent="Choice1"]
 custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
 offset_left = 71.5
 offset_top = 74.0
 offset_right = 221.5
