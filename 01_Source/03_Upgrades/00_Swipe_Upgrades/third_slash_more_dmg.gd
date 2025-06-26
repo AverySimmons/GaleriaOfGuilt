@@ -1,11 +1,12 @@
 extends Upgrade
 
-func _ready() -> void:
+func _init() -> void:
 	upgrade_name = "Retractable Claws"
 	upgrade_description = "Your third swipe deals more damage"
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/slash.png")
-	upgrade_number = UpgradeData.CHARGE_SWIPE
-	upgrade_scene = UpgradeData.CHARGE_SWIPE_SCENE
+	upgrade_number = UpgradeData.RETRACT_SWIPE
+	print(upgrade_number)
+	upgrade_scene = self
 	pass
 
 func choose_upgrade() -> void:

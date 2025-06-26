@@ -5,7 +5,7 @@ func _ready() -> void:
 	upgrade_description = "Replace your special ability with a shotgun-style attack. Hey guys :D"
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png")
 	upgrade_number = UpgradeData.SHOTGUN
-	upgrade_scene = UpgradeData.SHOTGUN_SCENE
+	upgrade_scene = self
 	pass
 
 func choose_upgrade() -> void:
