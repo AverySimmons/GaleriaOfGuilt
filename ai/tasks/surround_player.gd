@@ -22,18 +22,18 @@ func _tick(delta: float) -> Status:
 	
 	if agent.distance_to_player < 300 and agent.distance_to_player > 200 :
 		
-		#if GameData.player.global_position.y > enemy.global_position.y and \
-				#direction_to_player.angle() > 1/4. * PI && direction_to_player.angle() < 3/4. * PI: #player underneath
-			#if enemy.sprite.scale.y > 0:
-				#enemy.sprite.scale.y *= -1
-				#enemy.going_up = false
-				#enemy.going_down = true
-		#elif GameData.player.global_position.y < enemy.global_position.y and \
-				#direction_to_player.angle() > -3/4. * PI && direction_to_player.angle() < -1/4. * PI: #player up
-			#if enemy.sprite.scale.y < 0:
-				#enemy.sprite.scale.y *= -1
-				#enemy.going_up = true
-				#enemy.going_down = false
+		if GameData.player.global_position.y > enemy.global_position.y and \
+				direction_to_player.angle() > 1/4. * PI && direction_to_player.angle() < 3/4. * PI: #player underneath
+			if enemy.sprite.scale.y < 0:
+				enemy.sprite.scale.y *= -1
+				enemy.going_up = false
+				enemy.going_down = true
+		elif GameData.player.global_position.y < enemy.global_position.y and \
+				direction_to_player.angle() > -3/4. * PI && direction_to_player.angle() < -1/4. * PI: #player up
+			if enemy.sprite.scale.y > 0:
+				enemy.sprite.scale.y *= -1
+				enemy.going_up = true
+				enemy.going_down = false
 		
 		print('navigation finished')
 		return SUCCESS
@@ -46,6 +46,24 @@ func _tick(delta: float) -> Status:
 		
 	
 	find_player_timer -= delta
+	
+	#flip sprite veritcally
+	if enemy.going_up:
+		if enemy.sprite.scale.y > 0: #facing down
+			enemy.sprite.scale.y *= -1
+			enemy.going_up = false
+			enemy.going_down = true
+			
+	elif enemy.going_down:
+		if enemy.sprite.scale.y < 0:
+			enemy.sprite.scale.y *= -1
+			enemy.going_up = true
+			enemy.going_down = false
+	else: #not going up or down
+		if enemy.sprite.scale.y < 0:
+			enemy.sprite.scale.y *= -1
+			enemy.going_up = true
+			enemy.going_down = false
 	
 	return RUNNING
 	
