@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=4 uid="uid://86by6ulp2swc"]
+[gd_scene load_steps=5 format=4 uid="uid://86by6ulp2swc"]
 
 [ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_r7jwi"]
-[ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_jxct1"]
+[ext_resource type="Texture2D" uid="uid://bpf42rxd55uts" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_jxct1"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
+size = Vector2(30, -30)
+
+[sub_resource type="MultiMesh" id="MultiMesh_r7jwi"]
+resource_local_to_scene = true
+use_custom_data = true
+visible_instance_count = 0
+mesh = SubResource("QuadMesh_x8ck2")
 
 [node name="Level" instance=ExtResource("1_r7jwi")]
 
@@ -32,6 +41,9 @@ position = Vector2(0, 320)
 
 [node name="RightDoor" parent="Doors" index="3"]
 position = Vector2(832, 0)
+
+[node name="BloodManager" parent="." index="6"]
+multimesh = SubResource("MultiMesh_r7jwi")
 
 [node name="MultiplyLayer" parent="." index="8"]
 offset_left = -1224.0
