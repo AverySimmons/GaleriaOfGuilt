@@ -31,6 +31,7 @@ signal exited_room(dir: Vector2)
 
 func _ready() -> void:
 	$MultiplyLayer.color = tint
+	SignalBus.death.connect(enemy_died)
 	
 	top_left = $TopLeft.global_position
 	bot_right = $BottomRight.global_position
@@ -66,7 +67,7 @@ func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
 	
-	if enemies_left:
+	if enemies_left > 0:
 		GameData.music_event.set_parameter("combat state", 1)
 	else:
 		GameData.music_event.set_parameter("combat state", 0)
@@ -100,7 +101,6 @@ func populate_enemies():
 
 func spawn_enemy(pos: Vector2, index: int) -> void:
 	var new_enemy = enemy_scenes[index].instantiate()
-	SignalBus.death.connect(enemy_died)
 	if index == 0:
 		new_enemy.bullet_node = entities
 	var new_enemy_spawn = enemy_spawn_scene.instantiate()
@@ -115,7 +115,7 @@ func enemy_died() -> void:
 func enter(dir: Vector2) -> void:
 	blood_manager.spawn()
 	if map_pos == Vector2.ZERO:
-		GameData.player.global_position = Vector2(1280,720) * 0.5
+		GameData.player.global_position = Vector2.ZERO
 		entities.add_child(GameData.player)
 		return
 	
