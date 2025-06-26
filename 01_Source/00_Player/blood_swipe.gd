@@ -33,6 +33,8 @@ func _physics_process(delta: float) -> void:
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
 		print(damage)
+		if UpgradeData.upgrades_gained[UpgradeData.LIFESTEAL]:
+			parent.heal_damage(2)
 		# Enemy take damage thing
 	enemies_just_entered.clear()
 	
@@ -114,7 +116,8 @@ func initiate_attack(upgrade_mult: float) -> void:
 		parent.gain_blood("swipe", 1.0, enemy)
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
-		parent.heal_damage(2)
+		if UpgradeData.upgrades_gained[UpgradeData.LIFESTEAL]:
+			parent.heal_damage(2)
 	# Functions:
 	# Deal dmg
 	# Gain blood for each enemy hit and killed
