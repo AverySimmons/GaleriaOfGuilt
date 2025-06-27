@@ -33,12 +33,14 @@ var map: Dictionary[Vector2, MapNode] = {}
 class MapNode:
 	var map: Dictionary[Vector2, MapNode]
 	var pos: Vector2
+	var distance: float
 	var is_end: bool
 	var cons: Array[bool] = [false, false, false, false]
 	
 	func _init(map: Dictionary[Vector2, MapNode], pos: Vector2) -> void:
 		self.pos = pos
 		self.map = map
+		self.distance = 0
 	
 	func connect_node(dir: Vector2):
 		var target_node = map[self.pos + dir]
@@ -48,7 +50,13 @@ class MapNode:
 func get_levels(node_num) -> Dictionary[Vector2, Level]:
 	while not generate_map(node_num): continue
 	
-	var tint = Color(randf(), randf(), randf(), randf_range(0.1, 0.2))
+	set_distance()
+	
+	var h = randf()
+	var s = randf_range(0.1, 0.2)
+	var v = randf_range(0.9, 1)
+	
+	var tint = Color.from_hsv(h,s,v)
 	
 	var levels: Dictionary[Vector2, Level] = {}
 	for node: MapNode in map.values():
@@ -74,6 +82,7 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 		new_level.is_end = node.is_end
 		new_level.map_pos = node.pos
 		new_level.tint = tint
+		new_level.distance = node.distance
 		levels[node.pos] = new_level
 	
 	for node: MapNode in map.values():
@@ -90,6 +99,32 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 					other_lvl.connections[(i + 2) % 4] += 2
 	
 	return levels
+
+func set_distance():
+	var cur_dist = 0
+	
+	var queue = [Vector2.ZERO]
+	var seen = {Vector2.ZERO : null}
+	
+	while queue:
+		var next_queue = []
+		while queue:
+			var cur: Vector2 = queue.pop_front()
+			var cur_node: MapNode = map[cur]
+			
+			cur_node.distance = cur_dist
+			
+			for i in 4:
+				if not cur_node.cons[i]: continue
+				var dir = GameData.INVERSE_DIRECTIONS[i]
+				var target = cur + dir
+				if target in seen: continue
+				
+				next_queue.push_back(target)
+				seen[target] = null
+		
+		queue = next_queue
+		cur_dist += 1
 
 func generate_map(tile_num):
 	var start_node = MapNode.new(map, Vector2.ZERO)

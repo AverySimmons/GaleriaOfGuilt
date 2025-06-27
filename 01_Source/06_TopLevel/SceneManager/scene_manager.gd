@@ -14,7 +14,9 @@ func _ready() -> void:
 	game_manager = game_manager_scene.instantiate()
 	add_child(game_manager)
 
-
+func dialogic_stupid(inp: String) -> void:
+	if inp == "pause_game": pause_game()
+	if inp == "unpause_game": unpause_game()
 
 func pause_game() -> void:
 	get_tree().paused = true

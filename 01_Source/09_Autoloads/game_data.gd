@@ -18,4 +18,6 @@ var player: Player
 
 var music_event: FmodEventEmitter2D
 
-var mall_number: int = 0
+var mall_ind: int = 0
+
+var is_escaping = false
