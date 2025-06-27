@@ -10,6 +10,12 @@
 seamless = true
 noise = SubResource("FastNoiseLite_ffu50")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ndp2"]
+resource_local_to_scene = true
+shader = ExtResource("2_ypphk")
+shader_parameter/dis_percent = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
 resource_local_to_scene = true
 shader = ExtResource("2_ypphk")
@@ -17,12 +23,6 @@ shader_parameter/dis_percent = 0.0
 shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v457b"]
-resource_local_to_scene = true
-shader = ExtResource("2_ypphk")
-shader_parameter/dis_percent = 0.0
-shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqj0v"]
 resource_local_to_scene = true
 shader = ExtResource("2_ypphk")
 shader_parameter/dis_percent = 0.0
@@ -386,21 +386,21 @@ offset_bottom = 720.0
 color = Color(0.94, 0, 0, 0.2)
 
 [node name="Choice1" parent="." instance=ExtResource("1_8m1r4")]
-material = SubResource("ShaderMaterial_kuq1d")
+material = SubResource("ShaderMaterial_3ndp2")
 offset_left = 150.0
 offset_top = 150.0
 offset_right = 443.0
 offset_bottom = 570.0
 
 [node name="Choice2" parent="." instance=ExtResource("1_8m1r4")]
-material = SubResource("ShaderMaterial_v457b")
+material = SubResource("ShaderMaterial_kuq1d")
 offset_left = 493.0
 offset_top = 150.0
 offset_right = 786.0
 offset_bottom = 570.0
 
 [node name="Choice3" parent="." instance=ExtResource("1_8m1r4")]
-material = SubResource("ShaderMaterial_wqj0v")
+material = SubResource("ShaderMaterial_v457b")
 offset_left = 836.0
 offset_top = 150.0
 offset_right = 1129.0

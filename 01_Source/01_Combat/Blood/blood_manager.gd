@@ -4,6 +4,8 @@ extends MultiMeshInstance2D
 var blood_scene = preload("res://01_Source/01_Combat/Blood/blood_particle.tscn")
 
 func _ready() -> void:
+	multimesh.instance_count = 0
+	multimesh.use_custom_data = true
 	multimesh.instance_count = 10000
 
 func spawn():
@@ -21,7 +23,7 @@ func add_blood(pos: Vector2, rot: float, frame: int) -> void:
 	
 	var custom_data = Color(float(frame) / 4., 0, 0);
 	
-	mm.set_instance_transform_2d(index, Transform2D(rot, pos))
+	mm.set_instance_transform_2d(index, Transform2D(rot, Vector2.ONE * 1.3, 0, pos))
 	mm.set_instance_custom_data(index, custom_data)
 	mm.visible_instance_count += 1
 

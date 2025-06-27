@@ -29,7 +29,7 @@ DSP/dsp_buffer_count=4
 [application]
 
 config/name="Blood"
-run/main_scene="uid://c16ryaaqw6wrm"
+run/main_scene="uid://iudn154k7uar"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

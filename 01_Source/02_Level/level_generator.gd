@@ -24,6 +24,10 @@ var big_level_scenes: Array[PackedScene] = [
 	preload("res://01_Source/02_Level/Levels/BigLevels/level2.tscn"),
 ]
 
+var starting_level_scene = preload("res://01_Source/02_Level/Levels/starting_room.tscn")
+var secret_level_scene = preload("res://01_Source/02_Level/Levels/starting_room.tscn")
+
+
 var map: Dictionary[Vector2, MapNode] = {}
 
 class MapNode:
@@ -59,7 +63,14 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 			3: lvl_list = big_medium_level_scenes
 			4: lvl_list = big_level_scenes
 		
-		var new_level: Level = lvl_list.pick_random().instantiate()
+		var new_level: Level
+		if node.pos == Vector2.ZERO:
+			new_level = starting_level_scene.instantiate()
+		elif con_num == 4 and randf() < 0.01:
+			new_level = secret_level_scene.instantiate()
+		else:
+			new_level = lvl_list.pick_random().instantiate()
+		
 		new_level.is_end = node.is_end
 		new_level.map_pos = node.pos
 		new_level.tint = tint

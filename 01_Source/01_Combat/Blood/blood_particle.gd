@@ -5,7 +5,7 @@ const DEACC = 2500
 
 var sprite_frame = 0
 
-signal stopped(pos: Vector2, rot: float)
+signal stopped(pos: Vector2, rot: float, frame: int)
 
 var velocity = Vector2.ZERO
 var disapearing = false
