@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvqk6fx6ty2p4"]
+
+[ext_resource type="Texture2D" uid="uid://bkkg41ogsayda" path="res://00_Assets/00_Sprites/Objective_item_sprites/compact_mirror_sprite.png" id="1_wu1y8"]
+[ext_resource type="Script" uid="uid://c570081hglna2" path="res://01_Source/02_Level/Item/item.gd" id="2_4wp4d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4wp4d"]
+radius = 59.0
+
+[node name="Item" type="Sprite2D"]
+texture = ExtResource("1_wu1y8")
+script = ExtResource("2_4wp4d")
+
+[node name="Effect" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4wp4d")

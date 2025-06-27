@@ -7,15 +7,44 @@ extends Node2D
 @onready var doors: Node2D = $Doors
 
 var enemies_left = 0
+var enemy_credits = 0
 
 var top_left: Vector2
 var bot_right: Vector2
 
+signal item_picked_up()
+
+var item
+
+var escape_timer = 0
+var distance = 0
+
+var mall_scaling: Array[float] = [
+	1, 2, 3, 4, 5
+]
+
+var mall_flat: Array[float] = [
+	1, 2, 3, 4, 5
+]
+
+var size_scaling: Array[float] = [
+	1, 2, 3, 4
+]
+
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
+var item_scene = preload("res://01_Source/02_Level/Item/item.tscn")
 
 var enemy_scenes = [
 	preload("res://01_Source/01_Combat/Enemies/worm.tscn"),
 	preload("res://01_Source/01_Combat/Enemies/locust.tscn")
+]
+
+var item_sprites = [
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/compact_mirror_sprite.png"),
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/heart_shaped_sunglasses_sprite.png"),
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/human_heart_sprite.png"),
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/lamb_plush_sprite.png"),
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/ring_sprite.png")
 ]
 
 # 0 is no connection
@@ -30,6 +59,14 @@ var tint: Color = Color(0,0,0,0)
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
+	
+	var con_num = -1
+	for c in connections: if c: con_num += 1
+	
+	enemy_credits = mall_flat[GameData.mall_ind] + \
+		mall_scaling[GameData.mall_ind] * distance + \
+		size_scaling[con_num]
+	
 	$MultiplyLayer.color = tint
 	SignalBus.death.connect(enemy_died)
 	
@@ -61,24 +98,47 @@ func _ready() -> void:
 		else:
 			d.queue_free()
 	
-	populate_enemies()
+	enemy_credits = int(enemy_credits)
+	
+	if is_end:
+		spawn_item()
+	else:
+		populate_enemies()
 
 func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
 	
-	if enemies_left > 0:
+	if GameData.is_escaping:
+		GameData.music_event.set_parameter("combat state", 2)
+	elif enemies_left > 0:
 		GameData.music_event.set_parameter("combat state", 1)
 	else:
 		GameData.music_event.set_parameter("combat state", 0)
-	
+
+func _physics_process(delta: float) -> void:
+	if not GameData.is_escaping: return
+	var con_num = -1
+	for c in connections: if c: con_num += 1
+	enemy_credits = (mall_flat[GameData.mall_ind] + size_scaling[con_num]) * 1.5
+	escape_timer -= delta
+	if escape_timer <= 0:
+		escape_timer += 0.5
+		populate_enemies()
+
+func spawn_item():
+	item = item_scene.instantiate()
+	item.texture = item_sprites[GameData.mall_ind]
+	item.found.connect(item_interact)
+	item.global_position = Vector2.ZERO
+	entities.add_child(item)
 
 func populate_enemies():
 	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()
 	circle.radius = 100
 	
-	for ei in 5:
+	for ei in enemy_credits:
 		for try in 10:
 			var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 				randf_range(top_left.y+100, bot_right.y-100))
@@ -107,6 +167,7 @@ func spawn_enemy(pos: Vector2, index: int) -> void:
 	new_enemy_spawn.entities_node = entities
 	new_enemy_spawn.global_position = pos
 	new_enemy_spawn.enemy = new_enemy
+	new_enemy_spawn.spawn_time = 0.5 if GameData.is_escaping else 1
 	entities.add_child(new_enemy_spawn)
 
 func enemy_died(enemy) -> void:
@@ -126,7 +187,10 @@ func enter(dir: Vector2) -> void:
 			break
 
 func exit(dir: Vector2):
-	if enemies_left > 0:
-		return
+	if enemies_left > 0 and not GameData.is_escaping: return
 	entities.remove_child(GameData.player)
 	exited_room.emit(dir)
+
+func item_interact():
+	item_picked_up.emit()
+	

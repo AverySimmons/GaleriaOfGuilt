@@ -6,7 +6,10 @@ extends Node
 var levels: Dictionary[Vector2, Level]
 var current_level: Level
 
-var size: float = 10
+var size: float = 0
+
+signal item_dialog()
+signal stage_complete()
 
 func _ready() -> void:
 	levels = level_generator.get_levels(size)
@@ -14,6 +17,7 @@ func _ready() -> void:
 	
 	for lvl: Level in levels.values():
 		lvl.exited_room.connect(transition_levels)
+		lvl.item_picked_up.connect(item_picked_up)
 	
 	current_level = levels[Vector2.ZERO]
 	add_child(current_level)
@@ -38,3 +42,7 @@ func transition_levels(dir: Vector2) -> void:
 	
 	map_overlay.map_position = current_level.map_pos
 	map_overlay.display()
+
+func item_picked_up():
+	GameData.is_escaping = true
+	item_dialog.emit()
