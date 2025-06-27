@@ -24,6 +24,8 @@ func _input(event: InputEvent) -> void:
 		$CanvasLayer/MapOverlay/AnimationPlayer.play("on")
 	if Input.is_action_just_released("map"):
 		$CanvasLayer/MapOverlay/AnimationPlayer.play("off")
+	if Input.is_action_just_pressed("levelup_debug"):
+		SignalBus.levelup.emit()
 
 func transition_levels(dir: Vector2) -> void:
 	if current_level:

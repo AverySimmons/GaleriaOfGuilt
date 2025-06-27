@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://uv6n8vwwakt0"]
 
-[ext_resource type="Script" path="res://01_Source/05_UI/UpgradeScreen/upgrade_screen.gd" id="1_3ndp2"]
+[ext_resource type="Script" uid="uid://c0ty1eebjldbe" path="res://01_Source/05_UI/UpgradeScreen/upgrade_screen.gd" id="1_3ndp2"]
 [ext_resource type="PackedScene" uid="uid://dg88ku5vis6l8" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.tscn" id="1_8m1r4"]
 [ext_resource type="Shader" uid="uid://tgwajhd515w2" path="res://01_Source/05_UI/UpgradeScreen/disolve.gdshader" id="2_ypphk"]
 
@@ -112,7 +112,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.94, 0, 0, 0.2)]
+"values": [Color(0.941176, 0, 0, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -124,7 +124,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -136,7 +136,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -148,7 +148,7 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ypphk"]
@@ -383,9 +383,10 @@ script = ExtResource("1_3ndp2")
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
-color = Color(0.94, 0, 0, 0.2)
+color = Color(0.941176, 0, 0, 0)
 
 [node name="Choice1" parent="." instance=ExtResource("1_8m1r4")]
+visible = false
 material = SubResource("ShaderMaterial_3ndp2")
 offset_left = 150.0
 offset_top = 150.0
@@ -393,6 +394,7 @@ offset_right = 443.0
 offset_bottom = 570.0
 
 [node name="Choice2" parent="." instance=ExtResource("1_8m1r4")]
+visible = false
 material = SubResource("ShaderMaterial_kuq1d")
 offset_left = 493.0
 offset_top = 150.0
@@ -400,6 +402,7 @@ offset_right = 786.0
 offset_bottom = 570.0
 
 [node name="Choice3" parent="." instance=ExtResource("1_8m1r4")]
+visible = false
 material = SubResource("ShaderMaterial_v457b")
 offset_left = 836.0
 offset_top = 150.0

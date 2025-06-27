@@ -5,19 +5,20 @@ var unseen_weight: float = 0.5
 
 func _ready() -> void:
 	SignalBus.levelup.connect(on_level_up)
+	$UpgradeScreen.upgrade_picked.connect(pick_upgrade)
 	return
 
 func on_level_up() -> void:
-	SignalBus.pause.emit
+	SignalBus.pause.emit()
 	var chosen_upgrades = choose_upgrades()
-	$UpgradeScreen.choices
+	$UpgradeScreen.display_upgrades(chosen_upgrades)
 	return
 
-func choose_upgrades() -> Array:
+func choose_upgrades() -> Array[Upgrade]:
 	if UpgradeData.selectable_upgrades.size() <= 3:
 		return UpgradeData.selectable_upgrades
 	
-	var chosen_upgrades: Array
+	var chosen_upgrades: Array[Upgrade]
 	var unseen: bool
 	var chosen_upgrade
 	var upgrade_number: int
@@ -38,3 +39,8 @@ func choose_upgrades() -> Array:
 		UpgradeData.unseen_upgrades.erase(chosen_upgrade)
 	return chosen_upgrades
 	
+
+func pick_upgrade(upgrade: Upgrade) -> void:
+	upgrade.choose_upgrade()
+	SignalBus.unpause.emit()
+	return
