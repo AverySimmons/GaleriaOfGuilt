@@ -9,6 +9,8 @@ func _ready() -> void:
 
 func on_level_up() -> void:
 	SignalBus.pause.emit
+	var chosen_upgrades = choose_upgrades()
+	$UpgradeScreen.choices
 	return
 
 func choose_upgrades() -> Array:
@@ -21,9 +23,18 @@ func choose_upgrades() -> Array:
 	var upgrade_number: int
 	
 	while chosen_upgrades.size() < 3:
-		unseen = randf() >= unseen_weight
+		if UpgradeData.unseen_upgrades.size() == 0:
+			unseen = false
+		else:
+			unseen = randf() >= unseen_weight
 		if unseen:
-			pass
-	
+			chosen_upgrade = UpgradeData.unseen_upgrades[randi_range(0, UpgradeData.unseen_upgrades.size()-1)]
+			if !chosen_upgrades.has(chosen_upgrade):
+				chosen_upgrades.append(chosen_upgrade)
+		else:
+			chosen_upgrade = UpgradeData.selectable_upgrades[randi_range(0, UpgradeData.selectable_upgrades.size()-1)]
+			if !chosen_upgrades.has(chosen_upgrade):
+				chosen_upgrades.append(chosen_upgrade)
+		UpgradeData.unseen_upgrades.erase(chosen_upgrade)
 	return chosen_upgrades
 	
