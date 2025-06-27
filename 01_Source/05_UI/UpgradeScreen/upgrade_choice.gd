@@ -9,6 +9,9 @@ extends Control
 @onready var button: Button = $Button
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+signal pause_choices()
+signal chosen()
+
 func _ready() -> void:
 	format(randi_range(0, 3))
 	button.mouse_entered.connect(on_hover)
@@ -16,6 +19,8 @@ func _ready() -> void:
 	button.pressed.connect(clicked)
 
 func format(type: int):
+	animation_player.play("RESET")
+	
 	var back_style : StyleBoxFlat = background.get_theme_stylebox("panel")
 	var icon_style : StyleBoxFlat = icon.get_theme_stylebox("panel")
 	match type:
@@ -69,6 +74,14 @@ func stop_hover():
 	animation_player.play("stop_hover")
 
 func clicked():
-	animation_player.play("fade_out")
+	pause_choices.emit()
+	animation_player.play("shrink_out")
+	
+	await animation_player.animation_finished
+	
+	chosen.emit()
+
+func turn_off_signals():
+	button.pressed.disconnect(clicked)
 	button.mouse_entered.disconnect(on_hover)
 	button.mouse_exited.disconnect(stop_hover)
