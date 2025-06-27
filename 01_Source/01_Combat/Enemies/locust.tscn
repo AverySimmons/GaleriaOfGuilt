@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=33 format=3 uid="uid://bj5h3s11xhapu"]
 
 [ext_resource type="Texture2D" uid="uid://61otys7l5v1q" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
@@ -16,38 +16,32 @@
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_l72ei"]
 
+[sub_resource type="BTWait" id="BTWait_prp80"]
+duration = 0.5
+
+[sub_resource type="BTRunLimit" id="BTRunLimit_x4uw2"]
+children = [SubResource("BTWait_prp80")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_eeflq"]
+children = [SubResource("BTRunLimit_x4uw2")]
+
 [sub_resource type="BTAction" id="BTAction_x5ri8"]
 script = ExtResource("3_x5ri8")
 
 [sub_resource type="BTAction" id="BTAction_x4uw2"]
 script = ExtResource("4_tcqde")
 
+[sub_resource type="BTWait" id="BTWait_x4uw2"]
+duration = 0.2
+
 [sub_resource type="BTAction" id="BTAction_eeflq"]
 script = ExtResource("5_tcqde")
-
-[sub_resource type="BTWait" id="BTWait_l72ei"]
 
 [sub_resource type="BTAction" id="BTAction_oe0yt"]
 script = ExtResource("4_l72ei")
 
-[sub_resource type="BTAction" id="BTAction_tcqde"]
-script = ExtResource("3_x5ri8")
-
-[sub_resource type="BTWait" id="BTWait_oe0yt"]
-custom_name = "Wait and Shake - Arrow?"
-
-[sub_resource type="BTAction" id="BTAction_prp80"]
-script = ExtResource("4_l72ei")
-
-[sub_resource type="BTSequence" id="BTSequence_prp80"]
-children = [SubResource("BTAction_tcqde"), SubResource("BTWait_oe0yt"), SubResource("BTAction_prp80")]
-
-[sub_resource type="BTProbability" id="BTProbability_x4uw2"]
-run_chance = 0.0
-children = [SubResource("BTSequence_prp80")]
-
 [sub_resource type="BTSequence" id="BTSequence_tcqde"]
-children = [SubResource("BTAction_x5ri8"), SubResource("BTAction_x4uw2"), SubResource("BTAction_eeflq"), SubResource("BTWait_l72ei"), SubResource("BTAction_oe0yt"), SubResource("BTProbability_x4uw2")]
+children = [SubResource("BTAlwaysSucceed_eeflq"), SubResource("BTAction_x5ri8"), SubResource("BTAction_x4uw2"), SubResource("BTWait_x4uw2"), SubResource("BTAction_eeflq"), SubResource("BTAction_oe0yt")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_oe0yt"]
 blackboard_plan = SubResource("BlackboardPlan_l72ei")

@@ -6,6 +6,7 @@ var enemy : Enemy
 var find_player_timer : float
 
 ## variables at the top
+#IMPORTANT: This script is for the locust and will handle vertically flipping the sprite
 
 func _generate_name() -> String:
 	return 'navigate to a position medium range from the player'
@@ -18,10 +19,12 @@ func _enter() -> void:
 	pass
 	
 func _tick(delta: float) -> Status:
+	
 	var direction_to_player = enemy.global_position.direction_to(GameData.player.global_position)
 	
-	if agent.distance_to_player < 300 and agent.distance_to_player > 200 :
+	if agent.distance_to_player < 300 and agent.distance_to_player > 200 : #Change this to alter dash start position
 		
+		#flip vertically if needed
 		if GameData.player.global_position.y > enemy.global_position.y and \
 				direction_to_player.angle() > 1/4. * PI && direction_to_player.angle() < 3/4. * PI: #player underneath
 			if enemy.sprite.scale.y < 0:
@@ -47,7 +50,7 @@ func _tick(delta: float) -> Status:
 	
 	find_player_timer -= delta
 	
-	#flip sprite veritcally
+	#flip sprite veritcally if needed
 	if enemy.going_up:
 		if enemy.sprite.scale.y > 0: #facing down
 			enemy.sprite.scale.y *= -1

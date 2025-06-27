@@ -1,0 +1,276 @@
+[gd_scene load_steps=25 format=3 uid="uid://bmxb5t3rbvnwu"]
+
+[ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
+[ext_resource type="Texture2D" uid="uid://we2o66nyt8hx" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
+[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
+[ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="2_c4j58"]
+[ext_resource type="PackedScene" uid="uid://b20fmxj4jv2si" path="res://01_Source/01_Combat/Enemies/Projectiles/lightning_effect.tscn" id="3_4tlpb"]
+[ext_resource type="Texture2D" uid="uid://bmiuv3c2eaeva" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4j58"]
+size = Vector2(77.5, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tlpb"]
+size = Vector2(42.25, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cule5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cule5"]
+
+[sub_resource type="Animation" id="Animation_kkm87"]
+resource_name = "ball_o_lightning"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxyij"]
+_data = {
+&"ball_o_lightning": SubResource("Animation_kkm87")
+}
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_4tlpb"]
+
+[sub_resource type="BTAction" id="BTAction_cule5"]
+script = ExtResource("2_c4j58")
+
+[sub_resource type="BTSequence" id="BTSequence_hkm1r"]
+children = [SubResource("BTAction_cule5")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_khl08"]
+blackboard_plan = SubResource("BlackboardPlan_4tlpb")
+root_task = SubResource("BTSequence_hkm1r")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_hkm1r"]
+
+[sub_resource type="Animation" id="Animation_khl08"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.67),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -43)]
+}
+
+[sub_resource type="Animation" id="Animation_w81gv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c4j58"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -43)]
+}
+
+[sub_resource type="Animation" id="Animation_4tlpb"]
+resource_name = "hurt"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -43)]
+}
+
+[sub_resource type="Animation" id="Animation_cule5"]
+resource_name = "move_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.67),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_hkm1r"]
+resource_name = "move_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.67),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, -26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kkm87"]
+_data = {
+&"RESET": SubResource("Animation_w81gv"),
+&"hurt": SubResource("Animation_4tlpb"),
+&"idle": SubResource("Animation_c4j58"),
+&"move_down": SubResource("Animation_hkm1r"),
+&"move_up": SubResource("Animation_cule5"),
+&"walk": SubResource("Animation_khl08")
+}
+
+[node name="Lizard" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_c4j58")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("1_k6vpa")
+hframes = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.25, 2.5)
+shape = SubResource("RectangleShape2D_c4j58")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(81, 44)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-80.875, -51)
+shape = SubResource("RectangleShape2D_4tlpb")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_cule5")
+
+[node name="LightningEffect" parent="." instance=ExtResource("3_4tlpb")]
+
+[node name="BallOLightning" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallOLightning"]
+shape = SubResource("CircleShape2D_cule5")
+
+[node name="LightningBall" type="Sprite2D" parent="BallOLightning/CollisionShape2D"]
+texture = ExtResource("4_cule5")
+hframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BallOLightning"]
+libraries = {
+&"": SubResource("AnimationLibrary_vxyij")
+}
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_khl08")
+blackboard_plan = SubResource("BlackboardPlan_hkm1r")
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kkm87")
+}
+
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="DashMark" type="Sprite2D" parent="."]
+texture = ExtResource("2_7debl")

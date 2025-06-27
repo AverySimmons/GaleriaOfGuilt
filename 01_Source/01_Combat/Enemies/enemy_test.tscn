@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0vsqwrgw45wr" path="res://01_Source/01_Combat/Enemies/enemy_test.gd" id="1_digse"]
 [ext_resource type="PackedScene" uid="uid://dvbabi2s60kn0" path="res://01_Source/00_Player/Player.tscn" id="2_ubvju"]
-[ext_resource type="PackedScene" uid="uid://bj5h3s11xhapu" path="res://01_Source/01_Combat/Enemies/locust.tscn" id="4_ts2u3"]
+[ext_resource type="PackedScene" uid="uid://bmxb5t3rbvnwu" path="res://01_Source/01_Combat/Enemies/lizard.tscn" id="3_ubvju"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_digse"]
 vertices = PackedVector2Array(1230.98, 48.9766, 1230.01, 677, 47.9297, 677.992, 44.0625, 47.0078)
@@ -18,5 +18,5 @@ position = Vector2(350, 315)
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_digse")
 
-[node name="Locust" parent="." instance=ExtResource("4_ts2u3")]
-position = Vector2(821, 367)
+[node name="Lizard" parent="." instance=ExtResource("3_ubvju")]
+position = Vector2(807, 346)
