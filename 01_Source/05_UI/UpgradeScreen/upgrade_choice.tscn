@@ -1,0 +1,265 @@
+[gd_scene load_steps=16 format=3 uid="uid://dg88ku5vis6l8"]
+
+[ext_resource type="Shader" uid="uid://bf4gmkm1m3c8t" path="res://01_Source/05_UI/UpgradeScreen/upgrade_gradient.gdshader" id="1_ijyn2"]
+[ext_resource type="Script" uid="uid://cw1d5vq6vxdxq" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.gd" id="1_ud4xx"]
+[ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
+[ext_resource type="Texture2D" uid="uid://bve6dpeqieuwt" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
+
+[sub_resource type="Theme" id="Theme_ypphk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
+shader = ExtResource("1_ijyn2")
+shader_parameter/color = Color(1, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ndp2"]
+resource_local_to_scene = true
+bg_color = Color(0.141333, 0, 0.53, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.223529, 0, 0.00392157, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(1, 0, 0, 0.176471)
+shadow_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_ypphk"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kuq1d"]
+resource_local_to_scene = true
+bg_color = Color(0.139628, 0.000239691, 0.260945, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ndp2"]
+shader = ExtResource("2_ud4xx")
+
+[sub_resource type="Animation" id="Animation_kuq1d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transform/Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transform:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3ndp2"]
+resource_name = "hovered"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transform/Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.3, 1.3, 1.3, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transform:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_ud4xx"]
+resource_name = "stop_hover"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transform/Background:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xdm4q"]
+resource_name = "fade_out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transform/Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.3, 1.3, 1.3, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transform:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -20), Vector2(0, -175)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v457b"]
+_data = {
+&"RESET": SubResource("Animation_kuq1d"),
+&"fade_out": SubResource("Animation_xdm4q"),
+&"hovered": SubResource("Animation_3ndp2"),
+&"stop_hover": SubResource("Animation_ud4xx")
+}
+
+[node name="UpgradeChoice" type="Control"]
+custom_minimum_size = Vector2(293, 420)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 293.0
+offset_bottom = 420.0
+theme = SubResource("Theme_ypphk")
+script = ExtResource("1_ud4xx")
+
+[node name="Transform" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="Transform"]
+material = SubResource("ShaderMaterial_kuq1d")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ndp2")
+
+[node name="Name" type="Label" parent="Transform"]
+offset_top = 24.0
+offset_right = 293.0
+offset_bottom = 58.0
+text = "Vomit"
+label_settings = SubResource("LabelSettings_ypphk")
+horizontal_alignment = 1
+
+[node name="Border" type="ColorRect" parent="Transform/Name"]
+layout_mode = 0
+offset_left = 46.6
+offset_top = 35.0
+offset_right = 247.4
+offset_bottom = 39.0
+color = Color(0.218624, 0.0509477, 0.429744, 1)
+
+[node name="Description" type="Label" parent="Transform"]
+custom_minimum_size = Vector2(220, 150)
+offset_left = 36.5
+offset_top = 241.0
+offset_right = 256.5
+offset_bottom = 391.0
+text = "Replace your special ability with a vomit of blood."
+autowrap_mode = 2
+
+[node name="Icon" type="Panel" parent="Transform"]
+custom_minimum_size = Vector2(150, 150)
+offset_left = 71.5
+offset_top = 71.0
+offset_right = 221.5
+offset_bottom = 221.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kuq1d")
+
+[node name="Sprite2D" type="Sprite2D" parent="Transform/Icon"]
+material = SubResource("ShaderMaterial_3ndp2")
+position = Vector2(75, 75)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_ud4xx")
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v457b")
+}

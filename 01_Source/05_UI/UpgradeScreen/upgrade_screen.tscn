@@ -1,37 +1,31 @@
 [gd_scene load_steps=8 format=3 uid="uid://uv6n8vwwakt0"]
 
-[ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="1_ypphk"]
-[ext_resource type="Texture2D" uid="uid://cba5xjrpiae2j" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png" id="2_ypphk"]
+[ext_resource type="PackedScene" uid="uid://dg88ku5vis6l8" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.tscn" id="1_8m1r4"]
+[ext_resource type="Shader" uid="uid://tgwajhd515w2" path="res://01_Source/05_UI/UpgradeScreen/disolve.gdshader" id="2_ypphk"]
 
-[sub_resource type="Theme" id="Theme_ypphk"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ffu50"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ndp2"]
-bg_color = Color(0.486275, 0, 0.192157, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.8, 0.188235, 0.8, 1)
-border_blend = true
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-shadow_color = Color(1, 0, 0, 0.176471)
-shadow_size = 100
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f4sp1"]
+seamless = true
+noise = SubResource("FastNoiseLite_ffu50")
 
-[sub_resource type="LabelSettings" id="LabelSettings_ypphk"]
-font_size = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kuq1d"]
-bg_color = Color(0.19, 0, 0.00316662, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ypphk"]
+resource_local_to_scene = true
+shader = ExtResource("2_ypphk")
+shader_parameter/dis_percent = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ndp2"]
-shader = ExtResource("1_ypphk")
+resource_local_to_scene = true
+shader = ExtResource("2_ypphk")
+shader_parameter/dis_percent = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
+resource_local_to_scene = true
+shader = ExtResource("2_ypphk")
+shader_parameter/dis_percent = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
 
 [node name="UpgradeScreen" type="Control"]
 layout_mode = 3
@@ -47,95 +41,23 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.94, 0, 0, 0.2)
 
-[node name="Choice1" type="Control" parent="."]
-custom_minimum_size = Vector2(293, 420)
-anchors_preset = 0
-offset_left = 125.0
+[node name="Choice1" parent="." instance=ExtResource("1_8m1r4")]
+material = SubResource("ShaderMaterial_ypphk")
+offset_left = 150.0
 offset_top = 150.0
-offset_right = 418.0
+offset_right = 443.0
 offset_bottom = 570.0
-theme = SubResource("Theme_ypphk")
 
-[node name="Background" type="Panel" parent="Choice1"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3ndp2")
-
-[node name="Name" type="Label" parent="Choice1"]
-layout_mode = 2
-offset_top = 24.0
-offset_right = 293.0
-offset_bottom = 58.0
-text = "Vomit"
-label_settings = SubResource("LabelSettings_ypphk")
-horizontal_alignment = 1
-
-[node name="Border" type="ColorRect" parent="Choice1/Name"]
-layout_mode = 0
-offset_left = 46.6
-offset_top = 34.0
-offset_right = 247.4
-offset_bottom = 36.0
-color = Color(1, 0.14, 0.14, 1)
-
-[node name="Description" type="Label" parent="Choice1"]
-custom_minimum_size = Vector2(220, 150)
-layout_mode = 2
-offset_left = 36.5
-offset_top = 238.0
-offset_right = 256.5
-offset_bottom = 388.0
-text = "Replace your special ability with"
-
-[node name="Icon" type="Panel" parent="Choice1"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 71.5
-offset_top = 74.0
-offset_right = 221.5
-offset_bottom = 224.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kuq1d")
-
-[node name="Sprite2D" type="Sprite2D" parent="Choice1/Icon"]
+[node name="Choice2" parent="." instance=ExtResource("1_8m1r4")]
 material = SubResource("ShaderMaterial_3ndp2")
-position = Vector2(75, 75)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("2_ypphk")
-
-[node name="Choice2" type="Control" parent="."]
-custom_minimum_size = Vector2(293, 420)
-anchors_preset = 0
 offset_left = 493.0
 offset_top = 150.0
 offset_right = 786.0
 offset_bottom = 570.0
 
-[node name="ColorRect" type="ColorRect" parent="Choice2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.266667, 0.266667, 0.266667, 1)
-
-[node name="Choice3" type="Control" parent="."]
-custom_minimum_size = Vector2(293, 420)
-anchors_preset = 0
-offset_left = 861.0
+[node name="Choice3" parent="." instance=ExtResource("1_8m1r4")]
+material = SubResource("ShaderMaterial_kuq1d")
+offset_left = 836.0
 offset_top = 150.0
-offset_right = 1154.0
+offset_right = 1129.0
 offset_bottom = 570.0
-
-[node name="ColorRect" type="ColorRect" parent="Choice3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.266667, 0.266667, 0.266667, 1)
