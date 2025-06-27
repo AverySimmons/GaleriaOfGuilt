@@ -1,9 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://b20fmxj4jv2si"]
+[gd_scene load_steps=7 format=3 uid="uid://b20fmxj4jv2si"]
 
-[ext_resource type="Texture2D" uid="uid://di0o1y6igvupo" path="res://00_Assets/00_Sprites/Enemies/lizards_lightning_special_effects.png" id="1_dsnvx"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_t6ua4"]
-radius = 69.2604
+[ext_resource type="Texture2D" uid="uid://n2ala4f0ipbv" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="1_dsnvx"]
 
 [sub_resource type="Animation" id="Animation_0mjac"]
 resource_name = "lightning_horizontal"
@@ -76,15 +73,11 @@ _data = {
 &"lightning_up": SubResource("Animation_y4y36")
 }
 
-[node name="LightningEffect" type="CharacterBody2D"]
+[node name="LightningEffect" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_dsnvx")
 hframes = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("CircleShape2D_t6ua4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

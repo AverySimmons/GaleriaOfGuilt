@@ -1,9 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=25 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
 [ext_resource type="Texture2D" uid="uid://we2o66nyt8hx" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
 [ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
 [ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="2_c4j58"]
+[ext_resource type="PackedScene" uid="uid://b20fmxj4jv2si" path="res://01_Source/01_Combat/Enemies/Projectiles/lightning_effect.tscn" id="3_4tlpb"]
+[ext_resource type="Texture2D" uid="uid://bmiuv3c2eaeva" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4j58"]
 size = Vector2(77.5, 55)
@@ -12,6 +14,16 @@ size = Vector2(77.5, 55)
 size = Vector2(42.25, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cule5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cule5"]
+
+[sub_resource type="Animation" id="Animation_kkm87"]
+resource_name = "ball_o_lightning"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxyij"]
+_data = {
+&"ball_o_lightning": SubResource("Animation_kkm87")
+}
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_4tlpb"]
 
@@ -230,6 +242,22 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_cule5")
+
+[node name="LightningEffect" parent="." instance=ExtResource("3_4tlpb")]
+
+[node name="BallOLightning" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallOLightning"]
+shape = SubResource("CircleShape2D_cule5")
+
+[node name="LightningBall" type="Sprite2D" parent="BallOLightning/CollisionShape2D"]
+texture = ExtResource("4_cule5")
+hframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BallOLightning"]
+libraries = {
+&"": SubResource("AnimationLibrary_vxyij")
+}
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = SubResource("BehaviorTree_khl08")
