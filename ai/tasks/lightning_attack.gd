@@ -8,7 +8,7 @@ var active_timer: float
 ## variables at the top
 
 func _generate_name() -> String:
-	return 'Lightning attack'
+	return 'Unfinished, do not use this'
 	
 func _setup() -> void:
 	enemy = agent as Enemy
@@ -23,8 +23,8 @@ func _tick(delta: float) -> Status:
 		active_timer = 0
 		return SUCCESS
 	
-	var ball_o_lightning = enemy.ball_o_lightning
-	ball_o_lightning.animation_player.play('ball_o_lightning_damaging')
+	#var ball_o_lightning = enemy.ball_o_lightning.animation_player
+	#ball_o_lightning.play('ball_o_lightning_damaging')
 	
 	
 	active_timer += delta
