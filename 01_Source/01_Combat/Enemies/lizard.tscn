@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=29 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
 [ext_resource type="Texture2D" uid="uid://xrl2p0ee1qsw" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
@@ -17,12 +17,60 @@ size = Vector2(42.25, 36)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cule5"]
 
+[sub_resource type="Animation" id="Animation_em8vn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/LightningBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_kkm87"]
-resource_name = "ball_o_lightning"
+resource_name = "ball_o_lightning_startup"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/LightningBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_ym5t2"]
+resource_name = "ball_o_lightning_damaging"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/LightningBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vxyij"]
 _data = {
-&"ball_o_lightning": SubResource("Animation_kkm87")
+&"RESET": SubResource("Animation_em8vn"),
+&"ball_o_lightning_damaging": SubResource("Animation_ym5t2"),
+&"ball_o_lightning_startup": SubResource("Animation_kkm87")
 }
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_4tlpb"]
@@ -76,6 +124,71 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LightningEffect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(63, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_vxyij"]
+resource_name = "attack"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [14, 13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LightningEffect:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -43)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LightningEffect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1, 0.812252, 1),
+"update": 0,
+"values": [Vector2(68, 29), Vector2(68, 29), Vector2(20, 29)]
 }
 
 [sub_resource type="Animation" id="Animation_vxyij"]
@@ -284,10 +397,12 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_cule5")
 
 [node name="LightningEffect" type="Sprite2D" parent="."]
+position = Vector2(63, 24)
 texture = ExtResource("3_cule5")
 hframes = 9
 
 [node name="BallOLightning" type="Area2D" parent="."]
+script = ExtResource("4_hkm1r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallOLightning"]
 shape = SubResource("CircleShape2D_cule5")
