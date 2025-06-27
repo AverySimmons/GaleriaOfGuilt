@@ -6,6 +6,7 @@ var upgrade_description: String
 var upgrade_number: int
 var upgrade_scene
 var icon
+var type: int
 
 func choose_upgrade() -> void:
 	UpgradeData.upgrades_gained[upgrade_number] = true

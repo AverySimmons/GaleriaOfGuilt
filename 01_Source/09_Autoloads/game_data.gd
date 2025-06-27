@@ -17,3 +17,5 @@ const INVERSE_DIRECTIONS = {
 var player: Player
 
 var music_event: FmodEventEmitter2D
+
+var mall_number: int = 0

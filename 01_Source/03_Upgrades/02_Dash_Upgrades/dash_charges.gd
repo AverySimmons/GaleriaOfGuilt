@@ -3,9 +3,10 @@ extends Upgrade
 func _init() -> void:
 	upgrade_name = "Monstrous Tenacity"
 	upgrade_description = "When your dash cooldown resets, you now get two uses of your dash, but with much lower distance."
-	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/boots_super.png")
+	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/dash_plus.png")
 	upgrade_number = UpgradeData.DASH_DAMAGE
 	upgrade_scene = self
+	type = 1
 	pass
 
 func choose_upgrade() -> void:

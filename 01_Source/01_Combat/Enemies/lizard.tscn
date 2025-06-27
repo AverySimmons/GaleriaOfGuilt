@@ -1,11 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=54 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
-[ext_resource type="Texture2D" uid="uid://we2o66nyt8hx" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
-[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
-[ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="2_c4j58"]
-[ext_resource type="Texture2D" uid="uid://n2ala4f0ipbv" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
-[ext_resource type="Texture2D" uid="uid://bmiuv3c2eaeva" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
+[ext_resource type="Texture2D" uid="uid://cf8lnjucl32t6" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
+[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
+[ext_resource type="Texture2D" uid="uid://daso8fao0k6bd" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
+[ext_resource type="Texture2D" uid="uid://ced5cgyipyvei" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
+[ext_resource type="Script" uid="uid://gs05bg4u00my" path="res://01_Source/01_Combat/Enemies/ball_o_lightning.gd" id="4_hkm1r"]
+[ext_resource type="Script" uid="uid://d4e5cyas3vtqu" path="res://ai/tasks/lightning_attack.gd" id="6_hkm1r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4j58"]
 size = Vector2(77.5, 55)
@@ -16,22 +17,207 @@ size = Vector2(42.25, 36)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cule5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cule5"]
+radius = 38.0132
+
+[sub_resource type="Animation" id="Animation_em8vn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/LightningBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/LightningBall:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ym5t2"]
+resource_name = "ball_o_lightning_damaging"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/LightningBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/LightningBall:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_kkm87"]
-resource_name = "ball_o_lightning"
+resource_name = "ball_o_lightning_startup"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/LightningBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/LightningBall:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vxyij"]
 _data = {
-&"ball_o_lightning": SubResource("Animation_kkm87")
+&"RESET": SubResource("Animation_em8vn"),
+&"ball_o_lightning_damaging": SubResource("Animation_ym5t2"),
+&"ball_o_lightning_startup": SubResource("Animation_kkm87")
 }
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_4tlpb"]
 
-[sub_resource type="BTAction" id="BTAction_cule5"]
-script = ExtResource("2_c4j58")
+[sub_resource type="BTAction" id="BTAction_w81gv"]
+script = ExtResource("6_hkm1r")
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_kkm87"]
+time_limit = 0.5
+children = [SubResource("BTAction_w81gv")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_vxyij"]
+children = [SubResource("BTTimeLimit_kkm87")]
+
+[sub_resource type="BTSequence" id="BTSequence_em8vn"]
+children = [SubResource("BTAlwaysSucceed_vxyij")]
+
+[sub_resource type="BBVariant" id="BBVariant_ym5t2"]
+type = 3
+saved_value = 200.0
+resource_name = "200.0"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_mxsq5"]
+property = &"distance_to_player"
+check_type = 2
+value = SubResource("BBVariant_ym5t2")
+
+[sub_resource type="BTAction" id="BTAction_hkm1r"]
+script = ExtResource("6_hkm1r")
+
+[sub_resource type="BBNode" id="BBNode_hkm1r"]
+saved_value = NodePath("Animations")
+resource_name = "Animations"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_khl08"]
+animation_player = SubResource("BBNode_hkm1r")
+animation_name = &"attack"
+
+[sub_resource type="BBVariant" id="BBVariant_hkm1r"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_khl08"]
+property = &"lightning_attack_visible"
+value = SubResource("BBVariant_hkm1r")
+
+[sub_resource type="BBNode" id="BBNode_w81gv"]
+saved_value = NodePath("BallOLightning/AnimationPlayer")
+resource_name = "BallOLightning/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_kkm87"]
+animation_player = SubResource("BBNode_w81gv")
+animation_name = &"ball_o_lightning_startup"
+
+[sub_resource type="BTWait" id="BTWait_vxyij"]
+
+[sub_resource type="BBVariant" id="BBVariant_cule5"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_hkm1r"]
+property = &"lightning_attack_active"
+value = SubResource("BBVariant_cule5")
+
+[sub_resource type="BBNode" id="BBNode_4tlpb"]
+saved_value = NodePath("BallOLightning/AnimationPlayer")
+resource_name = "BallOLightning/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_cule5"]
+await_completion = 2.0
+animation_player = SubResource("BBNode_4tlpb")
+animation_name = &"ball_o_lightning_damaging"
+
+[sub_resource type="BBNode" id="BBNode_cule5"]
+saved_value = NodePath("BallOLightning/AnimationPlayer")
+resource_name = "BallOLightning/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_hkm1r"]
+animation_player = SubResource("BBNode_cule5")
+animation_name = &"RESET"
+
+[sub_resource type="BBVariant" id="BBVariant_khl08"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_w81gv"]
+property = &"lightning_attack_active"
+value = SubResource("BBVariant_khl08")
+
+[sub_resource type="BBVariant" id="BBVariant_em8vn"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_ym5t2"]
+property = &"lightning_attack_visible"
+value = SubResource("BBVariant_em8vn")
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_4tlpb"]
+text = "done attack"
+
+[sub_resource type="BTSequence" id="BTSequence_howy7"]
+custom_name = "Initiate Attack"
+children = [SubResource("BTCheckAgentProperty_mxsq5"), SubResource("BTAction_hkm1r"), SubResource("BTPlayAnimation_khl08"), SubResource("BTSetAgentProperty_khl08"), SubResource("BTPlayAnimation_kkm87"), SubResource("BTWait_vxyij"), SubResource("BTSetAgentProperty_hkm1r"), SubResource("BTPlayAnimation_cule5"), SubResource("BTPlayAnimation_hkm1r"), SubResource("BTSetAgentProperty_w81gv"), SubResource("BTSetAgentProperty_ym5t2"), SubResource("BTConsolePrint_4tlpb")]
 
 [sub_resource type="BTSequence" id="BTSequence_hkm1r"]
-children = [SubResource("BTAction_cule5")]
+children = [SubResource("BTSequence_em8vn"), SubResource("BTSequence_howy7")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_khl08"]
 blackboard_plan = SubResource("BlackboardPlan_4tlpb")
@@ -76,6 +262,45 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LightningEffect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(63, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_vxyij"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [14, 13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LightningEffect:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_4tlpb"]
@@ -216,33 +441,6 @@ tracks/1/keys = {
 "values": [Vector2(-2, -43)]
 }
 
-[sub_resource type="Animation" id="Animation_vxyij"]
-resource_name = "attack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.466667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [14, 13]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LightningEffect:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kkm87"]
 _data = {
 &"RESET": SubResource("Animation_w81gv"),
@@ -268,12 +466,12 @@ position = Vector2(3.25, 2.5)
 shape = SubResource("RectangleShape2D_c4j58")
 
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2(81, 44)
+position = Vector2(-12, 6)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-80.875, -51)
+position = Vector2(-2, -1)
 shape = SubResource("RectangleShape2D_4tlpb")
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -284,15 +482,20 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_cule5")
 
 [node name="LightningEffect" type="Sprite2D" parent="."]
+position = Vector2(63, 24)
 texture = ExtResource("3_cule5")
 hframes = 9
 
 [node name="BallOLightning" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_hkm1r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallOLightning"]
 shape = SubResource("CircleShape2D_cule5")
 
 [node name="LightningBall" type="Sprite2D" parent="BallOLightning/CollisionShape2D"]
+visible = false
 texture = ExtResource("4_cule5")
 hframes = 7
 

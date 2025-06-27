@@ -3,9 +3,10 @@ extends Upgrade
 func _init() -> void:
 	upgrade_name = "Seeing Red" # GAIN ENERGY EXHAUST, 1(0) ENERGY COST HAHAHAHA
 	upgrade_description = "Blood has a stronger effect, but you have less hp."
-	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bloody_tendrils.png")
+	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_evil.png")
 	upgrade_number = UpgradeData.MORE_BLOOD_EFFECT_LESS_HP
 	upgrade_scene = self
+	type = 0
 	pass
 
 func choose_upgrade() -> void:

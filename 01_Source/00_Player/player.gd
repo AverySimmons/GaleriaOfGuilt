@@ -50,6 +50,7 @@ var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
 var current_ability_scene = null
 
+# Dash stuff
 var is_dashing: bool = false
 var dash_distance: float = 200
 var dash_speed: float = 1250
@@ -59,6 +60,12 @@ var dash_cd: float = 1.5
 var dash_timer: float = 0
 var is_invincible: bool = false
 var dashed_into_enemies: Dictionary
+
+# Levelup stuff ----------------------------------------
+var level: int = 0
+var exp_needed: float = 100
+var current_exp: float = 0
+
 
 # Upgrade stuff ----------------------------------------
 var dash_blood_cost: float = 0
@@ -86,6 +93,7 @@ var movement_animations = {
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
+	SignalBus.death.connect(gain_exp)
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
@@ -374,10 +382,18 @@ func get_signal_upgrade(upgrade_name: String) -> void:
 	return
 
 #Upgrade stuff
-func kill_gain_blood() -> void:
+func kill_gain_blood(enemy: Enemy) -> void:
 	if blood_bar >= bb_max:
 		return
-	blood_bar = move_toward(blood_bar, bb_max, 10*bb_multiplier)
+	var amount: float = 0
+	match enemy.type:
+		"Lizard":
+			amount = 15
+		"Worm":
+			amount = 10
+		"Locust":
+			amount = 5
+	blood_bar = move_toward(blood_bar, bb_max, amount*bb_multiplier)
 	return
 
 func kill_lower_spcd() -> void:
@@ -385,4 +401,24 @@ func kill_lower_spcd() -> void:
 	if special_ability_timer >= 0:
 		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc * spcd_increase)/3)
 	print(special_ability_timer)
+	return
+
+# Level stuff
+func gain_exp(enemy: Enemy) -> void:
+	var amount: float = 0
+	match enemy.type:
+		"Lizard":
+			amount = 8
+		"Worm":
+			amount = 50
+		"Locust":
+			amount = 4
+	print(current_exp)
+	current_exp = move_toward(current_exp, exp_needed, amount)
+	if current_exp >= exp_needed:
+		SignalBus.levelup.emit()
+		exp_needed += 50*level
+		level += 1
+		current_exp = 0
+	print(current_exp)
 	return

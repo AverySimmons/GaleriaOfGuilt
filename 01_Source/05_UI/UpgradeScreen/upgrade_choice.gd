@@ -9,13 +9,18 @@ extends Control
 @onready var button: Button = $Button
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func _ready() -> void:
-	format(randi_range(0, 3))
-	button.mouse_entered.connect(on_hover)
-	button.mouse_exited.connect(stop_hover)
-	button.pressed.connect(clicked)
+signal pause_choices()
+signal chosen(upgrade: Upgrade)
 
-func format(type: int):
+var current_upgrade: Upgrade
+
+func format(upgrade: Upgrade):
+	current_upgrade = upgrade
+	
+	animation_player.play("RESET")
+	
+	var type = upgrade.type
+	
 	var back_style : StyleBoxFlat = background.get_theme_stylebox("panel")
 	var icon_style : StyleBoxFlat = icon.get_theme_stylebox("panel")
 	match type:
@@ -55,9 +60,9 @@ func format(type: int):
 			
 			border.color = Color("380d6e")
 		
-	nametag.text = "name"
-	description.text = "description"
-	# sprite_2d.texture = 
+	nametag.text = upgrade.upgrade_name
+	description.text = upgrade.upgrade_description
+	sprite_2d.texture = upgrade.icon
 	
 	icon.add_theme_stylebox_override("panel", icon_style)
 	background.add_theme_stylebox_override("panel", back_style)
@@ -69,6 +74,18 @@ func stop_hover():
 	animation_player.play("stop_hover")
 
 func clicked():
-	animation_player.play("fade_out")
+	pause_choices.emit()
+	animation_player.play("shrink_out")
+	await animation_player.animation_finished
+	
+	chosen.emit(current_upgrade)
+
+func turn_on_signals():
+	button.mouse_entered.connect(on_hover)
+	button.mouse_exited.connect(stop_hover)
+	button.pressed.connect(clicked)
+
+func turn_off_signals():
+	button.pressed.disconnect(clicked)
 	button.mouse_entered.disconnect(on_hover)
 	button.mouse_exited.disconnect(stop_hover)

@@ -40,9 +40,9 @@ func _ready() -> void:
 	camera.limit_right = bot_right.x
 	camera.limit_bottom = bot_right.y
 	
-	var center = Vector3((top_left.x+bot_right.x) * 0.5, (top_left.y+bot_right.y) * 0.5, 0)
-	var size = Vector3(bot_right.x-top_left.x, bot_right.y-top_left.y, 0)
-	blood_manager.multimesh.custom_aabb = AABB(center, size)
+	#var center = Vector3((top_left.x+bot_right.x) * 0.5, (top_left.y+bot_right.y) * 0.5, 0)
+	#var size = Vector3(bot_right.x-top_left.x, bot_right.y-top_left.y, 0)
+	#blood_manager.multimesh.custom_aabb = AABB(center, size)
 	
 	for d in doors.get_children():
 		var con_value = connections[GameData.DIRECTIONS[d.direction]]
@@ -109,7 +109,7 @@ func spawn_enemy(pos: Vector2, index: int) -> void:
 	new_enemy_spawn.enemy = new_enemy
 	entities.add_child(new_enemy_spawn)
 
-func enemy_died() -> void:
+func enemy_died(enemy) -> void:
 	enemies_left -= 1
 
 func enter(dir: Vector2) -> void:
@@ -124,8 +124,6 @@ func enter(dir: Vector2) -> void:
 			GameData.player.global_position = d.player_spawn.global_position
 			entities.add_child(GameData.player)
 			break
-	
-	
 
 func exit(dir: Vector2):
 	if enemies_left > 0:

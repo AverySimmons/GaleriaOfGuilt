@@ -17,8 +17,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0222q"]
 gradient = SubResource("Gradient_66fto")
-width = 16
-height = 48
+width = 32
 
 [node name="MapPiece" type="Sprite2D"]
 texture = SubResource("GradientTexture2D_66fto")

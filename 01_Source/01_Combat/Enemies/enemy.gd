@@ -42,7 +42,7 @@ var death_timer = 1 #a little delay for the animation to play, is there a better
 
 func start_death() -> void:
 	death_state = true
-	SignalBus.death.emit()
+	SignalBus.death.emit(self)
 	#start.animation('death')
 
 func _physics_process(delta: float) -> void:

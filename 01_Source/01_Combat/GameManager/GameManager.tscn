@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c16ryaaqw6wrm"]
+[gd_scene load_steps=11 format=3 uid="uid://c16ryaaqw6wrm"]
 
 [ext_resource type="Script" uid="uid://wstp8f51pacm" path="res://01_Source/01_Combat/GameManager/game_manager.gd" id="1_uaasl"]
 [ext_resource type="PackedScene" uid="uid://cb4fpuk0m1ov3" path="res://01_Source/02_Level/level_generator.tscn" id="2_l3sx1"]
 [ext_resource type="PackedScene" uid="uid://xoikojyvkrrx" path="res://01_Source/05_UI/overlay.tscn" id="3_d6io1"]
 [ext_resource type="PackedScene" uid="uid://boqmp5tsrdpvh" path="res://01_Source/02_Level/MapOverlay/map_overlay.tscn" id="3_wvjyu"]
+[ext_resource type="Script" uid="uid://cis273ry02krq" path="res://01_Source/01_Combat/GameManager/upgrade_manager.gd" id="5_ttsk8"]
+[ext_resource type="PackedScene" uid="uid://uv6n8vwwakt0" path="res://01_Source/05_UI/UpgradeScreen/upgrade_screen.tscn" id="6_q1dyq"]
 
 [sub_resource type="Animation" id="Animation_d6io1"]
 length = 0.001
@@ -76,15 +78,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_q1dyq")
 }
 
-[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
-bank_paths = ["res://00_Assets/01_LongAudio/FMOD/Master.strings.bank", "res://00_Assets/01_LongAudio/FMOD/Master.bank"]
+[node name="UpgradeManager" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("5_ttsk8")
 
-[node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/level"
-event_guid = "{f37587d6-2eb5-42a9-9817-fb44b87e9446}"
-autoplay = true
-"fmod_parameters/combat state/id" = -4863081333960352858
-"fmod_parameters/combat state" = 0
-"fmod_parameters/combat state/variant_type" = 2
-
-[node name="FmodListener2D" type="FmodListener2D" parent="."]
+[node name="UpgradeScreen" parent="CanvasLayer/UpgradeManager" instance=ExtResource("6_q1dyq")]

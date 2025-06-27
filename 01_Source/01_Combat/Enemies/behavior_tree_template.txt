@@ -1,18 +1,22 @@
 @tool
 extends BTAction
 
+var enemy : Enemy
+
 ## variables at the top
 
 func _generate_name() -> String:
 	return ''
 	
 func _setup() -> void:
-	pass
+	enemy = agent as Enemy
 	
 func _enter() -> void:
 	pass
 	
 func _tick(delta: float) -> Status:
 	return SUCCESS
+	
+	
 	
 ## think about helper functions down here
