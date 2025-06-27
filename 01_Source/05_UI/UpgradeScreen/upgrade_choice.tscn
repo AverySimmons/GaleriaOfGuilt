@@ -2,8 +2,8 @@
 
 [ext_resource type="Shader" uid="uid://bf4gmkm1m3c8t" path="res://01_Source/05_UI/UpgradeScreen/upgrade_gradient.gdshader" id="1_ijyn2"]
 [ext_resource type="Script" uid="uid://cw1d5vq6vxdxq" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.gd" id="1_ud4xx"]
-[ext_resource type="Shader" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
-[ext_resource type="Texture2D" uid="uid://drq81e7o0agoy" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
+[ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
+[ext_resource type="Texture2D" uid="uid://bve6dpeqieuwt" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
 shader = ExtResource("1_ijyn2")
@@ -90,46 +90,6 @@ tracks/3/keys = {
 "values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_xdm4q"]
-resource_name = "fade_out"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transform/Background:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1.3, 1.3, 1.3, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Transform:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -20), Vector2(0, -175)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_3ndp2"]
 resource_name = "hovered"
 length = 0.1
@@ -156,34 +116,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -20)]
-}
-
-[sub_resource type="Animation" id="Animation_ud4xx"]
-resource_name = "stop_hover"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transform:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Transform/Background:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_xdm4q"]
@@ -226,6 +158,34 @@ tracks/2/keys = {
 "values": [Vector2(1, 1), Vector2(1.25, 1.25), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ud4xx"]
+resource_name = "stop_hover"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transform/Background:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v457b"]
 _data = {
 &"RESET": SubResource("Animation_kuq1d"),
@@ -247,8 +207,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -20.0
-offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 

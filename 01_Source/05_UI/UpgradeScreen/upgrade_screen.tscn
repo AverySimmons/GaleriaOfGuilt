@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://uv6n8vwwakt0"]
+[gd_scene load_steps=13 format=3 uid="uid://uv6n8vwwakt0"]
 
+[ext_resource type="Script" uid="uid://c0ty1eebjldbe" path="res://01_Source/05_UI/UpgradeScreen/upgrade_screen.gd" id="1_3ndp2"]
 [ext_resource type="PackedScene" uid="uid://dg88ku5vis6l8" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.tscn" id="1_8m1r4"]
 [ext_resource type="Shader" uid="uid://tgwajhd515w2" path="res://01_Source/05_UI/UpgradeScreen/disolve.gdshader" id="2_ypphk"]
 
@@ -9,19 +10,19 @@
 seamless = true
 noise = SubResource("FastNoiseLite_ffu50")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ypphk"]
-resource_local_to_scene = true
-shader = ExtResource("2_ypphk")
-shader_parameter/dis_percent = 0.0
-shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ndp2"]
-resource_local_to_scene = true
-shader = ExtResource("2_ypphk")
-shader_parameter/dis_percent = 0.0
-shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
+resource_local_to_scene = true
+shader = ExtResource("2_ypphk")
+shader_parameter/dis_percent = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v457b"]
+resource_local_to_scene = true
+shader = ExtResource("2_ypphk")
+shader_parameter/dis_percent = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_f4sp1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqj0v"]
 resource_local_to_scene = true
 shader = ExtResource("2_ypphk")
 shader_parameter/dis_percent = 0.0
@@ -376,6 +377,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3ndp2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -384,25 +386,25 @@ offset_bottom = 720.0
 color = Color(0.94, 0, 0, 0.2)
 
 [node name="Choice1" parent="." instance=ExtResource("1_8m1r4")]
-material = SubResource("ShaderMaterial_ypphk")
-offset_left = -450.0
-offset_top = -450.0
-offset_right = -157.0
-offset_bottom = -30.0
+material = SubResource("ShaderMaterial_kuq1d")
+offset_left = 150.0
+offset_top = 150.0
+offset_right = 443.0
+offset_bottom = 570.0
 
 [node name="Choice2" parent="." instance=ExtResource("1_8m1r4")]
-material = SubResource("ShaderMaterial_3ndp2")
+material = SubResource("ShaderMaterial_v457b")
 offset_left = 493.0
-offset_top = 750.0
+offset_top = 150.0
 offset_right = 786.0
-offset_bottom = 1170.0
+offset_bottom = 570.0
 
 [node name="Choice3" parent="." instance=ExtResource("1_8m1r4")]
-material = SubResource("ShaderMaterial_kuq1d")
-offset_left = 1436.0
-offset_top = -450.0
-offset_right = 1729.0
-offset_bottom = -30.0
+material = SubResource("ShaderMaterial_wqj0v")
+offset_left = 836.0
+offset_top = 150.0
+offset_right = 1129.0
+offset_bottom = 570.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
