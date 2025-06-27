@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bfe6k0r6bjkg7" path="res://00_Assets/00_Sprites/Room_sprites/escalator_tileset.png" id="2_r2wjh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fr20"]
-size = Vector2(128, 128)
+size = Vector2(148, 148)
 
 [node name="Door" type="Area2D"]
 collision_layer = 0
@@ -28,6 +28,7 @@ vframes = 2
 frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_1fr20")
 
 [node name="ColorRect" type="ColorRect" parent="."]

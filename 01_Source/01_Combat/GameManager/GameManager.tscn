@@ -62,6 +62,7 @@ _data = {
 }
 
 [node name="GameManager" type="Node"]
+process_mode = 1
 script = ExtResource("1_uaasl")
 
 [node name="LevelGenerator" parent="." instance=ExtResource("2_l3sx1")]
@@ -71,6 +72,7 @@ script = ExtResource("1_uaasl")
 [node name="Overlay" parent="CanvasLayer" instance=ExtResource("3_d6io1")]
 
 [node name="MapOverlay" parent="CanvasLayer" instance=ExtResource("3_wvjyu")]
+process_mode = 3
 modulate = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/MapOverlay"]
@@ -79,6 +81,7 @@ libraries = {
 }
 
 [node name="UpgradeManager" type="Node2D" parent="CanvasLayer"]
+process_mode = 3
 script = ExtResource("5_ttsk8")
 
 [node name="UpgradeScreen" parent="CanvasLayer/UpgradeManager" instance=ExtResource("6_q1dyq")]

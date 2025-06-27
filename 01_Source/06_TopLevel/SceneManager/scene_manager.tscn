@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
 
 [node name="SceneManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_1l5et")
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
