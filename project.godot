@@ -48,13 +48,23 @@ directories/dch_directory={
 "viola_character": "res://04_DialogicStuff/Characters/viola_character.dch"
 }
 directories/dtl_directory={
+"ending": "res://04_DialogicStuff/Timelines/ending.dtl",
 "finding_item_1": "res://04_DialogicStuff/Timelines/finding_item_1.dtl",
 "finding_item_2": "res://04_DialogicStuff/Timelines/finding_item_2.dtl",
+"finding_item_3": "res://04_DialogicStuff/Timelines/finding_item_3.dtl",
+"finding_item_4": "res://04_DialogicStuff/Timelines/finding_item_4.dtl",
+"finding_item_5": "res://04_DialogicStuff/Timelines/finding_item_5.dtl",
 "intro": "res://04_DialogicStuff/Timelines/intro.dtl",
 "post_intro": "res://04_DialogicStuff/Timelines/post_intro.dtl",
 "post_mall_1": "res://04_DialogicStuff/Timelines/post_mall_1.dtl",
+"post_mall_2": "res://04_DialogicStuff/Timelines/post_mall_2.dtl",
+"post_mall_3": "res://04_DialogicStuff/Timelines/post_mall_3.dtl",
+"post_mall_4": "res://04_DialogicStuff/Timelines/post_mall_4.dtl",
 "pre_mall_1": "res://04_DialogicStuff/Timelines/pre_mall_1.dtl",
 "pre_mall_2": "res://04_DialogicStuff/Timelines/pre_mall_2.dtl",
+"pre_mall_3": "res://04_DialogicStuff/Timelines/pre_mall_3.dtl",
+"pre_mall_4": "res://04_DialogicStuff/Timelines/pre_mall_4.dtl",
+"pre_mall_5": "res://04_DialogicStuff/Timelines/pre_mall_5.dtl",
 "tutorial": "res://04_DialogicStuff/Timelines/tutorial.dtl"
 }
 

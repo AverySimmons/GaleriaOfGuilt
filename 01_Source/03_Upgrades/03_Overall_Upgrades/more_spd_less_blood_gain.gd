@@ -6,6 +6,7 @@ func _init() -> void:
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/boots_super.png")
 	upgrade_number = UpgradeData.MORE_SPD_LESS_BG
 	upgrade_scene = self
+	type = 0
 	pass
 
 func choose_upgrade() -> void:

@@ -6,6 +6,7 @@ func _init() -> void:
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood.png")
 	upgrade_number = UpgradeData.BB_SIZE_INC_LESS_BG
 	upgrade_scene = self
+	type = 0
 	pass
 
 func choose_upgrade() -> void:

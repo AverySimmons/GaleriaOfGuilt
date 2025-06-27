@@ -6,6 +6,7 @@ func _ready() -> void:
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_glowing.png")
 	upgrade_number = UpgradeData.BITE
 	upgrade_scene = self
+	type = 3
 	pass
 
 func choose_upgrade() -> void:
