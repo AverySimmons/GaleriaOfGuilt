@@ -3,7 +3,7 @@ extends Area2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-@onready var parent: CharacterBody2D = get_parent()
+@onready var parent: Player = get_parent()
 var is_active: bool = false
 var active_time: float = 0.5
 var active_timer: float
@@ -11,6 +11,7 @@ var hit_enemies: Dictionary = {}
 var enemies_just_entered: Array
 var damage_unmodified: float = 20
 var damage: float = damage_unmodified
+var haha_yooo: float = 0.4
 var attack_slowdown: float = 0.4
 var attack_slowdown_actual: float = 1.0
 var flinch_amount: float = 0.2
@@ -21,6 +22,8 @@ var retractable_counter: int = 0
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	monitoring = false
+	parent.burst_begin.connect(on_burst_begin)
+	parent.burst_end.connect(on_burst_end)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -47,7 +50,10 @@ func _physics_process(delta: float) -> void:
 		attack_slowdown_actual = 1.0
 		damage = damage_unmodified
 		if UpgradeData.upgrades_gained[UpgradeData.RETRACT_SWIPE]:
-			collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1, 1)
+			if parent.burst_timer == 0:
+				collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1, 1)
+			else:
+				collision_shape_2d.get_node("Slash").modulate = Color(0.95, 0.95, 0.55)
 	pass
 
 func initiate_attack(upgrade_mult: float) -> void:
@@ -91,6 +97,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 	## animation player / helper functions
 	
 	active_timer = active_time * parent.bb_hitspd_inc
+	print(active_timer)
 	attack_slowdown_actual = attack_slowdown
 	is_active = true
 	monitoring = true
@@ -126,3 +133,13 @@ func initiate_attack(upgrade_mult: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	enemies_just_entered.append(area)
 	pass
+
+func on_burst_begin() -> void:
+	attack_slowdown = 1.0
+	collision_shape_2d.get_node("Slash").modulate = Color(0.95, 0.95, 0.55)
+	return
+
+func on_burst_end() -> void:
+	attack_slowdown = haha_yooo
+	collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1)
+	return
