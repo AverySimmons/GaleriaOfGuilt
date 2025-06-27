@@ -4,7 +4,7 @@ func _init() -> void:
 	upgrade_name = "Bloodlust"
 	upgrade_description = "You have much lower max hp, but your swipe attack heals you."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/slash_blood.png")
-	upgrade_number = UpgradeData.COSTS_BLOOD_MORE_DMG
+	upgrade_number = UpgradeData.LIFESTEAL
 	upgrade_scene = self
 	type = 2
 	pass

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://drq81e7o0agoy" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
+resource_local_to_scene = true
 shader = ExtResource("1_ijyn2")
 shader_parameter/color = Color(1, 0, 1, 1)
 

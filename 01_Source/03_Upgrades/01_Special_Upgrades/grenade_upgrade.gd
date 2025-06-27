@@ -1,6 +1,6 @@
 extends Upgrade
 
-func _ready() -> void:
+func _init() -> void:
 	upgrade_name = "Explosive Blood"
 	upgrade_description = "Replace your special with a grenade, dealing damage and knockback over a large radius"
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png")
