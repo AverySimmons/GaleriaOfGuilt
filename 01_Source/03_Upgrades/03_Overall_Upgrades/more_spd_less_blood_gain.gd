@@ -3,7 +3,7 @@ extends Upgrade
 func _init() -> void:
 	upgrade_name = "Destructive Haste" 
 	upgrade_description = "You have an increased baseline movement speed, but blood gain from everything is slightly reduced."
-	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/boots.png")
+	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/boots_super.png")
 	upgrade_number = UpgradeData.MORE_SPD_LESS_BG
 	upgrade_scene = self
 	pass

@@ -10,7 +10,7 @@ var bullet_node : Node2D
 
 func _ready() -> void:
 	super._ready()
-	
+	type = "Worm"
 	move_speed = 250
 
 func _physics_process(delta: float) -> void:

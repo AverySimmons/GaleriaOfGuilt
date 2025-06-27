@@ -3,7 +3,7 @@ extends Upgrade
 func _ready() -> void:
 	upgrade_name = "Vomit"
 	upgrade_description = "Replace your special ability with a shotgun-style attack. Hey guys :D"
-	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png")
+	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png")
 	upgrade_number = UpgradeData.SHOTGUN
 	upgrade_scene = self
 	pass

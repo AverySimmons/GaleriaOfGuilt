@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=26 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
-[ext_resource type="Texture2D" uid="uid://we2o66nyt8hx" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
-[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
+[ext_resource type="Texture2D" uid="uid://xrl2p0ee1qsw" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
+[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
 [ext_resource type="Script" uid="uid://cog05s3a50t8h" path="res://ai/tasks/chase_player.gd" id="2_c4j58"]
-[ext_resource type="PackedScene" uid="uid://b20fmxj4jv2si" path="res://01_Source/01_Combat/Enemies/Projectiles/lightning_effect.tscn" id="3_4tlpb"]
-[ext_resource type="Texture2D" uid="uid://bmiuv3c2eaeva" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
+[ext_resource type="Texture2D" uid="uid://b0kb3wnse66m3" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
+[ext_resource type="Texture2D" uid="uid://xubpfojv3ge" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4j58"]
 size = Vector2(77.5, 55)
@@ -39,34 +39,6 @@ root_task = SubResource("BTSequence_hkm1r")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_hkm1r"]
 
-[sub_resource type="Animation" id="Animation_khl08"]
-resource_name = "walk"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.33, 0.67),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [3, 4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2, -43)]
-}
-
 [sub_resource type="Animation" id="Animation_w81gv"]
 length = 0.001
 tracks/0/type = "value"
@@ -93,10 +65,21 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LightningEffect:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[sub_resource type="Animation" id="Animation_c4j58"]
-resource_name = "idle"
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_vxyij"]
+resource_name = "attack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -104,22 +87,22 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [4]
+"values": [14, 13]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/path = NodePath("LightningEffect:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.0333333),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2, -43)]
+"update": 1,
+"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_4tlpb"]
@@ -150,8 +133,9 @@ tracks/1/keys = {
 "values": [Vector2(-2, -43)]
 }
 
-[sub_resource type="Animation" id="Animation_cule5"]
-resource_name = "move_up"
+[sub_resource type="Animation" id="Animation_c4j58"]
+resource_name = "idle"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -159,10 +143,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.33, 0.67),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [6, 7, 8]
+"values": [4]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -174,7 +158,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(4, 24)]
+"values": [Vector2(-2, -43)]
 }
 
 [sub_resource type="Animation" id="Animation_hkm1r"]
@@ -204,9 +188,65 @@ tracks/1/keys = {
 "values": [Vector2(14, -26)]
 }
 
+[sub_resource type="Animation" id="Animation_cule5"]
+resource_name = "move_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.67),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_khl08"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.67),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -43)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kkm87"]
 _data = {
 &"RESET": SubResource("Animation_w81gv"),
+&"attack": SubResource("Animation_vxyij"),
 &"hurt": SubResource("Animation_4tlpb"),
 &"idle": SubResource("Animation_c4j58"),
 &"move_down": SubResource("Animation_hkm1r"),
@@ -243,7 +283,9 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_cule5")
 
-[node name="LightningEffect" parent="." instance=ExtResource("3_4tlpb")]
+[node name="LightningEffect" type="Sprite2D" parent="."]
+texture = ExtResource("3_cule5")
+hframes = 9
 
 [node name="BallOLightning" type="Area2D" parent="."]
 
