@@ -31,7 +31,7 @@ func get_shot(angle_from: float, angle_to: float, shot_speed: float,
 	direction = Vector2(cos(actual_angle), sin(actual_angle))
 	velocity = direction * speed
 	air_drag = velocity.length() * 2.5
-	
+	rotation = velocity.angle() + PI/2.0
 	damage = shot_dmg
 	flinch_amt = flinch
 	return
