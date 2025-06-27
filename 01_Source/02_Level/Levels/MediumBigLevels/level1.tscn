@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=4 uid="uid://4thilk2f61yk"]
 
 [ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_2n61t"]
-[ext_resource type="Texture2D" uid="uid://bpf42rxd55uts" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_vecwx"]
-[ext_resource type="Texture2D" uid="uid://cim26jxh3y1e3" path="res://00_Assets/00_Sprites/Room_sprites/fountain_big_empty.png" id="3_mbhdm"]
-[ext_resource type="Texture2D" uid="uid://dyrbk1kj3alff" path="res://00_Assets/00_Sprites/Room_sprites/planter_blue_big_2.png" id="4_f8ggg"]
-[ext_resource type="Texture2D" uid="uid://cgb5u6qoii1pe" path="res://00_Assets/00_Sprites/Room_sprites/planter_blue_big_3.png" id="5_q0w2q"]
-[ext_resource type="Texture2D" uid="uid://bosnrrorco2ei" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_2.png" id="6_cy1or"]
+[ext_resource type="Texture2D" uid="uid://c420g6b1gwfpf" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_vecwx"]
+[ext_resource type="Texture2D" uid="uid://bp01txcpw45nl" path="res://00_Assets/00_Sprites/Room_sprites/fountain_big_empty.png" id="3_mbhdm"]
+[ext_resource type="Texture2D" uid="uid://fe5vnski8epu" path="res://00_Assets/00_Sprites/Room_sprites/planter_blue_big_2.png" id="4_f8ggg"]
+[ext_resource type="Texture2D" uid="uid://c500i8uy6p2lg" path="res://00_Assets/00_Sprites/Room_sprites/planter_blue_big_3.png" id="5_q0w2q"]
+[ext_resource type="Texture2D" uid="uid://dto76j7r2x652" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_2.png" id="6_cy1or"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
 size = Vector2(30, -30)
@@ -29,10 +29,65 @@ tile_map_data = PackedByteArray("AAAAAAAABwABAAEAAAAAAAsABwAAAAEAAAAAAAEABwABAAE
 metadata/_edit_lock_ = true
 
 [node name="GroundEffect" type="Sprite2D" parent="GroundEffects" index="0"]
-position = Vector2(-351, -356)
+position = Vector2(-240, -660)
+scale = Vector2(2.32813, 1.90625)
 texture = ExtResource("2_vecwx")
 hframes = 4
 vframes = 4
+frame = 2
+
+[node name="GroundEffect3" type="Sprite2D" parent="GroundEffects" index="1"]
+position = Vector2(-410, -648)
+rotation = -0.837758
+scale = Vector2(1.80976, 2.44748)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="GroundEffect5" type="Sprite2D" parent="GroundEffects" index="2"]
+position = Vector2(336, 616)
+rotation = -0.837758
+scale = Vector2(1.80976, 2.44748)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="GroundEffect4" type="Sprite2D" parent="GroundEffects" index="3"]
+position = Vector2(-380, -510)
+rotation = 2.6529
+scale = Vector2(2.12856, 1.97419)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="GroundEffect7" type="Sprite2D" parent="GroundEffects" index="4"]
+position = Vector2(378, 496)
+rotation = -1.26536
+scale = Vector2(2.12856, 1.97419)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="GroundEffect6" type="Sprite2D" parent="GroundEffects" index="5"]
+position = Vector2(219, 646)
+rotation = -3.82925
+scale = Vector2(1.80951, 1.33027)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="GroundEffect2" type="Sprite2D" parent="GroundEffects" index="6"]
+position = Vector2(-487, 187)
+scale = Vector2(2.21875, 1.53125)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 8
 
 [node name="UpDoor" parent="Doors" index="0"]
 position = Vector2(0, -832)
@@ -69,11 +124,3 @@ texture = ExtResource("6_cy1or")
 offset_left = -1224.0
 offset_top = -914.0
 offset_bottom = 965.0
-
-[node name="GroundEffect" type="Sprite2D" parent="." index="10"]
-position = Vector2(-487, 187)
-scale = Vector2(2.21875, 1.53125)
-texture = ExtResource("2_vecwx")
-hframes = 4
-vframes = 4
-frame = 8

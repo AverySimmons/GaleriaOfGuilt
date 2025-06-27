@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=4 uid="uid://chrwgui6hkmuv"]
+[gd_scene load_steps=7 format=4 uid="uid://chrwgui6hkmuv"]
 
 [ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_3u0j1"]
-[ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_csrnx"]
+[ext_resource type="Texture2D" uid="uid://c420g6b1gwfpf" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_csrnx"]
+[ext_resource type="Texture2D" uid="uid://cyx11g1qweeeo" path="res://00_Assets/00_Sprites/Room_sprites/planter_orange_big_3.png" id="3_16bn6"]
+[ext_resource type="Texture2D" uid="uid://b3nreqx74gy4c" path="res://00_Assets/00_Sprites/Room_sprites/planter_orange_big_2.png" id="4_xgfik"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
+size = Vector2(30, -30)
+
+[sub_resource type="MultiMesh" id="MultiMesh_dtdhi"]
+resource_local_to_scene = true
+use_custom_data = true
+visible_instance_count = 0
+mesh = SubResource("QuadMesh_x8ck2")
 
 [node name="Level" instance=ExtResource("1_3u0j1")]
 
@@ -16,10 +27,44 @@ tile_map_data = PackedByteArray("AAAAAAAABQAAAAAAAAAAAAEABQAAAAAAAAAAAAIABQAAAAA
 metadata/_edit_lock_ = true
 
 [node name="GroundEffect" type="Sprite2D" parent="GroundEffects" index="0"]
-position = Vector2(-15, -99)
+position = Vector2(-573, 153)
+rotation = -1.309
 texture = ExtResource("2_csrnx")
 hframes = 4
 vframes = 4
+frame = 12
+
+[node name="GroundEffect2" type="Sprite2D" parent="GroundEffects" index="1"]
+position = Vector2(-518, 36)
+rotation = -0.261799
+texture = ExtResource("2_csrnx")
+hframes = 4
+vframes = 4
+frame = 12
+
+[node name="GroundEffect3" type="Sprite2D" parent="GroundEffects" index="2"]
+position = Vector2(-575, -92)
+rotation = -0.261799
+texture = ExtResource("2_csrnx")
+hframes = 4
+vframes = 4
+frame = 12
+
+[node name="GroundEffect4" type="Sprite2D" parent="GroundEffects" index="3"]
+position = Vector2(-557, -30)
+rotation = -0.261799
+texture = ExtResource("2_csrnx")
+hframes = 4
+vframes = 4
+frame = 10
+
+[node name="GroundEffect5" type="Sprite2D" parent="GroundEffects" index="4"]
+position = Vector2(-527, 115)
+rotation = -1.309
+texture = ExtResource("2_csrnx")
+hframes = 4
+vframes = 4
+frame = 8
 
 [node name="UpDoor" parent="Doors" index="0"]
 position = Vector2(0, -320)
@@ -33,6 +78,17 @@ position = Vector2(0, 320)
 [node name="RightDoor" parent="Doors" index="3"]
 position = Vector2(768, 0)
 
+[node name="BloodManager" parent="." index="6"]
+multimesh = SubResource("MultiMesh_dtdhi")
+
 [node name="MultiplyLayer" parent="." index="8"]
 offset_left = -1224.0
 offset_top = -900.0
+
+[node name="PlanterOrangeBig3" type="Sprite2D" parent="." index="10"]
+position = Vector2(331, -148)
+texture = ExtResource("3_16bn6")
+
+[node name="PlanterOrangeBig2" type="Sprite2D" parent="." index="11"]
+position = Vector2(-326, -160)
+texture = ExtResource("4_xgfik")
