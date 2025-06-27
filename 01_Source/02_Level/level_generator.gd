@@ -48,7 +48,11 @@ class MapNode:
 func get_levels(node_num) -> Dictionary[Vector2, Level]:
 	while not generate_map(node_num): continue
 	
-	var tint = Color(randf(), randf(), randf(), randf_range(0.1, 0.2))
+	var h = randf()
+	var s = randf_range(0.8, 1.)
+	var v = randf_range(0.8, 1)
+	
+	var tint = Color.from_hsv(h,s,v)
 	
 	var levels: Dictionary[Vector2, Level] = {}
 	for node: MapNode in map.values():
