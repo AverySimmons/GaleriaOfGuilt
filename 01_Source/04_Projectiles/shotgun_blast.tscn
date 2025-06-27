@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://71jlh4ot3td3"]
+[gd_scene load_steps=4 format=3 uid="uid://71jlh4ot3td3"]
 
 [ext_resource type="Script" uid="uid://dqvmxsx0vsyql" path="res://01_Source/04_Projectiles/shotgun_blast.gd" id="1_rcbtq"]
+[ext_resource type="Texture2D" uid="uid://ffd35ktdbdc0" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_shotgun_bullet_sprite.png" id="2_8wyyi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wyyi"]
-size = Vector2(10, 5)
+size = Vector2(10, 30)
 
 [node name="ShotgunBlast" type="Area2D"]
 collision_layer = 0
@@ -11,7 +12,8 @@ collision_mask = 0
 script = ExtResource("1_rcbtq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20, 0)
 shape = SubResource("RectangleShape2D_8wyyi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_8wyyi")

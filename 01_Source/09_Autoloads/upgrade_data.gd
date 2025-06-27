@@ -14,8 +14,8 @@ const KILLS_GAIN_BLOOD_LESS_HP: int = 9
 const MORE_BLOOD_EFFECT_LESS_HP: int = 10
 const MORE_SPD_LESS_BG: int = 11
 const SWIPE_MORE_BG: int = 12
-const SWIPE_DMG_TIP: int = 13
-const SWIPE_MORE_DMG_ON_ENDS: int = 14
+const ENDLESS_VOID: int = 13
+const ENTER_ROOM: int = 14
 const COSTS_BLOOD_MORE_DMG: int = 15
 const SPECIAL_CD_RED_COST_HP: int = 16
 const LIFESTEAL: int = 17
@@ -49,12 +49,15 @@ func _ready() -> void:
 @onready var DASH_CHARGES_CLASS = preload("res://01_Source/03_Upgrades/02_Dash_Upgrades/dash_charges.gd").new()
 @onready var DASH_DIST_CLASS = preload("res://01_Source/03_Upgrades/02_Dash_Upgrades/dash_dist_longer.gd").new()
 @onready var SPECIAL_CD_UP_BLOOD_UP_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/more_blood_more_cd.gd").new()
+@onready var ENDLESS_VOID_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/ever_consuming_void.gd").new()
+@onready var ENTER_ROOM_BLOOD_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/blood_at_start.gd").new()
 
 @onready var selectable_upgrades: Array[Upgrade] = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
 											INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
 											BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS,
 											SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
-											DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS]
+											DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS, ENDLESS_VOID_CLASS,
+											ENTER_ROOM_BLOOD_CLASS]
 
 @onready var unseen_upgrades: Array[Upgrade] = selectable_upgrades.duplicate()
 
