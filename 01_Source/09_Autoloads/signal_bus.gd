@@ -5,3 +5,6 @@ signal death(enemy)
 signal levelup
 signal pause
 signal unpause
+signal gained_exp()
+signal hp_change()
+signal bb_change()

@@ -1,10 +1,10 @@
 [gd_scene load_steps=54 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
-[ext_resource type="Texture2D" uid="uid://cf8lnjucl32t6" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
-[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
-[ext_resource type="Texture2D" uid="uid://daso8fao0k6bd" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
-[ext_resource type="Texture2D" uid="uid://ced5cgyipyvei" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
+[ext_resource type="Texture2D" uid="uid://xrl2p0ee1qsw" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
+[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
+[ext_resource type="Texture2D" uid="uid://b0kb3wnse66m3" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
+[ext_resource type="Texture2D" uid="uid://xubpfojv3ge" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="4_cule5"]
 [ext_resource type="Script" uid="uid://gs05bg4u00my" path="res://01_Source/01_Combat/Enemies/ball_o_lightning.gd" id="4_hkm1r"]
 [ext_resource type="Script" uid="uid://d4e5cyas3vtqu" path="res://ai/tasks/lightning_attack.gd" id="6_hkm1r"]
 
