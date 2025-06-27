@@ -77,6 +77,7 @@ func _exit() -> void:
 
 func move() -> void:
 	
+	#if locust is far from player
 	if agent.distance_to_player > 300:
 		var next_path = enemy.navigation.get_next_path_position()
 		var move_direction = enemy.global_position.direction_to(next_path)
