@@ -78,7 +78,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_q1dyq")
 }
 
-[node name="UpgradeManager" type="Node2D" parent="."]
+[node name="UpgradeManager" type="Node2D" parent="CanvasLayer"]
 script = ExtResource("5_ttsk8")
 
-[node name="UpgradeScreen" parent="UpgradeManager" instance=ExtResource("6_q1dyq")]
+[node name="UpgradeScreen" parent="CanvasLayer/UpgradeManager" instance=ExtResource("6_q1dyq")]

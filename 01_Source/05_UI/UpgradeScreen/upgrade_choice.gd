@@ -19,7 +19,7 @@ func format(upgrade: Upgrade):
 	
 	animation_player.play("RESET")
 	
-	var type = 2
+	var type = upgrade.type
 	
 	var back_style : StyleBoxFlat = background.get_theme_stylebox("panel")
 	var icon_style : StyleBoxFlat = icon.get_theme_stylebox("panel")
@@ -76,7 +76,6 @@ func stop_hover():
 func clicked():
 	pause_choices.emit()
 	animation_player.play("shrink_out")
-	
 	await animation_player.animation_finished
 	
 	chosen.emit(current_upgrade)

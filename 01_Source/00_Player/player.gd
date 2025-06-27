@@ -410,13 +410,15 @@ func gain_exp(enemy: Enemy) -> void:
 		"Lizard":
 			amount = 8
 		"Worm":
-			amount = 6
+			amount = 50
 		"Locust":
 			amount = 4
+	print(current_exp)
 	current_exp = move_toward(current_exp, exp_needed, amount)
 	if current_exp >= exp_needed:
 		SignalBus.levelup.emit()
 		exp_needed += 50*level
 		level += 1
 		current_exp = 0
+	print(current_exp)
 	return

@@ -1,6 +1,6 @@
 extends Upgrade
 
-func _ready() -> void:
+func _init() -> void:
 	upgrade_name = "Engulfing Maw"
 	upgrade_description = "Replace your special with a bite that provides more blood."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_glowing.png")
