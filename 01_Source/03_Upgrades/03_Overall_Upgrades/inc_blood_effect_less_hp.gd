@@ -6,6 +6,7 @@ func _init() -> void:
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_evil.png")
 	upgrade_number = UpgradeData.MORE_BLOOD_EFFECT_LESS_HP
 	upgrade_scene = self
+	type = 0
 	pass
 
 func choose_upgrade() -> void:

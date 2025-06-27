@@ -418,4 +418,5 @@ func gain_exp(enemy: Enemy) -> void:
 		SignalBus.levelup.emit()
 		exp_needed += 50*level
 		level += 1
+		current_exp = 0
 	return

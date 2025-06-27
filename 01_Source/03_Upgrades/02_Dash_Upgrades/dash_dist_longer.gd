@@ -6,6 +6,7 @@ func _init() -> void:
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/dash_slashing.png")
 	upgrade_number = UpgradeData.DASH_DISTANCE_BLOOD_GAIN
 	upgrade_scene = self
+	type = 1
 	pass
 
 func choose_upgrade() -> void:
