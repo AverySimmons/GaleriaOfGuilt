@@ -13,3 +13,11 @@ func _ready() -> void:
 	
 	game_manager = game_manager_scene.instantiate()
 	add_child(game_manager)
+
+
+
+func pause_game() -> void:
+	get_tree().paused = true
+
+func unpause_game() -> void:
+	get_tree().paused = false

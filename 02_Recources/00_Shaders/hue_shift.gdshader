@@ -27,12 +27,12 @@ vec3 hsv_to_rgb(vec3 c)
 
 void fragment() {
 	vec2 uv = SCREEN_UV;
-	
+
 	vec3 color = texture(screen_texture, uv).rgb;
 	color = rgb_to_hsv(color);
 	color.r = fract(shift + color.r);
 	color = hsv_to_rgb(color);
-	
+
 	COLOR.rgb = color;
 	COLOR.a = 1.;
 }
