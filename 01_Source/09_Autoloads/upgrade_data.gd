@@ -56,4 +56,6 @@ func _ready() -> void:
 											SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
 											DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS]
 
+@onready var unseen_upgrades: Array = selectable_upgrades.duplicate()
+
 @onready var current_ability_class = BITE_CLASS

@@ -109,7 +109,7 @@ func spawn_enemy(pos: Vector2, index: int) -> void:
 	new_enemy_spawn.enemy = new_enemy
 	entities.add_child(new_enemy_spawn)
 
-func enemy_died() -> void:
+func enemy_died(enemy) -> void:
 	enemies_left -= 1
 
 func enter(dir: Vector2) -> void:

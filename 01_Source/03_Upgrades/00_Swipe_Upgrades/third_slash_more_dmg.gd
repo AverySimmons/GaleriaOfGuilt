@@ -7,6 +7,7 @@ func _init() -> void:
 	upgrade_number = UpgradeData.RETRACT_SWIPE
 	print(upgrade_number)
 	upgrade_scene = self
+	type = 2
 	pass
 
 func choose_upgrade() -> void:

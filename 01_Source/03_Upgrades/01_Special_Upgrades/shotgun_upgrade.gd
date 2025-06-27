@@ -6,6 +6,7 @@ func _ready() -> void:
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png")
 	upgrade_number = UpgradeData.SHOTGUN
 	upgrade_scene = self
+	type = 3
 	pass
 
 func choose_upgrade() -> void:
