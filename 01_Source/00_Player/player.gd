@@ -23,7 +23,7 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 0
 @export var bb_max: float = 250
-@export var swipe_bb_gain: float = 10
+@export var swipe_bb_gain: float = 100
 @export var special_bb_gain: float = 2
 var swipe_bb_actual: float = 1
 var special_bb_actual: float = 2
@@ -32,17 +32,29 @@ var bb_multiplier2: float = 1.0 # If you want to know what this is ask me bc tbh
 @export var bb_kill: float = 5
 @export var bb_spd: float = 1.0/250.0
 var bb_spd_inc: float = 1.0
-@export var bb_hitspd: float = 1.0/600.0
+@export var bb_hitspd: float = 1.0/750.0
 var bb_hitspd_inc: float = 1.0
 @export var bb_timer_time: float = 3
 @onready var bb_timer: float = bb_timer_time
-@export var bb_to_health_ratio: float = 1.0
+@export var bb_to_health_ratio: float = 0.4
 var dealt_damage_took_damage: bool = false
 @export var bb_decrease_rate: float = 10
 var bb_decrease: float = 0
+var percentage_to_start_removing_blood_passively: float = 0.6
+var passive_blood_loss_amount_at_the_above_percentage: float = 4
+var passive_blood_loss_amount_at_max_blood: float = 10
+var blood_loss_at_max: float = 0.3
+var burst_time: float = 5
+var burst_timer: float = 0
+var burst_mult: float = 1.3
+var burst_mult_actual: float = 1.0
+
+signal burst_begin
+signal burst_end
 
 # Attack stuff
 @export var attack_cooldown: float = 0.75
+var actual_hitspd: float = attack_cooldown
 var attack_cooldown_timer: float = 0
 var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
@@ -65,7 +77,7 @@ var dashed_into_enemies: Dictionary
 var level: int = 0
 var exp_needed: float = 100
 var current_exp: float = 0
-
+var exp_mult: float = 1.0
 
 # Upgrade stuff ----------------------------------------
 var dash_blood_cost: float = 0
@@ -101,9 +113,9 @@ func _ready() -> void:
 	#set_ability(shotgun_scene)
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
-	print(UpgradeData.selectable_upgrades.size())
+	#print(UpgradeData.selectable_upgrades.size())
 	#UpgradeData.selectable_upgrades[16].choose_upgrade()
-	print(UpgradeData.selectable_upgrades.size())
+	#print(UpgradeData.selectable_upgrades.size())
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -134,6 +146,7 @@ func _physics_process(delta: float) -> void:
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DISTANCE_BLOOD_GAIN]:
 					if !(blood_bar >= bb_max):
 						blood_bar = move_toward(blood_bar, bb_max, 15*bb_multiplier)
+						SignalBus.bb_change.emit()
 					
 				dashed_into_enemies[enemy] = null
 		# In a dash: If it hits a wall, should end the dash
@@ -162,11 +175,15 @@ func _physics_process(delta: float) -> void:
 		if attack_timer == 0 && using_attack_or_special_or_dash == false:
 			if UpgradeData.upgrades_gained[UpgradeData.COSTS_BLOOD_MORE_DMG] && blood_bar-swipe_blood_cost>=0:
 				blood_bar -= swipe_blood_cost
+				SignalBus.bb_change.emit()
 			## get direction to mouse, turn it into a word, 
 			## then play that animation
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var facing_dir = name_from_vect_dir(dir)
 			facing_dir = update_facing_direction(facing_dir)
+			animation_player.speed_scale /= bb_hitspd_inc
+			print(animation_player.speed_scale)
+			print(attack_cooldown, attack_cooldown*bb_hitspd_inc)
 			animation_player.play("slash_" + facing_dir)
 			
 			$blood_swipe.initiate_attack(upgrade_swipe_mult)
@@ -177,12 +194,10 @@ func _physics_process(delta: float) -> void:
 			# Sorry this is basically to check just for one upgrade, usually it doesn't matter so completely ignore it
 			var guysthiscodesucksbutimrushing: bool = true
 			if UpgradeData.upgrades_gained[UpgradeData.SPECIAL_CD_RED_COST_HP]:
-				if (current_hp - max_hp/10) <= 0:
-					print("Heya!")
+				if (current_hp - max_hp/10.0) <= 0:
 					guysthiscodesucksbutimrushing = false
 				else:
-					print("Yo!")
-					take_damage(current_hp/10)
+					take_damage(max_hp/10.0)
 			## same here as above (blah blah blah repeating code)
 			if guysthiscodesucksbutimrushing:
 				var dir = global_position.direction_to(get_global_mouse_position())
@@ -205,6 +220,8 @@ func _physics_process(delta: float) -> void:
 			dash_timer = dash_cd * bb_hitspd_inc
 			dash_charges -= 1
 			blood_bar -= dash_blood_cost
+			if dash_blood_cost != 0:
+				SignalBus.bb_change.emit()
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)
@@ -228,17 +245,41 @@ func _physics_process(delta: float) -> void:
 		bb_decrease += bb_decrease_rate * delta
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
+		SignalBus.bb_change.emit()
 		heal_amt -= blood_bar
 		if !UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN]:
 			heal_damage(heal_amt * bb_to_health_ratio)
 	
 	if UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN] && blood_bar >= 200:
 		heal_damage(hp_regen*delta)
+	
+	if blood_bar == bb_max:
+		burst_timer = burst_time
+		blood_bar -= blood_bar * blood_loss_at_max
+		SignalBus.bb_change.emit()
+		bb_multiplier2 *= 0.6
+		burst_mult_actual = burst_mult
+		burst_begin.emit()
+	
+	var was_in_burst = burst_timer > 0
+	burst_timer = move_toward(burst_timer, 0, delta)
+	
+	if was_in_burst && burst_timer == 0:
+		bb_multiplier2 /= 0.6
+		burst_mult_actual = 1.0
+		burst_end.emit()
+	
+	if blood_bar >= bb_max*percentage_to_start_removing_blood_passively:
+		var amt_to_lose_passively_yo: float = passive_blood_loss_amount_at_the_above_percentage + ((passive_blood_loss_amount_at_max_blood - passive_blood_loss_amount_at_the_above_percentage) * (blood_bar-bb_max*percentage_to_start_removing_blood_passively)/(bb_max-percentage_to_start_removing_blood_passively*bb_max))
+		blood_bar = move_toward(blood_bar, 0, amt_to_lose_passively_yo*delta)
+		SignalBus.bb_change.emit()
 	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
+	bb_hitspd_inc /= burst_mult_actual
+	bb_spd_inc *= burst_mult_actual
 	if bb_hitspd_inc <= 0.1:
 		bb_hitspd_inc = 0.1
-	bb_multiplier = bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc
+	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.2)
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
 	
@@ -334,14 +375,16 @@ func take_damage(amount: float) -> void:
 	if is_invincible:
 		return
 	current_hp = move_toward(current_hp, 0, amount)
-	print("I got hit!")
 	if current_hp <= 0:
-		print("I died!")
+		# death
+		pass
 	dealt_damage_took_damage = true
+	SignalBus.hp_change.emit()
 	return
 
 func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
+	SignalBus.hp_change.emit()
 	return
 
 func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
@@ -357,7 +400,7 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 		"special":
 			gain = special_bb_actual * sp_blood_mult
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
-	print(gain)
+	SignalBus.bb_change.emit()
 	return
 
 func set_ability(ability) -> void:
@@ -394,13 +437,12 @@ func kill_gain_blood(enemy: Enemy) -> void:
 		"Locust":
 			amount = 5
 	blood_bar = move_toward(blood_bar, bb_max, amount*bb_multiplier)
+	SignalBus.bb_change.emit()
 	return
 
 func kill_lower_spcd() -> void:
-	print(special_ability_timer)
 	if special_ability_timer >= 0:
 		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc * spcd_increase)/3)
-	print(special_ability_timer)
 	return
 
 # Level stuff
@@ -410,15 +452,14 @@ func gain_exp(enemy: Enemy) -> void:
 		"Lizard":
 			amount = 8
 		"Worm":
-			amount = 50
+			amount = 6
 		"Locust":
 			amount = 4
-	print(current_exp)
-	current_exp = move_toward(current_exp, exp_needed, amount)
+	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
 		SignalBus.levelup.emit()
 		exp_needed += 50*level
 		level += 1
 		current_exp = 0
-	print(current_exp)
+	SignalBus.gained_exp.emit()
 	return

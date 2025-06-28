@@ -40,11 +40,11 @@ var enemy_scenes = [
 ]
 
 var item_sprites = [
-	preload("res://00_Assets/00_Sprites/Objective_item_sprites/compact_mirror_sprite.png"),
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/heart_shaped_sunglasses_sprite.png"),
-	preload("res://00_Assets/00_Sprites/Objective_item_sprites/human_heart_sprite.png"),
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/compact_mirror_sprite.png"),
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/ring_sprite.png"),
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/lamb_plush_sprite.png"),
-	preload("res://00_Assets/00_Sprites/Objective_item_sprites/ring_sprite.png")
+	preload("res://00_Assets/00_Sprites/Objective_item_sprites/human_heart_sprite.png"),
 ]
 
 # 0 is no connection

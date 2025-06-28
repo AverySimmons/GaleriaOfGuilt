@@ -8,6 +8,8 @@ var actual_shake_intensity : float
 var target_node : CharacterBody2D
 var shaking_time: float
 
+var start_pos: Vector2
+
 var enemy : Enemy
 
 ## variables at the top
@@ -28,9 +30,17 @@ func _enter() -> void:
 	target_node = enemy
 	shaking_time = 0
 	
+	## store the sprite position at start (will be restored on exit)
+	start_pos = enemy.sprite.global_position
+
+func _exit() -> void:
+	enemy.sprite.global_position = start_pos
+
 func _tick(delta: float) -> Status:
 	#return to default position
-	target_node.get_node("Sprite2D").global_position = target_node.global_position
+	
+	## I changed this to reseting on exit
+	# target_node.get_node("Sprite2D").global_position = target_node.global_position
 	
 	if shaking_time >= 1: #finish
 		
