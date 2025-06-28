@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 			if parent.burst_timer == 0:
 				collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1, 1)
 			else:
-				collision_shape_2d.get_node("Slash").modulate = Color(0.95, 0.95, 0.55)
+				collision_shape_2d.get_node("Slash").modulate = Color(1.0, 0.8, 0.9)
 	pass
 
 func initiate_attack(upgrade_mult: float) -> void:
@@ -136,7 +136,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 func on_burst_begin() -> void:
 	attack_slowdown = 1.0
-	collision_shape_2d.get_node("Slash").modulate = Color(0.95, 0.95, 0.55)
+	collision_shape_2d.get_node("Slash").modulate = Color(1.0, 0.8, 0.9)
 	return
 
 func on_burst_end() -> void:

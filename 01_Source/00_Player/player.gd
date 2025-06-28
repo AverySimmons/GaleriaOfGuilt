@@ -96,6 +96,8 @@ var baseline_speed: float = 0
 var dash_charges: int = 1
 var dash_charges_amt: int = 1
 
+var sorryguysthisisstupidbutwererushing: bool = false
+
 var movement_animations = {
 	"idle" : null,
 	"run_up" : null,
@@ -115,7 +117,7 @@ func _ready() -> void:
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	#print(UpgradeData.selectable_upgrades.size())
-	UpgradeData.selectable_upgrades[19].choose_upgrade()
+	#UpgradeData.selectable_upgrades[19].choose_upgrade()
 	#print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -198,6 +200,7 @@ func _physics_process(delta: float) -> void:
 				if (current_hp - max_hp/10.0) <= 0:
 					guysthiscodesucksbutimrushing = false
 				else:
+					sorryguysthisisstupidbutwererushing = true
 					take_damage(max_hp/10.0)
 			## same here as above (blah blah blah repeating code)
 			if guysthiscodesucksbutimrushing:
@@ -221,6 +224,23 @@ func _physics_process(delta: float) -> void:
 				movement_vector = Vector2(0, 1)
 			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
 			animation_player.speed_scale = 1.0 * bb_spd_inc
+			var dash_fella = $DashTrailHelper.get_node("DashTrail")
+			var dash_vector = -get_movement_vector()
+			dash_fella.visible = true
+			dash_fella.position = dash_vector * 100
+			dash_fella.rotation = dash_vector.angle()
+			var dash_direction = name_from_vect_dir(dash_vector)
+			match dash_direction:
+				"up":
+					dash_fella.position += Vector2(-30, -70)
+				"down":
+					dash_fella.position += Vector2(40, 10)
+				"right":
+					dash_fella.position += Vector2(20, -60)
+				"left":
+					dash_fella.position += Vector2(0, -20)
+					pass
+			
 			animation_player.play(dash_animation)
 			
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
@@ -379,7 +399,7 @@ func update_facing_direction(facing_dir: String) -> String:
 	return facing_dir
 
 func take_damage(amount: float) -> void:
-	if is_invincible:
+	if is_invincible && !sorryguysthisisstupidbutwererushing:
 		return
 	current_hp = move_toward(current_hp, 0, amount)
 	if current_hp <= 0:
@@ -387,6 +407,12 @@ func take_damage(amount: float) -> void:
 		pass
 	dealt_damage_took_damage = true
 	SignalBus.hp_change.emit()
+	if sorryguysthisisstupidbutwererushing:
+		sorryguysthisisstupidbutwererushing = false
+		return
+	is_invincible = true
+	await get_tree().create_timer(0.3).timeout
+	is_invincible = false
 	return
 
 func heal_damage(amount: float) -> void:
