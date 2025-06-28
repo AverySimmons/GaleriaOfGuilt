@@ -2,5 +2,14 @@ cut scenes, transtions, dialogic integration, menus
 enemy attack indicators and fix enemy attacks
 lizard needs implemented
 sounds effect implemented (sound effect manager?)
+make levels work
 
-balence 
+
+adjust lots of values
+player values
+enemy values
+upgrade values
+spawning values / level size
+
+THINK OF A TITLE
+// FIX STUPID ISSUE

@@ -5,6 +5,8 @@ extends Control
 @onready var hp_fill: Sprite2D = $HealthBar/Fill
 @onready var xp_fill: Sprite2D = $XPBar/Fill
 
+var bb_tween: Tween
+
 func _ready() -> void:
 	GameData.player.burst_begin.connect(enter_burst)
 	GameData.player.burst_end.connect(exit_burst)
@@ -41,10 +43,15 @@ func health_change() -> void:
 	t.tween_property(hp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.25)
 
 func blood_change() -> void:
-	var fill_perc = GameData.player.blood_bar / GameData.player.bb_max
-	var t = create_tween()
-	t.tween_property(blood_bar, "material:shader_parameter/fill_percent", fill_perc, 0.25)
+	var fill_perc = GameData.player.blood_bar / float(GameData.player.bb_max)
+	var cur_fill: float = blood_bar.material.get_shader_parameter("fill_percent")
+	if bb_tween: bb_tween.kill()
+	bb_tween = create_tween()
+	bb_tween.tween_method(blood_bar_update_helper, cur_fill, fill_perc, 0.25)
 	
 	var vignette_perc = max(0, GameData.player.blood_bar / GameData.player.bb_max - 0.6) / 0.4
 	var t2 = create_tween()
 	t2.tween_property(blood_vignette, "material:shader_parameter/strength", vignette_perc, 0.25)
+
+func blood_bar_update_helper(val):
+	blood_bar.material.set_shader_parameter("fill_percent", val)

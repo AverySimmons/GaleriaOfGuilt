@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform float fill_percent = 1.0;
+uniform float fill_percent = 0.0;
 uniform float pink_mix = 0.;
 
 void vertex() {
