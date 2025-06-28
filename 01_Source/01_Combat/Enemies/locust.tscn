@@ -1,18 +1,22 @@
-[gd_scene load_steps=33 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=34 format=3 uid="uid://bj5h3s11xhapu"]
 
-[ext_resource type="Texture2D" uid="uid://fqrds2jq446o" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
+[ext_resource type="Texture2D" uid="uid://ce1jipg3j28dg" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
+[ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_prp80"]
 [ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
-[ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
+[ext_resource type="Script" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="5_tcqde"]
-[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
+[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvb30"]
+size = Vector2(45, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elxkq"]
+size = Vector2(41, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5ri8"]
+size = Vector2(60, 45)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_l72ei"]
 
@@ -76,7 +80,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_oe0yt"]
@@ -96,6 +100,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_tcqde"]
 resource_name = "move_down"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -191,13 +196,19 @@ collision_layer = 0
 script = ExtResource("1_qlpsa")
 hp = 40.0
 
+[node name="Shadow" parent="." instance=ExtResource("2_prp80")]
+position = Vector2(0, -13.5)
+scale = Vector2(0.6, 0.351563)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -66)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_popms")
 hframes = 2
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -14.5)
 shape = SubResource("RectangleShape2D_jvb30")
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -205,6 +216,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.5, -17)
 shape = SubResource("RectangleShape2D_elxkq")
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -212,6 +224,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -23.5)
 shape = SubResource("RectangleShape2D_x5ri8")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
@@ -231,4 +244,5 @@ libraries = {
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="DashMark" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("6_tcqde")

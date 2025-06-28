@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqdo4xcwviugk"]
+
+[ext_resource type="Shader" uid="uid://c5yitgv7hnqre" path="res://03_Components/shadow.gdshader" id="1_kuoyn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3tbm"]
+shader = ExtResource("1_kuoyn")
+
+[sub_resource type="Gradient" id="Gradient_kvx80"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.619608)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kuoyn"]
+gradient = SubResource("Gradient_kvx80")
+width = 128
+height = 128
+
+[node name="Shadow" type="Sprite2D"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_c3tbm")
+texture = SubResource("GradientTexture2D_kuoyn")
