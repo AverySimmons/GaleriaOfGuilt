@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dvbabi2s60kn0"]
+[gd_scene load_steps=34 format=3 uid="uid://dvbabi2s60kn0"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_f38sp"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://x3o61578d387" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
 [ext_resource type="Script" uid="uid://daalbp4x5irfh" path="res://01_Source/00_Player/dash.gd" id="4_fmg42"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
-[ext_resource type="Texture2D" uid="uid://bi3bqf7k482nv" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_new_spritesheet.png" id="5_sy4wu"]
+[ext_resource type="Texture2D" uid="uid://dr6t5fegd6r7g" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 radius = 27.074
@@ -640,6 +640,57 @@ tracks/2/keys = {
 "values": [Vector2(0.953125, 0.828125)]
 }
 
+[sub_resource type="Animation" id="Animation_xxx4p"]
+resource_name = "special_left"
+length = 0.5
+step = 0.16
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [72, 73]
+}
+
+[sub_resource type="Animation" id="Animation_i14xg"]
+resource_name = "special_up"
+length = 0.5
+step = 0.16
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [77, 76]
+}
+
+[sub_resource type="Animation" id="Animation_fe6dk"]
+resource_name = "special_down"
+length = 0.5
+step = 0.16
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [74, 75]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bj30f"]
 _data = {
 &"RESET": SubResource("Animation_6ukc1"),
@@ -655,7 +706,10 @@ _data = {
 &"run_up": SubResource("Animation_fsf3c"),
 &"slash_down": SubResource("Animation_y3uc1"),
 &"slash_left": SubResource("Animation_qn83g"),
-&"slash_up": SubResource("Animation_06en5")
+&"slash_up": SubResource("Animation_06en5"),
+&"special_down": SubResource("Animation_fe6dk"),
+&"special_left": SubResource("Animation_xxx4p"),
+&"special_up": SubResource("Animation_i14xg")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sy4wu"]
@@ -708,7 +762,7 @@ autoplay = "idle"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -52.562)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_sy4wu")
+texture = ExtResource("5_f38sp")
 hframes = 23
 vframes = 4
 frame = 23

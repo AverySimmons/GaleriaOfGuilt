@@ -60,7 +60,7 @@ var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
 var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
-var current_ability_name: int = 0
+var current_ability_name: int = 1
 var current_ability_scene = null
 
 # Dash stuff
@@ -112,10 +112,10 @@ func _ready() -> void:
 	set_ability(bite_scene)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
 	#set_ability(shotgun_scene)
-	var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
-	set_ability(grenade_scene)
+	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
+	#set_ability(grenade_scene)
 	#print(UpgradeData.selectable_upgrades.size())
-	#UpgradeData.selectable_upgrades[16].choose_upgrade()
+	UpgradeData.selectable_upgrades[19].choose_upgrade()
 	#print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -208,9 +208,9 @@ func _physics_process(delta: float) -> void:
 					0:
 						animation_player.play("bite_" + facing_dir)
 					1:
-						pass
+						animation_player.play("special_" + facing_dir)
 					2:
-						pass
+						animation_player.play("special_" + facing_dir)
 			
 				current_ability.use_ability()
 				special_ability_timer = current_ability.cooldown * bb_hitspd_inc * spcd_increase
@@ -409,6 +409,12 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	SignalBus.bb_change.emit()
 	return
+
+func gain_blood_other(amount: float) -> void:
+	if blood_bar >= bb_max:
+		return
+	blood_bar = move_toward(blood_bar, bb_max, amount)
+	SignalBus.bb_change.emit()
 
 func set_ability(ability) -> void:
 	var new_ability = ability.instantiate()
