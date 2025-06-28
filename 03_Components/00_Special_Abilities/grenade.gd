@@ -6,12 +6,12 @@ var grenade_scene = preload("res://01_Source/04_Projectiles/grenade_projectile.t
 
 func _ready() -> void:
 	super._ready()
-	damage = 60
+	damage = 30
 	cooldown = 5
 	chargeup = 0.3
 	active_time = 0.1
 	special_slowdown = 0.5
-	flinch_amount = 0.5
+	flinch_amount = 0.6
 	chargeup_slowdown = 0.4
 	pass
 

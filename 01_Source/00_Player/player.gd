@@ -23,8 +23,8 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 0
 @export var bb_max: float = 250
-@export var swipe_bb_gain: float = 100
-@export var special_bb_gain: float = 2
+@export var swipe_bb_gain: float = 10
+@export var special_bb_gain: float = 15
 var swipe_bb_actual: float = 1
 var special_bb_actual: float = 2
 var bb_multiplier: float = 1.0
@@ -60,6 +60,7 @@ var attack_timer: float = 0
 var special_ability_timer: float # Relative to current special ability timer in code
 var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
+var current_ability_name: int = 0
 var current_ability_scene = null
 
 # Dash stuff
@@ -111,8 +112,8 @@ func _ready() -> void:
 	set_ability(bite_scene)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
 	#set_ability(shotgun_scene)
-	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
-	#set_ability(grenade_scene)
+	var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
+	set_ability(grenade_scene)
 	#print(UpgradeData.selectable_upgrades.size())
 	#UpgradeData.selectable_upgrades[16].choose_upgrade()
 	#print(UpgradeData.selectable_upgrades.size())
@@ -203,7 +204,13 @@ func _physics_process(delta: float) -> void:
 				var dir = global_position.direction_to(get_global_mouse_position())
 				var facing_dir = name_from_vect_dir(dir)
 				facing_dir = update_facing_direction(facing_dir)
-				animation_player.play("bite_" + facing_dir)
+				match current_ability_name:
+					0:
+						animation_player.play("bite_" + facing_dir)
+					1:
+						pass
+					2:
+						pass
 			
 				current_ability.use_ability()
 				special_ability_timer = current_ability.cooldown * bb_hitspd_inc * spcd_increase

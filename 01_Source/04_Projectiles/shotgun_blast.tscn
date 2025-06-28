@@ -8,7 +8,7 @@ size = Vector2(10, 30)
 
 [node name="ShotgunBlast" type="Area2D"]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("1_rcbtq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

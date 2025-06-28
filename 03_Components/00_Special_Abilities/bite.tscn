@@ -1,17 +1,68 @@
-[gd_scene load_steps=3 format=3 uid="uid://6f67n6fgmbn6"]
+[gd_scene load_steps=7 format=3 uid="uid://6f67n6fgmbn6"]
 
 [ext_resource type="Script" uid="uid://clka6aw5ssvse" path="res://03_Components/00_Special_Abilities/bite.gd" id="1_01fqm"]
+[ext_resource type="Texture2D" uid="uid://cg2p0qifcx0qr" path="res://00_Assets/00_Sprites/Charcter_sprites/bite_effect_spritesheet.png" id="2_ncxjq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncxjq"]
-size = Vector2(50, 30)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ncxjq"]
+radius = 100.0
+
+[sub_resource type="Animation" id="Animation_0o2gh"]
+resource_name = "bite"
+length = 0.6
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_ce8mx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_33m12"]
+_data = {
+&"RESET": SubResource("Animation_ce8mx"),
+&"bite": SubResource("Animation_0o2gh")
+}
 
 [node name="Bite" type="Area2D"]
+show_behind_parent = true
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("1_01fqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(35, 0)
-shape = SubResource("RectangleShape2D_ncxjq")
+position = Vector2(63, 0)
+shape = SubResource("CircleShape2D_ncxjq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+visible = false
+position = Vector2(1, 14)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_ncxjq")
+hframes = 2
+vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_33m12")
+}

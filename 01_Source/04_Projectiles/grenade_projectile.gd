@@ -4,7 +4,7 @@ var velocity: Vector2
 var target_location: Vector2
 var min_distance: float = 300
 
-var explosion_time: float = 0.5
+var explosion_time: float = 0.4
 var timer_until_explosion: float = 2.0
 var has_exploded: bool = false
 var damage: float
@@ -18,8 +18,8 @@ var player = GameData.player
 
 # Z variable for grenade arc
 var z: float
-var z_speed: float
-var z_gravity: float = -500
+var z_speed: float = -800
+var z_gravity: float = -1500
 
 # Rotation stuff
 var rotation_velocity: float = 6
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		return
 	position += velocity * delta
 	# For the arc
-	z_speed -= z_gravity * 2 * delta
+	z_speed -= z_gravity * delta
 	z += z_speed * delta
 	$Sprite2D.position.y = z
 	if z >= 0:
@@ -46,11 +46,6 @@ func _physics_process(delta: float) -> void:
 
 func get_thrown(location: Vector2, shot_speed: float, explo_damage: float, explo_flinch_amt: float, explo_kb: float) -> void:
 	var distance = location - global_position
-	
-	# Ensure that distance is far enough
-	if distance.length() < 300:
-		location = distance.normalized() * 300
-		distance = distance.normalized() * 300
 	target_location = location + Vector2(randf_range(-50, 50), randf_range(-50, 50))
 	distance = target_location - global_position
 	
@@ -59,8 +54,8 @@ func get_thrown(location: Vector2, shot_speed: float, explo_damage: float, explo
 	flinch_amt = explo_flinch_amt
 	knockback_amt = explo_kb
 	
-	var time = distance.length() / velocity.length()
-	z_speed = -0.5 * gravity * time
+	var time = 2 * z_speed/z_gravity
+	velocity = distance/time
 	return
 
 func explode() -> void:
@@ -69,13 +64,14 @@ func explode() -> void:
 	z_speed = 0
 	velocity = Vector2.ZERO
 	monitoring = true
-	# Some sort of blood explosion animation?
-	#
-	#
+	await get_tree().physics_frame
+	$Explosion.visible = true
+	$Sprite2D.visible = false
+	$AnimationPlayer.play("explosion")
 	var enemies = get_overlapping_areas()
 	for area in enemies:
 		var enemy = area.owner
-		if enemy is Enemy:
+		if enemy is Enemy && enemies_hit.has(enemy):
 			enemy.take_damage(damage, flinch_amt, knockback_amt)
 			dealt_damage = true
 			player.gain_blood("special", 1.0, enemy)
