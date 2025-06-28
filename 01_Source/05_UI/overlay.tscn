@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://xoikojyvkrrx"]
+[gd_scene load_steps=17 format=3 uid="uid://xoikojyvkrrx"]
 
 [ext_resource type="Script" uid="uid://bolvkavyt28qx" path="res://01_Source/05_UI/overlay.gd" id="1_aqb7b"]
 [ext_resource type="Shader" uid="uid://orva0wcfmaii" path="res://01_Source/05_UI/blood_bar.gdshader" id="1_v104o"]
 [ext_resource type="Texture2D" uid="uid://b8d2tp4l7e38c" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter_inside.png" id="2_llo78"]
+[ext_resource type="Shader" uid="uid://beb7qstmb7gi3" path="res://01_Source/05_UI/blood_vignette.gdshader" id="2_sn08a"]
 [ext_resource type="Texture2D" uid="uid://dfgutgrgvaso" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter.png" id="3_6miwi"]
 [ext_resource type="Texture2D" uid="uid://bthqafaem4ery" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_background.png" id="4_cvdph"]
 [ext_resource type="Shader" uid="uid://bjqbs23grvarw" path="res://01_Source/05_UI/health_bar.gdshader" id="5_aqb7b"]
@@ -12,9 +13,15 @@
 [ext_resource type="Shader" uid="uid://o6sexqq22nic" path="res://01_Source/05_UI/xp_bar.gdshader" id="10_d3c2y"]
 [ext_resource type="Texture2D" uid="uid://6yrhmtfjcsat" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar.png" id="11_sn08a"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvqx0"]
+shader = ExtResource("2_sn08a")
+shader_parameter/strength = 0.0
+shader_parameter/pink_mix = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_db786"]
 shader = ExtResource("1_v104o")
 shader_parameter/fill_percent = 1.0
+shader_parameter/pink_mix = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3c2y"]
 shader = ExtResource("5_aqb7b")
@@ -32,6 +39,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aqb7b")
+
+[node name="BloodVignette" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_wvqx0")
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="BloodBar" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_db786")

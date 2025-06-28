@@ -72,6 +72,25 @@ func _tick(delta: float) -> Status:
 	
 func _exit() -> void:
 	enemy.velocity = Vector2.ZERO 
+	
+	
+	## this is just copy and pasted from tick
+	## 
+	
+	var direction_to_player = enemy.global_position.direction_to(GameData.player.global_position)
+	
+	if GameData.player.global_position.y > enemy.global_position.y and \
+			direction_to_player.angle() > 1/4. * PI && direction_to_player.angle() < 3/4. * PI: #player underneath
+		if enemy.sprite.scale.y < 0:
+			enemy.sprite.scale.y *= -1
+			enemy.going_up = false
+			enemy.going_down = true
+	elif GameData.player.global_position.y < enemy.global_position.y and \
+			direction_to_player.angle() > -3/4. * PI && direction_to_player.angle() < -1/4. * PI: #player up
+		if enemy.sprite.scale.y > 0:
+			enemy.sprite.scale.y *= -1
+			enemy.going_up = true
+			enemy.going_down = false
 
 ## think about helper functions down here
 

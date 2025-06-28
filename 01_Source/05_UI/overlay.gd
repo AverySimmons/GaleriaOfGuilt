@@ -1,11 +1,53 @@
 extends Control
 
+@onready var blood_vignette: ColorRect = $BloodVignette
 @onready var blood_bar: Sprite2D = $BloodBar
-@onready var fill: Sprite2D = $HealthBar/Fill
+@onready var hp_fill: Sprite2D = $HealthBar/Fill
+@onready var xp_fill: Sprite2D = $XPBar/Fill
 
-func _process(delta: float) -> void:
-	var fill_perc = GameData.player.current_hp / GameData.player.max_hp
-	fill.material.set_shader_parameter("fill_percent", fill_perc)
+func _ready() -> void:
+	GameData.player.burst_begin.connect(enter_burst)
+	GameData.player.burst_end.connect(exit_burst)
+	SignalBus.gained_exp.connect(xp_change)
+	SignalBus.hp_change.connect(health_change)
+	SignalBus.bb_change.connect(blood_change)
 	
-	var fill_perc2 = GameData.player.blood_bar / GameData.player.bb_max
-	blood_bar.material.set_shader_parameter("fill_percent", fill_perc2)
+	var xp_fill_perc = GameData.player.current_exp / GameData.player.exp_needed
+	xp_fill.material.set_shader_parameter("fill_percent", xp_fill_perc)
+	
+	var hp_fill_perc = GameData.player.current_hp / GameData.player.max_hp
+	hp_fill.material.set_shader_parameter("fill_percent", hp_fill_perc)
+	
+	var bb_fill_perc = GameData.player.blood_bar / GameData.player.bb_max
+	blood_bar.material.set_shader_parameter("fill_percent", bb_fill_perc)
+
+func enter_burst() -> void:
+	var t = create_tween()
+	t.tween_property(blood_vignette, "material:shader_parameter/pink_mix", 1, 0.2)
+	var t2 = create_tween()
+	t2.tween_property(blood_bar, "material:shader_parameter/pink_mix", 1, 0.2)
+
+func exit_burst() -> void:
+	var t = create_tween()
+	t.tween_property(blood_vignette, "material:shader_parameter/pink_mix", 0, 0.2)
+	var t2 = create_tween()
+	t2.tween_property(blood_bar, "material:shader_parameter/pink_mix", 0, 0.2)
+
+func xp_change() -> void:
+	var fill_perc = GameData.player.current_exp / GameData.player.exp_needed
+	var t = create_tween()
+	t.tween_property(xp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.1)
+
+func health_change() -> void:
+	var fill_perc = GameData.player.current_hp / GameData.player.max_hp
+	var t = create_tween()
+	t.tween_property(hp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.1)
+
+func blood_change() -> void:
+	var fill_perc = GameData.player.blood_bar / GameData.player.bb_max
+	var t = create_tween()
+	t.tween_property(blood_bar, "material:shader_parameter/fill_percent", fill_perc, 0.1)
+	
+	var vignette_perc = max(0, GameData.player.blood_bar / GameData.player.bb_max - 0.6) / 0.4
+	var t2 = create_tween()
+	t2.tween_property(blood_vignette, "material:shader_parameter/strength", vignette_perc, 0.2)
