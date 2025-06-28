@@ -77,7 +77,7 @@ var dashed_into_enemies: Dictionary
 var level: int = 0
 var exp_needed: float = 100
 var current_exp: float = 0
-
+var exp_mult: float = 1.0
 
 # Upgrade stuff ----------------------------------------
 var dash_blood_cost: float = 0
@@ -146,6 +146,7 @@ func _physics_process(delta: float) -> void:
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DISTANCE_BLOOD_GAIN]:
 					if !(blood_bar >= bb_max):
 						blood_bar = move_toward(blood_bar, bb_max, 15*bb_multiplier)
+						SignalBus.bb_change.emit()
 					
 				dashed_into_enemies[enemy] = null
 		# In a dash: If it hits a wall, should end the dash
@@ -174,6 +175,7 @@ func _physics_process(delta: float) -> void:
 		if attack_timer == 0 && using_attack_or_special_or_dash == false:
 			if UpgradeData.upgrades_gained[UpgradeData.COSTS_BLOOD_MORE_DMG] && blood_bar-swipe_blood_cost>=0:
 				blood_bar -= swipe_blood_cost
+				SignalBus.bb_change.emit()
 			## get direction to mouse, turn it into a word, 
 			## then play that animation
 			var dir = global_position.direction_to(get_global_mouse_position())
@@ -218,6 +220,8 @@ func _physics_process(delta: float) -> void:
 			dash_timer = dash_cd * bb_hitspd_inc
 			dash_charges -= 1
 			blood_bar -= dash_blood_cost
+			if dash_blood_cost != 0:
+				SignalBus.bb_change.emit()
 	
 	attack_timer = move_toward(attack_timer, 0, delta)
 	special_ability_timer = move_toward(special_ability_timer, 0, delta)
@@ -241,6 +245,7 @@ func _physics_process(delta: float) -> void:
 		bb_decrease += bb_decrease_rate * delta
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
+		SignalBus.bb_change.emit()
 		heal_amt -= blood_bar
 		if !UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN]:
 			heal_damage(heal_amt * bb_to_health_ratio)
@@ -251,6 +256,7 @@ func _physics_process(delta: float) -> void:
 	if blood_bar == bb_max:
 		burst_timer = burst_time
 		blood_bar -= blood_bar * blood_loss_at_max
+		SignalBus.bb_change.emit()
 		bb_multiplier2 *= 0.6
 		burst_mult_actual = burst_mult
 		burst_begin.emit()
@@ -266,6 +272,7 @@ func _physics_process(delta: float) -> void:
 	if blood_bar >= bb_max*percentage_to_start_removing_blood_passively:
 		var amt_to_lose_passively_yo: float = passive_blood_loss_amount_at_the_above_percentage + ((passive_blood_loss_amount_at_max_blood - passive_blood_loss_amount_at_the_above_percentage) * (blood_bar-bb_max*percentage_to_start_removing_blood_passively)/(bb_max-percentage_to_start_removing_blood_passively*bb_max))
 		blood_bar = move_toward(blood_bar, 0, amt_to_lose_passively_yo*delta)
+		SignalBus.bb_change.emit()
 	bb_spd_inc = 1.0 + (blood_bar * bb_spd)
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
 	bb_hitspd_inc /= burst_mult_actual
@@ -372,10 +379,12 @@ func take_damage(amount: float) -> void:
 		# death
 		pass
 	dealt_damage_took_damage = true
+	SignalBus.hp_change.emit()
 	return
 
 func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
+	SignalBus.hp_change.emit()
 	return
 
 func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
@@ -391,6 +400,7 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 		"special":
 			gain = special_bb_actual * sp_blood_mult
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
+	SignalBus.bb_change.emit()
 	return
 
 func set_ability(ability) -> void:
@@ -427,6 +437,7 @@ func kill_gain_blood(enemy: Enemy) -> void:
 		"Locust":
 			amount = 5
 	blood_bar = move_toward(blood_bar, bb_max, amount*bb_multiplier)
+	SignalBus.bb_change.emit()
 	return
 
 func kill_lower_spcd() -> void:
@@ -444,10 +455,11 @@ func gain_exp(enemy: Enemy) -> void:
 			amount = 6
 		"Locust":
 			amount = 4
-	current_exp = move_toward(current_exp, exp_needed, amount)
+	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
 		SignalBus.levelup.emit()
 		exp_needed += 50*level
 		level += 1
 		current_exp = 0
+	SignalBus.gained_exp.emit()
 	return
