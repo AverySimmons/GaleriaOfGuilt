@@ -115,7 +115,7 @@ func _ready() -> void:
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	#print(UpgradeData.selectable_upgrades.size())
-	UpgradeData.selectable_upgrades[19].choose_upgrade()
+	#UpgradeData.selectable_upgrades[19].choose_upgrade()
 	#print(UpgradeData.selectable_upgrades.size())
 	pass
 
@@ -221,6 +221,23 @@ func _physics_process(delta: float) -> void:
 				movement_vector = Vector2(0, 1)
 			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
 			animation_player.speed_scale = 1.0 * bb_spd_inc
+			var dash_fella = $DashTrailHelper.get_node("DashTrail")
+			var dash_vector = -get_movement_vector()
+			dash_fella.visible = true
+			dash_fella.position = dash_vector * 100
+			dash_fella.rotation = dash_vector.angle()
+			var dash_direction = name_from_vect_dir(dash_vector)
+			match dash_direction:
+				"up":
+					dash_fella.position += Vector2(-30, -70)
+				"down":
+					dash_fella.position += Vector2(40, 10)
+				"right":
+					dash_fella.position += Vector2(20, -60)
+				"left":
+					dash_fella.position += Vector2(0, -20)
+					pass
+			
 			animation_player.play(dash_animation)
 			
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)

@@ -19,5 +19,6 @@ func end_dash() -> void:
 	parent.velocity = Vector2.ZERO
 	parent.is_dashing = false
 	parent.using_attack_or_special_or_dash = false
+	parent.get_node("DashTrailHelper").get_node("DashTrail").visible = false
 	parent.dashed_into_enemies.clear()
 	return
