@@ -9,6 +9,7 @@ var target_node : CharacterBody2D
 var shaking_time: float
 
 var start_pos: Vector2
+var shadow_start_pos: Vector2
 
 var enemy : Enemy
 
@@ -51,6 +52,7 @@ func _tick(delta: float) -> Status:
 	var shake_offset: Vector2 = Vector2(randf_range(-actual_shake_intensity, actual_shake_intensity),
 										randf_range(-actual_shake_intensity, actual_shake_intensity))
 	target_node.get_node("Sprite2D").position += shake_offset
+	target_node.get_node("Shadow").position += shake_offset
 	
 	shaking_time += delta
 	

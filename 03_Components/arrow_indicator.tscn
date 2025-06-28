@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0286epkynrb8"]
+
+[ext_resource type="Script" uid="uid://qjq7668tigl5" path="res://03_Components/arrow_indicator.gd" id="1_e1388"]
+[ext_resource type="Shader" uid="uid://dl87hamgrgbvx" path="res://03_Components/arrow_indicator.gdshader" id="2_e1388"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0p4ek"]
+resource_local_to_scene = true
+shader = ExtResource("2_e1388")
+shader_parameter/size = 64.0
+shader_parameter/arrow_size = 32.0
+
+[sub_resource type="Gradient" id="Gradient_k6raj"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b78tu"]
+gradient = SubResource("Gradient_k6raj")
+
+[node name="ArrowIndicator" type="Node2D"]
+script = ExtResource("1_e1388")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0p4ek")
+position = Vector2(1823, -66)
+texture = SubResource("GradientTexture2D_b78tu")

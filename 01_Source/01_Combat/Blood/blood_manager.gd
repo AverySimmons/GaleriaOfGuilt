@@ -6,7 +6,7 @@ var blood_scene = preload("res://01_Source/01_Combat/Blood/blood_particle.tscn")
 func _ready() -> void:
 	multimesh.instance_count = 0
 	multimesh.use_custom_data = true
-	multimesh.instance_count = 10000
+	multimesh.instance_count = 15000
 
 func spawn():
 	SignalBus.spawn_blood.connect(spawn_blood_particle)

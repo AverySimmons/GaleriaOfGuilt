@@ -17,7 +17,7 @@ func enemy_hit(pos: Vector2, dir: Vector2):
 		SignalBus.spawn_blood.emit(pos, speed * Vector2.from_angle(ang))
 
 func enemy_death(pos: Vector2):
-	for i in blood_pool_amount:
+	for i in death_amount:
 		var ang = randf() * TAU
-		var speed = randfn(400, 300)
+		var speed = randfn(400, 400)
 		SignalBus.spawn_blood.emit(pos, speed * Vector2.from_angle(ang))

@@ -9,7 +9,7 @@ extends CharacterBody2D
 @export var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
 @export var flinch_guard: float = 0
 
-
+@onready var blood_module: Node2D = $BloodModule
 
 var facing_direction: Vector2 = Vector2.RIGHT
 var death_state: bool = false
@@ -22,6 +22,8 @@ var going_up: bool = false #nearly going straight up
 var going_down: bool = false #approximately stright down
 
 var Animations : AnimationPlayer
+
+
 
 # For upgrades:
 var is_marked: bool = false
@@ -38,14 +40,22 @@ func _ready() -> void:
 	pass
 	
 #timers
-var death_timer = 1 #a little delay for the animation to play, is there a better way?
+
+## I'm switching this to awaiting the death animation !
+## var death_timer = 1 #a little delay for the animation to play, is there a better way?
 
 func start_death() -> void:
 	death_state = true
+	$BTPlayer.process_mode = Node.PROCESS_MODE_DISABLED
 	SignalBus.death.emit(self)
-	#start.animation('death')
+	blood_module.enemy_death(global_position)
+	$Animations.play('death')
+	await $Animations.animation_finished
+	call_deferred("queue_free")
 
 func _physics_process(delta: float) -> void:
+	if death_state: return
+	
 	#update distance to player
 	if GameData.player:
 		distance_to_player = GameData.player.global_position.distance_to(global_position)
@@ -58,10 +68,13 @@ func _physics_process(delta: float) -> void:
 	if hp <= 0:
 		if not death_state:
 			start_death() #emits signal and plays animation right now
-		death_timer -= 1 #how do I make this different for each enemy? does it have to be?
+	
+	
+	## I'm switching all the death timer stuff to waiting for the animation to finish
+	##	death_timer -= 1 #how do I make this different for each enemy? does it have to be?
 		
-	if death_timer <= 0: #time to die
-		queue_free()
+	##if death_timer <= 0: #time to die
+	##	queue_free()
 		
 	#MOVEMENT ANIMATIONS
 	if velocity.length() > 1:
@@ -104,7 +117,6 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 		btplayer.set_active(false)
 	
 	$Animations.play('hurt')
-	print('played hurt animation')
 	await get_tree().create_timer(flinch_dur).timeout #wait for flinch time
 	if btplayer and hp >= 1:
 		btplayer.restart()

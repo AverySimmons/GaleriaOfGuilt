@@ -15,11 +15,8 @@ func _ready() -> void:
 	var xp_fill_perc = GameData.player.current_exp / GameData.player.exp_needed
 	xp_fill.material.set_shader_parameter("fill_percent", xp_fill_perc)
 	
-	var hp_fill_perc = GameData.player.current_hp / GameData.player.max_hp
-	hp_fill.material.set_shader_parameter("fill_percent", hp_fill_perc)
-	
-	var bb_fill_perc = GameData.player.blood_bar / GameData.player.bb_max
-	blood_bar.material.set_shader_parameter("fill_percent", bb_fill_perc)
+	hp_fill.material.set_shader_parameter("fill_percent", 1)
+	blood_bar.material.set_shader_parameter("fill_percent", 0)
 
 func enter_burst() -> void:
 	var t = create_tween()
