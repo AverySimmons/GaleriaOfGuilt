@@ -96,6 +96,8 @@ var baseline_speed: float = 0
 var dash_charges: int = 1
 var dash_charges_amt: int = 1
 
+var sorryguysthisisstupidbutwererushing: bool = false
+
 var movement_animations = {
 	"idle" : null,
 	"run_up" : null,
@@ -198,6 +200,7 @@ func _physics_process(delta: float) -> void:
 				if (current_hp - max_hp/10.0) <= 0:
 					guysthiscodesucksbutimrushing = false
 				else:
+					sorryguysthisisstupidbutwererushing = true
 					take_damage(max_hp/10.0)
 			## same here as above (blah blah blah repeating code)
 			if guysthiscodesucksbutimrushing:
@@ -396,7 +399,7 @@ func update_facing_direction(facing_dir: String) -> String:
 	return facing_dir
 
 func take_damage(amount: float) -> void:
-	if is_invincible:
+	if is_invincible && !sorryguysthisisstupidbutwererushing:
 		return
 	current_hp = move_toward(current_hp, 0, amount)
 	if current_hp <= 0:
@@ -404,6 +407,12 @@ func take_damage(amount: float) -> void:
 		pass
 	dealt_damage_took_damage = true
 	SignalBus.hp_change.emit()
+	if sorryguysthisisstupidbutwererushing:
+		sorryguysthisisstupidbutwererushing = false
+		return
+	is_invincible = true
+	await get_tree().create_timer(0.3).timeout
+	is_invincible = false
 	return
 
 func heal_damage(amount: float) -> void:
