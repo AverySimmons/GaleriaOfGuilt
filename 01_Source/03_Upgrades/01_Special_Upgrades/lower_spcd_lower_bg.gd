@@ -1,16 +1,16 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "" # Maybe WIP name? Idk it's pretty goated
-	upgrade_description = "Your special gains more blood, but has a higher cooldown"
-	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_bloody.png")
-	upgrade_number = UpgradeData.SP_MORE_BLOOD_CD
+	upgrade_name = "Rapid Jaws"
+	upgrade_description = "Your special has a reduced cooldown, but all bloodgain is slightly reduced."
+	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_plus.png")
+	upgrade_number = UpgradeData.SPCD_DOWN_BLOOD_DOWN
 	upgrade_scene = self
 	type = 3
 	pass
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	GameData.player.spcd_increase *= 1.3
-	GameData.player.sp_blood_mult *= 2.0
+	GameData.player.spcd_increase *= 0.7
+	GameData.player.bb_multiplier2 *= 0.85
 	return
