@@ -14,8 +14,10 @@ func update(start: Vector2, end: Vector2) -> void:
 	sprite.modulate = color
 	sprite.scale.x = start.distance_to(end) / 64.
 
-func reveal() -> void:
-	sprite.visible = true
-
 func conceal() -> void:
-	sprite.visible = false
+	var t = create_tween()
+	var new_col = color
+	new_col.a = 0
+	t.tween_property(sprite, "modulate", new_col, 0.25)
+	await t.finished
+	call_deferred("queue_free")

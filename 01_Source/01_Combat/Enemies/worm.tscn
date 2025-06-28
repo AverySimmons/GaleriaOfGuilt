@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=52 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_dl58o"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://dabtng0qvrhdi" path="res://ai/tasks/run_away.gd" id="3_g4adi"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_1xfk5"]
 [ext_resource type="Script" uid="uid://dxr3ecdqdtty2" path="res://ai/tasks/sand_shot.gd" id="4_rbwy0"]
+[ext_resource type="Script" uid="uid://cqt7noq81y7kc" path="res://ai/tasks/run_at_player.gd" id="5_58x27"]
 [ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_1xfk5"]
+[ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="6_wri7i"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="8_vb6xg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
@@ -44,6 +46,22 @@ children = [SubResource("BTTimeLimit_wri7i")]
 custom_name = "Run Away"
 children = [SubResource("BTCheckAgentProperty_dl58o"), SubResource("BTAlwaysSucceed_g4adi")]
 
+[sub_resource type="BBVariant" id="BBVariant_wri7i"]
+type = 3
+saved_value = 500.0
+resource_name = "500.0"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_58x27"]
+property = &"distance_to_player"
+check_type = 3
+value = SubResource("BBVariant_wri7i")
+
+[sub_resource type="BTAction" id="BTAction_ct5x7"]
+script = ExtResource("5_58x27")
+
+[sub_resource type="BTSequence" id="BTSequence_2ho74"]
+children = [SubResource("BTCheckAgentProperty_58x27"), SubResource("BTAction_ct5x7")]
+
 [sub_resource type="BTAction" id="BTAction_dl58o"]
 script = ExtResource("4_1xfk5")
 
@@ -56,8 +74,8 @@ animation_player = SubResource("BBNode_g4adi")
 animation_name = &"shoot_projectile"
 blend = -0.5
 
-[sub_resource type="BTWait" id="BTWait_1xfk5"]
-duration = 1.6
+[sub_resource type="BTAction" id="BTAction_58x27"]
+script = ExtResource("6_wri7i")
 
 [sub_resource type="BTAction" id="BTAction_2ho74"]
 script = ExtResource("4_rbwy0")
@@ -74,15 +92,23 @@ resource_name = "Animations"
 animation_player = SubResource("BBNode_vb6xg")
 animation_name = &"idle"
 
-[sub_resource type="BTWait" id="BTWait_ct5x7"]
-custom_name = "End Lag"
-
 [sub_resource type="BTSequence" id="BTSequence_w6w3u"]
 custom_name = "Shoot Projectile"
-children = [SubResource("BTAction_dl58o"), SubResource("BTPlayAnimation_rbwy0"), SubResource("BTWait_1xfk5"), SubResource("BTAction_2ho74"), SubResource("BTWait_dl58o"), SubResource("BTPlayAnimation_wri7i"), SubResource("BTWait_ct5x7")]
+children = [SubResource("BTAction_dl58o"), SubResource("BTPlayAnimation_rbwy0"), SubResource("BTAction_58x27"), SubResource("BTAction_2ho74"), SubResource("BTWait_dl58o"), SubResource("BTPlayAnimation_wri7i")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_wri7i"]
+times = 3
+children = [SubResource("BTSequence_w6w3u")]
+
+[sub_resource type="BTWait" id="BTWait_ct5x7"]
+duration = 2.0
+custom_name = "End Lag"
+
+[sub_resource type="BTSequence" id="BTSequence_wri7i"]
+children = [SubResource("BTRepeat_wri7i"), SubResource("BTWait_ct5x7")]
 
 [sub_resource type="BTSelector" id="BTSelector_cs4dq"]
-children = [SubResource("BTSequence_58x27"), SubResource("BTSequence_w6w3u")]
+children = [SubResource("BTSequence_58x27"), SubResource("BTSequence_2ho74"), SubResource("BTSequence_wri7i")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_l36l6"]
 blackboard_plan = SubResource("BlackboardPlan_whe2v")
@@ -424,6 +450,9 @@ collision_layer = 0
 script = ExtResource("1_whe2v")
 move_speed = 60.0
 hp = 60.0
+shake_length = 1.6
+arrow_dist = 700.0
+indicator_color = Color(0.7, 0.431667, 0, 0.584314)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, -47)

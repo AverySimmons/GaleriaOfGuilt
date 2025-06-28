@@ -45,15 +45,15 @@ func _tick(delta: float) -> Status:
 	#return to default position
 	
 	if not has_locked_dir:
+		enemy.player_position = GameData.player.global_position
 		var player_dir = enemy.global_position.direction_to(GameData.player.global_position)
-		var arrow_point = enemy.global_position + player_dir * 650 * shaking_time / enemy.shake_length / 0.8
+		var arrow_point = enemy.global_position + player_dir * enemy.arrow_dist * shaking_time / enemy.shake_length / 0.8
 		enemy.target_ind.update(enemy.global_position, arrow_point)
 	
 	## I changed this to reseting on exit
 	# target_node.get_node("Sprite2D").global_position = target_node.global_position
 	
-	if shaking_time >= enemy.shake_length * 0.8:
-		enemy.player_position = GameData.player.global_position
+	if shaking_time >= enemy.shake_length * 0.9:
 		has_locked_dir = true
 	
 	if shaking_time >= enemy.shake_length: #finish
@@ -64,7 +64,7 @@ func _tick(delta: float) -> Status:
 	actual_shake_intensity = baseline_shake_intensity + (accelerable_shake_intensity * (shaking_time))
 	var shake_offset: Vector2 = Vector2(randf_range(-actual_shake_intensity, actual_shake_intensity),
 										randf_range(-actual_shake_intensity, actual_shake_intensity))
-	target_node.get_node("Sprite2D").position += shake_offset
+	target_node.get_node("Sprite2D").global_position = start_pos + shake_offset
 	
 	shaking_time += delta
 	

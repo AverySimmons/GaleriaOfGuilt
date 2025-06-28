@@ -25,7 +25,7 @@ void fragment() {
 	
 	float final_mask = shaft_mask * (1. - is_arrow) + point_mask * is_arrow;
 	
-	COLOR.a = final_mask;
+	COLOR.a = final_mask * COLOR.a;
 }
 
 //void light() {

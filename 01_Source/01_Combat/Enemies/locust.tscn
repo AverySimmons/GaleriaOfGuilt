@@ -227,6 +227,8 @@ _data = {
 collision_layer = 0
 script = ExtResource("1_qlpsa")
 hp = 40.0
+arrow_dist = 500.0
+indicator_color = Color(0.337255, 0.960784, 0, 0.301961)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, -66)

@@ -7,6 +7,8 @@ var find_player_timer : float
 
 var dash_duration : float
 
+var dash_direction: Vector2
+
 ## variables at the top
 
 func _generate_name() -> String:
@@ -19,13 +21,20 @@ func _setup() -> void:
 	
 	
 func _enter() -> void:
-	var next_path = enemy.navigation.get_next_path_position()
-	var move_direction = enemy.global_position.direction_to(next_path)
-	var new_velocity = move_direction * enemy.move_speed * 10
+	## I'm changing this slightly so that the dash is towards a location
+	## picked in shake
+	dash_direction = enemy.global_position.direction_to(enemy.player_position)
 	
-	enemy.facing_direction = move_direction
 	
-	enemy.velocity = new_velocity
+	#var next_path = enemy.navigation.get_next_path_position()
+	#var move_direction = enemy.global_position.direction_to(next_path)
+	#var new_velocity = move_direction * enemy.move_speed * 10
+	
+	enemy.velocity = dash_direction * enemy.move_speed * 7.7
+	enemy.facing_direction = enemy.velocity.normalized()
+	
+	
+	#enemy.velocity = new_velocity
 	
 func _tick(delta: float) -> Status:
 	
@@ -36,13 +45,13 @@ func _tick(delta: float) -> Status:
 	if dash_duration >= 0.65 or collided:
 		dash_duration = 0
 		return SUCCESS
-		
-	if find_player_timer <= 0:
-		check_path()
-		find_player_timer = 0.5
+	
+	#if find_player_timer <= 0:
+		#check_path()
+		#find_player_timer = 0.5
 		
 	
-	find_player_timer -= delta
+	#find_player_timer -= delta
 	
 	return RUNNING
 	

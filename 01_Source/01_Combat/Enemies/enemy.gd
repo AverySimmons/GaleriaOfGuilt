@@ -27,6 +27,7 @@ var level: Level
 
 var player_position: Vector2
 @export var shake_length: float = 1
+@export var arrow_dist: float = 100
 @export var indicator_color: Color = Color("blue")
 var target_ind
 
