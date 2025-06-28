@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_prp80"]
 [ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
-[ext_resource type="Script" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
+[ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="5_tcqde"]
 [ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
@@ -37,7 +37,7 @@ script = ExtResource("3_x5ri8")
 script = ExtResource("4_tcqde")
 
 [sub_resource type="BTWait" id="BTWait_x4uw2"]
-duration = 0.2
+duration = 0.5
 
 [sub_resource type="BTAction" id="BTAction_eeflq"]
 script = ExtResource("5_tcqde")
@@ -71,26 +71,30 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:position")
+tracks/1/path = NodePath("Sprite2D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3.33333, 180)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
 "values": [Vector2(0.3, 0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_tnwp0"]
+resource_name = "death"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(1e-05, 1e-05)]
 }
 
 [sub_resource type="Animation" id="Animation_prp80"]
@@ -107,18 +111,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [2]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.33333, 180)]
-}
 
 [sub_resource type="Animation" id="Animation_oe0yt"]
 resource_name = "idle"
@@ -133,18 +125,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.33333, 180)]
 }
 
 [sub_resource type="Animation" id="Animation_tcqde"]
@@ -162,18 +142,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.33333, 180)]
-}
 
 [sub_resource type="Animation" id="Animation_l72ei"]
 resource_name = "move_up"
@@ -190,18 +158,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.33333, -160)]
-}
 
 [sub_resource type="Animation" id="Animation_x5ri8"]
 resource_name = "walk"
@@ -217,34 +173,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.33333, 180)]
-}
-
-[sub_resource type="Animation" id="Animation_tnwp0"]
-resource_name = "death"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(0.4, 1),
-"update": 0,
-"values": [Vector2(0.3, 0.3), Vector2(1e-05, 1e-05)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eeflq"]
@@ -307,9 +235,9 @@ texture = ExtResource("1_popms")
 hframes = 2
 vframes = 2
 
-[node name="Shadow" parent="." instance=ExtResource("2_prp80")]
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("2_prp80")]
 position = Vector2(3.33333, 180)
-scale = Vector2(0.6, 0.328125)
+scale = Vector2(2, 1.09375)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -14.5)

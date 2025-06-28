@@ -52,8 +52,6 @@ func _exit() -> void:
 ## think about helper functions down here
 
 func move() -> bool:
-	
-	
 	return enemy.move_and_slide()
 
 func check_path() -> void:

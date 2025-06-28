@@ -1,0 +1,6 @@
+cut scenes, transtions, dialogic integration, menus
+enemy attack indicators and fix enemy attacks
+lizard needs implemented
+sounds effect implemented (sound effect manager?)
+
+balence 

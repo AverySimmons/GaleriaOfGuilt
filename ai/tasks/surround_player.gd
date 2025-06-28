@@ -75,7 +75,6 @@ func _exit() -> void:
 	
 	
 	## this is just copy and pasted from tick
-	## 
 	
 	var direction_to_player = enemy.global_position.direction_to(GameData.player.global_position)
 	

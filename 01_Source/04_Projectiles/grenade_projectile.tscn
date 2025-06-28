@@ -1,12 +1,27 @@
 [gd_scene load_steps=9 format=3 uid="uid://ddjg7w4r3uby2"]
 
 [ext_resource type="Script" uid="uid://pywfcjgyrl8s" path="res://01_Source/04_Projectiles/grenade_projectile.gd" id="1_npbrj"]
-[ext_resource type="Texture2D" uid="uid://daov6m18nfd5j" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_sprite.png" id="2_kijbu"]
+[ext_resource type="Texture2D" uid="uid://btnltd12ox4mj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_sprite.png" id="2_kijbu"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="3_4nrk6"]
-[ext_resource type="Texture2D" uid="uid://csiikdblpmono" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="4_4261l"]
+[ext_resource type="Texture2D" uid="uid://d0kx60ciww8rj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="4_4261l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kijbu"]
 radius = 225.0
+
+[sub_resource type="Animation" id="Animation_74g1v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explosion:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_668oe"]
 resource_name = "explosion"
@@ -23,21 +38,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 3, 4, 2]
-}
-
-[sub_resource type="Animation" id="Animation_74g1v"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Explosion:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ul4t2"]

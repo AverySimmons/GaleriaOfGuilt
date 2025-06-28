@@ -23,7 +23,12 @@ var going_down: bool = false #approximately stright down
 
 var Animations : AnimationPlayer
 
+var level: Level
 
+var player_position: Vector2
+@export var shake_length: float = 1
+@export var indicator_color: Color = Color("blue")
+var target_ind
 
 # For upgrades:
 var is_marked: bool = false
@@ -45,6 +50,7 @@ func _ready() -> void:
 ## var death_timer = 1 #a little delay for the animation to play, is there a better way?
 
 func start_death() -> void:
+	if target_ind: target_ind.conceal()
 	death_state = true
 	$BTPlayer.process_mode = Node.PROCESS_MODE_DISABLED
 	SignalBus.death.emit(self)

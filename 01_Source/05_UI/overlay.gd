@@ -33,18 +33,18 @@ func exit_burst() -> void:
 func xp_change() -> void:
 	var fill_perc = GameData.player.current_exp / GameData.player.exp_needed
 	var t = create_tween()
-	t.tween_property(xp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.1)
+	t.tween_property(xp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.25)
 
 func health_change() -> void:
 	var fill_perc = GameData.player.current_hp / GameData.player.max_hp
 	var t = create_tween()
-	t.tween_property(hp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.1)
+	t.tween_property(hp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.25)
 
 func blood_change() -> void:
 	var fill_perc = GameData.player.blood_bar / GameData.player.bb_max
 	var t = create_tween()
-	t.tween_property(blood_bar, "material:shader_parameter/fill_percent", fill_perc, 0.1)
+	t.tween_property(blood_bar, "material:shader_parameter/fill_percent", fill_perc, 0.25)
 	
 	var vignette_perc = max(0, GameData.player.blood_bar / GameData.player.bb_max - 0.6) / 0.4
 	var t2 = create_tween()
-	t2.tween_property(blood_vignette, "material:shader_parameter/strength", vignette_perc, 0.2)
+	t2.tween_property(blood_vignette, "material:shader_parameter/strength", vignette_perc, 0.25)

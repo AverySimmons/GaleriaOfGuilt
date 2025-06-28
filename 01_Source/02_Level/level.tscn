@@ -405,6 +405,8 @@ direction = Vector2(1, 0)
 [node name="BloodManager" parent="." instance=ExtResource("7_x8ck2")]
 multimesh = SubResource("MultiMesh_dtdhi")
 
+[node name="AttackIndicators" type="Node2D" parent="."]
+
 [node name="Entities" type="Node2D" parent="."]
 y_sort_enabled = true
 

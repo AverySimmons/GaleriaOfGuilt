@@ -13,6 +13,8 @@ var shadow_start_pos: Vector2
 
 var enemy : Enemy
 
+var has_locked_dir = false
+
 ## variables at the top
 
 func _generate_name() -> String:
@@ -23,27 +25,38 @@ func _setup() -> void:
 	
 	accelerable_shake_intensity = 6
 	baseline_shake_intensity = 0.8
-	
-	
-	
-	
+
+
+
 func _enter() -> void:
 	target_node = enemy
 	shaking_time = 0
+	has_locked_dir = false
+	enemy.target_ind = enemy.level.spawn_arrow(0.5, 64, enemy.indicator_color)
 	
 	## store the sprite position at start (will be restored on exit)
 	start_pos = enemy.sprite.global_position
 
 func _exit() -> void:
 	enemy.sprite.global_position = start_pos
+	enemy.target_ind.conceal()
 
 func _tick(delta: float) -> Status:
 	#return to default position
 	
+	if not has_locked_dir:
+		var player_dir = enemy.global_position.direction_to(GameData.player.global_position)
+		var arrow_point = enemy.global_position + player_dir * 650 * shaking_time / enemy.shake_length / 0.8
+		enemy.target_ind.update(enemy.global_position, arrow_point)
+	
 	## I changed this to reseting on exit
 	# target_node.get_node("Sprite2D").global_position = target_node.global_position
 	
-	if shaking_time >= 1: #finish
+	if shaking_time >= enemy.shake_length * 0.8:
+		enemy.player_position = GameData.player.global_position
+		has_locked_dir = true
+	
+	if shaking_time >= enemy.shake_length: #finish
 		
 		return SUCCESS
 	
@@ -52,7 +65,6 @@ func _tick(delta: float) -> Status:
 	var shake_offset: Vector2 = Vector2(randf_range(-actual_shake_intensity, actual_shake_intensity),
 										randf_range(-actual_shake_intensity, actual_shake_intensity))
 	target_node.get_node("Sprite2D").position += shake_offset
-	target_node.get_node("Shadow").position += shake_offset
 	
 	shaking_time += delta
 	

@@ -7,7 +7,8 @@ extends Node2D
 @export var arrow_size: float = 32.
 
 func update(start: Vector2, end: Vector2) -> void:
-	sprite.global_position = (end + start) * 0.5
+	sprite.global_position = (start + end) * 0.5
+	rotation = start.angle_to_point(end)
 	sprite.material.set_shader_parameter("arrow_size", arrow_size)
 	sprite.material.set_shader_parameter("size", start.distance_to(end))
 	sprite.modulate = color

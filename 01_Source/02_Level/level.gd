@@ -9,6 +9,8 @@ extends Node2D
 var enemies_left = 0
 var enemy_credits = 0
 
+var enter_timer = 0.5
+
 var top_left: Vector2
 var bot_right: Vector2
 
@@ -47,6 +49,8 @@ var item_sprites = [
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/human_heart_sprite.png"),
 ]
 
+var arrow_scene = preload("res://03_Components/arrow_indicator.tscn")
+
 # 0 is no connection
 # 1 is up
 # 2 is down
@@ -64,8 +68,9 @@ func _ready() -> void:
 	for c in connections: if c: con_num += 1
 	
 	enemy_credits = mall_flat[GameData.mall_ind] + \
-		mall_scaling[GameData.mall_ind] * distance + \
-		size_scaling[con_num]
+		mall_scaling[GameData.mall_ind] * distance
+	
+	enemy_credits *= size_scaling[con_num]
 	
 	$MultiplyLayer.color = tint
 	SignalBus.death.connect(enemy_died)
@@ -122,10 +127,13 @@ func _process(delta: float) -> void:
 		GameData.music_event.set_parameter("combat state", 0)
 
 func _physics_process(delta: float) -> void:
+	enter_timer -= delta
 	if not GameData.is_escaping: return
 	var con_num = -1
 	for c in connections: if c: con_num += 1
-	enemy_credits = (mall_flat[GameData.mall_ind] + size_scaling[con_num]) * 1.5
+	enemy_credits = mall_flat[GameData.mall_ind] * 1.5
+	enemy_credits *= size_scaling[con_num]
+	enemy_credits = int(enemy_credits)
 	escape_timer -= delta
 	if escape_timer <= 0:
 		escape_timer += 0.5
@@ -168,6 +176,7 @@ func spawn_enemy(pos: Vector2, index: int) -> void:
 	var new_enemy = enemy_scenes[index].instantiate()
 	if index == 0:
 		new_enemy.bullet_node = entities
+	new_enemy.level = self
 	var new_enemy_spawn = enemy_spawn_scene.instantiate()
 	new_enemy_spawn.entities_node = entities
 	new_enemy_spawn.global_position = pos
@@ -179,6 +188,7 @@ func enemy_died(enemy) -> void:
 	enemies_left -= 1
 
 func enter(dir: Vector2) -> void:
+	enter_timer = 0.5
 	blood_manager.spawn()
 	if map_pos == Vector2.ZERO:
 		GameData.player.global_position = Vector2.ZERO
@@ -192,10 +202,18 @@ func enter(dir: Vector2) -> void:
 			break
 
 func exit(dir: Vector2):
+	if enter_timer > 0: return
 	if enemies_left > 0 and not GameData.is_escaping: return
 	entities.remove_child(GameData.player)
 	exited_room.emit(dir)
 
 func item_interact():
 	item_picked_up.emit()
-	
+
+func spawn_arrow(size: float, arrow_size: float, color: Color) -> ArrowIndicator:
+	var new_arrow: ArrowIndicator = arrow_scene.instantiate()
+	new_arrow.arrow_size = arrow_size
+	new_arrow.color = color
+	new_arrow.scale.y = size
+	$AttackIndicators.add_child(new_arrow)
+	return new_arrow
