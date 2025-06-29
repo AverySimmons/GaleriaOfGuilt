@@ -1,7 +1,6 @@
 extends Enemy
 
 @onready var navigation = $NavigationAgent2D
-@onready var ball_o_lightning : Area2D = $BallOLightning
 
 var lightning_attack_active : bool = false
 var lightning_attack_visible : bool = false
@@ -16,8 +15,5 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	#constantly update lightning position while not active
-	if !lightning_attack_visible: 
-		ball_o_lightning.global_position = GameData.player.global_position
 		
 	

@@ -8,17 +8,22 @@ var active_timer: float
 ## variables at the top
 
 func _generate_name() -> String:
-	return 'Unfinished, do not use this'
+	return 'Spawn lightning'
 	
 func _setup() -> void:
 	enemy = agent as Enemy
 	active_timer = 0
-	active_time = 0.5
+	active_time = 0.8
 	
 func _enter() -> void:
-	pass
-	
+	var new_lightning = enemy.lighting_scene.instantiate()
+	new_lightning.global_position = GameData.player.global_position
+	new_lightning.global_position += Vector2.from_angle(randf_range(0,TAU)) * 40
+	enemy.indicator_node.add_child(new_lightning)
+
 func _tick(delta: float) -> Status:
+	return SUCCESS
+	
 	if active_timer >= active_time:
 		active_timer = 0
 		return SUCCESS

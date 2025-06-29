@@ -38,7 +38,8 @@ var item_scene = preload("res://01_Source/02_Level/Item/item.tscn")
 
 var enemy_scenes = [
 	preload("res://01_Source/01_Combat/Enemies/worm.tscn"),
-	preload("res://01_Source/01_Combat/Enemies/locust.tscn")
+	preload("res://01_Source/01_Combat/Enemies/locust.tscn"),
+	preload("res://01_Source/01_Combat/Enemies/lizard.tscn")
 ]
 
 var item_sprites = [
@@ -168,14 +169,14 @@ func populate_enemies():
 			
 			if collided: continue
 			
-			spawn_enemy(rand_pos, randi_range(0, 1))
+			spawn_enemy(rand_pos, randi_range(2, 2))
 			enemies_left += 1
 			break
 
 func spawn_enemy(pos: Vector2, index: int) -> void:
 	var new_enemy = enemy_scenes[index].instantiate()
-	if index == 0:
-		new_enemy.bullet_node = entities
+	new_enemy.bullet_node = entities
+	new_enemy.indicator_node = $AttackIndicators
 	new_enemy.level = self
 	var new_enemy_spawn = enemy_spawn_scene.instantiate()
 	new_enemy_spawn.entities_node = entities

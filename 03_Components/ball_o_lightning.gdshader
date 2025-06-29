@@ -1,8 +1,5 @@
 shader_type canvas_item;
 
-uniform float strength = 0.0;
-uniform float pink_mix = 0.0;
-
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
@@ -11,12 +8,15 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	vec2 uv = UV * 2. - 1.;
 	
-	float mask = (length(uv) - 0.6) * strength;
+	float circ_mask = length(uv) - 0.98;
 	
-	vec3 color = mix(vec3(1,0,0),vec3(1,0,1.),pink_mix);
 	
-	COLOR.rgb = color;
-	COLOR.a = mask;
+	float outline_mask = abs(circ_mask);
+	outline_mask = step(outline_mask, 0.02);
+	
+	circ_mask = step(circ_mask, 0.);
+	
+	COLOR.a = outline_mask + 0.5 * circ_mask;
 }
 
 //void light() {

@@ -29,7 +29,7 @@ func _tick(delta: float) -> Status:
 	
 	find_player_timer -= delta
 	
-	if enemy.global_position.distance_to(GameData.player.global_position) < 500:
+	if enemy.global_position.distance_to(GameData.player.global_position) < enemy.chase_dist:
 		return SUCCESS
 	
 	return RUNNING
