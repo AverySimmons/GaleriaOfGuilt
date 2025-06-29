@@ -216,13 +216,13 @@ func _physics_process(delta: float) -> void:
 				var facing_dir = name_from_vect_dir(dir)
 				facing_dir = update_facing_direction(facing_dir)
 				match current_ability_name:
-					0:
+					1:
 						animation_player.play("bite_" + facing_dir)
 						AudioData.play_sound("bite", bite_sound)
-					1:
+					2:
 						animation_player.play("special_" + facing_dir)
 						AudioData.play_sound("grenade_throw", grenade_sound)
-					2:
+					3:
 						animation_player.play("special_" + facing_dir)
 						AudioData.play_sound("shotgun", shotgun_sound)
 			

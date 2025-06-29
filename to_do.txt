@@ -3,6 +3,7 @@ cut scenes, transtions, dialogic integration, menus
 // lizard needs implemented
 sounds effect implemented (sound effect manager?)
 make levels work
+change enemy spawning logic
 
 
 adjust lots of values
