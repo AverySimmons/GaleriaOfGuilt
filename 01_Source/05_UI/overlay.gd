@@ -6,6 +6,7 @@ extends Control
 @onready var xp_fill: Sprite2D = $XPBar/Fill
 
 var bb_tween: Tween
+var hp_tween: Tween
 
 func _ready() -> void:
 	GameData.player.burst_begin.connect(enter_burst)
@@ -38,9 +39,11 @@ func xp_change() -> void:
 	t.tween_property(xp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.25)
 
 func health_change() -> void:
-	var fill_perc = GameData.player.current_hp / GameData.player.max_hp
-	var t = create_tween()
-	t.tween_property(hp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.25)
+	var fill_perc = GameData.player.current_hp / float(GameData.player.max_hp)
+	var cur_fill: float = hp_fill.material.get_shader_parameter("fill_percent")
+	if hp_tween: hp_tween.kill()
+	hp_tween = create_tween()
+	hp_tween.tween_method(health_bar_update_helper, cur_fill, fill_perc, 0.25)
 
 func blood_change() -> void:
 	var fill_perc = GameData.player.blood_bar / float(GameData.player.bb_max)
@@ -55,3 +58,6 @@ func blood_change() -> void:
 
 func blood_bar_update_helper(val):
 	blood_bar.material.set_shader_parameter("fill_percent", val)
+
+func health_bar_update_helper(val):
+	hp_fill.material.set_shader_parameter("fill_percent", val)

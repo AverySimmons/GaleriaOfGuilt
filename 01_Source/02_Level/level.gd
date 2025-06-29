@@ -157,21 +157,28 @@ func populate_enemies():
 			var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 				randf_range(top_left.y+100, bot_right.y-100))
 			
-			if rand_pos.distance_to(GameData.player.global_position) < 200:
-				continue
+			if not check_enemy_spawn(rand_pos): continue
 			
-			var params = PhysicsShapeQueryParameters2D.new()
-			params.shape = circle
-			params.transform = Transform2D(0, rand_pos)
-			params.collide_with_areas = false
-			params.collide_with_bodies = true
-			var collided = space_state.intersect_shape(params, 1)
-			
-			if collided: continue
-			
-			spawn_enemy(rand_pos, randi_range(2, 2))
+			spawn_enemy(rand_pos, randi_range(0, 2))
 			enemies_left += 1
 			break
+
+func check_enemy_spawn(pos: Vector2) -> bool:
+	var player_pos = GameData.player.global_position
+	if pos.distance_to(player_pos) < 300: return false
+	
+	var space_state = get_world_2d().direct_space_state
+	var circle = CircleShape2D.new()
+	circle.radius = 300
+	
+	var params = PhysicsShapeQueryParameters2D.new()
+	params.shape = circle
+	params.transform = Transform2D(0, pos)
+	params.collide_with_areas = false
+	params.collide_with_bodies = true
+	var collided = space_state.intersect_shape(params)
+	
+	return not collided
 
 func spawn_enemy(pos: Vector2, index: int) -> void:
 	var new_enemy = enemy_scenes[index].instantiate()
