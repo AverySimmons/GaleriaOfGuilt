@@ -11,6 +11,10 @@ extends CharacterBody2D
 
 @onready var blood_module: Node2D = $BloodModule
 
+var bullet_node
+
+@onready var lighting_scene = preload("res://03_Components/ball_o_lightning.tscn")
+
 var facing_direction: Vector2 = Vector2.RIGHT
 var death_state: bool = false
 var movement_type: String = '' #will these be a seperate scene?? 
@@ -29,7 +33,9 @@ var player_position: Vector2
 @export var shake_length: float = 1
 @export var arrow_dist: float = 100
 @export var indicator_color: Color = Color("blue")
+@export var chase_dist: float = 100
 var target_ind
+var indicator_node
 
 # For upgrades:
 var is_marked: bool = false

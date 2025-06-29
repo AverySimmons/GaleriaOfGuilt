@@ -1,6 +1,6 @@
 cut scenes, transtions, dialogic integration, menus
 // enemy attack indicators and fix enemy attacks
-lizard needs implemented
+// lizard needs implemented
 sounds effect implemented (sound effect manager?)
 make levels work
 
@@ -13,3 +13,8 @@ spawning values / level size
 
 THINK OF A TITLE
 // FIX STUPID ISSUE
+
+sprites needed:
+enemy spawn sprite
+door locked sprite
+main entrance sprite

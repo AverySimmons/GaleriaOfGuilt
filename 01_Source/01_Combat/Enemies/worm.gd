@@ -5,9 +5,6 @@ extends Enemy
 
 
 
-var bullet_node : Node2D
-
-
 func _ready() -> void:
 	super._ready()
 	type = "Worm"

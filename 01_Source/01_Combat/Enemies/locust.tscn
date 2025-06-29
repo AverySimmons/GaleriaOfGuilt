@@ -204,7 +204,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_eeflq"]
 resource_name = "hit_flash"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -212,10 +212,10 @@ tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3),
+"times": PackedFloat32Array(0, 0.0667, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(43.647, 46.409, 43.094, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(39, 2.7, 31, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnwp0"]
@@ -235,6 +235,7 @@ script = ExtResource("1_qlpsa")
 hp = 40.0
 arrow_dist = 500.0
 indicator_color = Color(0.337255, 0.960784, 0, 0.301961)
+chase_dist = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, -66)
