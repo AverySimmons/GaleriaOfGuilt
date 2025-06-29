@@ -6,7 +6,7 @@ extends Area2D
 var is_active: bool = false
 var active_time: float = 0.5
 var active_timer: float = 0.5
-var damage : float = 1
+var damage : float = 20
 
 func _ready() -> void:
 	await get_tree().create_timer(active_time).timeout
@@ -19,5 +19,4 @@ func _physics_process(delta: float) -> void:
 	var overlapping_areas = get_overlapping_areas()
 	if overlapping_areas:
 		var player : Player = overlapping_areas[0].owner
-		print("HIT")
 		player.take_damage(damage)

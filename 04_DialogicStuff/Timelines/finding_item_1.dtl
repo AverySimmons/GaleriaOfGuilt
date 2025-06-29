@@ -1,4 +1,6 @@
+[signal arg="pause_game"]
 viola_character: Looks like this is the room where the signal is coming from.
 marie_character: What is that… Heart shaped sunglasses?
 viola_character: Strange... Why the hell would it be emitting the same signal as the bloodstorm?
-viola_character: For now you should retreat. 
+viola_character: For now you should retreat.
+[signal arg="unpause_game"]

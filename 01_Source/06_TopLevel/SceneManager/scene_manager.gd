@@ -7,6 +7,9 @@ var title_screen
 var game_manager
 
 func _ready() -> void:
+	Dialogic.signal_event.connect(dialogic_stupid)
+	SignalBus.pause.connect(pause_game)
+	SignalBus.unpause.connect(unpause_game)
 	GameData.player = player_scene.instantiate()
 	GameData.music_event = $FmodEventEmitter2D
 	spawn_game_manager()
@@ -18,7 +21,8 @@ func spawn_game_manager():
 	add_child(game_manager)
 
 func item_dialog():
-	Dialogic.start("finding_item_" + str(GameData.mall_ind + 1))
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	Dialogic.start("finding_item_" + str(GameData.mall_ind + 1)).process_mode = Node.PROCESS_MODE_ALWAYS
 
 func stage_complete():
 	GameData.mall_ind += 1

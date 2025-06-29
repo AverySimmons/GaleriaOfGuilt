@@ -413,3 +413,4 @@ offset_bottom = 570.0
 libraries = {
 &"": SubResource("AnimationLibrary_3ndp2")
 }
+speed_scale = 0.5

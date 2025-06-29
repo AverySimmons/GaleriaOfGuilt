@@ -17,6 +17,7 @@ func _ready() -> void:
 		c.chosen.connect(choice_chosen)
 
 func display_upgrades(upgrades: Array[Upgrade]) -> void:
+	SignalBus.pause.emit()
 	for i in 3:
 		choices[i].format(upgrades[i])
 	
@@ -33,3 +34,4 @@ func choice_chosen(upgrade: Upgrade):
 	animation_player.play("fly_out")
 	await animation_player.animation_finished
 	upgrade_picked.emit(upgrade)
+	SignalBus.unpause.emit()

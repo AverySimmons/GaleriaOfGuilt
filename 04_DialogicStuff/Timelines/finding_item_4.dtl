@@ -1,3 +1,5 @@
+[signal arg="pause_game"]
 marie_character: How cute. It’s a plush lamb! Just like...
 viola_character: … Are you okay?
-marie_character: Yeah… just peachy. Was just reminiscing. 
+marie_character: Yeah… just peachy. Was just reminiscing.
+[signal arg="unpause_game"]

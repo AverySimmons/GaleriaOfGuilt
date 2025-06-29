@@ -1,3 +1,5 @@
+[signal arg="pause_game"]
 marie_character: What the hell?!
 viola_character: What’s wrong?
 marie_character: My heart…
+[signal arg="unpause_game"]

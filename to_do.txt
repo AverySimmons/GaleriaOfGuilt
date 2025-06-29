@@ -4,6 +4,8 @@ cut scenes, transtions, dialogic integration, menus
 sounds effect implemented (sound effect manager?)
 make levels work
 change enemy spawning logic
+cooldown for abilities more visible
+shotgun looks weird
 
 
 adjust lots of values

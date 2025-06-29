@@ -1,5 +1,7 @@
+[signal arg="pause_game"]
 marie_character: Wait… Where have I seen this before?
 viola_character: What’d you find this time?
 marie_character: A pocket mirror. It’s awfully ornate.
 viola_character: How sweet. Leaves me with more questions than answers.
 marie_character: There’s initials engraved on the inside...
+[signal arg="unpause_game"]

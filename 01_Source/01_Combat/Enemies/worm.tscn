@@ -476,16 +476,15 @@ position = Vector2(0, 56.3572)
 scale = Vector2(1, 0.445313)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -47)
 shape = SubResource("RectangleShape2D_g4adi")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-visible = false
 position = Vector2(0.25, -25.5)
 shape = SubResource("RectangleShape2D_rbwy0")
 
@@ -494,7 +493,6 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-visible = false
 position = Vector2(0.5, -42.5)
 shape = SubResource("RectangleShape2D_1xfk5")
 
