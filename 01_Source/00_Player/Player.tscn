@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dvbabi2s60kn0"]
+[gd_scene load_steps=45 format=3 uid="uid://dvbabi2s60kn0"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_f38sp"]
@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
 [ext_resource type="Texture2D" uid="uid://dr6t5fegd6r7g" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
 [ext_resource type="Texture2D" uid="uid://dv0qvfnxsuxqy" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
+[ext_resource type="AudioStream" uid="uid://cr1d5n16llk4i" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
+[ext_resource type="AudioStream" uid="uid://d2sps4fgrp820" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
+[ext_resource type="AudioStream" uid="uid://cawej5d4ua5l0" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
+[ext_resource type="AudioStream" uid="uid://cgwt04pogutxt" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://dfao7mpn1fupc" path="res://00_Assets/02_SoundEffects/enemy_attack_2.wav" id="13_10xal"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 radius = 27.074
@@ -689,6 +694,23 @@ tracks/2/keys = {
 "values": [Vector2(0.953125, 0.828125)]
 }
 
+[sub_resource type="Animation" id="Animation_fe6dk"]
+resource_name = "special_down"
+length = 0.5
+step = 0.16
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [74, 75]
+}
+
 [sub_resource type="Animation" id="Animation_xxx4p"]
 resource_name = "special_left"
 length = 0.5
@@ -723,23 +745,6 @@ tracks/0/keys = {
 "values": [77, 76]
 }
 
-[sub_resource type="Animation" id="Animation_fe6dk"]
-resource_name = "special_down"
-length = 0.5
-step = 0.16
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.32),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [74, 75]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bj30f"]
 _data = {
 &"RESET": SubResource("Animation_6ukc1"),
@@ -769,6 +774,31 @@ height = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sy4wu"]
 radius = 56.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_viynv"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("9_i14xg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dcinv"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("10_fe6dk")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j0112"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("11_dcinv")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mthnb"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("12_pg4lp")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wm5ru"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("13_10xal")
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
@@ -853,3 +883,19 @@ show_behind_parent = true
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("8_ukmie")
 hframes = 6
+
+[node name="SwipeSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_viynv")
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_dcinv")
+
+[node name="BiteSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_j0112")
+volume_db = 1.0
+
+[node name="GrenadeThrow" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_mthnb")
+
+[node name="Shotgun" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_wm5ru")
