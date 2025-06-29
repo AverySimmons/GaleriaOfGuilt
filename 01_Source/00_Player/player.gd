@@ -98,6 +98,12 @@ var dash_charges_amt: int = 1
 
 var sorryguysthisisstupidbutwererushing: bool = false
 
+@onready var swipe_sound = $SwipeSound
+@onready var dash_sound = $DashSound
+@onready var bite_sound = $BiteSound
+@onready var grenade_sound = $GrenadeThrow
+@onready var shotgun_sound = $Shotgun
+
 var movement_animations = {
 	"idle" : null,
 	"run_up" : null,
@@ -188,6 +194,8 @@ func _physics_process(delta: float) -> void:
 			print(animation_player.speed_scale)
 			print(attack_cooldown, attack_cooldown*bb_hitspd_inc)
 			animation_player.play("slash_" + facing_dir)
+			AudioData.play_sound("swipe", swipe_sound)
+			
 			
 			$blood_swipe.initiate_attack(upgrade_swipe_mult)
 			attack_timer = attack_cooldown * bb_hitspd_inc
@@ -210,10 +218,13 @@ func _physics_process(delta: float) -> void:
 				match current_ability_name:
 					0:
 						animation_player.play("bite_" + facing_dir)
+						AudioData.play_sound("bite", bite_sound)
 					1:
 						animation_player.play("special_" + facing_dir)
+						AudioData.play_sound("grenade_throw", grenade_sound)
 					2:
 						animation_player.play("special_" + facing_dir)
+						AudioData.play_sound("shotgun", shotgun_sound)
 			
 				current_ability.use_ability()
 				special_ability_timer = current_ability.cooldown * bb_hitspd_inc * spcd_increase
@@ -242,6 +253,7 @@ func _physics_process(delta: float) -> void:
 					pass
 			
 			animation_player.play(dash_animation)
+			AudioData.play_sound("dash", dash_sound)
 			
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
