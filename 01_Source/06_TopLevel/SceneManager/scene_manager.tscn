@@ -13,6 +13,7 @@ bank_paths = ["res://00_Assets/01_LongAudio/FMOD/Master.strings.bank", "res://00
 event_name = "event:/level"
 event_guid = "{f37587d6-2eb5-42a9-9817-fb44b87e9446}"
 autoplay = true
+volume = 0.35
 "fmod_parameters/combat state/id" = -4863081333960352858
 "fmod_parameters/combat state" = 0
 "fmod_parameters/combat state/variant_type" = 2

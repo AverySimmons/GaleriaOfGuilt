@@ -892,7 +892,6 @@ stream = SubResource("AudioStreamRandomizer_dcinv")
 
 [node name="BiteSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_j0112")
-volume_db = 1.0
 
 [node name="GrenadeThrow" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_mthnb")
