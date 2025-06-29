@@ -9,9 +9,9 @@ void vertex() {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	vec2 uv = UV * 2. - 1.;
-	
-	
-	
+
+
+
 	float mask = 1. - (length(uv - vec2(0.75,-1)) * 0.4);
 	COLOR.rgb += 0.6 * mask * color;
 }

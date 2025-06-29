@@ -1,14 +1,15 @@
-[gd_scene load_steps=36 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=38 format=3 uid="uid://bj5h3s11xhapu"]
 
-[ext_resource type="Texture2D" uid="uid://ce1jipg3j28dg" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
+[ext_resource type="Texture2D" uid="uid://fqrds2jq446o" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_prp80"]
 [ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
 [ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="5_tcqde"]
-[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
+[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_x4uw2"]
+[ext_resource type="AudioStream" uid="uid://c7nhupg0q66m6" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvb30"]
 size = Vector2(45, 27)
@@ -223,6 +224,11 @@ _data = {
 &"hit_flash": SubResource("Animation_eeflq")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j15t7"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("10_eeflq")
+
 [node name="Locust" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_qlpsa")
@@ -283,3 +289,6 @@ position = Vector2(0, -67)
 texture = ExtResource("6_tcqde")
 
 [node name="BloodModule" parent="." instance=ExtResource("9_x4uw2")]
+
+[node name="LocustAttack" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_j15t7")

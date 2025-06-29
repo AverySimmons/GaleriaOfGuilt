@@ -9,6 +9,8 @@ var dash_duration : float
 
 var dash_direction: Vector2
 
+var sound_effect
+
 ## variables at the top
 
 func _generate_name() -> String:
@@ -18,6 +20,7 @@ func _setup() -> void:
 	find_player_timer = 0.1
 	dash_duration = 0
 	enemy = agent as Enemy
+	sound_effect = agent.get_node("LocustAttack")
 	
 	
 func _enter() -> void:
@@ -30,6 +33,7 @@ func _enter() -> void:
 	#var move_direction = enemy.global_position.direction_to(next_path)
 	#var new_velocity = move_direction * enemy.move_speed * 10
 	
+	AudioData.play_sound("locust_attack", sound_effect)
 	enemy.velocity = dash_direction * enemy.move_speed * 7.7
 	enemy.facing_direction = enemy.velocity.normalized()
 	
