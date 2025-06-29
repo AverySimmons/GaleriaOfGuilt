@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://baexbqtssd8nu"]
+
+[ext_resource type="Script" uid="uid://qvy4jlpkee4h" path="res://01_Source/06_TopLevel/Cutscenes/road.gd" id="1_gy5pi"]
+[ext_resource type="Texture2D" uid="uid://c01mkplhd58r6" path="res://00_Assets/00_Sprites/Cutscene_sprites/morning_background.png" id="2_0ig6n"]
+[ext_resource type="Texture2D" uid="uid://kvm7xkxms2tx" path="res://00_Assets/00_Sprites/Cutscene_sprites/morning_foreground.png" id="3_vu5bo"]
+[ext_resource type="Texture2D" uid="uid://bgw65qha7ycwe" path="res://00_Assets/00_Sprites/Cutscene_sprites/viola_driving_cutscene_morning.png" id="4_0gmg6"]
+[ext_resource type="Texture2D" uid="uid://bmarg5htp8ilx" path="res://00_Assets/00_Sprites/Cutscene_sprites/night_background.png" id="5_0gmg6"]
+[ext_resource type="Texture2D" uid="uid://cqusahk2rf0he" path="res://00_Assets/00_Sprites/Cutscene_sprites/night_foreground.png" id="6_24ggo"]
+[ext_resource type="Texture2D" uid="uid://bl6o3nsq0ih10" path="res://00_Assets/00_Sprites/Cutscene_sprites/viola_driving_cutscene_night.png" id="7_xaksh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gy5pi"]
+
+[node name="Road" type="Node2D"]
+script = ExtResource("1_gy5pi")
+noise = SubResource("FastNoiseLite_gy5pi")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.1, 1.1)
+
+[node name="Morning" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="Morning"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Morning/Parallax2D"]
+position = Vector2(640, 360)
+texture = ExtResource("2_0ig6n")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Morning"]
+repeat_size = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Morning/Parallax2D2"]
+position = Vector2(640, 300)
+texture = ExtResource("3_vu5bo")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Morning"]
+scroll_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Morning/Parallax2D3"]
+position = Vector2(640, 360)
+texture = ExtResource("4_0gmg6")
+
+[node name="Night" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="Night"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Night/Parallax2D"]
+position = Vector2(640, 360)
+texture = ExtResource("5_0gmg6")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Night"]
+repeat_size = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Night/Parallax2D2"]
+position = Vector2(640, 300)
+texture = ExtResource("6_24ggo")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Night"]
+scroll_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Night/Parallax2D3"]
+position = Vector2(640, 360)
+texture = ExtResource("7_xaksh")

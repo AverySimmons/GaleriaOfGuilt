@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://closdhntlkr8d"]
+
+[ext_resource type="Texture2D" uid="uid://dpdl1xbtbpn4h" path="res://00_Assets/00_Sprites/Cutscene_sprites/intro_cutscene.png" id="1_7iaih"]
+
+[node name="Intro" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("1_7iaih")
