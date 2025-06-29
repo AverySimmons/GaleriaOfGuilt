@@ -7,12 +7,15 @@ var sand_proj_scene : PackedScene = preload("res://01_Source/01_Combat/Enemies/P
 
 var mouth_pos : Vector2
 
+var sound
+
 ## variables at the top
 
 func _generate_name() -> String:
 	return 'Shoot sand projectile at the player'
 	
 func _setup() -> void:
+	sound = agent.get_node("SandShotSound")
 	pass
 	
 func _enter() -> void:
@@ -22,6 +25,7 @@ func _enter() -> void:
 	#if !agent.bullet_node:
 		#return
 	var sand_proj = sand_proj_scene.instantiate()
+	AudioData.play_sound("sand_shot", sound)
 	var dir = mouth_pos.direction_to(agent.player_position)
 	sand_proj.velocity = dir * 2000
 	sand_proj.global_position = mouth_pos

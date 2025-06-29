@@ -5,6 +5,7 @@ const INDIVIDUAL_MAX_AMT: int = 4
 
 var cur_total: int = 0
 var locust_atk_amt: int = 0
+var worm_atk_amt: int = 0
 
 func play_sound(sound_name: String, sound) -> void:
 	match sound_name:
@@ -16,4 +17,12 @@ func play_sound(sound_name: String, sound) -> void:
 				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
 				cur_total -= 1
 				locust_atk_amt -= 1
+		"sand_shot":
+			if cur_total < MAX_SOUNDFX_AMT && worm_atk_amt < INDIVIDUAL_MAX_AMT:
+				sound.play()
+				worm_atk_amt += 1
+				cur_total += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				cur_total -= 1
+				worm_atk_amt -= 1
 	return
