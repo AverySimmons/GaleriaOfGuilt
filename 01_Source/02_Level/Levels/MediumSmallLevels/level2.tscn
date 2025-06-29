@@ -113,19 +113,22 @@ position = Vector2(576, 0)
 [node name="BloodManager" parent="." index="6"]
 multimesh = SubResource("MultiMesh_bq1w5")
 
-[node name="MultiplyLayer" parent="." index="8"]
-offset_left = -1224.0
-offset_top = -900.0
-
-[node name="BenchBig1" type="Sprite2D" parent="." index="10"]
-position = Vector2(2, -258)
+[node name="BenchBig1" type="Sprite2D" parent="Entities" index="0"]
+position = Vector2(-2, -299)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ombc8")
 
-[node name="BenchBig2" type="Sprite2D" parent="." index="11"]
-position = Vector2(2, 286)
+[node name="BenchBig2" type="Sprite2D" parent="Entities" index="1"]
+position = Vector2(2, 302)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ombc8")
 
-[node name="PlanterOrangeBig1" type="Sprite2D" parent="." index="12"]
+[node name="PlanterOrangeBig1" type="Sprite2D" parent="Entities" index="2"]
 position = Vector2(-347, 207)
 rotation = 1.5708
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_3np6t")
+
+[node name="MultiplyLayer" parent="." index="9"]
+offset_left = -1224.0
+offset_top = -900.0

@@ -3,6 +3,6 @@ marie_character: This is?..
 viola_character: What did ya find?
 marie_character: A ring. It fits perfectly.
 viola_character: What?
-marie_character: It’s got my initials engraved on it, M.T.
+marie_character: It’s got my initials on it, M.T.
 viola_character: I don’t understand… How?
 [signal arg="unpause_game"]

@@ -26,9 +26,9 @@ tile_map_data = PackedByteArray("AAAAAAAABQAAAAEAAAAAAAEABQAAAAEAAAAAAAIABQAAAAE
 metadata/_edit_lock_ = true
 
 [node name="GroundEffect" type="Sprite2D" parent="GroundEffects" index="0"]
-position = Vector2(-456, -214)
+position = Vector2(-412, -216)
 rotation = -1.0472
-scale = Vector2(1.49622, 1.45324)
+scale = Vector2(1.03, 1)
 texture = ExtResource("2_cgxs8")
 hframes = 4
 vframes = 4
@@ -37,7 +37,6 @@ frame = 1
 [node name="GroundEffect2" type="Sprite2D" parent="GroundEffects" index="1"]
 position = Vector2(-323, -263)
 rotation = 0.523599
-scale = Vector2(1.49622, 1.45324)
 texture = ExtResource("2_cgxs8")
 hframes = 4
 vframes = 4
@@ -46,7 +45,7 @@ frame = 1
 [node name="GroundEffect3" type="Sprite2D" parent="GroundEffects" index="2"]
 position = Vector2(-425, -298)
 rotation = 1.0472
-scale = Vector2(1.49622, 1.45324)
+scale = Vector2(1, 1.453)
 texture = ExtResource("2_cgxs8")
 hframes = 4
 vframes = 4
@@ -55,7 +54,7 @@ frame = 1
 [node name="GroundEffect4" type="Sprite2D" parent="GroundEffects" index="3"]
 position = Vector2(-368, 241)
 rotation = 2.35619
-scale = Vector2(1.49622, 1.45324)
+scale = Vector2(1.03, 1)
 texture = ExtResource("2_cgxs8")
 hframes = 4
 vframes = 4
@@ -64,7 +63,7 @@ frame = 1
 [node name="GroundEffect5" type="Sprite2D" parent="GroundEffects" index="4"]
 position = Vector2(-463, 261)
 rotation = 4.97419
-scale = Vector2(1.49622, 1.45324)
+scale = Vector2(1, 0.971)
 texture = ExtResource("2_cgxs8")
 hframes = 4
 vframes = 4
@@ -73,7 +72,7 @@ frame = 1
 [node name="GroundEffect6" type="Sprite2D" parent="GroundEffects" index="5"]
 position = Vector2(261, -151)
 rotation = 5.75959
-scale = Vector2(1.49622, 1.45324)
+scale = Vector2(1, 0.971)
 texture = ExtResource("2_cgxs8")
 flip_h = true
 flip_v = true
@@ -96,10 +95,11 @@ position = Vector2(576, 0)
 [node name="BloodManager" parent="." index="6"]
 multimesh = SubResource("MultiMesh_ohn82")
 
-[node name="MultiplyLayer" parent="." index="8"]
+[node name="PlanterBlueBig2" type="Sprite2D" parent="Entities" index="0"]
+position = Vector2(302, 124)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_cgxs8")
+
+[node name="MultiplyLayer" parent="." index="9"]
 offset_left = -1224.0
 offset_top = -900.0
-
-[node name="PlanterBlueBig2" type="Sprite2D" parent="." index="10"]
-position = Vector2(302, 124)
-texture = ExtResource("3_cgxs8")

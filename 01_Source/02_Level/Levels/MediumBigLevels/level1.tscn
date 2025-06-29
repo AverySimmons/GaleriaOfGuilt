@@ -30,40 +30,67 @@ metadata/_edit_lock_ = true
 
 [node name="GroundEffect" type="Sprite2D" parent="GroundEffects" index="0"]
 position = Vector2(-240, -660)
-scale = Vector2(2.32813, 1.90625)
+scale = Vector2(1.5, 0.96875)
 texture = ExtResource("2_vecwx")
 hframes = 4
 vframes = 4
 frame = 2
 
-[node name="GroundEffect3" type="Sprite2D" parent="GroundEffects" index="1"]
+[node name="GroundEffect9" type="Sprite2D" parent="GroundEffects" index="1"]
+position = Vector2(-476, -550)
+rotation = -0.785397
+scale = Vector2(1.25, 1.11719)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="GroundEffect3" type="Sprite2D" parent="GroundEffects" index="2"]
 position = Vector2(-410, -648)
 rotation = -0.837758
-scale = Vector2(1.80976, 2.44748)
+scale = Vector2(1, 1.352)
 texture = ExtResource("2_vecwx")
 hframes = 4
 vframes = 4
 frame = 2
 
-[node name="GroundEffect5" type="Sprite2D" parent="GroundEffects" index="2"]
+[node name="GroundEffect8" type="Sprite2D" parent="GroundEffects" index="3"]
+position = Vector2(-278.487, -558.205)
+rotation = 0.261799
+scale = Vector2(1.31093, 1.30922)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="GroundEffect5" type="Sprite2D" parent="GroundEffects" index="4"]
 position = Vector2(336, 616)
 rotation = -0.837758
-scale = Vector2(1.80976, 2.44748)
+scale = Vector2(0.904112, 1.88644)
 texture = ExtResource("2_vecwx")
 hframes = 4
 vframes = 4
 frame = 2
 
-[node name="GroundEffect4" type="Sprite2D" parent="GroundEffects" index="3"]
+[node name="GroundEffect4" type="Sprite2D" parent="GroundEffects" index="5"]
 position = Vector2(-380, -510)
 rotation = 2.6529
-scale = Vector2(2.12856, 1.97419)
+scale = Vector2(1.2, 1.113)
 texture = ExtResource("2_vecwx")
 hframes = 4
 vframes = 4
 frame = 1
 
-[node name="GroundEffect7" type="Sprite2D" parent="GroundEffects" index="4"]
+[node name="GroundEffect10" type="Sprite2D" parent="GroundEffects" index="6"]
+position = Vector2(-319.141, -698.523)
+rotation = 4.18878
+scale = Vector2(0.934162, 1.13765)
+texture = ExtResource("2_vecwx")
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="GroundEffect7" type="Sprite2D" parent="GroundEffects" index="7"]
 position = Vector2(378, 496)
 rotation = -1.26536
 scale = Vector2(2.12856, 1.97419)
@@ -72,7 +99,7 @@ hframes = 4
 vframes = 4
 frame = 1
 
-[node name="GroundEffect6" type="Sprite2D" parent="GroundEffects" index="5"]
+[node name="GroundEffect6" type="Sprite2D" parent="GroundEffects" index="8"]
 position = Vector2(219, 646)
 rotation = -3.82925
 scale = Vector2(1.80951, 1.33027)
@@ -81,7 +108,7 @@ hframes = 4
 vframes = 4
 frame = 2
 
-[node name="GroundEffect2" type="Sprite2D" parent="GroundEffects" index="6"]
+[node name="GroundEffect2" type="Sprite2D" parent="GroundEffects" index="9"]
 position = Vector2(-487, 187)
 scale = Vector2(2.21875, 1.53125)
 texture = ExtResource("2_vecwx")
@@ -110,17 +137,20 @@ texture = ExtResource("3_mbhdm")
 
 [node name="PlanterBlueBig2" type="Sprite2D" parent="Entities" index="1"]
 position = Vector2(-99, 144)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_f8ggg")
 
 [node name="PlanterBlueBig3" type="Sprite2D" parent="Entities" index="2"]
 position = Vector2(137, 142)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_q0w2q")
 
 [node name="BenchBig2" type="Sprite2D" parent="Entities" index="3"]
-position = Vector2(15, -198)
+position = Vector2(15, -166)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("6_cy1or")
 
-[node name="MultiplyLayer" parent="." index="8"]
+[node name="MultiplyLayer" parent="." index="9"]
 offset_left = -1224.0
 offset_top = -914.0
 offset_bottom = 965.0
