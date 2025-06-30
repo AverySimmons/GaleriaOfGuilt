@@ -78,7 +78,7 @@ signal start_dash
 
 # Levelup stuff ----------------------------------------
 var level: int = 0
-var exp_needed: float = 100
+var exp_needed: float = 40
 var current_exp: float = 0
 var exp_mult: float = 1.0
 
@@ -505,15 +505,15 @@ func gain_exp(enemy: Enemy) -> void:
 	var amount: float = 0
 	match enemy.type:
 		"Lizard":
-			amount = 8
+			amount = 9
 		"Worm":
 			amount = 6
 		"Locust":
-			amount = 4
+			amount = 3
 	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
 		SignalBus.levelup.emit()
-		exp_needed += 50*level
+		exp_needed += level*level*10
 		level += 1
 		current_exp = 0
 	SignalBus.gained_exp.emit()
