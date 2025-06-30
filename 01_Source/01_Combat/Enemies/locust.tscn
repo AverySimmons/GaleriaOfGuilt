@@ -1,16 +1,34 @@
-[gd_scene load_steps=40 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=44 format=3 uid="uid://bj5h3s11xhapu"]
 
-[ext_resource type="Texture2D" uid="uid://fqrds2jq446o" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
+[ext_resource type="Texture2D" uid="uid://ce1jipg3j28dg" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_prp80"]
+[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_tnwp0"]
 [ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
 [ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="5_tcqde"]
-[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
+[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_x4uw2"]
-[ext_resource type="AudioStream" uid="uid://c7nhupg0q66m6" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
-[ext_resource type="AudioStream" uid="uid://b1qyx7dkdbea2" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
+[ext_resource type="AudioStream" uid="uid://c5grabv07e3m0" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
+[ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iu5hu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tulm2"]
+seamless = true
+noise = SubResource("FastNoiseLite_iu5hu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sq15d"]
+resource_local_to_scene = true
+shader = ExtResource("2_tnwp0")
+shader_parameter/blood_scale = 1.0
+shader_parameter/blood_intensity = 0.0
+shader_parameter/res_x_over_y = 1.0
+shader_parameter/hit_flash = 0.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/bloodmask = SubResource("NoiseTexture2D_tulm2")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvb30"]
 size = Vector2(45, 27)
@@ -193,14 +211,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_flash")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_eeflq"]
@@ -209,14 +227,14 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_flash")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0667, 0.2),
+"times": PackedFloat32Array(0, 0.0666667, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(39, 2.7, 31, 1), Color(1, 1, 1, 1)]
+"values": [0.0, 1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnwp0"]
@@ -238,12 +256,13 @@ stream_0/stream = ExtResource("11_j15t7")
 [node name="Locust" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_qlpsa")
-hp = 40.0
+hp_max = 40.0
 arrow_dist = 500.0
 indicator_color = Color(0.337255, 0.960784, 0, 0.301961)
 chase_dist = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sq15d")
 position = Vector2(-1, -66)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_popms")

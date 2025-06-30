@@ -5,12 +5,13 @@ extends CharacterBody2D
 
 @export var move_speed: float = 100
 
-@export var hp: float = 10 #change this
+@export var hp_max: float = 10 #change this
 @export var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
 @export var flinch_guard: float = 0
 
 @onready var blood_module: Node2D = $BloodModule
 
+var hp
 var bullet_node
 
 @onready var lighting_scene = preload("res://03_Components/ball_o_lightning.tscn")
@@ -45,7 +46,9 @@ var marked_time: float = 3
 var marked_timer: float = marked_time
 
 func _ready() -> void:
-	
+	hp = hp_max
+	sprite.material.set_shader_parameter("offset_x", randf_range(0,10))
+	sprite.material.set_shader_parameter("offset_y", randf_range(0,10))
 	#var animation = the specific enemies animation?
 	#$AnimatedSprite2D.play(animation)
 	
@@ -86,10 +89,10 @@ func _physics_process(delta: float) -> void:
 	
 	
 	## I'm switching all the death timer stuff to waiting for the animation to finish
-	##	death_timer -= 1 #how do I make this different for each enemy? does it have to be?
+	#	death_timer -= 1 #how do I make this different for each enemy? does it have to be?
 		
-	##if death_timer <= 0: #time to die
-	##	queue_free()
+	#if death_timer <= 0: #time to die
+	#	queue_free()
 		
 	#MOVEMENT ANIMATIONS
 	if velocity.length() > 1:
@@ -118,6 +121,7 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	if death_state: return
 	hp -= damage
 	AudioData.play_sound("enemy_hit", hit_sound)
+	sprite.material.set_shader_parameter("blood_intensity", 1. - hp / hp_max)
 	$HitFlash.reset_section()
 	$HitFlash.play('hit_flash') #this always happens
 	if undamaged:

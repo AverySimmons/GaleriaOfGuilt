@@ -1,15 +1,33 @@
-[gd_scene load_steps=56 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=60 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
-[ext_resource type="Texture2D" uid="uid://xrl2p0ee1qsw" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
-[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
-[ext_resource type="Texture2D" uid="uid://b0kb3wnse66m3" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
+[ext_resource type="Texture2D" uid="uid://cf8lnjucl32t6" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
+[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
+[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_kkm87"]
+[ext_resource type="Texture2D" uid="uid://daso8fao0k6bd" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="4_khl08"]
 [ext_resource type="Script" uid="uid://cqt7noq81y7kc" path="res://ai/tasks/run_at_player.gd" id="5_khl08"]
 [ext_resource type="Script" uid="uid://d4e5cyas3vtqu" path="res://ai/tasks/lightning_attack.gd" id="6_hkm1r"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="6_w81gv"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_w81gv"]
-[ext_resource type="AudioStream" uid="uid://b1qyx7dkdbea2" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="10_kkm87"]
+[ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="10_kkm87"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vxyij"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_em8vn"]
+seamless = true
+noise = SubResource("FastNoiseLite_vxyij")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ym5t2"]
+resource_local_to_scene = true
+shader = ExtResource("2_kkm87")
+shader_parameter/blood_scale = 2.0
+shader_parameter/blood_intensity = 0.0
+shader_parameter/res_x_over_y = 15.0
+shader_parameter/hit_flash = 0.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/bloodmask = SubResource("NoiseTexture2D_em8vn")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4j58"]
 size = Vector2(272, 155)
@@ -747,14 +765,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_flash")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_em8vn"]
@@ -763,14 +781,14 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_flash")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.2),
+"times": PackedFloat32Array(0, 0.067069, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(39, 2.7, 31, 1), Color(1, 1, 1, 1)]
+"values": [0.0, 1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mxsq5"]
@@ -788,11 +806,12 @@ stream_0/stream = ExtResource("10_kkm87")
 collision_layer = 0
 script = ExtResource("1_c4j58")
 move_speed = 60.0
-hp = 120.0
+hp_max = 120.0
 flinch_guard = 1.0
 chase_dist = 250.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ym5t2")
 position = Vector2(14, -43)
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("1_k6vpa")

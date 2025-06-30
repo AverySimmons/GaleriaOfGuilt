@@ -1,17 +1,35 @@
-[gd_scene load_steps=56 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=60 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_dl58o"]
-[ext_resource type="Texture2D" uid="uid://cgrh0eawmj66b" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
+[ext_resource type="Texture2D" uid="uid://ceghy351n6mtm" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="2_l36l6"]
+[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_w6w3u"]
 [ext_resource type="Script" uid="uid://dabtng0qvrhdi" path="res://ai/tasks/run_away.gd" id="3_g4adi"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_1xfk5"]
 [ext_resource type="Script" uid="uid://dxr3ecdqdtty2" path="res://ai/tasks/sand_shot.gd" id="4_rbwy0"]
 [ext_resource type="Script" uid="uid://cqt7noq81y7kc" path="res://ai/tasks/run_at_player.gd" id="5_58x27"]
-[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_1xfk5"]
+[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_1xfk5"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="6_wri7i"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="8_vb6xg"]
-[ext_resource type="AudioStream" uid="uid://b610sw0ckiv88" path="res://00_Assets/02_SoundEffects/enemy_attack_3.wav" id="11_2ho74"]
-[ext_resource type="AudioStream" uid="uid://b1qyx7dkdbea2" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="12_ct5x7"]
+[ext_resource type="AudioStream" uid="uid://rloojfnw4cwj" path="res://00_Assets/02_SoundEffects/enemy_attack_3.wav" id="11_2ho74"]
+[ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="12_ct5x7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cs4dq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6j3kt"]
+seamless = true
+noise = SubResource("FastNoiseLite_cs4dq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oy3mj"]
+resource_local_to_scene = true
+shader = ExtResource("2_w6w3u")
+shader_parameter/blood_scale = 0.5
+shader_parameter/blood_intensity = 0.0
+shader_parameter/res_x_over_y = 1.333
+shader_parameter/hit_flash = 0.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/bloodmask = SubResource("NoiseTexture2D_6j3kt")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4adi"]
 size = Vector2(94, 94)
@@ -461,13 +479,14 @@ stream_0/stream = ExtResource("12_ct5x7")
 collision_layer = 0
 script = ExtResource("1_whe2v")
 move_speed = 60.0
-hp = 60.0
+hp_max = 60.0
 shake_length = 1.6
 arrow_dist = 700.0
 indicator_color = Color(0.7, 0.431667, 0, 0.584314)
 chase_dist = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_oy3mj")
 position = Vector2(4, -47)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_l36l6")
