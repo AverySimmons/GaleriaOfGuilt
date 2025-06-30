@@ -10,6 +10,7 @@ make it more obvius when the player is hit (screen flash / hit pause?)
 dialogic scene with walkie talkies / font
 finalize upgrade text
 I want to add controller support but I don't have a controller
+adjust some hitboxes - sometimes slash feels like it should hit and doesnt
 
 adjust lots of values
 player values
@@ -23,3 +24,5 @@ sprites / shaders needed:
 enemy spawn sprite (unsure this is def a style thing)
 door locked sprite (maybe just big red X)
 main entrance sprite (could also just recolor it)
+main menu
+ending scene
