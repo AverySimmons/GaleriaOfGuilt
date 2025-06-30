@@ -11,8 +11,12 @@ var bite_amt: int = 0
 var grenade_throw_amt: int = 0
 var shotgun_amt: int = 0
 var dash_amt: int = 0
+var enemy_hit_amt: int = 0
+var explosion_sound: int = 0
 
 func play_sound(sound_name: String, sound) -> void:
+	if sound == null:
+		return
 	match sound_name:
 		"locust_attack":
 			if cur_total < MAX_SOUNDFX_AMT && locust_atk_amt < INDIVIDUAL_MAX_AMT:
@@ -70,4 +74,20 @@ func play_sound(sound_name: String, sound) -> void:
 				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
 				cur_total -= 1
 				dash_amt -= 1
+		"enemy_hit":
+			if cur_total < MAX_SOUNDFX_AMT && enemy_hit_amt < INDIVIDUAL_MAX_AMT:
+				sound.play()
+				enemy_hit_amt += 1
+				cur_total += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				cur_total -= 1
+				enemy_hit_amt -= 1
+		"grenade_explosion":
+			if explosion_sound < INDIVIDUAL_MAX_AMT:
+				sound.play()
+				explosion_sound += 1
+				cur_total += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				cur_total -= 1
+				explosion_sound -= 1
 	return

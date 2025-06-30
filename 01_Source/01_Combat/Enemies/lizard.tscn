@@ -1,14 +1,15 @@
-[gd_scene load_steps=54 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=56 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
-[ext_resource type="Texture2D" uid="uid://cf8lnjucl32t6" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
-[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
-[ext_resource type="Texture2D" uid="uid://daso8fao0k6bd" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
+[ext_resource type="Texture2D" uid="uid://xrl2p0ee1qsw" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
+[ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
+[ext_resource type="Texture2D" uid="uid://b0kb3wnse66m3" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="4_khl08"]
 [ext_resource type="Script" uid="uid://cqt7noq81y7kc" path="res://ai/tasks/run_at_player.gd" id="5_khl08"]
 [ext_resource type="Script" uid="uid://d4e5cyas3vtqu" path="res://ai/tasks/lightning_attack.gd" id="6_hkm1r"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="6_w81gv"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_w81gv"]
+[ext_resource type="AudioStream" uid="uid://b1qyx7dkdbea2" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="10_kkm87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4j58"]
 size = Vector2(272, 155)
@@ -80,15 +81,16 @@ children = [SubResource("BTAction_ks4qc"), SubResource("BTWait_6v3iu")]
 times = 10
 children = [SubResource("BTSequence_s7vf8")]
 
-[sub_resource type="BBNode" id="BBNode_mabod"]
+[sub_resource type="BBNode" id="BBNode_ym5t2"]
 saved_value = NodePath("Animations")
 resource_name = "Animations"
 
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ry4yv"]
-animation_player = SubResource("BBNode_mabod")
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_mxsq5"]
+animation_player = SubResource("BBNode_ym5t2")
 animation_name = &"attack"
 
-[sub_resource type="BTWait" id="BTWait_my3yx"]
+[sub_resource type="BTWait" id="BTWait_howy7"]
+duration = 2.0
 
 [sub_resource type="BBNode" id="BBNode_rq04b"]
 saved_value = NodePath("Animations")
@@ -103,7 +105,7 @@ duration = 2.0
 
 [sub_resource type="BTSequence" id="BTSequence_howy7"]
 custom_name = "Initiate Attack"
-children = [SubResource("BTAction_w81gv"), SubResource("BTPlayAnimation_vxyij"), SubResource("BTWait_em8vn"), SubResource("BTAction_wc4pt"), SubResource("BTPlayAnimation_khl08"), SubResource("BTRepeat_xyf1q"), SubResource("BTPlayAnimation_ry4yv"), SubResource("BTWait_my3yx"), SubResource("BTPlayAnimation_3ajd1"), SubResource("BTWait_fjdy1")]
+children = [SubResource("BTAction_w81gv"), SubResource("BTPlayAnimation_vxyij"), SubResource("BTWait_em8vn"), SubResource("BTAction_wc4pt"), SubResource("BTPlayAnimation_khl08"), SubResource("BTRepeat_xyf1q"), SubResource("BTPlayAnimation_mxsq5"), SubResource("BTWait_howy7"), SubResource("BTPlayAnimation_3ajd1"), SubResource("BTWait_fjdy1")]
 
 [sub_resource type="BTSelector" id="BTSelector_hv73n"]
 children = [SubResource("BTRunLimit_vxyij"), SubResource("BTSequence_5yibh"), SubResource("BTSequence_howy7")]
@@ -740,6 +742,7 @@ _data = {
 }
 
 [sub_resource type="Animation" id="Animation_ym5t2"]
+resource_name = "ball_o_lightning_damaging"
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -775,6 +778,11 @@ _data = {
 &"RESET": SubResource("Animation_ym5t2"),
 &"hit_flash": SubResource("Animation_em8vn")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vxyij"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("10_kkm87")
 
 [node name="Lizard" type="CharacterBody2D"]
 collision_layer = 0
@@ -846,3 +854,7 @@ visible = false
 texture = ExtResource("2_7debl")
 
 [node name="BloodModule" parent="." instance=ExtResource("9_w81gv")]
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_vxyij")
+volume_db = 16.0

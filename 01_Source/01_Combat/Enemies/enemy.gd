@@ -37,6 +37,8 @@ var player_position: Vector2
 var target_ind
 var indicator_node
 
+@onready var hit_sound = $HitSound
+
 # For upgrades:
 var is_marked: bool = false
 var marked_time: float = 3
@@ -115,6 +117,7 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	if death_state: return
 	hp -= damage
+	AudioData.play_sound("enemy_hit", hit_sound)
 	$HitFlash.reset_section()
 	$HitFlash.play('hit_flash') #this always happens
 	if undamaged:

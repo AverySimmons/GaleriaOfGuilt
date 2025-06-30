@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2gra6ofvq5ej"]
+[gd_scene load_steps=10 format=3 uid="uid://b2gra6ofvq5ej"]
 
 [ext_resource type="Script" uid="uid://bygl5fc4r2hp0" path="res://01_Source/01_Combat/Enemies/enemy.gd" id="1_qkbr7"]
 [ext_resource type="Texture2D" uid="uid://da4qtgrrgackq" path="res://00_Assets/00_Sprites/Enemies/Dev/WormDevSheet.png" id="2_yahaq"]
 [ext_resource type="Texture2D" uid="uid://qkuewsrrt7sa" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="3_qjw3h"]
+[ext_resource type="AudioStream" uid="uid://b1qyx7dkdbea2" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="4_3dm4l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjw3h"]
 atlas = ExtResource("2_yahaq")
@@ -29,6 +30,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yahaq"]
 size = Vector2(222.75, 59)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ag72f"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("4_3dm4l")
+
 [node name="Enemy" type="Area2D"]
 script = ExtResource("1_qkbr7")
 
@@ -42,3 +48,7 @@ shape = SubResource("RectangleShape2D_yahaq")
 
 [node name="DashMark" type="Sprite2D" parent="."]
 texture = ExtResource("3_qjw3h")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ag72f")
+volume_db = 16.0

@@ -2,9 +2,9 @@
 
 [ext_resource type="Shader" uid="uid://bf4gmkm1m3c8t" path="res://01_Source/05_UI/UpgradeScreen/upgrade_gradient.gdshader" id="1_ijyn2"]
 [ext_resource type="Script" uid="uid://cw1d5vq6vxdxq" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.gd" id="1_ud4xx"]
-[ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
-[ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_xdm4q"]
-[ext_resource type="Texture2D" uid="uid://bve6dpeqieuwt" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
+[ext_resource type="Shader" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
+[ext_resource type="FontFile" uid="uid://b6yw466pefui1" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_xdm4q"]
+[ext_resource type="Texture2D" uid="uid://drq81e7o0agoy" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
 resource_local_to_scene = true

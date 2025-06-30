@@ -18,5 +18,5 @@ func choose_upgrade() -> void:
 	# Set the ability
 	GameData.player.set_ability(shotgun_scene)
 	UpgradeData.current_ability_class = upgrade_scene
-	GameData.player.current_ability_name = 2
+	GameData.player.current_ability_name = 3
 	return

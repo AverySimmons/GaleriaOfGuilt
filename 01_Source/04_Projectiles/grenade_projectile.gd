@@ -25,6 +25,8 @@ var z_gravity: float = -1500
 var rotation_velocity: float = 6
 var rotation_friction: float = 2
 
+@onready var explosion_sound = $ExplosionSound
+
 func _ready() -> void:
 	monitoring = false
 	connect("area_entered", Callable(self, "_on_area_entered"))
@@ -59,7 +61,6 @@ func get_thrown(location: Vector2, shot_speed: float, explo_damage: float, explo
 	return
 
 func explode() -> void:
-	print("Ouch!")
 	has_exploded = true
 	z_speed = 0
 	velocity = Vector2.ZERO
@@ -68,6 +69,7 @@ func explode() -> void:
 	$Explosion.visible = true
 	$Sprite2D.visible = false
 	$AnimationPlayer.play("explosion")
+	AudioData.play_sound("grenade_explosion", explosion_sound)
 	var enemies = get_overlapping_areas()
 	for area in enemies:
 		var enemy = area.owner

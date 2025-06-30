@@ -10,7 +10,7 @@ func _ready() -> void:
 	active_time = 0.6
 	special_slowdown = 0.4
 	flinch_amount = 0.3
-	blood_gain_multiplier = 2.5
+	blood_gain_multiplier = 2.0
 	chargeup_slowdown = 0.3
 	
 	connect("area_entered", Callable(self, "_on_area_entered"))
