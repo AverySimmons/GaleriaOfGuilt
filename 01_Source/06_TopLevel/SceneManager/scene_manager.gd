@@ -12,7 +12,7 @@ var intro
 var van
 var ending
 
-var test_game = true
+var test_game = false
 
 func _ready() -> void:
 	Dialogic.signal_event.connect(dialogic_stupid)
