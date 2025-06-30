@@ -1,14 +1,15 @@
 settings menu
-death screen / transition
-all scene transitions
+death screen / transition (what should this look like?)
+all scene transitions (what should these look like?)
 sounds effect implemented
 make levels work
 change enemy spawning logic
 cooldown for abilities more visible
 shotgun looks a little weird
-make it more obvius when the player is hit (hit pause ?)
-dialogic scene with walkie talkies
+make it more obvius when the player is hit (screen flash / hit pause?)
+dialogic scene with walkie talkies / font
 finalize upgrade text
+I want to add controller support but I don't have a controller
 
 adjust lots of values
 player values
