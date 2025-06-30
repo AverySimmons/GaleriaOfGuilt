@@ -1,6 +1,6 @@
 extends Node
 # THE BIG DECLARATION
-const NUM_UPGRADES: int = 22
+const NUM_UPGRADES: int = 23
 const BITE: int = 0
 const SHOTGUN: int = 1
 const GRENADE: int = 2
@@ -23,6 +23,7 @@ const DASH_CHARGES: int = 18
 const DASH_DISTANCE_BLOOD_GAIN: int = 19
 const SP_MORE_BLOOD_CD: int = 20
 const SPCD_DOWN_BLOOD_DOWN: int = 21
+const ALL_UPGRADES: int = 22
 
 var upgrades_gained: Array
 

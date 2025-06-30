@@ -16,6 +16,8 @@ func on_level_up() -> void:
 
 func choose_upgrades() -> Array[Upgrade]:
 	if UpgradeData.selectable_upgrades.size() <= 3:
+		var blank_upgrade: Upgrade = preload("res://01_Source/03_Upgrades/all_upgrades_upgrade.gd").new()
+		UpgradeData.selectable_upgrades.append(blank_upgrade)
 		return UpgradeData.selectable_upgrades
 	
 	var chosen_upgrades: Array[Upgrade]
