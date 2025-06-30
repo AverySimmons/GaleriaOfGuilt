@@ -79,6 +79,10 @@ func spawn_game_manager():
 	game_manager.stage_complete.connect(stage_complete)
 	add_child(game_manager)
 	
+	if GameData.mall_ind == 0:
+		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+		Dialogic.start("tutorial").process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	await t.finished
 	$CarMusic.stop()
 
@@ -111,6 +115,7 @@ func dialogic_stupid(inp: String) -> void:
 	elif inp == "unpause_game": 
 		unpause_game()
 		GameData.music_event.set_parameter("combat state", 2)
+	elif inp == "tutorial_over": unpause_game()
 	elif inp == "next_stage": stage_complete()
 	elif inp == "intro_finished": intro_finished()
 	elif inp == "pre_mall_finished": pre_mall_finished()

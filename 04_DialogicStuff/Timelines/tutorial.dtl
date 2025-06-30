@@ -8,4 +8,4 @@ marie_character: The blood bar on the right side of the screen fills up when you
 marie_character: The left silhouette is my HP. Don’t let me die!
 marie_character: The bottom bar is my XP bar, get XP from fighting! Each time it fills up you can choose a new upgrade!
 marie_character: Lets dust these puny omens!
-[signal arg="unpause_game"]
+[signal arg="tutorial_over"]

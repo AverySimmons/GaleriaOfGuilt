@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://behaf083nupc4"]
+
+[ext_resource type="Script" uid="uid://cns2redsfroqp" path="res://04_DialogicStuff/Styles/DefaultLayoutBase/default_layout_base.gd" id="1_ifsho"]
+[ext_resource type="Texture2D" uid="uid://c1kjkx3rc0bxm" path="res://00_Assets/00_Sprites/Dialogue_sprites/dialogue_box.png" id="2_57rjw"]
+[ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_sbxw5"]
+[ext_resource type="Script" uid="uid://dtvooil4pkfbw" path="res://04_DialogicStuff/Styles/DefaultLayoutBase/portrait.gd" id="4_57rjw"]
+[ext_resource type="Script" uid="uid://bmf4nl3lw248w" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="4_r8p2v"]
+
+[node name="DefaultLayoutBase" type="CanvasLayer"]
+script = ExtResource("1_ifsho")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 222.0
+offset_top = 411.0
+offset_right = 1222.0
+offset_bottom = 711.0
+texture = ExtResource("2_57rjw")
+
+[node name="DialogicNode_DialogText" type="RichTextLabel" parent="TextureRect"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 81.0
+offset_right = 911.0
+offset_bottom = 218.0
+theme_override_colors/default_color = Color(0.34, 1, 0.439, 1)
+theme_override_fonts/normal_font = ExtResource("3_sbxw5")
+theme_override_font_sizes/normal_font_size = 32
+text = "Blah blah blah"
+script = ExtResource("4_r8p2v")
+metadata/_custom_type_script = "uid://bmf4nl3lw248w"
+
+[node name="Portrait" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 400)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 78.0
+offset_top = 294.0
+offset_right = 278.0
+offset_bottom = 694.0
+script = ExtResource("4_57rjw")
+mode = 1
