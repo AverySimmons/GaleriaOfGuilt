@@ -6,14 +6,24 @@
 &"custom_info": {
 "sound_mood_default": "",
 "sound_moods": {},
-"style": ""
+"style": "default"
 },
-&"default_portrait": "",
+&"default_portrait": "default",
 &"description": "",
 &"display_name": "Marie",
 &"mirror": false,
 &"nicknames": [""],
 &"offset": Vector2(0, 0),
-&"portraits": {},
+&"portraits": {
+"default": {
+"export_overrides": {
+"image": "\"res://00_Assets/00_Sprites/Dialogue_sprites/walkietalkie_marie_therese.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+}
+},
 &"scale": 1.0
 }
