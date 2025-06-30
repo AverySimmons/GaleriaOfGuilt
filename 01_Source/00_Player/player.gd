@@ -69,10 +69,12 @@ var dash_distance: float = 200
 var dash_speed: float = 1250
 var dash_time: float = dash_distance/dash_speed
 var dash_direction: Vector2
-var dash_cd: float = 1.5
+var dash_cd: float = 0.8
 var dash_timer: float = 0
 var is_invincible: bool = false
 var dashed_into_enemies: Dictionary
+
+signal start_dash
 
 # Levelup stuff ----------------------------------------
 var level: int = 0
@@ -230,7 +232,7 @@ func _physics_process(delta: float) -> void:
 				special_ability_timer = current_ability.cooldown * bb_hitspd_inc * spcd_increase
 	
 	if Input.is_action_just_pressed("dash"):
-		if dash_charges > 0 && using_attack_or_special_or_dash == false && (blood_bar-dash_blood_cost>=0):
+		if dash_charges > 0 && is_dashing == false && (blood_bar-dash_blood_cost>=0):
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
 			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
@@ -255,6 +257,8 @@ func _physics_process(delta: float) -> void:
 			animation_player.play(dash_animation)
 			AudioData.play_sound("dash", dash_sound)
 			
+			if using_attack_or_special_or_dash:
+				start_dash.emit()
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
 			dash_charges -= 1

@@ -24,6 +24,7 @@ func _ready() -> void:
 	monitoring = false
 	parent.burst_begin.connect(on_burst_begin)
 	parent.burst_end.connect(on_burst_end)
+	parent.start_dash.connect(dash_cancel)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -142,4 +143,22 @@ func on_burst_begin() -> void:
 func on_burst_end() -> void:
 	attack_slowdown = haha_yooo
 	collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1)
+	return
+
+func dash_cancel() -> void:
+	if is_active:
+		animation_player.stop()
+		animation_player.play("RESET")
+		active_timer = 0
+		parent.using_attack_or_special_or_dash = false
+		monitoring = false
+		is_active = false
+		hit_enemies.clear()
+		attack_slowdown_actual = 1.0
+		damage = damage_unmodified
+		if UpgradeData.upgrades_gained[UpgradeData.RETRACT_SWIPE]:
+			if parent.burst_timer == 0:
+				collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1, 1)
+			else:
+				collision_shape_2d.get_node("Slash").modulate = Color(1.0, 0.8, 0.9)
 	return

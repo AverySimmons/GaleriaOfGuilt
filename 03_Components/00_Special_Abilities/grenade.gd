@@ -13,6 +13,7 @@ func _ready() -> void:
 	special_slowdown = 0.5
 	flinch_amount = 0.6
 	chargeup_slowdown = 0.4
+	parent.start_dash.connect(dash_cancel)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -43,4 +44,11 @@ func use_ability() -> void:
 	grenade.global_position = global_position
 	projectiles_scene.add_child(grenade)
 	grenade.get_thrown(mouse_pos, speed, damage, flinch_amount, knockback_amount)
+	return
+
+func dash_cancel() -> void:
+	if is_active:
+		parent.using_attack_or_special_or_dash = false
+		is_active = false
+		special_slowdown_actual = 1.0
 	return

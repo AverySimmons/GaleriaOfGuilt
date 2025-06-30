@@ -14,6 +14,7 @@ func _ready() -> void:
 	chargeup_slowdown = 0.3
 	
 	connect("area_entered", Callable(self, "_on_area_entered"))
+	parent.start_dash.connect(dash_cancel)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -73,3 +74,14 @@ func use_ability() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	enemies_just_entered.append(area)
 	pass
+
+func dash_cancel() -> void:
+	if is_active:
+		$AnimationPlayer.stop()
+		active_timer = 0
+		parent.using_attack_or_special_or_dash = false
+		monitoring = false
+		is_active = false	
+		hit_enemies.clear()
+		special_slowdown_actual = 1.0
+		collision_shape_2d.get_node("Sprite2D").visible = false

@@ -35,7 +35,8 @@ func use_ability() -> void:
 	await get_tree().create_timer(chargeup).timeout
 	# Make player face direction of swing
 	# Also maybe screenshake
-	
+	if !is_active:
+		return
 	active_timer = active_time * parent.bb_hitspd_inc
 	special_slowdown_actual = special_slowdown
 	
