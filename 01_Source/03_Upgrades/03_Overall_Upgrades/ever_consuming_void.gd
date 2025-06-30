@@ -14,4 +14,5 @@ func choose_upgrade() -> void:
 	GameData.player.bb_multiplier2 *= 2.0
 	GameData.player.percentage_to_start_removing_blood_passively = 0
 	# JOEYGOAT (codeword to add the invisibility thing here... mmm... hemomancer)
+	SignalBus.remove_blood_line.emit()
 	return

@@ -4,6 +4,7 @@ extends Control
 @onready var blood_bar: Sprite2D = $BloodBar
 @onready var hp_fill: Sprite2D = $HealthBar/Fill
 @onready var xp_fill: Sprite2D = $XPBar/Fill
+@onready var blood_meter_marker: Sprite2D = $BloodBar/BloodMeterMarker
 
 var bb_tween: Tween
 var hp_tween: Tween
@@ -14,12 +15,18 @@ func _ready() -> void:
 	SignalBus.gained_exp.connect(xp_change)
 	SignalBus.hp_change.connect(health_change)
 	SignalBus.bb_change.connect(blood_change)
+	SignalBus.remove_blood_line.connect(remove_blood_meter_marker)
+	if UpgradeData.upgrades_gained[UpgradeData.ENDLESS_VOID]:
+		remove_blood_meter_marker()
 	
 	var xp_fill_perc = GameData.player.current_exp / GameData.player.exp_needed
 	xp_fill.material.set_shader_parameter("fill_percent", xp_fill_perc)
 	
 	hp_fill.material.set_shader_parameter("fill_percent", 1)
 	blood_bar.material.set_shader_parameter("fill_percent", 0)
+
+func remove_blood_meter_marker():
+	blood_meter_marker.visible = false
 
 func enter_burst() -> void:
 	var t = create_tween()

@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6ckunnkasuib"]
+
+[ext_resource type="Texture2D" uid="uid://6e1l03iie5df" path="res://00_Assets/00_Sprites/UI_sprites/game_over_scren.png" id="1_ahbtf"]
+
+[sub_resource type="Animation" id="Animation_ahbtf"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_248a3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dlrx5"]
+_data = {
+&"RESET": SubResource("Animation_248a3"),
+&"fade_in": SubResource("Animation_ahbtf")
+}
+
+[node name="Death" type="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("1_ahbtf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dlrx5")
+}
+autoplay = "fade_in"

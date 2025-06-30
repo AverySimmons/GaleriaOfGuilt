@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://b04dc8tgcbq1g"]
 
-[ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_cfhx2"]
+[ext_resource type="PackedScene" uid="uid://dfjpvt3617081" path="res://00_Assets/00_Sprites/UI_sprites/level.tscn" id="1_cfhx2"]
 [ext_resource type="Texture2D" uid="uid://cofs2goslk5k3" path="res://00_Assets/00_Sprites/Room_sprites/fountain_big_water.png" id="2_e36l3"]
 [ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_iip5t"]
 [ext_resource type="Texture2D" uid="uid://c7bf57mx373bj" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_1.png" id="3_ue5uw"]

@@ -6,6 +6,7 @@ var intro_scene = preload("res://01_Source/06_TopLevel/Cutscenes/intro.tscn")
 var van_scene = preload("res://01_Source/06_TopLevel/Cutscenes/Road.tscn")
 var ending_scene = preload("res://01_Source/06_TopLevel/Cutscenes/ending.tscn")
 var settings_scene = preload("res://01_Source/06_TopLevel/Settings/settings.tscn")
+var death_scene = preload("res://01_Source/06_TopLevel/Cutscenes/death.tscn")
 
 var title_screen
 var game_manager
@@ -13,12 +14,16 @@ var intro
 var van
 var ending
 var settings
+var death
+
+var player_dying = false
 
 var test_game = false
 
 var was_paused = false
 
 func _ready() -> void:
+	SignalBus.player_death.connect(player_death)
 	Dialogic.signal_event.connect(dialogic_stupid)
 	SignalBus.pause.connect(pause_game)
 	SignalBus.unpause.connect(unpause_game)
@@ -47,6 +52,7 @@ func _ready() -> void:
 	# ending (for now)
 
 func _input(event: InputEvent) -> void:
+	if player_dying: return
 	if Input.is_action_just_pressed("settings"):
 		if not settings:
 			settings = settings_scene.instantiate()
@@ -95,7 +101,9 @@ func stage_complete():
 
 func dialogic_stupid(inp: String) -> void:
 	if inp == "pause_game": pause_game()
-	elif inp == "unpause_game": unpause_game()
+	elif inp == "unpause_game": 
+		unpause_game()
+		GameData.music_event.set_parameter("combat state", 2)
 	elif inp == "next_stage": stage_complete()
 	elif inp == "intro_finished": intro_finished()
 	elif inp == "pre_mall_finished": pre_mall_finished()
@@ -153,3 +161,22 @@ func add_van(is_night):
 
 func remove_van():
 	van.call_deferred("queue_free")
+
+func player_death():
+	player_dying = true
+	GameData.music_event.set_parameter("combat state", 0)
+	
+	var t = create_tween()
+	t.tween_property(Engine, "time_scale", 0.2, 1.5)
+	
+	var t2 = create_tween()
+	t2.tween_property(GameData.player, "modulate", Color("red"), 1.5)
+	
+	await t.finished
+	
+	pause_game()
+	
+	Engine.time_scale = 1
+	
+	death = death_scene.instantiate()
+	add_child(death)

@@ -66,6 +66,8 @@ var tint: Color = Color(0,0,0,0)
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
+	if not GameData.is_escaping:
+		GameData.music_event.set_parameter("combat state", 1)
 	map_piece.visible = true
 	var con_num = -1
 	for c in connections: if c: con_num += 1
@@ -126,11 +128,7 @@ func _process(delta: float) -> void:
 	var t = create_tween()
 	t.tween_property(camera, "global_position", GameData.player.global_position, 0.1)
 	
-	if GameData.is_escaping:
-		GameData.music_event.set_parameter("combat state", 2)
-	elif enemies_left > 0:
-		GameData.music_event.set_parameter("combat state", 1)
-	else:
+	if enemies_left <= 0 and not GameData.is_escaping:
 		GameData.music_event.set_parameter("combat state", 0)
 
 func _physics_process(delta: float) -> void:
