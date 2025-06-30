@@ -47,7 +47,7 @@ func _tick(delta: float) -> Status:
 	if not has_locked_dir:
 		var player_vel = GameData.player.velocity
 		var player_pos = GameData.player.global_position
-		enemy.player_position = player_pos + player_vel / enemy.global_position.distance_to(player_pos) * 60
+		enemy.player_position = player_pos + player_vel / enemy.global_position.distance_to(player_pos) * 100
 		var player_dir = enemy.global_position.direction_to(enemy.player_position)
 		var arrow_point = enemy.global_position + player_dir * enemy.arrow_dist * shaking_time / enemy.shake_length / 0.8
 		enemy.target_ind.update(enemy.global_position, arrow_point)
