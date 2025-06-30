@@ -51,4 +51,7 @@ offset_right = 54.0
 offset_bottom = 24.0
 text = "Play"
 
+[node name="TopLevelUI" type="CanvasLayer" parent="."]
+layer = 100
+
 [connection signal="pressed" from="TitleScreen/Button" to="." method="_on_button_pressed"]

@@ -5,14 +5,18 @@ var game_manager_scene = preload("res://01_Source/01_Combat/GameManager/GameMana
 var intro_scene = preload("res://01_Source/06_TopLevel/Cutscenes/intro.tscn")
 var van_scene = preload("res://01_Source/06_TopLevel/Cutscenes/Road.tscn")
 var ending_scene = preload("res://01_Source/06_TopLevel/Cutscenes/ending.tscn")
+var settings_scene = preload("res://01_Source/06_TopLevel/Settings/settings.tscn")
 
 var title_screen
 var game_manager
 var intro
 var van
 var ending
+var settings
 
 var test_game = false
+
+var was_paused = false
 
 func _ready() -> void:
 	Dialogic.signal_event.connect(dialogic_stupid)
@@ -41,6 +45,20 @@ func _ready() -> void:
 	# etc mall 2 - 5
 	# post mall 5 (night car)
 	# ending (for now)
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("settings"):
+		if not settings:
+			settings = settings_scene.instantiate()
+			settings.closed.connect(settings_closed)
+			$TopLevelUI.add_child(settings)
+			was_paused = get_tree().paused
+			get_tree().paused = true
+		else:
+			settings.close()
+
+func settings_closed():
+	get_tree().paused = was_paused
 
 func spawn_game_manager():
 	GameData.is_escaping = false

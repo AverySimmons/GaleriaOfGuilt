@@ -1,0 +1,165 @@
+[gd_scene load_steps=13 format=3 uid="uid://x4hnxtibjtu6"]
+
+[ext_resource type="Script" uid="uid://bodr6wa1h4hrd" path="res://01_Source/06_TopLevel/Settings/settings.gd" id="1_2rbca"]
+[ext_resource type="Texture2D" uid="uid://dtitbxq47t27p" path="res://00_Assets/00_Sprites/UI_sprites/pause_menu_base.png" id="1_mxjcm"]
+[ext_resource type="Texture2D" uid="uid://cq4yx557p6scx" path="res://00_Assets/00_Sprites/UI_sprites/quit_button.png" id="2_2rbca"]
+[ext_resource type="Texture2D" uid="uid://dqedv1ju8tjiy" path="res://00_Assets/00_Sprites/UI_sprites/resume_button.png" id="3_51ivv"]
+[ext_resource type="Texture2D" uid="uid://cal4x7642mvfq" path="res://00_Assets/00_Sprites/UI_sprites/volume_button.png" id="4_kcbnx"]
+[ext_resource type="Texture2D" uid="uid://d32ywa13jfb2i" path="res://00_Assets/00_Sprites/UI_sprites/volume_bar.png" id="5_euhdr"]
+[ext_resource type="Script" uid="uid://cbl1x8cyborsr" path="res://01_Source/06_TopLevel/Settings/volume_slider.gd" id="6_euyi2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svc54"]
+
+[sub_resource type="Animation" id="Animation_2rbca"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(640, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_51ivv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kcbnx"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(640, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.00136e-05, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_euhdr"]
+_data = {
+&"RESET": SubResource("Animation_51ivv"),
+&"close": SubResource("Animation_kcbnx"),
+&"open": SubResource("Animation_2rbca")
+}
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_2rbca")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("1_mxjcm")
+
+[node name="QuitButton" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("2_2rbca")
+
+[node name="ResumeButton" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("3_51ivv")
+
+[node name="VolumeButton" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("4_kcbnx")
+
+[node name="VolumeBar" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("5_euhdr")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 182.0
+offset_top = 282.0
+offset_right = 554.0
+offset_bottom = 298.0
+theme_override_styles/slider = SubResource("StyleBoxEmpty_svc54")
+min_value = -20.0
+max_value = 20.0
+step = 0.01
+script = ExtResource("6_euyi2")
+bus_name = "Master"
+
+[node name="ResumeButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 579.0
+offset_top = 169.0
+offset_right = 815.0
+offset_bottom = 277.0
+
+[node name="QuitButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 868.0
+offset_top = 237.0
+offset_right = 1058.0
+offset_bottom = 444.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_euhdr")
+}
+autoplay = "open"
+speed_scale = 6.0
+
+[connection signal="changed" from="HSlider" to="HSlider" method="_on_changed"]
+[connection signal="mouse_entered" from="ResumeButton" to="." method="_on_resume_button_mouse_entered"]
+[connection signal="mouse_exited" from="ResumeButton" to="." method="_on_resume_button_mouse_exited"]
+[connection signal="pressed" from="ResumeButton" to="." method="close"]
+[connection signal="mouse_entered" from="QuitButton" to="." method="_on_quit_button_mouse_entered"]
+[connection signal="mouse_exited" from="QuitButton" to="." method="_on_quit_button_mouse_exited"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
