@@ -1,21 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqmqfw72ve2g4"]
+[gd_scene load_steps=2 format=3 uid="uid://bqmqfw72ve2g4"]
 
-[sub_resource type="Gradient" id="Gradient_t5r22"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2vwwt"]
-gradient = SubResource("Gradient_t5r22")
-width = 1280
-height = 720
+[ext_resource type="Texture2D" uid="uid://dohiix1y75b5y" path="res://00_Assets/00_Sprites/Cutscene_sprites/final_scene.png" id="1_2vwwt"]
 
 [node name="Ending" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
-texture = SubResource("GradientTexture2D_2vwwt")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 554.0
-offset_top = 328.0
-offset_right = 1285.0
-offset_bottom = 683.0
-text = "THE END"
+texture = ExtResource("1_2vwwt")

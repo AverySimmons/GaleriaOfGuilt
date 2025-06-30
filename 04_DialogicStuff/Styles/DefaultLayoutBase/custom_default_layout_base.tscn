@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://behaf083nupc4"]
+[gd_scene load_steps=7 format=3 uid="uid://behaf083nupc4"]
 
 [ext_resource type="Script" uid="uid://cns2redsfroqp" path="res://04_DialogicStuff/Styles/DefaultLayoutBase/default_layout_base.gd" id="1_ifsho"]
 [ext_resource type="Texture2D" uid="uid://c1kjkx3rc0bxm" path="res://00_Assets/00_Sprites/Dialogue_sprites/dialogue_box.png" id="2_57rjw"]
 [ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_sbxw5"]
 [ext_resource type="Script" uid="uid://dtvooil4pkfbw" path="res://04_DialogicStuff/Styles/DefaultLayoutBase/portrait.gd" id="4_57rjw"]
 [ext_resource type="Script" uid="uid://bmf4nl3lw248w" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="4_r8p2v"]
+[ext_resource type="Script" uid="uid://dsvog6ei6akgv" path="res://addons/dialogic/Modules/Text/node_type_sound.gd" id="6_r8p2v"]
 
 [node name="DefaultLayoutBase" type="CanvasLayer"]
 script = ExtResource("1_ifsho")
@@ -28,6 +29,10 @@ theme_override_font_sizes/normal_font_size = 32
 text = "Blah blah blah"
 script = ExtResource("4_r8p2v")
 metadata/_custom_type_script = "uid://bmf4nl3lw248w"
+
+[node name="DialogicNode_TypeSounds" type="AudioStreamPlayer" parent="TextureRect/DialogicNode_DialogText"]
+script = ExtResource("6_r8p2v")
+metadata/_custom_type_script = "uid://dsvog6ei6akgv"
 
 [node name="Portrait" type="Control" parent="."]
 custom_minimum_size = Vector2(200, 400)

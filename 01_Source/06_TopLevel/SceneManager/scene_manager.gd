@@ -18,7 +18,7 @@ var death
 
 var player_dying = false
 
-var test_game = true
+var test_game = false
 
 var was_paused = false
 

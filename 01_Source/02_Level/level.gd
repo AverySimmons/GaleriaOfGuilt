@@ -68,6 +68,8 @@ signal exited_room(dir: Vector2)
 func _ready() -> void:
 	if not GameData.is_escaping:
 		GameData.music_event.set_parameter("combat state", 1)
+		for d in doors.get_children():
+			d.lock()
 	map_piece.visible = true
 	var con_num = -1
 	for c in connections: if c: con_num += 1
@@ -78,7 +80,6 @@ func _ready() -> void:
 	enemy_credits *= size_scaling[con_num]
 	
 	$MultiplyLayer.color = tint
-	SignalBus.death.connect(enemy_died)
 	
 	top_left = $TopLeft.global_position
 	bot_right = $BottomRight.global_position
@@ -194,8 +195,12 @@ func spawn_enemy(pos: Vector2, index: int) -> void:
 
 func enemy_died(enemy) -> void:
 	enemies_left -= 1
+	if enemies_left <= 0:
+		for d in doors.get_children():
+			d.unlock()
 
 func enter(dir: Vector2) -> void:
+	SignalBus.death.connect(enemy_died)
 	enter_timer = 0.5
 	blood_manager.spawn()
 	if dir == Vector2.ZERO:
@@ -213,6 +218,7 @@ func enter(dir: Vector2) -> void:
 	camera.global_position = GameData.player.global_position
 
 func exit(dir: Vector2):
+	SignalBus.death.disconnect(enemy_died)
 	if enter_timer > 0: return
 	if enemies_left > 0 and not GameData.is_escaping: return
 	

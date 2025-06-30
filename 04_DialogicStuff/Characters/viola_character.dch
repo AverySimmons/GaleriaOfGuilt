@@ -17,14 +17,25 @@
 "volume_variance": 0.2
 }
 },
-"style": ""
+"style": "default"
 },
-&"default_portrait": "",
+&"default_portrait": "default",
 &"description": "",
 &"display_name": "Viola",
 &"mirror": false,
 &"nicknames": [""],
 &"offset": Vector2(0, 0),
-&"portraits": {},
+&"portraits": {
+"default": {
+"export_overrides": {
+"image": "\"res://00_Assets/00_Sprites/Dialogue_sprites/walkietalkie_viola.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Mood 1"
+}
+},
 &"scale": 1.0
 }

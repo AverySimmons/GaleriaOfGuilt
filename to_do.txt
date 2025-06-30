@@ -22,5 +22,3 @@ sprites / shaders needed:
 enemy spawn sprite (unsure this is def a style thing)
 door locked sprite (maybe just big red X)
 main entrance sprite (could also just recolor it)
-main menu
-ending scene

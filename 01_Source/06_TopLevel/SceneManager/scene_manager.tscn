@@ -1,13 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://iudn154k7uar"]
+[gd_scene load_steps=3 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
-
-[sub_resource type="Gradient" id="Gradient_1l5et"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mrl32"]
-gradient = SubResource("Gradient_1l5et")
-width = 1280
-height = 720
+[ext_resource type="Texture2D" uid="uid://byc5gw7glt56f" path="res://00_Assets/00_Sprites/Cutscene_sprites/title_screen.png" id="2_mrl32"]
 
 [node name="SceneManager" type="Node"]
 process_mode = 3
@@ -42,13 +36,13 @@ volume = 0.35
 
 [node name="TitleScreen" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
-texture = SubResource("GradientTexture2D_mrl32")
+texture = ExtResource("2_mrl32")
 
 [node name="Button" type="Button" parent="TitleScreen"]
-offset_left = -81.0
-offset_top = -54.0
-offset_right = 54.0
-offset_bottom = 24.0
+offset_left = 310.0
+offset_top = 28.0
+offset_right = 445.0
+offset_bottom = 106.0
 text = "Play"
 
 [node name="TopLevelUI" type="CanvasLayer" parent="."]

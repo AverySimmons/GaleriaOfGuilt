@@ -27,4 +27,12 @@ func setup_sprite():
 		top_sprite.frame = 0
 		bot_sprite.frame = 1
 		bot_sprite.rotation = PI
-	
+
+func lock():
+	var t = create_tween()
+	t.tween_property($Lock, "modulate", Color(1,1,1,1), 0.2)
+
+func unlock():
+	var t = create_tween()
+	t.tween_property($Lock, "modulate", Color(1,1,1,0), 0.2)
+	$UnlockSound.play()
