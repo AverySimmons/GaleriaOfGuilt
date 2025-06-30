@@ -10,3 +10,5 @@ func _ready() -> void:
 
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus_index, value)
+	for bus : FmodBus in FmodServer.get_all_buses():
+		bus.volume = db_to_linear(value)

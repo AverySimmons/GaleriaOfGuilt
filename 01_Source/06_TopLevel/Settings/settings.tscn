@@ -156,7 +156,7 @@ libraries = {
 autoplay = "open"
 speed_scale = 6.0
 
-[connection signal="changed" from="HSlider" to="HSlider" method="_on_changed"]
+[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_value_changed"]
 [connection signal="mouse_entered" from="ResumeButton" to="." method="_on_resume_button_mouse_entered"]
 [connection signal="mouse_exited" from="ResumeButton" to="." method="_on_resume_button_mouse_exited"]
 [connection signal="pressed" from="ResumeButton" to="." method="close"]

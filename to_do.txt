@@ -1,4 +1,3 @@
-settings menu
 death screen / transition (what should this look like?)
 all scene transitions (what should these look like?)
 sounds effect implemented
