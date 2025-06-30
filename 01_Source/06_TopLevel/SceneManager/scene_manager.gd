@@ -4,13 +4,15 @@ var player_scene = preload("res://01_Source/00_Player/player.tscn")
 var game_manager_scene = preload("res://01_Source/01_Combat/GameManager/GameManager.tscn")
 var intro_scene = preload("res://01_Source/06_TopLevel/Cutscenes/intro.tscn")
 var van_scene = preload("res://01_Source/06_TopLevel/Cutscenes/Road.tscn")
+var ending_scene = preload("res://01_Source/06_TopLevel/Cutscenes/ending.tscn")
 
 var title_screen
 var game_manager
 var intro
 var van
+var ending
 
-var test_game = false
+var test_game = true
 
 func _ready() -> void:
 	Dialogic.signal_event.connect(dialogic_stupid)
@@ -41,6 +43,7 @@ func _ready() -> void:
 	# ending (for now)
 
 func spawn_game_manager():
+	GameData.is_escaping = false
 	var t = create_tween()
 	t.tween_property($CarMusic, "volume", 0, 0.5)
 	$GameMusic.play()
@@ -65,7 +68,7 @@ func stage_complete():
 	t.tween_property($GameMusic, "volume", 0, 0.5)
 	$CarMusic.play()
 	var t2 = create_tween()
-	t.tween_property($CarMusic, "volume", 0.35, 0.5)
+	t2.tween_property($CarMusic, "volume", 0.35, 0.5)
 	add_van(true)
 	Dialogic.start("post_mall_" + str(GameData.mall_ind))
 	
@@ -110,8 +113,13 @@ func intro_finished():
 	$MenuMusic.stop()
 
 func post_mall_finished(): # or intro finished
-	add_van(false)
-	Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1))
+	if GameData.mall_ind + 1 < 5:
+		add_van(false)
+		Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1))
+	else:
+		remove_van()
+		ending = ending_scene.instantiate()
+		add_child(ending)
 
 func pre_mall_finished():
 	remove_van()

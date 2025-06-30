@@ -6,13 +6,19 @@ extends Node
 var levels: Dictionary[Vector2, Level]
 var current_level: Level
 
-var size: float = 0
+var mall_sizes = [
+	0,
+	1,
+	0,
+	1,
+	0
+]
 
 signal item_dialog()
 signal stage_complete()
 
 func _ready() -> void:
-	levels = level_generator.get_levels(size)
+	levels = level_generator.get_levels(mall_sizes[GameData.mall_ind])
 	map_overlay.generate_map(levels.values())
 	
 	for lvl: Level in levels.values():
@@ -35,6 +41,10 @@ func transition_levels(dir: Vector2) -> void:
 	if current_level:
 		current_level.blood_manager.despawn()
 		remove_child(current_level)
+	
+	if dir == Vector2.ZERO:
+		stage_complete.emit()
+		return
 	
 	current_level = levels[current_level.map_pos + dir]
 	add_child(current_level)

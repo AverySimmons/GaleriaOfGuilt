@@ -7,17 +7,17 @@ var map_position = Vector2.ZERO
 func generate_map(tiles: Array[Level]):
 	for tile in tiles:
 		var new_piece = piece_scene.instantiate()
-		new_piece.global_position = tile.map_pos * (128 + 10)
+		new_piece.global_position = tile.map_pos * 128
 		for i in 4:
 			if tile.connections[i]: new_piece.connections[i] = true
 		if tile.map_pos == Vector2.ZERO:
-			new_piece.modulate = Color("green")
+			new_piece.modulate = Color(1,0.7,1)
 		if tile.is_end:
-			new_piece.modulate = Color("red")
+			new_piece.modulate = Color(1,0.8,0.8)
 		tile.map_piece = new_piece
 		$MapPieces.add_child(new_piece)
 	
 	display()
 
 func display():
-	$MapPieces.position = Vector2(1280,720) / 2. - map_position * (128 + 10)
+	$MapPieces.position = Vector2(1280,720) / 2. - map_position * 128

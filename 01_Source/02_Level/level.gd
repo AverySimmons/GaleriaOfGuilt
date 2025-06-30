@@ -18,6 +18,8 @@ signal item_picked_up()
 
 var item
 
+var entrance_door
+
 var escape_timer = 0
 var distance = 0
 
@@ -64,7 +66,7 @@ var tint: Color = Color(0,0,0,0)
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
-	
+	map_piece.visible = true
 	var con_num = -1
 	for c in connections: if c: con_num += 1
 	
@@ -93,6 +95,10 @@ func _ready() -> void:
 	#blood_manager.multimesh.custom_aabb = AABB(center, size)
 	
 	for d in doors.get_children():
+		if d is EntranceDoor:
+			entrance_door = d
+			d.exit.connect(exit, ConnectFlags.CONNECT_DEFERRED)
+			continue
 		var con_value = connections[GameData.DIRECTIONS[d.direction]]
 		if con_value:
 			d.exit.connect(exit, ConnectFlags.CONNECT_DEFERRED)
@@ -194,8 +200,8 @@ func enemy_died(enemy) -> void:
 func enter(dir: Vector2) -> void:
 	enter_timer = 0.5
 	blood_manager.spawn()
-	if map_pos == Vector2.ZERO:
-		GameData.player.global_position = Vector2.ZERO
+	if dir == Vector2.ZERO:
+		GameData.player.global_position = entrance_door.player_spawn.global_position
 		entities.add_child(GameData.player)
 		return
 	
@@ -208,8 +214,18 @@ func enter(dir: Vector2) -> void:
 func exit(dir: Vector2):
 	if enter_timer > 0: return
 	if enemies_left > 0 and not GameData.is_escaping: return
+	
 	entities.remove_child(GameData.player)
-	exited_room.emit(dir)
+	
+	if dir == Vector2.ZERO:
+		if not GameData.is_escaping: return
+		exited_room.emit(Vector2.ZERO)
+		return
+	
+	if map_pos == Vector2.ZERO and dir == Vector2.DOWN:
+		exited_room.emit(Vector2.ZERO)
+	else:
+		exited_room.emit(dir)
 
 func item_interact():
 	item_picked_up.emit()

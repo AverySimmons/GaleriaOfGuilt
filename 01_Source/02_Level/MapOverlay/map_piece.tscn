@@ -1,42 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2srf6f6bi78g"]
+[gd_scene load_steps=4 format=3 uid="uid://c2srf6f6bi78g"]
 
 [ext_resource type="Script" uid="uid://bhuoat5x8la76" path="res://01_Source/02_Level/MapOverlay/map_piece.gd" id="1_66fto"]
-
-[sub_resource type="Gradient" id="Gradient_gryaa"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_66fto"]
-gradient = SubResource("Gradient_gryaa")
-width = 128
-height = 128
-
-[sub_resource type="Gradient" id="Gradient_66fto"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0222q"]
-gradient = SubResource("Gradient_66fto")
-width = 32
+[ext_resource type="Texture2D" uid="uid://cw0lin0s26dfa" path="res://00_Assets/00_Sprites/Map_sprites/floor_map_room.png" id="1_txiqr"]
+[ext_resource type="Texture2D" uid="uid://mwen72cnilqs" path="res://00_Assets/00_Sprites/Map_sprites/floor_map_room_connector.png" id="3_ve2iv"]
 
 [node name="MapPiece" type="Sprite2D"]
-texture = SubResource("GradientTexture2D_66fto")
+texture = ExtResource("1_txiqr")
 script = ExtResource("1_66fto")
 
 [node name="Right" type="Sprite2D" parent="."]
 position = Vector2(64, 0)
-texture = SubResource("GradientTexture2D_0222q")
+texture = ExtResource("3_ve2iv")
 
 [node name="Up" type="Sprite2D" parent="."]
 position = Vector2(0, -64)
 rotation = 1.5708
-texture = SubResource("GradientTexture2D_0222q")
+texture = ExtResource("3_ve2iv")
 
 [node name="Left" type="Sprite2D" parent="."]
 position = Vector2(-64, 0)
-texture = SubResource("GradientTexture2D_0222q")
+texture = ExtResource("3_ve2iv")
 
 [node name="Down" type="Sprite2D" parent="."]
 position = Vector2(0, 64)
 rotation = 1.5708
-texture = SubResource("GradientTexture2D_0222q")
+texture = ExtResource("3_ve2iv")

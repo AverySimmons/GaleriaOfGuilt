@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1cx53bwx5syu"]
+
+[ext_resource type="PackedScene" uid="uid://chftmh1jpaxwh" path="res://01_Source/02_Level/Door/door.tscn" id="1_oywln"]
+[ext_resource type="Script" uid="uid://cow1hgkt7k8cj" path="res://01_Source/02_Level/Door/entrance_door.gd" id="2_rgpyt"]
+
+[node name="EntranceDoor" instance=ExtResource("1_oywln")]
+script = ExtResource("2_rgpyt")
