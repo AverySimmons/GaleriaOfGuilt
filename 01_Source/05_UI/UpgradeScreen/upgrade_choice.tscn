@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg88ku5vis6l8"]
+[gd_scene load_steps=17 format=3 uid="uid://dg88ku5vis6l8"]
 
 [ext_resource type="Shader" uid="uid://bf4gmkm1m3c8t" path="res://01_Source/05_UI/UpgradeScreen/upgrade_gradient.gdshader" id="1_ijyn2"]
 [ext_resource type="Script" uid="uid://cw1d5vq6vxdxq" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.gd" id="1_ud4xx"]
 [ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
+[ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_xdm4q"]
 [ext_resource type="Texture2D" uid="uid://bve6dpeqieuwt" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
@@ -27,6 +28,11 @@ shadow_color = Color(1, 0, 0, 0.176471)
 shadow_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_ypphk"]
+font = ExtResource("3_xdm4q")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffu50"]
+font = ExtResource("3_xdm4q")
 font_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kuq1d"]
@@ -246,6 +252,7 @@ offset_top = 241.0
 offset_right = 256.5
 offset_bottom = 391.0
 text = "Replace your special ability with a vomit of blood."
+label_settings = SubResource("LabelSettings_ffu50")
 autowrap_mode = 2
 
 [node name="Icon" type="Panel" parent="Transform"]

@@ -1,12 +1,14 @@
-cut scenes, transtions, dialogic integration, menus
-// enemy attack indicators and fix enemy attacks
-// lizard needs implemented
-sounds effect implemented (sound effect manager?)
+settings menu
+death screen / transition
+all scene transitions
+sounds effect implemented
 make levels work
 change enemy spawning logic
 cooldown for abilities more visible
-shotgun looks weird
-
+shotgun looks a little weird
+make it more obvius when the player is hit (hit pause ?)
+dialogic scene with walkie talkies
+finalize upgrade text
 
 adjust lots of values
 player values
@@ -15,9 +17,8 @@ upgrade values
 spawning values / level size
 
 THINK OF A TITLE
-// FIX STUPID ISSUE
 
-sprites needed:
-enemy spawn sprite
-door locked sprite
-main entrance sprite
+sprites / shaders needed:
+enemy spawn sprite (unsure this is def a style thing)
+door locked sprite (maybe just big red X)
+main entrance sprite (could also just recolor it)

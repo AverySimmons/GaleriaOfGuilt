@@ -415,7 +415,7 @@ func take_damage(amount: float) -> void:
 		return
 	current_hp = move_toward(current_hp, 0, amount)
 	if current_hp <= 0:
-		# death
+		SignalBus.player_death.emit()
 		pass
 	dealt_damage_took_damage = true
 	SignalBus.hp_change.emit()
