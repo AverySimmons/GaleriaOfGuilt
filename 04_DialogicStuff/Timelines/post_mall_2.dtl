@@ -9,3 +9,4 @@ marie_character: Of course not, I won’t eat ya though don’t worry. I’ve go
 viola_character: Have you eaten a person yet?
 marie_character: Yeah. A girl’s gotta do what she needs to survive.
 viola_character: That's... fair I suppose. We all wanna live.
+[signal arg="post_mall_finished"]

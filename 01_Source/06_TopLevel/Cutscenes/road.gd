@@ -6,8 +6,13 @@ var camera_x: float = 0
 var bumb_timer = 1
 var bumb_direction : Vector2 = Vector2.ZERO
 
+var is_night = false
+
 @export var noise : FastNoiseLite
 var time_passed := 0.0
+
+func _ready() -> void:
+	set_scene(is_night)
 
 func _process(delta: float) -> void:
 	time_passed += delta * 20
@@ -18,7 +23,8 @@ func _process(delta: float) -> void:
 	
 	camera.position = Vector2(camera_x + x_offset, 360 + y_offset)
 
-func set_scene(is_night: bool):
+func set_scene(is_n: bool):
+	is_night = is_n
 	if is_night:
 		$Morning.visible = false
 		$Night.visible = true

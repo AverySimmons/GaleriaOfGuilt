@@ -2,3 +2,4 @@ marie_character: Looks like this spot was a bust.
 viola_character: Who’s sunglasses are those?
 marie_character: I dunno, they’re pretty cute though. Makes a pretty nice trophy!
 viola_character: How weird… Maybe my dad’s machine is broken? I’ll go check on the satellite dish.
+[signal arg="post_mall_finished"]

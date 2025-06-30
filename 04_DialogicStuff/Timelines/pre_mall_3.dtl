@@ -1,7 +1,8 @@
-viola_character:  Good luck, hopefully this one won’t be a bust again.
+viola_character: Good luck, hopefully this one won’t be a bust again.
 marie_character: It’s not a complete failure, we’ve got two sweet new trinkets to remember this adventure!
 viola_character: What are you going to do after you’ve killed the blood storm?
 marie_character: Probably go home to my girl, and live out my life. What about you?
-viola_character: Must be nice to have someone waiting for you. 
+viola_character: Must be nice to have someone waiting for you.
 viola_character: But, I’m not going back to the Land’s End bar for sure. Maybe I’ll help people track down more omens, if they pay as handsomely as you.
 marie_character: Aw shucks I’m blushing!
+[signal arg="pre_mall_finished"]

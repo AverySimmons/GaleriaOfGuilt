@@ -148,12 +148,8 @@ func spawn_item():
 	entities.add_child(item)
 
 func populate_enemies():
-	var space_state = get_world_2d().direct_space_state
-	var circle = CircleShape2D.new()
-	circle.radius = 100
-	
 	for ei in enemy_credits:
-		for try in 10:
+		for try in 100:
 			var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 				randf_range(top_left.y+100, bot_right.y-100))
 			
@@ -169,7 +165,7 @@ func check_enemy_spawn(pos: Vector2) -> bool:
 	
 	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()
-	circle.radius = 300
+	circle.radius = 200
 	
 	var params = PhysicsShapeQueryParameters2D.new()
 	params.shape = circle

@@ -1,15 +1,15 @@
 marie_character: Can I get a cup of earl grey darling? Two spoons of sugar and no cream
-viola_character:  This is a bar, we don’t serve that
+viola_character: This is a bar, we don’t serve that
 marie_character: Oh really?
 viola_character: You don’t look like you’re from around here, aren’t you dressed a little too flashy for this kinda place?
-marie_character: It’s a bar dear, people come here for a fun weekend, not a corporate job. 
+marie_character: It’s a bar dear, people come here for a fun weekend, not a corporate job.
 viola_character: Touche, now are you going to actually order something?
 marie_character: Ahem, anyways I saw that van out back, it’s a pretty piece o’ metal.
 viola_character: That’s my dad’s. Left to me since he keeled over.
 marie_character: He was an omen-chaser?
 viola_character: Yeah. Can’t believe anyone would risk their life doing something so stupid.
-viola_character:  Just leave it up to the exterminators.
-marie_character: ... Say, would ya be willing to let a gal test out that van? 
+viola_character: Just leave it up to the exterminators.
+marie_character: ... Say, would ya be willing to let a gal test out that van?
 viola_character: A gal like you would most likely try to steal my van.
 marie_character: Aw, ya got me. But I really really need that van, would be willing to pay ya too
 viola_character: How much we talking?
@@ -19,3 +19,4 @@ marie_character: Really? Ya’ve been swayed so easily?
 viola_character: Only I'll drive, and don’t expect me to get myself killed helping you on some stupid escapade.
 marie_character: Ya’ve got yerself a deal darlin! The name’s Marie-Therese!
 viola_character: I’m Viola.
+[signal arg="intro_finished"]

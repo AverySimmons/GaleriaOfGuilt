@@ -1,6 +1,7 @@
 viola_character: Seems like we’re finally getting closer to the blood storm.
 marie_character: Our little vacation is ending soon then.
-viola_character:  I enjoyed it y'know, as much as this was quite the wild goose chase.
+viola_character: I enjoyed it y'know, as much as this was quite the wild goose chase.
 marie_character: I can’t even put into words how grateful I am to ya Viola, ya’ve helped me get so far. Now I’ve got to take the last step.
-viola_character: Don’t you dare die out there Marie-Therese, I won’t forgive you if you croak out here in the middle of nowhere. 
+viola_character: Don’t you dare die out there Marie-Therese, I won’t forgive you if you croak out here in the middle of nowhere.
 marie_character: I hope you’ll forgive me some day Viola.
+[signal arg="pre_mall_finished"]

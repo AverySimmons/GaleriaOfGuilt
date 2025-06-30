@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://iudn154k7uar"]
+[gd_scene load_steps=4 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
+
+[sub_resource type="Gradient" id="Gradient_1l5et"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mrl32"]
+gradient = SubResource("Gradient_1l5et")
+width = 1280
+height = 720
 
 [node name="SceneManager" type="Node"]
 process_mode = 3
@@ -9,9 +16,22 @@ script = ExtResource("1_1l5et")
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://00_Assets/01_LongAudio/FMOD/Master.strings.bank", "res://00_Assets/01_LongAudio/FMOD/Master.bank"]
 
-[node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="."]
+[node name="GameMusic" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/level"
 event_guid = "{f37587d6-2eb5-42a9-9817-fb44b87e9446}"
+volume = 0.35
+"fmod_parameters/combat state/id" = -4863081333960352858
+"fmod_parameters/combat state" = 0
+"fmod_parameters/combat state/variant_type" = 2
+
+[node name="CarMusic" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/cutscene"
+event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
+volume = 0.35
+
+[node name="MenuMusic" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/menu"
+event_guid = "{66a80aff-0450-44cb-b5b7-2abe0fe360b4}"
 autoplay = true
 volume = 0.35
 "fmod_parameters/combat state/id" = -4863081333960352858
@@ -19,3 +39,16 @@ volume = 0.35
 "fmod_parameters/combat state/variant_type" = 2
 
 [node name="FmodListener2D" type="FmodListener2D" parent="."]
+
+[node name="TitleScreen" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = SubResource("GradientTexture2D_mrl32")
+
+[node name="Button" type="Button" parent="TitleScreen"]
+offset_left = -81.0
+offset_top = -54.0
+offset_right = 54.0
+offset_bottom = 24.0
+text = "Play"
+
+[connection signal="pressed" from="TitleScreen/Button" to="." method="_on_button_pressed"]
