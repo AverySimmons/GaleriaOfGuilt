@@ -4,8 +4,19 @@
 &"_translation_id": "",
 &"color": Color(1, 1, 1, 1),
 &"custom_info": {
-"sound_mood_default": "",
-"sound_moods": {},
+"sound_mood_default": "Mood 1",
+"sound_moods": {
+"Mood 1": {
+"mode": 0,
+"name": "Mood 1",
+"pitch_base": 1.0,
+"pitch_variance": 0.1,
+"skip_characters": 10.0,
+"sound_path": "res://00_Assets/02_SoundEffects/mmeh.wav",
+"volume_base": 2.0,
+"volume_variance": 0.2
+}
+},
 "style": ""
 },
 &"default_portrait": "",
