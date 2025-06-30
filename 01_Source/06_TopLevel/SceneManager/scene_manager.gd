@@ -18,7 +18,7 @@ var death
 
 var player_dying = false
 
-var test_game = false
+var test_game = true
 
 var was_paused = false
 
@@ -79,7 +79,8 @@ func spawn_game_manager():
 	game_manager.stage_complete.connect(stage_complete)
 	add_child(game_manager)
 	
-	if GameData.mall_ind == 0:
+	if GameData.mall_ind == 0 and not test_game:
+		await game_manager.ready
 		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
 		Dialogic.start("tutorial").process_mode = Node.PROCESS_MODE_ALWAYS
 	
