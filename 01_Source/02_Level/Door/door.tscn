@@ -12,6 +12,7 @@ collision_mask = 2
 script = ExtResource("1_fawtd")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 100)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -32)

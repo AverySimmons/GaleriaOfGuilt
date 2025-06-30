@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://dckymqi5fl4j"]
+[gd_scene load_steps=56 format=4 uid="uid://cjlxurjci6yxb"]
 
 [ext_resource type="Script" uid="uid://dvg6rww17fr57" path="res://01_Source/02_Level/level.gd" id="1_1ubys"]
 [ext_resource type="Texture2D" uid="uid://4egms6rnroh" path="res://00_Assets/00_Sprites/Room_sprites/room_checkerboard_tile_spritesheet.png" id="3_r4so5"]

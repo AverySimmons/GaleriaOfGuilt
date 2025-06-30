@@ -7,17 +7,18 @@ var levels: Dictionary[Vector2, Level]
 var current_level: Level
 
 var mall_sizes = [
-	0,
+	4,
 	1,
-	0,
 	1,
-	0
+	1,
+	1
 ]
 
 signal item_dialog()
 signal stage_complete()
 
 func _ready() -> void:
+	GameData.player.reset()
 	levels = level_generator.get_levels(mall_sizes[GameData.mall_ind])
 	map_overlay.generate_map(levels.values())
 	

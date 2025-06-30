@@ -514,3 +514,8 @@ func gain_exp(enemy: Enemy) -> void:
 		current_exp = 0
 	SignalBus.gained_exp.emit()
 	return
+
+func reset():
+	current_hp = max_hp
+	blood_bar = 0
+	modulate = Color("white")

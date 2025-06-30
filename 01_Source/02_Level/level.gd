@@ -200,6 +200,7 @@ func enter(dir: Vector2) -> void:
 	blood_manager.spawn()
 	if dir == Vector2.ZERO:
 		GameData.player.global_position = entrance_door.player_spawn.global_position
+		camera.global_position = GameData.player.global_position
 		entities.add_child(GameData.player)
 		return
 	
@@ -208,6 +209,8 @@ func enter(dir: Vector2) -> void:
 			GameData.player.global_position = d.player_spawn.global_position
 			entities.add_child(GameData.player)
 			break
+	
+	camera.global_position = GameData.player.global_position
 
 func exit(dir: Vector2):
 	if enter_timer > 0: return

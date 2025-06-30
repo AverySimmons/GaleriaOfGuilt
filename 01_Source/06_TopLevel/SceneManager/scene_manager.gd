@@ -18,7 +18,7 @@ var death
 
 var player_dying = false
 
-var test_game = false
+var test_game = true
 
 var was_paused = false
 
@@ -68,6 +68,7 @@ func settings_closed():
 
 func spawn_game_manager():
 	GameData.is_escaping = false
+	player_dying = false
 	var t = create_tween()
 	t.tween_property($CarMusic, "volume", 0, 0.5)
 	$GameMusic.play()
@@ -90,11 +91,17 @@ func stage_complete():
 	game_manager.call_deferred("queue_free")
 	var t = create_tween()
 	t.tween_property($GameMusic, "volume", 0, 0.5)
-	$CarMusic.play()
-	var t2 = create_tween()
-	t2.tween_property($CarMusic, "volume", 0.35, 0.5)
-	add_van(true)
-	Dialogic.start("post_mall_" + str(GameData.mall_ind))
+	
+	if GameData.mall_ind == 5:
+		ending = ending_scene.instantiate()
+		add_child(ending)
+		Dialogic.start("ending")
+	else:
+		$CarMusic.play()
+		var t2 = create_tween()
+		t2.tween_property($CarMusic, "volume", 0.35, 0.5)
+		add_van(true)
+		Dialogic.start("post_mall_" + str(GameData.mall_ind))
 	
 	await t.finished
 	$GameMusic.stop()
@@ -139,13 +146,8 @@ func intro_finished():
 	$MenuMusic.stop()
 
 func post_mall_finished(): # or intro finished
-	if GameData.mall_ind + 1 < 5:
-		add_van(false)
-		Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1))
-	else:
-		remove_van()
-		ending = ending_scene.instantiate()
-		add_child(ending)
+	add_van(false)
+	Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1))
 
 func pre_mall_finished():
 	remove_van()
@@ -163,14 +165,15 @@ func remove_van():
 	van.call_deferred("queue_free")
 
 func player_death():
+	if player_dying: return
 	player_dying = true
 	GameData.music_event.set_parameter("combat state", 0)
 	
 	var t = create_tween()
-	t.tween_property(Engine, "time_scale", 0.2, 1.5)
+	t.tween_property(Engine, "time_scale", 0.3, 0.5)
 	
 	var t2 = create_tween()
-	t2.tween_property(GameData.player, "modulate", Color("red"), 1.5)
+	t2.tween_property(GameData.player, "modulate", Color("red"), 0.5)
 	
 	await t.finished
 	
@@ -179,4 +182,11 @@ func player_death():
 	Engine.time_scale = 1
 	
 	death = death_scene.instantiate()
+	death.try_again.connect(death_reset)
 	add_child(death)
+
+func death_reset():
+	GameData.player.reset()
+	GameData.player.get_parent().remove_child(GameData.player)
+	game_manager.call_deferred("queue_free")
+	spawn_game_manager()

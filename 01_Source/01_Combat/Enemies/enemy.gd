@@ -113,6 +113,7 @@ func _physics_process(delta: float) -> void:
 	#pi/4 bot side 45
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
+	if death_state: return
 	hp -= damage
 	$HitFlash.reset_section()
 	$HitFlash.play('hit_flash') #this always happens

@@ -226,3 +226,6 @@ texture = ExtResource("4_v0ku7")
 offset_left = -1224.0
 offset_top = -900.0
 metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" parent="." index="10"]
+position = Vector2(0, 344)

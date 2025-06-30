@@ -459,6 +459,7 @@ hp = 60.0
 shake_length = 1.6
 arrow_dist = 700.0
 indicator_color = Color(0.7, 0.431667, 0, 0.584314)
+chase_dist = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, -47)
