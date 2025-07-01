@@ -1,6 +1,5 @@
 all scene transitions (what should these look like?)
 sounds effect implemented
-cooldown for abilities more visible
 shotgun looks a little weird
 make it more obvious when the player is hit (screen flash / hit pause?)
 finalize upgrade text

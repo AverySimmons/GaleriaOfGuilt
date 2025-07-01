@@ -438,6 +438,13 @@ func take_damage(amount: float) -> void:
 	if sorryguysthisisstupidbutwererushing:
 		sorryguysthisisstupidbutwererushing = false
 		return
+	SignalBus.player_hit.emit()
+	modulate = Color(1, 0.5, 0.5)
+	AudioData.play_sound("player_hit", $PlayerHit)
+	SignalBus.pause.emit()
+	await get_tree().create_timer(0.1).timeout
+	SignalBus.unpause.emit()
+	modulate = Color(1, 1, 1)
 	is_invincible = true
 	await get_tree().create_timer(0.3).timeout
 	is_invincible = false
@@ -514,6 +521,8 @@ func kill_lower_spcd() -> void:
 
 # Level stuff
 func gain_exp(enemy: Enemy) -> void:
+	if GameData.is_escaping:
+		return
 	var amount: float = 0
 	match enemy.type:
 		"Lizard":
