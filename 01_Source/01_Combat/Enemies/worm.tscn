@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=62 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_dl58o"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="8_vb6xg"]
 [ext_resource type="AudioStream" uid="uid://rloojfnw4cwj" path="res://00_Assets/02_SoundEffects/enemy_attack_3.wav" id="11_2ho74"]
 [ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="12_ct5x7"]
+[ext_resource type="AudioStream" uid="uid://jsjqghh6rjhe" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="14_cs4dq"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cs4dq"]
 
@@ -475,6 +476,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("12_ct5x7")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cs4dq"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("14_cs4dq")
+
 [node name="Worm" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_whe2v")
@@ -550,3 +556,7 @@ stream = SubResource("AudioStreamRandomizer_ct5x7")
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_w6w3u")
 volume_db = 16.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_cs4dq")
+pitch_scale = 0.5

@@ -62,13 +62,16 @@ func _ready() -> void:
 ## var death_timer = 1 #a little delay for the animation to play, is there a better way?
 
 func start_death() -> void:
+	if death_state: return
+	
 	death_state = true
+	AudioData.play_sound("enemy_death", $DeathSound)
 	if target_ind: target_ind.conceal()
 	$BTPlayer.process_mode = Node.PROCESS_MODE_DISABLED
 	blood_module.enemy_death(global_position)
 	await get_tree().physics_frame
 	$Animations.play('death')
-	await $Animations.animation_finished
+	await $DeathSound.finished
 	SignalBus.death.emit(self)
 	call_deferred("queue_free")
 

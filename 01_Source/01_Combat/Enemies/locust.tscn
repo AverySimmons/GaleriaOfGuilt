@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=45 format=3 uid="uid://bj5h3s11xhapu"]
 
 [ext_resource type="Texture2D" uid="uid://ce1jipg3j28dg" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
@@ -253,6 +253,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("11_j15t7")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iu5hu"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("11_j15t7")
+
 [node name="Locust" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 8
@@ -323,3 +328,8 @@ stream = SubResource("AudioStreamRandomizer_j15t7")
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_tnwp0")
 volume_db = 16.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_iu5hu")
+volume_db = 15.0
+pitch_scale = 0.5

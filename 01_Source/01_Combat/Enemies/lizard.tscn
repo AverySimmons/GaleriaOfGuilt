@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=62 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
 [ext_resource type="Texture2D" uid="uid://cf8lnjucl32t6" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="6_w81gv"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_w81gv"]
 [ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="10_kkm87"]
+[ext_resource type="AudioStream" uid="uid://jsjqghh6rjhe" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="12_em8vn"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vxyij"]
 
@@ -802,6 +803,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("10_kkm87")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ym5t2"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("12_em8vn")
+
 [node name="Lizard" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_c4j58")
@@ -877,3 +883,7 @@ texture = ExtResource("2_7debl")
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_vxyij")
 volume_db = 16.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ym5t2")
+pitch_scale = 0.5

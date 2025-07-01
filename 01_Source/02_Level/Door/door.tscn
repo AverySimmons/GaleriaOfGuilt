@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c0hv6byfa207x" path="res://01_Source/02_Level/Door/door.gd" id="1_fawtd"]
 [ext_resource type="Texture2D" uid="uid://bfe6k0r6bjkg7" path="res://00_Assets/00_Sprites/Room_sprites/escalator_tileset.png" id="2_r2wjh"]
 [ext_resource type="Texture2D" uid="uid://coq7mmkse55sa" path="res://00_Assets/00_Sprites/Room_sprites/locked_door_exits_sprite.png" id="3_h2fos"]
-[ext_resource type="AudioStream" uid="uid://jsjqghh6rjhe" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="4_lbb6n"]
+[ext_resource type="AudioStream" uid="uid://c5grabv07e3m0" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="4_lbb6n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fr20"]
 size = Vector2(148, 98)
@@ -48,4 +48,4 @@ texture = ExtResource("3_h2fos")
 
 [node name="UnlockSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_lbb6n")
-pitch_scale = 0.5
+pitch_scale = 2.0
