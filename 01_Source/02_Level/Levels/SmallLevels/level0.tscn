@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://cu0g45c1oh8y3"]
+[gd_scene load_steps=10 format=4 uid="uid://cu0g45c1oh8y3"]
 
 [ext_resource type="PackedScene" uid="uid://cjlxurjci6yxb" path="res://01_Source/02_Level/level.tscn" id="1_2n3rf"]
 [ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_fwapf"]
@@ -13,6 +13,17 @@ resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
 mesh = SubResource("QuadMesh_x8ck2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cb744"]
+size = Vector2(74, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l14f6"]
+size = Vector2(61, 42.5)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_v6e0k"]
+vertices = PackedVector2Array(566, 502, -566, 502, -566, -502, 566, -502)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-576, -512, 576, -512, 576, 512, -576, 512)])
 
 [node name="Level" instance=ExtResource("1_2n3rf")]
 
@@ -90,17 +101,46 @@ position = Vector2(576, 0)
 [node name="BloodManager" parent="." index="6"]
 multimesh = SubResource("MultiMesh_dtdhi")
 
-[node name="PlanterWhiteBig1" type="Sprite2D" parent="Entities" index="0"]
-position = Vector2(-406, 283)
+[node name="Node2D" type="Node2D" parent="Entities" index="0"]
+position = Vector2(-406, 356)
 scale = Vector2(0.7, 0.7)
+
+[node name="PlanterWhiteBig1" type="Sprite2D" parent="Entities/Node2D" index="0"]
+position = Vector2(0, -104.286)
+scale = Vector2(1, 1)
 texture = ExtResource("3_cb744")
 
-[node name="PlanterWhiteBig2" type="Sprite2D" parent="Entities" index="1"]
-position = Vector2(338, 241)
+[node name="Node2D2" type="Node2D" parent="Entities" index="1"]
+position = Vector2(373, 297)
 rotation = -1.0472
 scale = Vector2(0.7, 0.7)
+
+[node name="PlanterWhiteBig2" type="Sprite2D" parent="Entities/Node2D2" index="0"]
+position = Vector2(44.2823, -83.3011)
 texture = ExtResource("4_l14f6")
 
 [node name="MultiplyLayer" parent="." index="9"]
 offset_left = -1224.0
 offset_top = -900.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+position = Vector2(-407, 341.5)
+shape = SubResource("RectangleShape2D_cb744")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" index="1"]
+position = Vector2(375.5, 278.25)
+shape = SubResource("RectangleShape2D_l14f6")
+
+[node name="NavigationRegion2D" parent="." index="12"]
+navigation_polygon = SubResource("NavigationPolygon_v6e0k")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" index="0"]
+vertices = PackedVector2Array(364, 358, 449, 308, 449, 217, 358, 161, 268, 225, 271, 313)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D" index="1"]
+position = Vector2(-756, 63)
+vertices = PackedVector2Array(364, 358, 449, 308, 449, 217, 358, 161, 268, 225, 271, 313)
+affect_navigation_mesh = true
+avoidance_enabled = false

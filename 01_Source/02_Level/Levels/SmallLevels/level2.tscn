@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://djjw8ku60jqqm"]
+[gd_scene load_steps=8 format=4 uid="uid://djjw8ku60jqqm"]
 
 [ext_resource type="PackedScene" uid="uid://cjlxurjci6yxb" path="res://01_Source/02_Level/level.tscn" id="1_ohn82"]
 [ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_cgxs8"]
@@ -12,6 +12,14 @@ resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
 mesh = SubResource("QuadMesh_x8ck2")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cgxs8"]
+radius = 30.4138
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lyqne"]
+vertices = PackedVector2Array(566, -376.977, 566, 371.023, 423.578, 175.047, 312.031, 55.3594, -566, 373.969, -566, -375.008, 190.172, 185.188, 287.398, 260.172)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3), PackedInt32Array(4, 5, 0, 3, 6), PackedInt32Array(7, 2, 1), PackedInt32Array(7, 1, 4), PackedInt32Array(4, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(576, 381, 576, -387, -576, -385, -576, 384)])
 
 [node name="Level" instance=ExtResource("1_ohn82")]
 
@@ -95,11 +103,26 @@ position = Vector2(576, 0)
 [node name="BloodManager" parent="." index="6"]
 multimesh = SubResource("MultiMesh_ohn82")
 
-[node name="PlanterBlueBig2" type="Sprite2D" parent="Entities" index="0"]
-position = Vector2(302, 124)
+[node name="Node2D" type="Node2D" parent="Entities" index="0"]
+position = Vector2(301, 181)
 scale = Vector2(0.6, 0.6)
+
+[node name="PlanterBlueBig2" type="Sprite2D" parent="Entities/Node2D" index="0"]
+position = Vector2(1.66666, -95)
 texture = ExtResource("3_cgxs8")
 
 [node name="MultiplyLayer" parent="." index="9"]
 offset_left = -1224.0
 offset_top = -900.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+position = Vector2(301, 161)
+shape = SubResource("CircleShape2D_cgxs8")
+
+[node name="NavigationRegion2D" parent="." index="12"]
+navigation_polygon = SubResource("NavigationPolygon_lyqne")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" index="0"]
+vertices = PackedVector2Array(205, 184, 288, 248, 408, 173, 312, 70)
+affect_navigation_mesh = true
+avoidance_enabled = false
