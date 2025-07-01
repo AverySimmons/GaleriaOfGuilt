@@ -508,7 +508,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBigEmpty" type="Sprite2D" parent="Entities/Node2D4"]
 position = Vector2(0, -98.5714)
-scale = Vector2(1, 1)
 texture = ExtResource("4_v0ku7")
 
 [node name="Node2D5" type="Node2D" parent="Entities"]
@@ -517,7 +516,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBigEmpty2" type="Sprite2D" parent="Entities/Node2D5"]
 position = Vector2(0.000244141, -97.1429)
-scale = Vector2(1, 1)
 texture = ExtResource("4_v0ku7")
 
 [node name="Node2D6" type="Node2D" parent="Entities"]
@@ -526,7 +524,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBigEmpty3" type="Sprite2D" parent="Entities/Node2D6"]
 position = Vector2(0, -97.1428)
-scale = Vector2(1, 1)
 texture = ExtResource("4_v0ku7")
 
 [node name="Node2D7" type="Node2D" parent="Entities"]
@@ -535,7 +532,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBigEmpty4" type="Sprite2D" parent="Entities/Node2D7"]
 position = Vector2(0, -97.1428)
-scale = Vector2(1, 1)
 texture = ExtResource("4_v0ku7")
 
 [node name="MultiplyLayer" type="ColorRect" parent="."]

@@ -18,7 +18,7 @@ var death
 
 var player_dying = false
 
-var test_game = true
+var test_game = false
 
 var was_paused = false
 
@@ -132,24 +132,25 @@ func unpause_game() -> void:
 	get_tree().paused = false
 
 func _on_button_pressed() -> void:
-	$TitleScreen.call_deferred("queue_free")
-	intro = intro_scene.instantiate()
-	add_child(intro)
-	Dialogic.start("intro")
-
-func intro_finished():
-	intro.call_deferred("queue_free")
 	var t = create_tween()
 	t.tween_property($MenuMusic, "volume", 0., 0.5)
 	$CarMusic.volume = 0.
 	$CarMusic.play()
 	var t2 = create_tween()
 	t2.tween_property($CarMusic, "volume", 0.35, 0.5)
-	add_van(false)
-	Dialogic.start("post_intro")
+	
+	$TitleScreen.call_deferred("queue_free")
+	intro = intro_scene.instantiate()
+	add_child(intro)
+	Dialogic.start("intro")
 	
 	await t.finished
 	$MenuMusic.stop()
+
+func intro_finished():
+	intro.call_deferred("queue_free")
+	add_van(false)
+	Dialogic.start("post_intro")
 
 func post_mall_finished(): # or intro finished
 	add_van(false)

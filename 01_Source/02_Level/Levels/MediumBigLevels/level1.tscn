@@ -149,7 +149,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBig2" type="Sprite2D" parent="Entities/Node2D2" index="0"]
 position = Vector2(2.85715, -100)
-scale = Vector2(1, 1)
 texture = ExtResource("4_f8ggg")
 
 [node name="Node2D3" type="Node2D" parent="Entities" index="2"]
@@ -158,7 +157,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBig3" type="Sprite2D" parent="Entities/Node2D3" index="0"]
 position = Vector2(-4.28571, -100)
-scale = Vector2(1, 1)
 texture = ExtResource("5_q0w2q")
 
 [node name="Node2D4" type="Node2D" parent="Entities" index="3"]
@@ -167,7 +165,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="BenchBig2" type="Sprite2D" parent="Entities/Node2D4" index="0"]
 position = Vector2(-1.42857, -60)
-scale = Vector2(1, 1)
 texture = ExtResource("6_cy1or")
 
 [node name="MultiplyLayer" parent="." index="9"]

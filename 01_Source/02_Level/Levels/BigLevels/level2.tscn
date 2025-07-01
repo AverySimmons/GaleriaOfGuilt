@@ -116,7 +116,6 @@ scale = Vector2(0.8, 0.8)
 
 [node name="PlanterWhiteBig3" type="Sprite2D" parent="Entities/Node2D6" index="0"]
 position = Vector2(1.25, -98.75)
-scale = Vector2(1, 1)
 texture = ExtResource("5_11h02")
 
 [node name="Node2D7" type="Node2D" parent="Entities" index="6"]
@@ -125,7 +124,6 @@ scale = Vector2(0.8, 0.8)
 
 [node name="PlanterWhiteBig4" type="Sprite2D" parent="Entities/Node2D7" index="0"]
 position = Vector2(-2.5, -100)
-scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
 [node name="Node2D8" type="Node2D" parent="Entities" index="7"]
@@ -134,7 +132,6 @@ scale = Vector2(0.8, 0.8)
 
 [node name="PlanterWhiteBig5" type="Sprite2D" parent="Entities/Node2D8" index="0"]
 position = Vector2(-6.25, -101.25)
-scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
 [node name="Node2D9" type="Node2D" parent="Entities" index="8"]
@@ -143,7 +140,6 @@ scale = Vector2(0.8, 0.8)
 
 [node name="PlanterWhiteBig6" type="Sprite2D" parent="Entities/Node2D9" index="0"]
 position = Vector2(-2.74998, -102)
-scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
 [node name="Node2D10" type="Node2D" parent="Entities" index="9"]
@@ -152,7 +148,6 @@ scale = Vector2(0.8, 0.8)
 
 [node name="PlanterWhiteBig7" type="Sprite2D" parent="Entities/Node2D10" index="0"]
 position = Vector2(-4, -102)
-scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
 [node name="MultiplyLayer" parent="." index="9"]

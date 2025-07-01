@@ -13,7 +13,7 @@
 "pitch_variance": 0.7,
 "skip_characters": 10.0,
 "sound_path": "res://00_Assets/02_SoundEffects/viola_voice3.wav",
-"volume_base": 1.0,
+"volume_base": 6.0,
 "volume_variance": 1.5
 }
 },

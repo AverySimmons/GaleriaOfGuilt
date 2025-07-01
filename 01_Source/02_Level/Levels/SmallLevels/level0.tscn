@@ -107,7 +107,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterWhiteBig1" type="Sprite2D" parent="Entities/Node2D" index="0"]
 position = Vector2(0, -104.286)
-scale = Vector2(1, 1)
 texture = ExtResource("3_cb744")
 
 [node name="Node2D2" type="Node2D" parent="Entities" index="1"]

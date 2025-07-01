@@ -139,7 +139,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBig2" type="Sprite2D" parent="Entities/Node2D2" index="0"]
 position = Vector2(-1.42859, -100)
-scale = Vector2(1, 1)
 texture = ExtResource("3_6q6eu")
 
 [node name="Node2D" type="Node2D" parent="Entities" index="1"]
@@ -148,7 +147,6 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlanterBlueBig3" type="Sprite2D" parent="Entities/Node2D" index="0"]
 position = Vector2(0, -100)
-scale = Vector2(1, 1)
 texture = ExtResource("4_ck2vk")
 
 [node name="MultiplyLayer" parent="." index="9"]
