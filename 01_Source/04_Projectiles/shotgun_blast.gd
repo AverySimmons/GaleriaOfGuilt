@@ -11,9 +11,11 @@ var air_drag: float
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
+	max_distance = speed * 0.6
 	pass
 
 func _physics_process(delta: float) -> void:
+	if $AnimationPlayer.is_playing(): return
 	position += velocity * delta
 	cur_distance += abs(velocity.length() * delta)
 	
@@ -46,9 +48,9 @@ func _on_area_entered(area) -> void:
 	return
 
 func despawn() -> void:
-	# Animation?
-	#
-	#
+	set_deferred("monitoring", false)
+	$AnimationPlayer.play("explode")
+	await $AnimationPlayer.animation_finished
 	queue_free()
 	return
 

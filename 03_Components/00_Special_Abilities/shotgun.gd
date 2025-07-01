@@ -38,7 +38,6 @@ func use_ability() -> void:
 	# For shooting out bullets semi-randomly
 	var angle_variance: float = -30.0/180.0
 	var angle_randomness: float = 5.0/180.0
-	cur_bullet_speed = bullet_speed
 	
 	var muzzle_position: Vector2 = $CollisionShape2D.global_transform * Vector2($CollisionShape2D.shape.extents.x, 0)
 	var offset: float = -3
@@ -49,8 +48,8 @@ func use_ability() -> void:
 	
 	for i in range(6):
 		var new_bullet = bullet_scene.instantiate()
-		projectiles_scene.add_child(new_bullet)
 		
+		cur_bullet_speed = randfn(bullet_speed, 100)
 		new_bullet.global_position = muzzle_position + (Vector2(0, offset).rotated(angle))
 		new_bullet.rotation = angle
 		var angle_shot_out: float = angle + angle_variance
@@ -58,6 +57,8 @@ func use_ability() -> void:
 		angle_variance += 10.0/180.0
 		
 		offset += 1
+		
+		projectiles_scene.add_child(new_bullet)
 	
 	return
 
