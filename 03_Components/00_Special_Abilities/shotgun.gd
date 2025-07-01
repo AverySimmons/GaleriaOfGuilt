@@ -6,7 +6,7 @@ var cur_bullet_speed
 
 func _ready() -> void:
 	super._ready()
-	damage = 10
+	damage = 15
 	cooldown = 3
 	chargeup = 0.3
 	active_time = 0.2

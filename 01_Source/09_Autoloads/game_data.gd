@@ -21,3 +21,5 @@ var music_event: FmodEventEmitter2D
 var mall_ind: int = 0
 
 var is_escaping = false
+
+var overlay

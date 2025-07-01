@@ -65,7 +65,7 @@ var current_ability_scene = null
 
 # Dash stuff
 var is_dashing: bool = false
-var dash_distance: float = 200
+var dash_distance: float = 250
 var dash_speed: float = 1250
 var dash_time: float = dash_distance/dash_speed
 var dash_direction: Vector2
@@ -121,9 +121,9 @@ func _ready() -> void:
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
-	var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
-	set_ability(shotgun_scene)
-	current_ability_name = 3
+	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
+	#set_ability(shotgun_scene)
+	#current_ability_name = 3
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	#print(UpgradeData.selectable_upgrades.size())

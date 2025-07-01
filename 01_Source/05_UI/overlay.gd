@@ -5,6 +5,8 @@ extends Control
 @onready var hp_fill: Sprite2D = $HealthBar/Fill
 @onready var xp_fill: Sprite2D = $XPBar/Fill
 @onready var blood_meter_marker: Sprite2D = $BloodBar/BloodMeterMarker
+@onready var special_cooldown: Sprite2D = $SpecialCooldown
+@onready var special_progress: TextureProgressBar = $SpecialCooldownProgress
 
 var bb_tween: Tween
 var hp_tween: Tween
@@ -24,6 +26,14 @@ func _ready() -> void:
 	
 	hp_fill.material.set_shader_parameter("fill_percent", 1)
 	blood_bar.material.set_shader_parameter("fill_percent", 0)
+	
+	GameData.overlay = self
+
+func _process(delta: float) -> void:
+	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.current_ability.cooldown)*100, 0.0, 100.0)
+	special_progress.value = ratio
+	print(special_progress.value)
+	pass
 
 func remove_blood_meter_marker():
 	blood_meter_marker.visible = false

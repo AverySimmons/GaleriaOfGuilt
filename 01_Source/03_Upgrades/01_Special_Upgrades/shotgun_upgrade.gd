@@ -19,4 +19,5 @@ func choose_upgrade() -> void:
 	GameData.player.set_ability(shotgun_scene)
 	UpgradeData.current_ability_class = upgrade_scene
 	GameData.player.current_ability_name = 3
+	GameData.overlay.special_cooldown.texture = icon
 	return
