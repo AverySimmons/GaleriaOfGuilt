@@ -108,9 +108,6 @@ hframes = 4
 vframes = 4
 frame = 8
 
-[node name="Doors" parent="." index="5"]
-visible = false
-
 [node name="UpDoor" parent="Doors" index="0"]
 position = Vector2(0, -640)
 

@@ -54,7 +54,7 @@ var item_sprites = [
 
 var max_enemies_in_wave = 5
 var enemy_spacing = 200
-var enemy_player_spacing = 300
+var enemy_player_spacing = 330
 
 var arrow_scene = preload("res://03_Components/arrow_indicator.tscn")
 
@@ -254,24 +254,26 @@ func get_enemy_list() -> Array[PackedScene]:
 func get_spawn_point_list() -> Array[Vector2]:
 	var list: Array[Vector2] = []
 	
+	var space_state = get_world_2d().direct_space_state
+	
 	for i in 30:
 		var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 								randf_range(top_left.y+100, bot_right.y-100))
 		
-		if not check_enemy_spawn(rand_pos, list): continue
+		if not check_enemy_spawn(rand_pos, list, space_state): continue
 		
 		list.push_back(rand_pos)
 	
 	return list
 
-func check_enemy_spawn(pos: Vector2, spawns: Array[Vector2]) -> bool:
+func check_enemy_spawn(pos: Vector2, spawns: Array[Vector2], \
+		space_state: PhysicsDirectSpaceState2D) -> bool:
 	var player_pos = GameData.player.global_position
 	if pos.distance_to(player_pos) < enemy_player_spacing: return false
 	
 	for s in spawns:
 		if pos.distance_to(s) < enemy_spacing: return false
 	
-	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()
 	circle.radius = 200
 	
