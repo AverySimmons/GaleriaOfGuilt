@@ -62,6 +62,7 @@ var using_attack_or_special_or_dash: bool = false
 var current_ability: SpecialAbility = null
 var current_ability_name: int = 1
 var current_ability_scene = null
+var actual_special_cooldown: float
 
 # Dash stuff
 var is_dashing: bool = false
@@ -232,7 +233,8 @@ func _physics_process(delta: float) -> void:
 						AudioData.play_sound("shotgun", shotgun_sound)
 			
 				current_ability.use_ability()
-				special_ability_timer = current_ability.cooldown * bb_hitspd_inc * spcd_increase
+				actual_special_cooldown = current_ability.cooldown * bb_hitspd_inc * spcd_increase
+				special_ability_timer = actual_special_cooldown
 	
 	if Input.is_action_just_pressed("dash"):
 		if dash_charges > 0 && is_dashing == false && (blood_bar-dash_blood_cost>=0):

@@ -30,7 +30,7 @@ func _ready() -> void:
 	GameData.overlay = self
 
 func _process(delta: float) -> void:
-	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.current_ability.cooldown)*100, 0.0, 100.0)
+	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.actual_special_cooldown)*100, 0.0, 100.0)
 	special_progress.value = ratio
 	print(special_progress.value)
 	pass
