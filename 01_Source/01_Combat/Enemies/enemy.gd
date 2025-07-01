@@ -42,7 +42,7 @@ var indicator_node
 
 # For upgrades:
 var is_marked: bool = false
-var marked_time: float = 3
+var marked_time: float = 8
 var marked_timer: float = marked_time
 
 func _ready() -> void:

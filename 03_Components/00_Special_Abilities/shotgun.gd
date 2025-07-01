@@ -1,13 +1,13 @@
 extends SpecialAbility
 
 var bullet_scene = preload("res://01_Source/04_Projectiles/shotgun_blast.tscn")
-var bullet_speed = 900
+var bullet_speed = 1000
 var cur_bullet_speed
 
 func _ready() -> void:
 	super._ready()
 	damage = 10
-	cooldown = 4
+	cooldown = 3
 	chargeup = 0.3
 	active_time = 0.2
 	special_slowdown = 0.5

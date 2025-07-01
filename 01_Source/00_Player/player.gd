@@ -120,8 +120,9 @@ func _ready() -> void:
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
-	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
-	#set_ability(shotgun_scene)
+	var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
+	set_ability(shotgun_scene)
+	current_ability_name = 3
 	#var grenade_scene = preload("res://03_Components/00_Special_Abilities/grenade.tscn")
 	#set_ability(grenade_scene)
 	#print(UpgradeData.selectable_upgrades.size())
@@ -131,8 +132,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Movement --------------------------------------------------------------
+	movement_vector = get_movement_vector()
 	if !is_dashing:
-		movement_vector = get_movement_vector()
+		#movement_vector = get_movement_vector()
 		if movement_vector != Vector2.ZERO:
 			if base_velocity.normalized().dot(movement_vector) < -0.5:
 				base_velocity = base_velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)

@@ -25,7 +25,6 @@ func _physics_process(delta: float) -> void:
 		is_active = false
 		special_slowdown_actual = 1.0
 	active_timer = move_toward(active_timer, 0, delta)
-	
 	pass
 
 func use_ability() -> void:
