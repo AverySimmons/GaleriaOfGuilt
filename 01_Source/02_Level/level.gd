@@ -227,10 +227,10 @@ func enter(dir: Vector2) -> void:
 	camera.global_position = GameData.player.global_position
 
 func exit(dir: Vector2):
-	if SignalBus.death.is_connected(enemy_died):
-		SignalBus.death.disconnect(enemy_died)
 	if enter_timer > 0: return
 	if enemies_left > 0 and not GameData.is_escaping: return
+	
+	SignalBus.death.disconnect(enemy_died)
 	
 	entities.remove_child(GameData.player)
 	

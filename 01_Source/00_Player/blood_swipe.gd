@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		parent.gain_blood("swipe", 1.0, enemy)
 		hit_enemies[enemy] = null
 		enemy.take_damage(damage, flinch_amount, 0)
-		print(damage)
+		#print(damage)
 		if UpgradeData.upgrades_gained[UpgradeData.LIFESTEAL]:
 			parent.heal_damage(2)
 		# Enemy take damage thing
@@ -85,7 +85,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 	
 	if UpgradeData.upgrades_gained[UpgradeData.RETRACT_SWIPE]:
 		retractable_counter += 1
-		print(retractable_counter)
+		#print(retractable_counter)
 		if retractable_counter >= 3:
 			retractable_counter = 0
 			damage = damage * 2
@@ -98,7 +98,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 	## animation player / helper functions
 	
 	active_timer = active_time * parent.bb_hitspd_inc
-	print(active_timer)
+	#print(active_timer)
 	attack_slowdown_actual = attack_slowdown
 	is_active = true
 	monitoring = true

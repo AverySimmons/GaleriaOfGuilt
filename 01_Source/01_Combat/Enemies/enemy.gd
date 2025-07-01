@@ -62,6 +62,7 @@ func _ready() -> void:
 ## var death_timer = 1 #a little delay for the animation to play, is there a better way?
 
 func start_death() -> void:
+	
 	if target_ind: target_ind.conceal()
 	death_state = true
 	$BTPlayer.process_mode = Node.PROCESS_MODE_DISABLED
