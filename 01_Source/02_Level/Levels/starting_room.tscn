@@ -480,12 +480,11 @@ multimesh = SubResource("MultiMesh_dtdhi")
 [node name="Entities" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Node2D" type="Node2D" parent="Entities"]
-position = Vector2(0, 136)
-
-[node name="FountainBigWater" type="Sprite2D" parent="Entities/Node2D"]
-position = Vector2(0, -136)
+[node name="FountainBigWater" type="Sprite2D" parent="Entities"]
 texture = ExtResource("2_e36l3")
+
+[node name="Node2D" type="Node2D" parent="Entities/FountainBigWater"]
+position = Vector2(-1, -9)
 
 [node name="Node2D2" type="Node2D" parent="Entities"]
 position = Vector2(4, 236)
@@ -581,6 +580,7 @@ shape = SubResource("CircleShape2D_q10ou")
 polygon = PackedVector2Array(3, 134, 196, 68, 199, -60, -2, -99, -179, -57, -193, 72)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_q10ou")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D"]

@@ -137,10 +137,10 @@ position = Vector2(576, 0)
 multimesh = SubResource("MultiMesh_2n61t")
 
 [node name="Node2D" type="Node2D" parent="Entities" index="0"]
-position = Vector2(14, 148)
+position = Vector2(12, 7)
 
 [node name="FountainBigEmpty" type="Sprite2D" parent="Entities/Node2D" index="0"]
-position = Vector2(2, -136)
+position = Vector2(4, 5)
 texture = ExtResource("3_mbhdm")
 
 [node name="Node2D2" type="Node2D" parent="Entities" index="1"]
