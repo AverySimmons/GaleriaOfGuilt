@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://bk43h3xnyxykj"]
+[gd_scene load_steps=12 format=4 uid="uid://bk43h3xnyxykj"]
 
 [ext_resource type="PackedScene" uid="uid://cjlxurjci6yxb" path="res://01_Source/02_Level/level.tscn" id="1_av53n"]
 [ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_owgu8"]
@@ -15,6 +15,17 @@ resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
 mesh = SubResource("QuadMesh_x8ck2")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cf11v"]
+radius = 27.0185
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cf11v"]
+size = Vector2(130, 25)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_cf11v"]
+vertices = PackedVector2Array(758, 694, -758, 694, -758, -694, 758, -694)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(768, -704, 768, 704, -768, 704, -768, -704)])
 
 [node name="Level" instance=ExtResource("1_av53n")]
 
@@ -60,55 +71,162 @@ position = Vector2(768, 0)
 [node name="BloodManager" parent="." index="6"]
 multimesh = SubResource("MultiMesh_dtdhi")
 
-[node name="BenchBig1" type="Sprite2D" parent="Entities" index="0"]
-position = Vector2(-383.8, -520.2)
+[node name="Node2D" type="Node2D" parent="Entities" index="0"]
+position = Vector2(-383, -487)
 scale = Vector2(0.6, 0.6)
+
+[node name="BenchBig1" type="Sprite2D" parent="Entities/Node2D" index="0"]
+position = Vector2(-1.33331, -55.3334)
 texture = ExtResource("3_cf11v")
 
-[node name="BenchBig2" type="Sprite2D" parent="Entities" index="1"]
-position = Vector2(400, -525)
+[node name="Node2D2" type="Node2D" parent="Entities" index="1"]
+position = Vector2(401, -491)
 scale = Vector2(0.6, 0.6)
+
+[node name="BenchBig2" type="Sprite2D" parent="Entities/Node2D2" index="0"]
+position = Vector2(-1.66669, -56.6667)
 texture = ExtResource("3_cf11v")
 
-[node name="BenchBig3" type="Sprite2D" parent="Entities" index="2"]
-position = Vector2(-389, 506)
+[node name="Node2D3" type="Node2D" parent="Entities" index="2"]
+position = Vector2(-389, 537)
 scale = Vector2(0.6, 0.6)
+
+[node name="BenchBig3" type="Sprite2D" parent="Entities/Node2D3" index="0"]
+position = Vector2(0, -51.6667)
 texture = ExtResource("3_cf11v")
 
-[node name="BenchBig4" type="Sprite2D" parent="Entities" index="3"]
-position = Vector2(390, 496)
+[node name="Node2D4" type="Node2D" parent="Entities" index="3"]
+position = Vector2(389, 528)
 scale = Vector2(0.6, 0.6)
+
+[node name="BenchBig4" type="Sprite2D" parent="Entities/Node2D4" index="0"]
+position = Vector2(1.66669, -53.3334)
 texture = ExtResource("3_cf11v")
 
-[node name="FountainSmallWater" type="Sprite2D" parent="Entities" index="4"]
-position = Vector2(3, -48)
+[node name="Node2D5" type="Node2D" parent="Entities" index="4"]
+position = Vector2(3, 29)
+
+[node name="FountainSmallWater" type="Sprite2D" parent="Entities/Node2D5" index="0"]
+position = Vector2(0, -77)
 texture = ExtResource("4_3gyxl")
 
-[node name="PlanterWhiteBig3" type="Sprite2D" parent="Entities" index="5"]
-position = Vector2(-581, 52)
+[node name="Node2D6" type="Node2D" parent="Entities" index="5"]
+position = Vector2(-582, 131)
 scale = Vector2(0.8, 0.8)
+
+[node name="PlanterWhiteBig3" type="Sprite2D" parent="Entities/Node2D6" index="0"]
+position = Vector2(1.25, -98.75)
+scale = Vector2(1, 1)
 texture = ExtResource("5_11h02")
 
-[node name="PlanterWhiteBig4" type="Sprite2D" parent="Entities" index="6"]
-position = Vector2(-188, 59)
+[node name="Node2D7" type="Node2D" parent="Entities" index="6"]
+position = Vector2(-186, 139)
 scale = Vector2(0.8, 0.8)
+
+[node name="PlanterWhiteBig4" type="Sprite2D" parent="Entities/Node2D7" index="0"]
+position = Vector2(-2.5, -100)
+scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
-[node name="PlanterWhiteBig5" type="Sprite2D" parent="Entities" index="7"]
-position = Vector2(196, 56)
+[node name="Node2D8" type="Node2D" parent="Entities" index="7"]
+position = Vector2(201, 137)
 scale = Vector2(0.8, 0.8)
+
+[node name="PlanterWhiteBig5" type="Sprite2D" parent="Entities/Node2D8" index="0"]
+position = Vector2(-6.25, -101.25)
+scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
-[node name="PlanterWhiteBig6" type="Sprite2D" parent="Entities" index="8"]
-position = Vector2(-193.2, -215.6)
+[node name="Node2D9" type="Node2D" parent="Entities" index="8"]
+position = Vector2(-191, -134)
 scale = Vector2(0.8, 0.8)
+
+[node name="PlanterWhiteBig6" type="Sprite2D" parent="Entities/Node2D9" index="0"]
+position = Vector2(-2.74998, -102)
+scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
-[node name="PlanterWhiteBig7" type="Sprite2D" parent="Entities" index="9"]
-position = Vector2(219.8, -210.6)
+[node name="Node2D10" type="Node2D" parent="Entities" index="9"]
+position = Vector2(223, -129)
 scale = Vector2(0.8, 0.8)
+
+[node name="PlanterWhiteBig7" type="Sprite2D" parent="Entities/Node2D10" index="0"]
+position = Vector2(-4, -102)
+scale = Vector2(1, 1)
 texture = ExtResource("6_lyogy")
 
 [node name="MultiplyLayer" parent="." index="9"]
 offset_left = -1224.0
 offset_top = -900.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+position = Vector2(-581, 113)
+shape = SubResource("CircleShape2D_cf11v")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" index="1"]
+position = Vector2(-186, 119)
+shape = SubResource("CircleShape2D_cf11v")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" index="2"]
+position = Vector2(200, 112)
+shape = SubResource("CircleShape2D_cf11v")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" index="3"]
+position = Vector2(223, -153)
+shape = SubResource("CircleShape2D_cf11v")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" index="4"]
+position = Vector2(-192, -160)
+shape = SubResource("CircleShape2D_cf11v")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" index="5"]
+position = Vector2(-389, 525.5)
+shape = SubResource("RectangleShape2D_cf11v")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" index="6"]
+position = Vector2(387, 517)
+shape = SubResource("RectangleShape2D_cf11v")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" index="7"]
+position = Vector2(400, -505)
+shape = SubResource("RectangleShape2D_cf11v")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" index="8"]
+position = Vector2(-385, -499)
+shape = SubResource("RectangleShape2D_cf11v")
+
+[node name="NavigationRegion2D" parent="." index="12"]
+navigation_polygon = SubResource("NavigationPolygon_cf11v")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" index="0"]
+vertices = PackedVector2Array(-3, 85, 173, 209, 318, 166, 318, 74, 219, -38, 346, -149, 345, -247, 149, -255, 1, -157, -186, -269, -280, -267, -284, -153, -215, -31, -292, 88, -292, 189, -138, 184)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D" index="1"]
+vertices = PackedVector2Array(-637, 187, -503, 179, -472, 111, -526, 30, -644, 33, -687, 113)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="NavigationRegion2D" index="2"]
+vertices = PackedVector2Array(-234, 504, -301, 604, -486, 600, -556, 504, -463, 416, -294, 420)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="NavigationRegion2D" index="3"]
+position = Vector2(783, -4)
+vertices = PackedVector2Array(-234, 504, -301, 604, -486, 600, -556, 504, -463, 416, -294, 420)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="NavigationRegion2D" index="4"]
+position = Vector2(783, -1028)
+vertices = PackedVector2Array(-234, 504, -301, 604, -486, 600, -556, 504, -463, 416, -294, 420)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="NavigationRegion2D" index="5"]
+position = Vector2(1, -1025)
+vertices = PackedVector2Array(-234, 504, -301, 604, -486, 600, -556, 504, -463, 416, -294, 420)
+affect_navigation_mesh = true
+avoidance_enabled = false

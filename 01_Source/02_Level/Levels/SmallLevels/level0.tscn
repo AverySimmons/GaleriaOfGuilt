@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=4 uid="uid://cu0g45c1oh8y3"]
 
-[ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_2n3rf"]
-[ext_resource type="Texture2D" uid="uid://c420g6b1gwfpf" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_fwapf"]
-[ext_resource type="Texture2D" uid="uid://bqy7yb8sai0s3" path="res://00_Assets/00_Sprites/Room_sprites/planter_white_big_1.png" id="3_cb744"]
-[ext_resource type="Texture2D" uid="uid://8oygylntw4ol" path="res://00_Assets/00_Sprites/Room_sprites/planter_white_big_2.png" id="4_l14f6"]
+[ext_resource type="PackedScene" uid="uid://cjlxurjci6yxb" path="res://01_Source/02_Level/level.tscn" id="1_2n3rf"]
+[ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_fwapf"]
+[ext_resource type="Texture2D" uid="uid://dfd6pbpr0l6rx" path="res://00_Assets/00_Sprites/Room_sprites/planter_white_big_1.png" id="3_cb744"]
+[ext_resource type="Texture2D" uid="uid://bdjl3n5hqeukq" path="res://00_Assets/00_Sprites/Room_sprites/planter_white_big_2.png" id="4_l14f6"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
 size = Vector2(30, -30)

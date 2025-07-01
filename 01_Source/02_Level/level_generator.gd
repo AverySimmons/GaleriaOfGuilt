@@ -79,8 +79,8 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 		else:
 			new_level = lvl_list.pick_random().instantiate()
 		##
-		if node.pos != Vector2.ZERO:
-			new_level = big_level_scenes[0].instantiate()
+		#if node.pos != Vector2.ZERO:
+			#new_level = big_level_scenes[0].instantiate()
 		##
 		new_level.is_end = node.is_end
 		new_level.map_pos = node.pos

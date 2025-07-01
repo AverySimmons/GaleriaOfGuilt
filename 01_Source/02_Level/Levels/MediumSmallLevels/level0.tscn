@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://cu48ljyrsrupw"]
+[gd_scene load_steps=10 format=4 uid="uid://cu48ljyrsrupw"]
 
-[ext_resource type="PackedScene" uid="uid://dckymqi5fl4j" path="res://01_Source/02_Level/level.tscn" id="1_h4ih4"]
-[ext_resource type="Texture2D" uid="uid://c420g6b1gwfpf" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_2bm5m"]
-[ext_resource type="Texture2D" uid="uid://duv6005tpxfo8" path="res://00_Assets/00_Sprites/Room_sprites/fountain_small_water.png" id="3_rwu2l"]
-[ext_resource type="Texture2D" uid="uid://dto76j7r2x652" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_2.png" id="4_et3mw"]
-[ext_resource type="Texture2D" uid="uid://cy6ygekmnnxha" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_1.png" id="5_0mtva"]
+[ext_resource type="PackedScene" uid="uid://cjlxurjci6yxb" path="res://01_Source/02_Level/level.tscn" id="1_h4ih4"]
+[ext_resource type="Texture2D" uid="uid://caoere0g7kpsd" path="res://00_Assets/00_Sprites/Room_sprites/effects_spritesheet.png" id="2_2bm5m"]
+[ext_resource type="Texture2D" uid="uid://fi6iby8x6uof" path="res://00_Assets/00_Sprites/Room_sprites/fountain_small_water.png" id="3_rwu2l"]
+[ext_resource type="Texture2D" uid="uid://ormrro3rqxxp" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_2.png" id="4_et3mw"]
+[ext_resource type="Texture2D" uid="uid://c7bf57mx373bj" path="res://00_Assets/00_Sprites/Room_sprites/bench_big_1.png" id="5_0mtva"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
 size = Vector2(30, -30)
@@ -14,6 +14,14 @@ resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
 mesh = SubResource("QuadMesh_x8ck2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwu2l"]
+size = Vector2(147, 39)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rwu2l"]
+vertices = PackedVector2Array(694, 438, -694, 438, -694, -438, 694, -438)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(704, -448, 704, 448, -704, 448, -704, -448)])
 
 [node name="Level" instance=ExtResource("1_h4ih4")]
 
@@ -87,25 +95,74 @@ position = Vector2(704, 0)
 [node name="BloodManager" parent="." index="6"]
 multimesh = SubResource("MultiMesh_h4ih4")
 
-[node name="FountainSmallWater" type="Sprite2D" parent="Entities" index="0"]
-position = Vector2(-2, 118)
+[node name="Node2D" type="Node2D" parent="Entities" index="0"]
+position = Vector2(1, 194)
+
+[node name="FountainSmallWater" type="Sprite2D" parent="Entities/Node2D" index="0"]
+position = Vector2(-3, -76)
 texture = ExtResource("3_rwu2l")
 
-[node name="BenchBig2" type="Sprite2D" parent="Entities" index="1"]
-position = Vector2(2, -47)
+[node name="Node2D2" type="Node2D" parent="Entities" index="1"]
+position = Vector2(3, -1)
 scale = Vector2(0.7, 0.7)
+
+[node name="BenchBig2" type="Sprite2D" parent="Entities/Node2D2" index="0"]
+position = Vector2(-1.42857, -65.7143)
+scale = Vector2(1, 1)
 texture = ExtResource("4_et3mw")
 
-[node name="BenchBig1" type="Sprite2D" parent="Entities" index="2"]
-position = Vector2(-539, -358)
+[node name="Node2D3" type="Node2D" parent="Entities" index="2"]
+position = Vector2(-540, -316)
 scale = Vector2(0.7, 0.7)
+
+[node name="BenchBig1" type="Sprite2D" parent="Entities/Node2D3" index="0"]
+position = Vector2(1.42859, -60)
+scale = Vector2(1, 1)
 texture = ExtResource("5_0mtva")
 
-[node name="BenchBig3" type="Sprite2D" parent="Entities" index="3"]
-position = Vector2(523, -357)
+[node name="Node2D4" type="Node2D" parent="Entities" index="3"]
+position = Vector2(524, -316)
 scale = Vector2(0.7, 0.7)
+
+[node name="BenchBig3" type="Sprite2D" parent="Entities/Node2D4" index="0"]
+position = Vector2(-1.42859, -58.5714)
+scale = Vector2(1, 1)
 texture = ExtResource("5_0mtva")
 
 [node name="MultiplyLayer" parent="." index="9"]
 offset_left = -1224.0
 offset_top = -900.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+position = Vector2(1.5, -25.5)
+shape = SubResource("RectangleShape2D_rwu2l")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" index="1"]
+position = Vector2(523, -336)
+shape = SubResource("RectangleShape2D_rwu2l")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" index="2"]
+position = Vector2(-540, -337)
+shape = SubResource("RectangleShape2D_rwu2l")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="3"]
+polygon = PackedVector2Array(-183, 150, -117, 179, 1, 192, 93, 184, 176, 151, 124, 107, 7, 88, -108, 104)
+
+[node name="NavigationRegion2D" parent="." index="12"]
+navigation_polygon = SubResource("NavigationPolygon_rwu2l")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" index="0"]
+vertices = PackedVector2Array(0, 240, 238, 189, 225, 34, 160, -25, 129, -113, -104, -115, -149, -3, -220, 57, -224, 182)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D" index="1"]
+vertices = PackedVector2Array(375, -452, 369, -270, 700, -268, 705, -450)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="NavigationRegion2D" index="2"]
+position = Vector2(-1092, -7)
+vertices = PackedVector2Array(375, -452, 369, -270, 700, -268, 705, -450)
+affect_navigation_mesh = true
+avoidance_enabled = false

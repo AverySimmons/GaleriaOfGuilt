@@ -7,8 +7,12 @@ finalize upgrade text
 I want to add controller support but I don't have a controller
 enemies should not give xp on escape
 
-change enemy spawning
-make levels work
+
+### AVERY
+fill in levels (small 0 to ms 1)
+enemy line of sight code
+enemies spawning on escape
+very easy to cheese enemies if no lizard
 
 adjust lots of values
 player values
