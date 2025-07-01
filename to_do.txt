@@ -9,12 +9,18 @@ finalize upgrade text
 I want to add controller support but I don't have a controller
 adjust some hitboxes - sometimes slash feels like it should hit and doesnt
 enemies should not give xp on escape
+movement gets messed up sometimes - when dashing
 
 adjust lots of values
 player values
 enemy values
 upgrade values
 spawning values / level size
+
+ideas of tweaks:
+grenade is very op
+bite is probably better then it should be
+shotgun is very weak
 
 THINK OF A TITLE
 

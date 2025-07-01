@@ -235,7 +235,9 @@ func _physics_process(delta: float) -> void:
 		if dash_charges > 0 && is_dashing == false && (blood_bar-dash_blood_cost>=0):
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
-			var dash_animation: String = "dash_" + update_facing_direction(get_facing_direction())
+			var dir_string = update_facing_direction(get_facing_direction())
+			if dir_string == "idle": dir_string = "down"
+			var dash_animation: String = "dash_" + dir_string
 			animation_player.speed_scale = 1.0 * bb_spd_inc
 			var dash_fella = $DashTrailHelper.get_node("DashTrail")
 			var dash_vector = -get_movement_vector()
@@ -252,7 +254,8 @@ func _physics_process(delta: float) -> void:
 					dash_fella.position += Vector2(20, -60)
 				"left":
 					dash_fella.position += Vector2(0, -20)
-					pass
+				"idle":
+					dash_fella.position += Vector2(40, 10)
 			
 			animation_player.play(dash_animation)
 			AudioData.play_sound("dash", dash_sound)

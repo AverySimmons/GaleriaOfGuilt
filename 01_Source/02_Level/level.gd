@@ -66,7 +66,7 @@ var tint: Color = Color(0,0,0,0)
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
-	if not GameData.is_escaping:
+	if not GameData.is_escaping and not is_end:
 		GameData.music_event.set_parameter("combat state", 1)
 		for d in doors.get_children():
 			d.lock()

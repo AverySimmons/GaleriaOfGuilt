@@ -65,10 +65,10 @@ func start_death() -> void:
 	if target_ind: target_ind.conceal()
 	death_state = true
 	$BTPlayer.process_mode = Node.PROCESS_MODE_DISABLED
-	SignalBus.death.emit(self)
 	blood_module.enemy_death(global_position)
 	$Animations.play('death')
 	await $Animations.animation_finished
+	SignalBus.death.emit(self)
 	call_deferred("queue_free")
 
 func _physics_process(delta: float) -> void:

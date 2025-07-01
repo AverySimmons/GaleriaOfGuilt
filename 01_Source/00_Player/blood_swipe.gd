@@ -70,7 +70,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 	## remove my comments !! if u want
 	
 	## this vector2 controls the distance of the slash from the player
-	var offset = direction * Vector2(125, 125)
+	var offset = direction * Vector2(135, 135)
 	collision_shape_2d.global_position = parent.global_position + offset
 	
 	## this is some wonkey code to make sure the slash always goes

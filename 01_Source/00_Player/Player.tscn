@@ -80,7 +80,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olyoe"]
-size = Vector2(170, 122)
+size = Vector2(200, 122)
 
 [sub_resource type="Animation" id="Animation_6ukc1"]
 length = 0.001
@@ -825,7 +825,7 @@ shape = SubResource("RectangleShape2D_olyoe")
 
 [node name="Slash" type="Sprite2D" parent="blood_swipe/CollisionShape2D"]
 visible = false
-position = Vector2(-43, 2)
+position = Vector2(-33, 2)
 texture = ExtResource("3_fsf3c")
 hframes = 2
 vframes = 2
