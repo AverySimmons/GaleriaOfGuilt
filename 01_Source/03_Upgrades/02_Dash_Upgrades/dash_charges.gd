@@ -11,7 +11,7 @@ func _init() -> void:
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	GameData.player.dash_distance *= 0.6
+	GameData.player.dash_distance *= 0.75
 	GameData.player.dash_charges += 1
 	GameData.player.dash_charges_amt += 1
 	return

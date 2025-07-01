@@ -117,6 +117,7 @@ func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
 	SignalBus.death.connect(gain_exp)
+	SignalBus.unpause.connect(correct_most_recent_press)
 	# Set special ability to bite
 	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
@@ -385,6 +386,10 @@ func get_movement_vector() -> Vector2:
 	
 	return most_recent_press.normalized()
 
+func correct_most_recent_press() -> void:
+	most_recent_press = Input.get_vector("left", "right", "up", "down")
+	return
+
 ## takes the angle of a vector and gives the direction as a string
 func name_from_vect_dir(dir: Vector2) -> String:
 	var ang = dir.angle()
@@ -491,9 +496,9 @@ func kill_gain_blood(enemy: Enemy) -> void:
 	var amount: float = 0
 	match enemy.type:
 		"Lizard":
-			amount = 15
+			amount = 20
 		"Worm":
-			amount = 10
+			amount = 12
 		"Locust":
 			amount = 5
 	blood_bar = move_toward(blood_bar, bb_max, amount*bb_multiplier)
