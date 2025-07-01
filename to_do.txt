@@ -1,30 +1,21 @@
 all scene transitions (what should these look like?)
 sounds effect implemented
 make levels work
-change enemy spawning logic
 cooldown for abilities more visible
 shotgun looks a little weird
 make it more obvious when the player is hit (screen flash / hit pause?)
 finalize upgrade text
 I want to add controller support but I don't have a controller
-adjust some hitboxes - sometimes slash feels like it should hit and doesnt
 enemies should not give xp on escape
-movement gets messed up sometimes - when dashing
+movement gets messed up sometimes - when dashing and when paused
 
 adjust lots of values
 player values
+special ability values
 enemy values
 upgrade values
 spawning values / level size
 
-ideas of tweaks:
-grenade is very op
-bite is probably better then it should be
-shotgun is very weak
-
 THINK OF A TITLE
 
 sprites / shaders needed:
-enemy spawn sprite (unsure this is def a style thing)
-door locked sprite (maybe just big red X)
-main entrance sprite (could also just recolor it)

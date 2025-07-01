@@ -24,25 +24,25 @@ var escape_timer = 0
 var distance = 0
 
 var mall_scaling: Array[float] = [
-	1, 2, 3, 4, 5
+	2, 3, 4, 5, 6
 ]
 
 var mall_flat: Array[float] = [
-	1, 2, 3, 4, 5
+	5, 20, 25, 30, 35
 ]
 
 var size_scaling: Array[float] = [
-	1, 2, 3, 4
+	1, 1.2, 1.4, 1.6
 ]
 
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
 var item_scene = preload("res://01_Source/02_Level/Item/item.tscn")
 
-var enemy_scenes = [
-	preload("res://01_Source/01_Combat/Enemies/worm.tscn"),
-	preload("res://01_Source/01_Combat/Enemies/locust.tscn"),
-	preload("res://01_Source/01_Combat/Enemies/lizard.tscn")
-]
+var enemy_scenes = {
+	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 15,
+	preload("res://01_Source/01_Combat/Enemies/worm.tscn") : 10,
+	preload("res://01_Source/01_Combat/Enemies/locust.tscn") : 5,
+}
 
 var item_sprites = [
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/heart_shaped_sunglasses_sprite.png"),
@@ -153,14 +153,23 @@ func spawn_item():
 	entities.add_child(item)
 
 func populate_enemies():
-	for ei in enemy_credits:
+	var enemy_choices = enemy_scenes.duplicate()
+	var cur_credits = enemy_credits
+	while cur_credits >= 5:
+		var enemy_chosen = enemy_choices.keys().pick_random()
+		if cur_credits < enemy_choices[enemy_chosen]:
+			enemy_choices.erase(enemy_chosen)
+			continue
+		
+		cur_credits -= enemy_choices[enemy_chosen]
+		
 		for try in 100:
 			var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 				randf_range(top_left.y+100, bot_right.y-100))
 			
 			if not check_enemy_spawn(rand_pos): continue
 			
-			spawn_enemy(rand_pos, randi_range(0, 2))
+			spawn_enemy(rand_pos, enemy_chosen)
 			enemies_left += 1
 			break
 
@@ -181,8 +190,8 @@ func check_enemy_spawn(pos: Vector2) -> bool:
 	
 	return not collided
 
-func spawn_enemy(pos: Vector2, index: int) -> void:
-	var new_enemy = enemy_scenes[index].instantiate()
+func spawn_enemy(pos: Vector2, ene: PackedScene) -> void:
+	var new_enemy = ene.instantiate()
 	new_enemy.bullet_node = entities
 	new_enemy.indicator_node = $AttackIndicators
 	new_enemy.level = self
