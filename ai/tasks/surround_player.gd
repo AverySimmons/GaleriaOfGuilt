@@ -38,7 +38,7 @@ func _tick(delta: float) -> Status:
 				enemy.going_up = true
 				enemy.going_down = false
 		
-		print('navigation finished')
+		#print('navigation finished')
 		return SUCCESS
 		
 	move()

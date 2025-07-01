@@ -14,7 +14,7 @@ func _setup() -> void:
 	
 func _enter() -> void:
 	agent.navigation.target_position = pick_destination()
-	print(agent.navigation.target_position)
+	#print(agent.navigation.target_position)
 	
 func _tick(delta: float) -> Status:
 	if agent.navigation.is_navigation_finished():

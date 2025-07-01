@@ -28,7 +28,7 @@ var mall_scaling: Array[float] = [
 ]
 
 var mall_flat: Array[float] = [
-	5, 20, 25, 30, 35
+	200, 20, 25, 30, 35
 ]
 
 var size_scaling: Array[float] = [
@@ -39,9 +39,9 @@ var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/en
 var item_scene = preload("res://01_Source/02_Level/Item/item.tscn")
 
 var enemy_scenes = {
-	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 15,
-	preload("res://01_Source/01_Combat/Enemies/worm.tscn") : 10,
-	preload("res://01_Source/01_Combat/Enemies/locust.tscn") : 5,
+	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 15.,
+	preload("res://01_Source/01_Combat/Enemies/worm.tscn") : 10.,
+	preload("res://01_Source/01_Combat/Enemies/locust.tscn") : 5.,
 }
 
 var item_sprites = [
@@ -51,6 +51,10 @@ var item_sprites = [
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/lamb_plush_sprite.png"),
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/human_heart_sprite.png"),
 ]
+
+var max_enemies_in_wave = 5
+var enemy_spacing = 200
+var enemy_player_spacing = 300
 
 var arrow_scene = preload("res://03_Components/arrow_indicator.tscn")
 
@@ -153,29 +157,117 @@ func spawn_item():
 	entities.add_child(item)
 
 func populate_enemies():
+	# max number of enemies in a wave
+	# distance between enemies
+	# distance between enemies and the player
+	
+	# get a list of enemies
+	# while there is enemies left in the list
+	# generate a list of spawn points
+	# spawn enemies at them
+	# wait for a bit
+	# repeat
+	
+	var enemy_list = get_enemy_list()
+	enemies_left = len(enemy_list)
+	while enemy_list:
+		var spawns = get_spawn_point_list()
+		
+		var scored_spawns = score_spawn_list(spawns)
+		var total_score = 0
+		for i in scored_spawns.values(): total_score += i
+		
+		var enemy_num = min(len(spawns), len(enemy_list), max_enemies_in_wave)
+		
+		for i in enemy_num:
+			var cur_enemy = enemy_list.pick_random()
+			enemy_list.erase(cur_enemy)
+			
+			var r = randf() * total_score
+			var c = 0.
+			var cur_spawn
+			for s in scored_spawns.keys():
+				var score = scored_spawns[s]
+				c += score
+				
+				if c >= r:
+					cur_spawn = s
+					break
+			
+			spawns.erase(cur_spawn)
+			
+			spawn_enemy(cur_spawn, cur_enemy)
+		
+		await get_tree().create_timer(5).timeout
+
+func score_spawn_list(spawns: Array[Vector2]) -> Dictionary[Vector2, float]:
+	var new_list: Dictionary[Vector2, float] = {}
+	
+	var player_pos = GameData.player.global_position
+	var average_dist: float = 0.
+	
+	for s in spawns:
+		average_dist += s.distance_to(player_pos)
+	
+	average_dist /= float(spawns.size())
+	
+	for s in spawns:
+		var player_dist = s.distance_to(player_pos)
+		var score = 1. - player_dist / average_dist
+		score = clampf(score, 0, 1)
+		new_list[s] = score
+	
+	return new_list
+
+func get_enemy_list() -> Array[PackedScene]:
+	var list: Array[PackedScene] = []
+	
 	var enemy_choices = enemy_scenes.duplicate()
 	var cur_credits = enemy_credits
+	
 	while cur_credits >= 5:
-		var enemy_chosen = enemy_choices.keys().pick_random()
+		var total_cost = 0.
+		for cost in enemy_choices.values(): total_cost += 1. / (cost * cost)
+		var r = randf() * total_cost
+		var c = 0.
+		
+		var enemy_chosen
+		for key in enemy_choices.keys():
+			var cost = 1. / enemy_choices[key]
+			c += cost * cost
+			if c >= r:
+				enemy_chosen = key
+				break
+		
+		
 		if cur_credits < enemy_choices[enemy_chosen]:
 			enemy_choices.erase(enemy_chosen)
 			continue
 		
 		cur_credits -= enemy_choices[enemy_chosen]
-		
-		for try in 100:
-			var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
-				randf_range(top_left.y+100, bot_right.y-100))
-			
-			if not check_enemy_spawn(rand_pos): continue
-			
-			spawn_enemy(rand_pos, enemy_chosen)
-			enemies_left += 1
-			break
+		list.push_back(enemy_chosen)
+	
+	return list
 
-func check_enemy_spawn(pos: Vector2) -> bool:
+func get_spawn_point_list() -> Array[Vector2]:
+	var list: Array[Vector2] = []
+	
+	for i in 30:
+		var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
+								randf_range(top_left.y+100, bot_right.y-100))
+		
+		if not check_enemy_spawn(rand_pos, list): continue
+		
+		list.push_back(rand_pos)
+	
+	return list
+
+func check_enemy_spawn(pos: Vector2, spawns: Array[Vector2]) -> bool:
 	var player_pos = GameData.player.global_position
-	if pos.distance_to(player_pos) < 300: return false
+	if pos.distance_to(player_pos) < enemy_player_spacing: return false
+	
+	for s in spawns:
+		if pos.distance_to(s) < enemy_spacing: return false
 	
 	var space_state = get_world_2d().direct_space_state
 	var circle = CircleShape2D.new()
