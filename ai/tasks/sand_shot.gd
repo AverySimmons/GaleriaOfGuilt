@@ -27,7 +27,7 @@ func _enter() -> void:
 	var sand_proj = sand_proj_scene.instantiate()
 	AudioData.play_sound("sand_shot", sound)
 	var dir = mouth_pos.direction_to(agent.player_position)
-	sand_proj.velocity = dir * 2000
+	sand_proj.velocity = dir * 1250
 	sand_proj.global_position = mouth_pos
 	
 	agent.bullet_node.add_child(sand_proj)

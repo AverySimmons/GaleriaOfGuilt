@@ -17,8 +17,8 @@ func _setup() -> void:
 	
 func _enter() -> void:
 	var new_lightning = enemy.lighting_scene.instantiate()
-	new_lightning.global_position = GameData.player.global_position
-	new_lightning.global_position += Vector2.from_angle(randf_range(0,TAU)) * 40
+	new_lightning.global_position = GameData.player.global_position + GameData.player.velocity * 0.75
+	new_lightning.global_position += Vector2.from_angle(randf_range(0,TAU)) * randf_range(0, 100)
 	enemy.indicator_node.add_child(new_lightning)
 
 func _tick(delta: float) -> Status:

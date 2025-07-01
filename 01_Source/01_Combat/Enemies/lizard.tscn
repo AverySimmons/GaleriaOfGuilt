@@ -90,7 +90,7 @@ animation_name = &"charge_attack"
 script = ExtResource("6_hkm1r")
 
 [sub_resource type="BTWait" id="BTWait_6v3iu"]
-duration = 0.125
+duration = 0.01
 
 [sub_resource type="BTSequence" id="BTSequence_s7vf8"]
 children = [SubResource("BTAction_ks4qc"), SubResource("BTWait_6v3iu")]
@@ -108,7 +108,7 @@ animation_player = SubResource("BBNode_ym5t2")
 animation_name = &"attack"
 
 [sub_resource type="BTWait" id="BTWait_howy7"]
-duration = 2.0
+duration = 2.5
 
 [sub_resource type="BBNode" id="BBNode_rq04b"]
 saved_value = NodePath("Animations")

@@ -46,16 +46,29 @@ func _tick(delta: float) -> Status:
 	
 	if not has_locked_dir:
 		var player_vel = GameData.player.velocity
+		
+		var player_speed = player_vel.length()
+		player_vel = min(player_speed, GameData.player.top_speed) * player_vel.normalized()
+		
 		var player_pos = GameData.player.global_position
-		enemy.player_position = player_pos + player_vel / enemy.global_position.distance_to(player_pos) * 100
+		
+		if enemy.type == "Worm":
+			var player_dist = enemy.mouth_pos.global_position.distance_to(player_pos)
+			var time = player_dist / 1250. / 0.7 * 1.3
+			enemy.player_position = player_pos + player_vel * time
+		else:
+			var player_dist = enemy.global_position.distance_to(player_pos)
+			var time = player_dist / 1000. / 0.7 * 1.2
+			enemy.player_position = player_pos + player_vel * time
+		
 		var player_dir = enemy.global_position.direction_to(enemy.player_position)
-		var arrow_point = enemy.global_position + player_dir * enemy.arrow_dist * shaking_time / enemy.shake_length / 0.8
+		var arrow_point = enemy.global_position + player_dir * enemy.arrow_dist * shaking_time / (enemy.shake_length * 0.7)
 		enemy.target_ind.update(enemy.global_position, arrow_point)
 	
 	## I changed this to reseting on exit
 	# target_node.get_node("Sprite2D").global_position = target_node.global_position
 	
-	if shaking_time >= enemy.shake_length * 0.8:
+	if shaking_time >= enemy.shake_length * 0.7:
 		has_locked_dir = true
 	
 	if shaking_time >= enemy.shake_length: #finish

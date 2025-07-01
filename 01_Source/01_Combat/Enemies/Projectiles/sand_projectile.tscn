@@ -1,7 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://vd7e1yjuvit3"]
+[gd_scene load_steps=11 format=3 uid="uid://vd7e1yjuvit3"]
 
 [ext_resource type="Script" uid="uid://nrox43c7pya7" path="res://01_Source/01_Combat/Enemies/Projectiles/sand_projectile.gd" id="1_ietp8"]
 [ext_resource type="Texture2D" uid="uid://cnhr0egal0qma" path="res://00_Assets/00_Sprites/Enemies/sandworm_ball.png" id="2_qg7v2"]
+[ext_resource type="Shader" uid="uid://hoxve50ioq6x" path="res://01_Source/01_Combat/Enemies/Projectiles/sand_projectile_outline.gdshader" id="2_qj0xt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d8d8q"]
+shader = ExtResource("2_qj0xt")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_elrbt"]
 radius = 20.0
@@ -55,6 +59,7 @@ collision_layer = 0
 script = ExtResource("1_ietp8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_d8d8q")
 texture = ExtResource("2_qg7v2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -66,7 +71,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_qj0xt")
 }
 autoplay = "default"
-speed_scale = 3.0
+speed_scale = 2.0
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
