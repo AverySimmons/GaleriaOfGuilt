@@ -1,17 +1,10 @@
 all scene transitions (what should these look like?)
 sounds effect implemented
-shotgun looks a little weird
-make it more obvious when the player is hit (screen flash / hit pause?)
 finalize upgrade text
 I want to add controller support but I don't have a controller
 enemies should not give xp on escape
-
-
-### AVERY
-fill in levels (small 0 to ms 1)
-enemy line of sight code
+hp bar shake
 enemies spawning on escape
-very easy to cheese enemies if no lizard
 
 adjust lots of values
 player values
