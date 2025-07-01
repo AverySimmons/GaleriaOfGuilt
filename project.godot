@@ -73,10 +73,10 @@ layout/style_list=["res://04_DialogicStuff/Styles/default.tres", "res://04_Dialo
 layout/default_style="res://04_DialogicStuff/Styles/default.tres"
 variables={}
 extensions_folder="res://addons/dialogic_additions"
-text/letter_speed=0.01
+text/letter_speed=0.03
 text/initial_text_reveal_skippable=true
-text/text_reveal_skip_delay=0.02
-text/advance_delay=0.1
+text/text_reveal_skip_delay=0.01
+text/advance_delay=0.3
 text/autoadvance_per_character_delay=0.1
 text/autoadvance_ignored_characters_enabled=true
 audio/max_channels=4.0
@@ -94,6 +94,8 @@ save/encryption_on_exports_only=true
 text/autopauses={}
 animations/join_default="Slide In Left"
 animations/leave_default="Slide Out Right"
+text/autocolor_names=false
+text/autoskip_time_per_event=0.5
 
 [display]
 

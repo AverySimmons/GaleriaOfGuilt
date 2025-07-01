@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://behaf083nupc4"]
 
 [ext_resource type="Script" uid="uid://cns2redsfroqp" path="res://04_DialogicStuff/Styles/DefaultLayoutBase/default_layout_base.gd" id="1_ifsho"]
-[ext_resource type="Texture2D" uid="uid://c1kjkx3rc0bxm" path="res://00_Assets/00_Sprites/Dialogue_sprites/dialogue_box.png" id="2_57rjw"]
-[ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_sbxw5"]
+[ext_resource type="Texture2D" uid="uid://cb8yccvikkm1q" path="res://00_Assets/00_Sprites/Dialogue_sprites/dialogue_box.png" id="2_57rjw"]
+[ext_resource type="FontFile" uid="uid://q1d4jdqbg2db" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_sbxw5"]
 [ext_resource type="Script" uid="uid://dtvooil4pkfbw" path="res://04_DialogicStuff/Styles/DefaultLayoutBase/portrait.gd" id="4_57rjw"]
 [ext_resource type="Script" uid="uid://bmf4nl3lw248w" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="4_r8p2v"]
 [ext_resource type="Script" uid="uid://dsvog6ei6akgv" path="res://addons/dialogic/Modules/Text/node_type_sound.gd" id="6_r8p2v"]
@@ -38,9 +38,9 @@ metadata/_custom_type_script = "uid://dsvog6ei6akgv"
 custom_minimum_size = Vector2(200, 400)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 78.0
-offset_top = 294.0
-offset_right = 278.0
-offset_bottom = 694.0
+offset_left = 38.0
+offset_top = 289.0
+offset_right = 238.0
+offset_bottom = 689.0
 script = ExtResource("4_57rjw")
 mode = 1
