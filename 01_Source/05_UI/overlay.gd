@@ -32,7 +32,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.actual_special_cooldown)*100, 0.0, 100.0)
 	special_progress.value = ratio
-	print(special_progress.value)
+	#print(special_progress.value)
 	pass
 
 func remove_blood_meter_marker():

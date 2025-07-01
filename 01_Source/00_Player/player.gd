@@ -197,8 +197,8 @@ func _physics_process(delta: float) -> void:
 			var facing_dir = name_from_vect_dir(dir)
 			facing_dir = update_facing_direction(facing_dir)
 			animation_player.speed_scale /= bb_hitspd_inc
-			print(animation_player.speed_scale)
-			print(attack_cooldown, attack_cooldown*bb_hitspd_inc)
+			#print(animation_player.speed_scale)
+			#print(attack_cooldown, attack_cooldown*bb_hitspd_inc)
 			animation_player.play("slash_" + facing_dir)
 			AudioData.play_sound("swipe", swipe_sound)
 			

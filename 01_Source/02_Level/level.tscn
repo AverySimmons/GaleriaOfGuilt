@@ -365,7 +365,7 @@ mesh = SubResource("QuadMesh_x8ck2")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tk8so"]
 blend_mode = 3
 
-[node name="Level2" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource("1_1ubys")
 
 [node name="TopLeft" type="Marker2D" parent="."]

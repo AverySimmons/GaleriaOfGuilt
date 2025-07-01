@@ -10,7 +10,7 @@ void fragment() {
 	float mask = length(uv);
 	mask = 1. - step(1., mask);
 	
-	COLOR.a = mask;
+	COLOR.a = mask * COLOR.a;
 }
 
 //void light() {

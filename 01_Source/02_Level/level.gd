@@ -177,7 +177,7 @@ func populate_enemies():
 		var total_score = 0
 		for i in scored_spawns.values(): total_score += i
 		
-		var enemy_num = min(len(spawns), len(enemy_list), max_enemies_in_wave)
+		var enemy_num = min(len(scored_spawns), len(enemy_list), max_enemies_in_wave)
 		
 		for i in enemy_num:
 			var cur_enemy = enemy_list.pick_random()
@@ -186,19 +186,22 @@ func populate_enemies():
 			var r = randf() * total_score
 			var c = 0.
 			var cur_spawn
+			print("CHECKING")
 			for s in scored_spawns.keys():
 				var score = scored_spawns[s]
 				c += score
 				
 				if c >= r:
 					cur_spawn = s
+					total_score -= score
+					print("FOUND!")
 					break
-			
-			spawns.erase(cur_spawn)
+			print(scored_spawns)
+			scored_spawns.erase(cur_spawn)
 			
 			spawn_enemy(cur_spawn, cur_enemy)
 		
-		await get_tree().create_timer(5).timeout
+		await get_tree().create_timer(5, false).timeout
 
 func score_spawn_list(spawns: Array[Vector2]) -> Dictionary[Vector2, float]:
 	var new_list: Dictionary[Vector2, float] = {}

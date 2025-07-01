@@ -139,7 +139,7 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 		btplayer.set_active(false)
 	
 	$Animations.play('hurt')
-	await get_tree().create_timer(flinch_dur).timeout #wait for flinch time
+	await get_tree().create_timer(flinch_dur, false).timeout #wait for flinch time
 	if btplayer and hp >= 1:
 		btplayer.restart()
 	
