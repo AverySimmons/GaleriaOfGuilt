@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
-[ext_resource type="Texture2D" uid="uid://byc5gw7glt56f" path="res://00_Assets/00_Sprites/Cutscene_sprites/title_screen.png" id="2_mrl32"]
+[ext_resource type="Texture2D" uid="uid://bvrvey0ql7x8m" path="res://00_Assets/00_Sprites/Cutscene_sprites/title_screen.png" id="2_mrl32"]
 
 [node name="SceneManager" type="Node"]
 process_mode = 3

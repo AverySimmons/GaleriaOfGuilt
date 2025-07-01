@@ -9,12 +9,12 @@
 "Mood 1": {
 "mode": 0,
 "name": "Mood 1",
-"pitch_base": 1.0,
-"pitch_variance": 0.1,
-"skip_characters": 8.0,
-"sound_path": "res://00_Assets/02_SoundEffects/MEH!!!.wav",
-"volume_base": 4.0,
-"volume_variance": 0.5
+"pitch_base": 2.0,
+"pitch_variance": 0.8,
+"skip_characters": 6.0,
+"sound_path": "res://00_Assets/02_SoundEffects/MT_voice.wav",
+"volume_base": 0.5,
+"volume_variance": 0.0
 }
 },
 "style": "default"
