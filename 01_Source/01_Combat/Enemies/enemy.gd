@@ -62,11 +62,11 @@ func _ready() -> void:
 ## var death_timer = 1 #a little delay for the animation to play, is there a better way?
 
 func start_death() -> void:
-	
-	if target_ind: target_ind.conceal()
 	death_state = true
+	if target_ind: target_ind.conceal()
 	$BTPlayer.process_mode = Node.PROCESS_MODE_DISABLED
 	blood_module.enemy_death(global_position)
+	await get_tree().physics_frame
 	$Animations.play('death')
 	await $Animations.animation_finished
 	SignalBus.death.emit(self)
