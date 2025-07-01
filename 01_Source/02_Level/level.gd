@@ -28,7 +28,7 @@ var mall_scaling: Array[float] = [
 ]
 
 var mall_flat: Array[float] = [
-	200, 20, 25, 30, 35
+	5, 20, 25, 30, 35
 ]
 
 var size_scaling: Array[float] = [
@@ -70,6 +70,8 @@ var tint: Color = Color(0,0,0,0)
 signal exited_room(dir: Vector2)
 
 func _ready() -> void:
+	$NavigationRegion2D.bake_navigation_polygon()
+	
 	if not GameData.is_escaping and not is_end:
 		GameData.music_event.set_parameter("combat state", 1)
 		for d in doors.get_children():
@@ -186,7 +188,6 @@ func populate_enemies():
 			var r = randf() * total_score
 			var c = 0.
 			var cur_spawn
-			print("CHECKING")
 			for s in scored_spawns.keys():
 				var score = scored_spawns[s]
 				c += score
@@ -194,9 +195,7 @@ func populate_enemies():
 				if c >= r:
 					cur_spawn = s
 					total_score -= score
-					print("FOUND!")
 					break
-			print(scored_spawns)
 			scored_spawns.erase(cur_spawn)
 			
 			spawn_enemy(cur_spawn, cur_enemy)
