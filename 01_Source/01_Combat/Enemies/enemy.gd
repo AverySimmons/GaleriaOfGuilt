@@ -71,7 +71,10 @@ func start_death() -> void:
 	blood_module.enemy_death(global_position)
 	await get_tree().physics_frame
 	$Animations.play('death')
-	await $DeathSound.finished
+	if $DeathSound.playing:
+		await $DeathSound.finished
+	else:
+		await $Animations.animation_finished
 	SignalBus.death.emit(self)
 	call_deferred("queue_free")
 

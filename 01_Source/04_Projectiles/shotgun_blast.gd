@@ -54,7 +54,11 @@ func despawn() -> void:
 	set_deferred("monitoring", false)
 	$AnimationPlayer.play("explode")
 	$Explosion.play()
-	await $Explosion.finished
+	
+	if $Explosion.playing:
+		await $Explosion.finished
+	else:
+		await $AnimationPlayer.animation_finished
 	queue_free()
 	return
 

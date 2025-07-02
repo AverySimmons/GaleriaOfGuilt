@@ -79,7 +79,10 @@ func explode() -> void:
 			player.gain_blood("special", 1.0, enemy)
 			enemies_hit[enemy] = null
 	
-	await $ExplosionSound.finished
+	if $ExplosionSound.playing:
+		await $ExplosionSound.finished
+	else:
+		await $AnimationPlayer.finished_animation
 	queue_free()
 	return
 

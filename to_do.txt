@@ -5,7 +5,8 @@ I want to add controller support but I don't have a controller
 enemies spawning on escape
 dashing into a wall feels bad
 projectiles shouldnt disapear when dashed into
-lizard rework
+
+### Avery
 
 adjust lots of values
 player values
@@ -13,6 +14,33 @@ special ability values
 enemy values
 upgrade values
 spawning values / level size
+
+upgrade reworks:
+general feeling is that blood gain is hard to notice, but maybe thats okay
+things that give increased blood feel less powerful then getting something more
+direct like an ability upgrade
+endless void: a little hard to feel the draining difference but I think its good
+easy prey: really fun to go for and difference is noticable but feels a little weak
+smell of prey: good but should def give more blood and should probably say "unexplored" instead of new
+insaitiable appetite: like other blood upgrades its a little hard to feel the change but I think its good
+destructive haste: has a less cool fantasy then the other upgrades bc it has no synergy with anything but its okay
+free lunch blah blah blah: really good, you can feel the dash distance
+sentient wounds: really good, makes all the "get more blood" upgrades feel like they have a pay off
+blood infused claws: I think we should have more damage increases, but this one is way too weak, and once again it feels like anti-syergy to lose the blood
+bloodlust: really fun - has natural synergy with having high blood bc of the attack speed
+explosive blood: incredibly broken has super low cooldown, does 2 hits, fills blood to full constantly, I pick this up and never slash again
+bloodbath: im unsure how much this decreases the special cooldown so im always a little scared to pick it, but I like the fantasy
+hungry claws: pretty simple, feels a little nothing burger, but I dont hate it
+seeing red: another high risk high reward upgrade, we have 4 of these which might be a little too much, but I like this one too
+reckless restless: pretty much a direct downgrade, I like the idea of this but I never pick it bc dash cooldown is already low
+body of thorns: I love all the dash through enemy upgrades, this one the most, could maybe use some dash length
+monsturus tenacity: really fun upgrade, kinda has anti-synergy with all the dash upgrades, but by itself its one of the most fun
+rapid jaws: the tradeoff feels hard to understand, like the two things are so disconnected it feels hard to know if I should pick it or not
+retractable claws: just a fun upgrade that feels like it has synergy with blood and is fun by itself
+I NEED BLOOD: I never pick this, I always want my special and dont care about blood so much
+vomit: fun to use, but def way worse then bite and grenade, tbh I think this should be the powerlevel of a special
+engulfing maw: pretty broken, gives an insane amount of blood and does 2 hits of damage, all on a giant hitbox that lingers
+vampiric frenzy: again we have 4 of these glass cannon ones which feels like a lot, this one is my least favorite bc getting more blood doesnt feel noticable
 
 THINK OF A TITLE
 

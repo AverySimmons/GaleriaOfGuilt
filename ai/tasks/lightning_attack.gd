@@ -2,38 +2,58 @@
 extends BTAction
 
 var enemy : Enemy
-
-var active_time: float 
-var active_timer: float
 ## variables at the top
+
+var cur_dist
+var cur_rot
+var timer
+var iter
+
+var strike_num
+
+var strike_array: Array[Vector2]
+var strike_vel_array: Array[Vector2]
+var last_strike_array: Array[Vector2]
 
 func _generate_name() -> String:
 	return 'Spawn lightning'
 	
 func _setup() -> void:
 	enemy = agent as Enemy
-	active_timer = 0
-	active_time = 0.8
 	
 func _enter() -> void:
-	var new_lightning = enemy.lighting_scene.instantiate()
-	new_lightning.global_position = GameData.player.global_position + GameData.player.velocity * 0.75
-	new_lightning.global_position += Vector2.from_angle(randf_range(0,TAU)) * randf_range(0, 100)
-	enemy.indicator_node.add_child(new_lightning)
+	cur_dist = 50
+	timer = 3
+	iter = 0
+	strike_num = 3
+	strike_array = []
+	strike_vel_array = []
+	for i in strike_num:
+		strike_array.push_back(enemy.global_position)
+		last_strike_array.push_back(enemy.global_position)
+		strike_vel_array.push_back(Vector2.from_angle(randf_range(0,TAU)) * randf_range(2000, 3000))
+	
 
 func _tick(delta: float) -> Status:
-	return SUCCESS
 	
-	if active_timer >= active_time:
-		active_timer = 0
+	for i in strike_num:
+		strike_array[i] += strike_vel_array[i] * delta
+		var player_dir = strike_array[i].direction_to(GameData.player.global_position)
+		strike_vel_array[i] += player_dir * 6000 * delta
+		
+		if strike_array[i].distance_to(last_strike_array[i]) > 50:
+			last_strike_array[i] = strike_array[i]
+			spawn_lighting(strike_array[i])
+	
+	timer -= delta
+	if timer <= 0:
 		return SUCCESS
 	
-	#var ball_o_lightning = enemy.ball_o_lightning.animation_player
-	#ball_o_lightning.play('ball_o_lightning_damaging')
-	
-	
-	active_timer += delta
-	
 	return RUNNING
-	
+
 ## think about helper functions down here
+
+func spawn_lighting(pos):
+	var new_lightning = enemy.lighting_scene.instantiate()
+	new_lightning.global_position = pos
+	enemy.indicator_node.add_child(new_lightning)

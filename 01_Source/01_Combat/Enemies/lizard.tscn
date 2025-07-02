@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=55 format=3 uid="uid://bmxb5t3rbvnwu"]
 
 [ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
 [ext_resource type="Texture2D" uid="uid://cf8lnjucl32t6" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
@@ -63,19 +63,6 @@ script = ExtResource("5_khl08")
 [sub_resource type="BTSequence" id="BTSequence_5yibh"]
 children = [SubResource("BTCheckAgentProperty_w81gv"), SubResource("BTAction_h1ucq")]
 
-[sub_resource type="BTAction" id="BTAction_w81gv"]
-script = ExtResource("6_w81gv")
-
-[sub_resource type="BBNode" id="BBNode_kkm87"]
-saved_value = NodePath("Animations")
-resource_name = "Animations"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_vxyij"]
-animation_player = SubResource("BBNode_kkm87")
-animation_name = &"idle"
-
-[sub_resource type="BTWait" id="BTWait_em8vn"]
-
 [sub_resource type="BTAction" id="BTAction_wc4pt"]
 script = ExtResource("6_w81gv")
 
@@ -90,16 +77,6 @@ animation_name = &"charge_attack"
 [sub_resource type="BTAction" id="BTAction_ks4qc"]
 script = ExtResource("6_hkm1r")
 
-[sub_resource type="BTWait" id="BTWait_6v3iu"]
-duration = 0.01
-
-[sub_resource type="BTSequence" id="BTSequence_s7vf8"]
-children = [SubResource("BTAction_ks4qc"), SubResource("BTWait_6v3iu")]
-
-[sub_resource type="BTRepeat" id="BTRepeat_xyf1q"]
-times = 10
-children = [SubResource("BTSequence_s7vf8")]
-
 [sub_resource type="BBNode" id="BBNode_ym5t2"]
 saved_value = NodePath("Animations")
 resource_name = "Animations"
@@ -109,7 +86,7 @@ animation_player = SubResource("BBNode_ym5t2")
 animation_name = &"attack"
 
 [sub_resource type="BTWait" id="BTWait_howy7"]
-duration = 2.5
+duration = 1.5
 
 [sub_resource type="BBNode" id="BBNode_rq04b"]
 saved_value = NodePath("Animations")
@@ -124,7 +101,7 @@ duration = 2.0
 
 [sub_resource type="BTSequence" id="BTSequence_howy7"]
 custom_name = "Initiate Attack"
-children = [SubResource("BTAction_w81gv"), SubResource("BTPlayAnimation_vxyij"), SubResource("BTWait_em8vn"), SubResource("BTAction_wc4pt"), SubResource("BTPlayAnimation_khl08"), SubResource("BTRepeat_xyf1q"), SubResource("BTPlayAnimation_mxsq5"), SubResource("BTWait_howy7"), SubResource("BTPlayAnimation_3ajd1"), SubResource("BTWait_fjdy1")]
+children = [SubResource("BTAction_wc4pt"), SubResource("BTPlayAnimation_khl08"), SubResource("BTAction_ks4qc"), SubResource("BTPlayAnimation_mxsq5"), SubResource("BTWait_howy7"), SubResource("BTPlayAnimation_3ajd1"), SubResource("BTWait_fjdy1")]
 
 [sub_resource type="BTSelector" id="BTSelector_hv73n"]
 children = [SubResource("BTRunLimit_vxyij"), SubResource("BTSequence_5yibh"), SubResource("BTSequence_howy7")]
@@ -811,7 +788,7 @@ stream_0/stream = ExtResource("12_em8vn")
 [node name="Lizard" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_c4j58")
-move_speed = 60.0
+move_speed = 150.0
 hp_max = 120.0
 flinch_guard = 1.0
 chase_dist = 250.0

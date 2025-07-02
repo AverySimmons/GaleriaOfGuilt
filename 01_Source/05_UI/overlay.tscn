@@ -135,6 +135,5 @@ offset_top = 567.0
 offset_right = 1638.0
 offset_bottom = 1079.0
 scale = Vector2(0.275159, 0.27472)
-value = 50.0
 fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_bsg8v")

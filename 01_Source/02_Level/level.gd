@@ -39,7 +39,7 @@ var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/en
 var item_scene = preload("res://01_Source/02_Level/Item/item.tscn")
 
 var enemy_scenes = {
-	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 15.,
+	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 1.,
 	preload("res://01_Source/01_Combat/Enemies/worm.tscn") : 10.,
 	preload("res://01_Source/01_Combat/Enemies/locust.tscn") : 5.,
 }
@@ -66,6 +66,8 @@ var is_end: bool = false
 var map_pos: Vector2 = Vector2.ZERO
 var map_piece: MapPiece = null
 var tint: Color = Color(0,0,0,0)
+
+var wants_to_spawn = false
 
 signal exited_room(dir: Vector2)
 
@@ -129,7 +131,7 @@ func _ready() -> void:
 	if is_end:
 		spawn_item()
 	else:
-		populate_enemies()
+		wants_to_spawn = true
 
 func _process(delta: float) -> void:
 	var t = create_tween()
@@ -159,6 +161,7 @@ func spawn_item():
 	entities.add_child(item)
 
 func populate_enemies():
+	wants_to_spawn = false
 	# max number of enemies in a wave
 	# distance between enemies
 	# distance between enemies and the player
@@ -312,6 +315,8 @@ func enter(dir: Vector2) -> void:
 		GameData.player.global_position = entrance_door.player_spawn.global_position
 		camera.global_position = GameData.player.global_position
 		entities.add_child(GameData.player)
+		if wants_to_spawn:
+			populate_enemies()
 		return
 	
 	for d: Door in doors.get_children():
@@ -321,6 +326,8 @@ func enter(dir: Vector2) -> void:
 			break
 	
 	camera.global_position = GameData.player.global_position
+	if wants_to_spawn:
+		populate_enemies()
 
 func exit(dir: Vector2):
 	if enter_timer > 0: return

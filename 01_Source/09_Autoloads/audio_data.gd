@@ -128,7 +128,7 @@ func play_sound(sound_name: String, sound) -> void:
 				cur_total -= 1
 				explosion_sound -= 1
 		"player_hit":
-			if cur_total < MAX_SOUNDFX_AMT && player_hit < INDIVIDUAL_MAX_AMT:
+			if player_hit < INDIVIDUAL_MAX_AMT:
 				sound.play()
 				player_hit += 1
 				cur_total += 1
