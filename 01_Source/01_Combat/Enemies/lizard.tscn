@@ -86,7 +86,7 @@ animation_player = SubResource("BBNode_ym5t2")
 animation_name = &"attack"
 
 [sub_resource type="BTWait" id="BTWait_howy7"]
-duration = 1.5
+duration = 2.0
 
 [sub_resource type="BBNode" id="BBNode_rq04b"]
 saved_value = NodePath("Animations")
