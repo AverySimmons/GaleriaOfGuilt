@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 	if !is_active:
 		return
 	for area in enemies_just_entered:
+		if not area: continue
 		var enemy = area.owner
 		if enemy is not Enemy || hit_enemies.has(enemy):
 			continue

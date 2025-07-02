@@ -52,6 +52,9 @@ var item_sprites = [
 	preload("res://00_Assets/00_Sprites/Objective_item_sprites/human_heart_sprite.png"),
 ]
 
+const min_wave_size = 5
+var is_locked = false
+
 var max_enemies_in_wave = 5
 var enemy_spacing = 100
 var enemy_player_spacing = 300
@@ -86,6 +89,8 @@ func _ready() -> void:
 		mall_scaling[GameData.mall_ind] * distance
 	
 	enemy_credits *= size_scaling[con_num]
+	
+	max_enemies_in_wave = max(min_wave_size, int(enemy_credits / 10.))
 	
 	$MultiplyLayer.color = tint
 	
@@ -130,8 +135,9 @@ func _ready() -> void:
 	
 	if is_end:
 		spawn_item()
-	else:
+	elif not GameData.is_escaping:
 		wants_to_spawn = true
+		is_locked = true
 
 func _process(delta: float) -> void:
 	var t = create_tween()
@@ -143,15 +149,19 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	enter_timer -= delta
 	if not GameData.is_escaping: return
+	max_enemies_in_wave = 100
 	var con_num = -1
 	for c in connections: if c: con_num += 1
-	enemy_credits = mall_flat[GameData.mall_ind] * 1.5
+	enemy_credits = mall_flat[GameData.mall_ind]
 	enemy_credits *= size_scaling[con_num]
 	enemy_credits = int(enemy_credits)
+	enemy_credits = max(enemy_credits, 10)
 	escape_timer -= delta
 	if escape_timer <= 0:
-		escape_timer += 0.5
-		populate_enemies()
+		escape_timer += 5
+		var enemy_list = get_enemy_list()
+		spawn_wave(enemy_list)
+		
 
 func spawn_item():
 	item = item_scene.instantiate()
@@ -176,36 +186,39 @@ func populate_enemies():
 	var enemy_list = get_enemy_list()
 	enemies_left = len(enemy_list)
 	while enemy_list:
-		var spawns = get_spawn_point_list()
-		
-		var scored_spawns = score_spawn_list(spawns)
-		
-		var enemy_num = min(len(scored_spawns.keys()), len(enemy_list), max_enemies_in_wave)
-		
-		for i in enemy_num:
-			var cur_enemy = enemy_list.pick_random()
-			enemy_list.erase(cur_enemy)
-			
-			var total_score = 0
-			for sc in scored_spawns.values(): total_score += sc
-			
-			var r = randf() * total_score
-			var c = 0.
-			var cur_spawn
-			for s in scored_spawns.keys():
-				var score = scored_spawns[s]
-				c += score
-				
-				if c >= r:
-					cur_spawn = s
-					total_score -= score
-					break
-			
-			scored_spawns.erase(cur_spawn)
-			
-			spawn_enemy(cur_spawn, cur_enemy)
-		
+		spawn_wave(enemy_list)
 		await get_tree().create_timer(5, false).timeout
+
+func spawn_wave(enemy_list):
+	var spawns = get_spawn_point_list()
+	
+	var scored_spawns = score_spawn_list(spawns)
+	
+	var enemy_num = min(len(scored_spawns.keys()), len(enemy_list), max_enemies_in_wave)
+	
+	for i in enemy_num:
+		var cur_enemy = enemy_list.pick_random()
+		enemy_list.erase(cur_enemy)
+		
+		var total_score = 0
+		for sc in scored_spawns.values(): total_score += sc
+		
+		var r = randf() * total_score
+		var c = 0.
+		var cur_spawn
+		for s in scored_spawns.keys():
+			var score = scored_spawns[s]
+			c += score
+			
+			if c >= r:
+				cur_spawn = s
+				total_score -= score
+				break
+		
+		scored_spawns.erase(cur_spawn)
+		
+		spawn_enemy(cur_spawn, cur_enemy)
+	
 
 func score_spawn_list(spawns: Array[Vector2]) -> Dictionary[Vector2, float]:
 	var new_list: Dictionary[Vector2, float] = {}
@@ -218,7 +231,7 @@ func score_spawn_list(spawns: Array[Vector2]) -> Dictionary[Vector2, float]:
 	
 	for s in spawns:
 		var player_dist = s.distance_to(player_pos)
-		var score = 0.2 + (1. - player_dist / max_dist) * 0.8
+		var score = 0.05 + (1. - player_dist / max_dist) * 0.95
 		score = clampf(score, 0, 1)
 		new_list[s] = score
 	
@@ -303,7 +316,8 @@ func spawn_enemy(pos: Vector2, ene: PackedScene) -> void:
 
 func enemy_died(enemy) -> void:
 	enemies_left -= 1
-	if enemies_left <= 0:
+	if enemies_left <= 0 and is_locked:
+		is_locked = false
 		for d in doors.get_children():
 			d.unlock()
 

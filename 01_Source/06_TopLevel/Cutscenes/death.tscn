@@ -85,12 +85,12 @@ _data = {
 &"fade_out": SubResource("Animation_o6s3g")
 }
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_i3ebn"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cc3j6"]
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("5_pmsxa")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x7esg"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_i3ebn"]
 random_pitch = 1.1
 streams_count = 1
 stream_0/stream = ExtResource("6_cc3j6")
@@ -153,20 +153,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_i3ebn")
-volume_db = -15.0
-pitch_scale = 4.0
-
-[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_x7esg")
-volume_db = -5.0
-pitch_scale = 5.0
-
 [node name="Static" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_cc3j6")
 volume_db = -20.0
 autoplay = true
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_cc3j6")
+volume_db = -5.0
+pitch_scale = 4.0
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_i3ebn")
+volume_db = -5.0
+pitch_scale = 3.0
 
 [connection signal="mouse_entered" from="Node2D/TryAgain" to="Node2D/TryAgain" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Node2D/TryAgain" to="Node2D/TryAgain" method="_on_mouse_exited"]

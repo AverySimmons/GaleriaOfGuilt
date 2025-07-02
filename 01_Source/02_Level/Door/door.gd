@@ -12,10 +12,12 @@ var stair_sprite = preload("res://00_Assets/00_Sprites/Room_sprites/stairs_tiles
 var is_stair = false
 var is_top = false
 
+var is_locked = false
+
 signal exit(dir: Vector2)
 
 func _physics_process(delta: float) -> void:
-	if has_overlapping_areas():
+	if has_overlapping_areas() and not is_locked:
 		exit.emit(direction)
 
 func setup_sprite():
@@ -31,8 +33,11 @@ func setup_sprite():
 func lock():
 	var t = create_tween()
 	t.tween_property($Lock, "modulate", Color(1,1,1,1), 0.2)
+	is_locked = true
 
 func unlock():
 	var t = create_tween()
 	t.tween_property($Lock, "modulate", Color(1,1,1,0), 0.2)
 	$UnlockSound.play()
+	await get_tree().create_timer(0.4, false).timeout
+	is_locked = false

@@ -17,6 +17,7 @@ func _ready() -> void:
 		c.chosen.connect(choice_chosen)
 
 func display_upgrades(upgrades: Array[Upgrade]) -> void:
+	$AudioStreamPlayer.play()
 	SignalBus.pause.emit()
 	for i in 3:
 		choices[i].format(upgrades[i])

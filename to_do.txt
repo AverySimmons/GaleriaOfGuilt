@@ -1,12 +1,6 @@
 all scene transitions (what should these look like?)
-sounds effect implemented
 finalize upgrade text
 I want to add controller support but I don't have a controller
-enemies spawning on escape
-dashing into a wall feels bad
-projectiles shouldnt disapear when dashed into
-
-### Avery
 
 adjust lots of values
 player values
@@ -43,6 +37,3 @@ engulfing maw: pretty broken, gives an insane amount of blood and does 2 hits of
 vampiric frenzy: again we have 4 of these glass cannon ones which feels like a lot, this one is my least favorite bc getting more blood doesnt feel noticable
 
 THINK OF A TITLE
-
-sprites / shaders needed:
-enemy spawning in

@@ -5,6 +5,7 @@ uniform float blood_scale : hint_range(.1, 5., .1);
 uniform float blood_intensity : hint_range(0.0, 1.0);
 uniform float res_x_over_y = 0;
 uniform float hit_flash = 0;
+uniform float red_amount = 0.;
 
 // use offsets only if blood_scale > 2 or higher
 uniform float offset_x : hint_range(0.0, 1.0, 0.1);
@@ -36,7 +37,10 @@ void fragment() {
 	col = mix(col, blood, blood.r * 0.7);
 	col.a = alpha;
 	
+	float al = COLOR.a;
 	COLOR = col * (1. + hit_flash * vec4(39,2.7,31,1));
+	COLOR.rgb = mix(COLOR.rgb, vec3(1,0,0), red_amount);
+	COLOR.a *= al;
 }
 
 //void light() {

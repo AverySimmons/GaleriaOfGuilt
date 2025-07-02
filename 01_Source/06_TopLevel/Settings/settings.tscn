@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://x4hnxtibjtu6"]
+[gd_scene load_steps=18 format=3 uid="uid://x4hnxtibjtu6"]
 
 [ext_resource type="Script" uid="uid://bodr6wa1h4hrd" path="res://01_Source/06_TopLevel/Settings/settings.gd" id="1_2rbca"]
 [ext_resource type="Texture2D" uid="uid://dtitbxq47t27p" path="res://00_Assets/00_Sprites/UI_sprites/pause_menu_base.png" id="1_mxjcm"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cal4x7642mvfq" path="res://00_Assets/00_Sprites/UI_sprites/volume_button.png" id="4_kcbnx"]
 [ext_resource type="Texture2D" uid="uid://d32ywa13jfb2i" path="res://00_Assets/00_Sprites/UI_sprites/volume_bar.png" id="5_euhdr"]
 [ext_resource type="Script" uid="uid://cbl1x8cyborsr" path="res://01_Source/06_TopLevel/Settings/volume_slider.gd" id="6_euyi2"]
+[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="8_kcbnx"]
+[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="9_euhdr"]
+[ext_resource type="AudioStream" uid="uid://cgogu5xi8pmo7" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="10_euhdr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svc54"]
 
@@ -98,6 +101,16 @@ _data = {
 &"open": SubResource("Animation_2rbca")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_euyi2"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("8_kcbnx")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_svc54"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("9_euhdr")
+
 [node name="Settings" type="Node2D"]
 script = ExtResource("1_2rbca")
 
@@ -155,6 +168,21 @@ libraries = {
 }
 autoplay = "open"
 speed_scale = 6.0
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_euyi2")
+volume_db = -5.0
+pitch_scale = 4.0
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_svc54")
+volume_db = -5.0
+pitch_scale = 3.0
+
+[node name="Open" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_euhdr")
+pitch_scale = 3.0
+autoplay = true
 
 [connection signal="value_changed" from="HSlider" to="HSlider" method="_on_value_changed"]
 [connection signal="mouse_entered" from="ResumeButton" to="." method="_on_resume_button_mouse_entered"]

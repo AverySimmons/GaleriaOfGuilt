@@ -14,7 +14,7 @@ var time_passed := 0.0
 func _ready() -> void:
 	set_scene(is_night)
 	var t = create_tween()
-	t.tween_property($RoadAmbience, "volume_db", -5, 1)
+	t.tween_property($RoadAmbience, "volume_db", 5, 1)
 
 func _process(delta: float) -> void:
 	time_passed += delta * 20

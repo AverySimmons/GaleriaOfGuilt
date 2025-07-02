@@ -49,6 +49,8 @@ var burst_timer: float = 0
 var burst_mult: float = 1.3
 var burst_mult_actual: float = 1.0
 
+var bb_is_decreasing = false
+
 signal burst_begin
 signal burst_end
 
@@ -301,7 +303,14 @@ func _physics_process(delta: float) -> void:
 		SignalBus.bb_change.emit()
 		heal_amt -= blood_bar
 		if !UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN]:
+			if not bb_is_decreasing and current_hp < max_hp:
+				bb_is_decreasing = true
+				$BloodHealing.play()
 			heal_damage(heal_amt * bb_to_health_ratio)
+	if bb_timer != 0 or current_hp >= max_hp:
+		bb_is_decreasing = false
+		if $BloodHealing.playing:
+			$BloodHealing.stop()
 	
 	if UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN] && blood_bar >= 200:
 		heal_damage(hp_regen*delta)

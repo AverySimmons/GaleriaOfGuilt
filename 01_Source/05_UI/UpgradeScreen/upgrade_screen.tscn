@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://uv6n8vwwakt0"]
+[gd_scene load_steps=14 format=3 uid="uid://uv6n8vwwakt0"]
 
 [ext_resource type="Script" uid="uid://c0ty1eebjldbe" path="res://01_Source/05_UI/UpgradeScreen/upgrade_screen.gd" id="1_3ndp2"]
 [ext_resource type="PackedScene" uid="uid://dg88ku5vis6l8" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.tscn" id="1_8m1r4"]
 [ext_resource type="Shader" uid="uid://tgwajhd515w2" path="res://01_Source/05_UI/UpgradeScreen/disolve.gdshader" id="2_ypphk"]
+[ext_resource type="AudioStream" uid="uid://b8lhaetphjwsj" path="res://00_Assets/02_SoundEffects/enemy_indicator_3.wav" id="4_kuq1d"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ffu50"]
 
@@ -414,3 +415,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_3ndp2")
 }
 speed_scale = 0.5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kuq1d")
+volume_db = 10.0
+pitch_scale = 2.0

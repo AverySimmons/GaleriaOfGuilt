@@ -69,11 +69,13 @@ func format(upgrade: Upgrade):
 
 func on_hover():
 	animation_player.play("hovered")
+	$ButtonHover.play()
 
 func stop_hover():
 	animation_player.play("stop_hover")
 
 func clicked():
+	$ButtonClick.play()
 	pause_choices.emit()
 	animation_player.play("shrink_out")
 	await animation_player.animation_finished

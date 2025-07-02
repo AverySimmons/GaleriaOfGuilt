@@ -29,6 +29,7 @@ func _ready() -> void:
 	SignalBus.remove_blood_line.connect(remove_blood_meter_marker)
 	if UpgradeData.upgrades_gained[UpgradeData.ENDLESS_VOID]:
 		remove_blood_meter_marker()
+	special_cooldown.texture = UpgradeData.current_ability_class.icon
 	
 	var xp_fill_perc = GameData.player.current_exp / GameData.player.exp_needed
 	xp_fill.material.set_shader_parameter("fill_percent", xp_fill_perc)

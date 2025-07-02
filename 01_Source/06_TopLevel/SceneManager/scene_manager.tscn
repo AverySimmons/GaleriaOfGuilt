@@ -5,12 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
 [ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rvphk"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wp6i4"]
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("3_wp6i4")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5q8bt"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_a4pbu"]
 random_pitch = 1.1
 streams_count = 1
 stream_0/stream = ExtResource("4_a4pbu")
@@ -61,14 +61,14 @@ text = "Play"
 layer = 100
 
 [node name="ButtonHover" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_rvphk")
-volume_db = -15.0
+stream = SubResource("AudioStreamRandomizer_wp6i4")
+volume_db = -5.0
 pitch_scale = 4.0
 
 [node name="ButtonClick" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_5q8bt")
+stream = SubResource("AudioStreamRandomizer_a4pbu")
 volume_db = -5.0
-pitch_scale = 5.0
+pitch_scale = 3.0
 
 [connection signal="mouse_entered" from="TitleScreen/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreen/Button" to="." method="_on_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cdbc88ye3bth1"]
+[gd_scene load_steps=67 format=3 uid="uid://cdbc88ye3bth1"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_whe2v"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_dl58o"]
@@ -29,6 +29,7 @@ shader_parameter/blood_scale = 0.5
 shader_parameter/blood_intensity = 0.0
 shader_parameter/res_x_over_y = 1.333
 shader_parameter/hit_flash = 0.0
+shader_parameter/red_amount = 0.0
 shader_parameter/offset_x = 0.0
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_6j3kt")
@@ -487,6 +488,67 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("15_6j3kt")
 
+[sub_resource type="Animation" id="Animation_iu5hu"]
+resource_name = "spawn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/red_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tulm2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/red_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sq15d"]
+_data = {
+&"RESET": SubResource("Animation_tulm2"),
+&"spawn": SubResource("Animation_iu5hu")
+}
+
 [node name="Worm" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_whe2v")
@@ -573,3 +635,9 @@ pitch_scale = 0.5
 stream = SubResource("AudioStreamRandomizer_6j3kt")
 volume_db = 5.0
 pitch_scale = 0.75
+
+[node name="Spawn" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sq15d")
+}
+autoplay = "spawn"

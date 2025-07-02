@@ -93,6 +93,7 @@ func item_dialog():
 	Dialogic.start("finding_item_" + str(GameData.mall_ind + 1)).process_mode = Node.PROCESS_MODE_ALWAYS
 
 func stage_complete():
+	if player_dying: return
 	GameData.mall_ind += 1
 	game_manager.call_deferred("queue_free")
 	var t = create_tween()

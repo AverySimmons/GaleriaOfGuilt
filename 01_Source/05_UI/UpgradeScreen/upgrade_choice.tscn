@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://dg88ku5vis6l8"]
+[gd_scene load_steps=21 format=3 uid="uid://dg88ku5vis6l8"]
 
 [ext_resource type="Shader" uid="uid://bf4gmkm1m3c8t" path="res://01_Source/05_UI/UpgradeScreen/upgrade_gradient.gdshader" id="1_ijyn2"]
 [ext_resource type="Script" uid="uid://cw1d5vq6vxdxq" path="res://01_Source/05_UI/UpgradeScreen/upgrade_choice.gd" id="1_ud4xx"]
 [ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="2_ud4xx"]
 [ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_xdm4q"]
 [ext_resource type="Texture2D" uid="uid://bve6dpeqieuwt" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword1.png" id="4_ud4xx"]
+[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="6_f4sp1"]
+[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="7_48lwa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuq1d"]
 resource_local_to_scene = true
@@ -201,6 +203,16 @@ _data = {
 &"stop_hover": SubResource("Animation_ud4xx")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j28b5"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("6_f4sp1")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hvki3"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("7_48lwa")
+
 [node name="UpgradeChoice" type="Control"]
 custom_minimum_size = Vector2(293, 420)
 layout_mode = 3
@@ -283,3 +295,13 @@ grow_vertical = 2
 libraries = {
 &"": SubResource("AnimationLibrary_v457b")
 }
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_j28b5")
+volume_db = -5.0
+pitch_scale = 4.0
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_hvki3")
+volume_db = -5.0
+pitch_scale = 3.0
