@@ -12,5 +12,5 @@ func _init() -> void:
 func choose_upgrade() -> void:
 	super.choose_upgrade()
 	GameData.player.swipe_blood_cost += 2
-	GameData.player.upgrade_swipe_mult *= 1.3
+	GameData.player.upgrade_swipe_mult *= 1.5
 	return

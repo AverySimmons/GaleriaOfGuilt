@@ -1,6 +1,6 @@
 extends Node
 # THE BIG DECLARATION
-const NUM_UPGRADES: int = 23
+const NUM_UPGRADES: int = 24
 const BITE: int = 0
 const SHOTGUN: int = 1
 const GRENADE: int = 2
@@ -24,12 +24,14 @@ const DASH_DISTANCE_BLOOD_GAIN: int = 19
 const SP_MORE_BLOOD_CD: int = 20
 const SPCD_DOWN_BLOOD_DOWN: int = 21
 const ALL_UPGRADES: int = 22
+const BR_INCREASE: int = 23
 
 var upgrades_gained: Array
 
 func _ready() -> void:
 	for i in range(NUM_UPGRADES):
 		upgrades_gained.append(false)
+	SignalBus.player_death.connect(reset)
 	pass
 
 @onready var BITE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/bite_upgrade.gd").new()
@@ -54,14 +56,27 @@ func _ready() -> void:
 @onready var ENDLESS_VOID_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/ever_consuming_void.gd").new()
 @onready var ENTER_ROOM_BLOOD_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/blood_at_start.gd").new()
 @onready var RAPID_JAWS_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/lower_spcd_lower_bg.gd").new()
+@onready var BR_INCREASE_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/bloodrage_mult_inc.gd").new()
 
 @onready var selectable_upgrades: Array[Upgrade] = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
 											INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
 											BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS,
 											SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
 											DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS, ENDLESS_VOID_CLASS,
-											ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS]
+											ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS, BR_INCREASE_CLASS]
 
 @onready var unseen_upgrades: Array[Upgrade] = selectable_upgrades.duplicate()
 
 @onready var current_ability_class = BITE_CLASS
+
+func reset() -> void:
+	for i in range(NUM_UPGRADES):
+		upgrades_gained[i] = false
+	selectable_upgrades = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
+							INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
+							BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS,
+							SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
+							DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS, ENDLESS_VOID_CLASS,
+							ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS, BR_INCREASE_CLASS]
+	unseen_upgrades = selectable_upgrades.duplicate()
+	return

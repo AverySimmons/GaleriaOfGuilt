@@ -12,5 +12,5 @@ func _init() -> void:
 func choose_upgrade() -> void:
 	super.choose_upgrade()
 	GameData.player.bb_multiplier2 *= 0.85
-	GameData.player.baseline_speed += 100
+	GameData.player.baseline_speed += 140
 	return

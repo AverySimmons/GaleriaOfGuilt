@@ -11,6 +11,7 @@ var hit_enemies: Dictionary = {}
 var enemies_just_entered: Array
 var damage_unmodified: float = 20
 var damage: float = damage_unmodified
+var damage_mult = 1.0
 var haha_yooo: float = 0.4
 var attack_slowdown: float = 0.4
 var attack_slowdown_actual: float = 1.0
@@ -62,7 +63,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 	# Enemies flash red - In enemy take damage thing
 	# Animation player stuff
 	# Audio
-	damage *= upgrade_mult
+	damage *= upgrade_mult * damage_mult
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = parent.global_position.direction_to(mouse_pos)
 	var angle: float = direction.angle()
@@ -138,11 +139,15 @@ func _on_area_entered(area: Area2D) -> void:
 func on_burst_begin() -> void:
 	attack_slowdown = 1.0
 	collision_shape_2d.get_node("Slash").modulate = Color(1.0, 0.8, 0.9)
+	if UpgradeData.upgrades_gained[UpgradeData.BR_INCREASE]:
+		damage_mult = 1.5
 	return
 
 func on_burst_end() -> void:
 	attack_slowdown = haha_yooo
 	collision_shape_2d.get_node("Slash").modulate = Color(1, 1, 1)
+	if UpgradeData.upgrades_gained[UpgradeData.BR_INCREASE]:
+		damage_mult = 1.0
 	return
 
 func dash_cancel() -> void:
