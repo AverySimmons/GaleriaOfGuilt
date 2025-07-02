@@ -4,8 +4,8 @@ extends Area2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 var is_active: bool = false
-var active_time: float = 1.25
-var active_timer: float = 1.25
+var active_time: float = 0.6
+var active_timer: float = 0.6
 var damage : float = 20
 
 func _ready() -> void:

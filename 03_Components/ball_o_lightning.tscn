@@ -1,10 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bbm48b8a0gwuf"]
+[gd_scene load_steps=12 format=3 uid="uid://bbm48b8a0gwuf"]
 
 [ext_resource type="Script" uid="uid://gs05bg4u00my" path="res://01_Source/01_Combat/Enemies/ball_o_lightning.gd" id="1_83qs0"]
 [ext_resource type="Texture2D" uid="uid://ced5cgyipyvei" path="res://00_Assets/00_Sprites/Enemies/lizard_lightning_attack_ball_o_lightning_special_effect.png" id="2_fta0d"]
 [ext_resource type="Shader" uid="uid://cbfbpgic6dipr" path="res://03_Components/ball_o_lightning.gdshader" id="3_fta0d"]
-[ext_resource type="AudioStream" uid="uid://b8lhaetphjwsj" path="res://00_Assets/02_SoundEffects/enemy_indicator_3.wav" id="4_fsts2"]
-[ext_resource type="AudioStream" uid="uid://jsjqghh6rjhe" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="5_1bwan"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cule5"]
 radius = 37.0135
@@ -207,16 +205,6 @@ _data = {
 &"ball_o_lightning_startup": SubResource("Animation_kkm87")
 }
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fsts2"]
-random_pitch = 1.3
-streams_count = 1
-stream_0/stream = ExtResource("4_fsts2")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8unnm"]
-random_pitch = 1.3
-streams_count = 1
-stream_0/stream = ExtResource("5_1bwan")
-
 [node name="BallOLightning" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
@@ -245,11 +233,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_vxyij")
 }
 autoplay = "ball_o_lightning_startup"
-
-[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_fsts2")
-volume_db = 10.0
-pitch_scale = 2.0
-
-[node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_8unnm")
