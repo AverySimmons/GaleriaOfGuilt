@@ -39,7 +39,7 @@ var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/en
 var item_scene = preload("res://01_Source/02_Level/Item/item.tscn")
 
 var enemy_scenes = {
-	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 15.,
+	preload("res://01_Source/01_Combat/Enemies/lizard.tscn") : 1.,
 	preload("res://01_Source/01_Combat/Enemies/worm.tscn") : 10.,
 	preload("res://01_Source/01_Combat/Enemies/locust.tscn") : 5.,
 }

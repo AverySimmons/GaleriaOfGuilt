@@ -23,10 +23,10 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 0
 @export var bb_max: float = 250
-@export var swipe_bb_gain: float = 10
-@export var special_bb_gain: float = 15
+@export var swipe_bb_gain: float = 7
+@export var special_bb_gain: float = 10
 var swipe_bb_actual: float = 1
-var special_bb_actual: float = 2
+var special_bb_actual: float = 1
 var bb_multiplier: float = 1.0
 var bb_multiplier2: float = 1.0 # If you want to know what this is ask me bc tbh idrk anymore
 @export var bb_kill: float = 5
@@ -165,20 +165,21 @@ func _physics_process(delta: float) -> void:
 					
 				dashed_into_enemies[enemy] = null
 		# In a dash: If it hits a wall, should end the dash
-		var distance: Vector2 = velocity * delta
-		while distance.length() > 0:
-			var collision = move_and_collide(distance)
-			if collision != null:
-				var collider = collision.get_collider()
-				if collider is TileMap:
-					$Dash.end_dash()
-					distance = Vector2.ZERO
-				elif collider is Enemy:
-					distance = collision.get_remainder()
-				else:
-					distance = Vector2.ZERO
-			else:
-				break
+		#wwwdwvar distance: Vector2 = velocity * delta
+		move_and_slide()
+		#while distance.length() > 0:
+			#var collision = move_and_collide(distance)
+			#if collision != null:
+				#var collider = collision.get_collider()
+				#if collider is TileMap:
+					#$Dash.end_dash()
+					#distance = Vector2.ZERO
+				#elif collider is Enemy:
+					#distance = collision.get_remainder()
+				#else:
+					#distance = Vector2.ZERO
+			#else:
+				#break
 		
 		pass
 	
