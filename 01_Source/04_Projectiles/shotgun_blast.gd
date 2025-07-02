@@ -8,6 +8,7 @@ var damage: float
 var flinch_amt: float
 var direction: Vector2
 var air_drag: float
+var is_despawning = false
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
@@ -15,7 +16,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	if $AnimationPlayer.is_playing(): return
+	if is_despawning: return
 	position += velocity * delta
 	cur_distance += abs(velocity.length() * delta)
 	
@@ -48,9 +49,12 @@ func _on_area_entered(area) -> void:
 	return
 
 func despawn() -> void:
+	if is_despawning: return
+	is_despawning = true
 	set_deferred("monitoring", false)
 	$AnimationPlayer.play("explode")
-	await $AnimationPlayer.animation_finished
+	$Explosion.play()
+	await $Explosion.finished
 	queue_free()
 	return
 

@@ -28,7 +28,7 @@ var mall_scaling: Array[float] = [
 ]
 
 var mall_flat: Array[float] = [
-	5, 20, 25, 30, 35
+	60, 20, 25, 30, 35
 ]
 
 var size_scaling: Array[float] = [
@@ -53,8 +53,8 @@ var item_sprites = [
 ]
 
 var max_enemies_in_wave = 5
-var enemy_spacing = 200
-var enemy_player_spacing = 330
+var enemy_spacing = 100
+var enemy_player_spacing = 300
 
 var arrow_scene = preload("res://03_Components/arrow_indicator.tscn")
 
@@ -176,14 +176,15 @@ func populate_enemies():
 		var spawns = get_spawn_point_list()
 		
 		var scored_spawns = score_spawn_list(spawns)
-		var total_score = 0
-		for i in scored_spawns.values(): total_score += i
 		
-		var enemy_num = min(len(scored_spawns), len(enemy_list), max_enemies_in_wave)
+		var enemy_num = min(len(scored_spawns.keys()), len(enemy_list), max_enemies_in_wave)
 		
 		for i in enemy_num:
 			var cur_enemy = enemy_list.pick_random()
 			enemy_list.erase(cur_enemy)
+			
+			var total_score = 0
+			for sc in scored_spawns.values(): total_score += sc
 			
 			var r = randf() * total_score
 			var c = 0.
@@ -196,6 +197,7 @@ func populate_enemies():
 					cur_spawn = s
 					total_score -= score
 					break
+			
 			scored_spawns.erase(cur_spawn)
 			
 			spawn_enemy(cur_spawn, cur_enemy)
@@ -206,16 +208,14 @@ func score_spawn_list(spawns: Array[Vector2]) -> Dictionary[Vector2, float]:
 	var new_list: Dictionary[Vector2, float] = {}
 	
 	var player_pos = GameData.player.global_position
-	var average_dist: float = 0.
+	var max_dist: float = 0.
 	
 	for s in spawns:
-		average_dist += s.distance_to(player_pos)
-	
-	average_dist /= float(spawns.size())
+		max_dist = max(max_dist, s.distance_to(player_pos))
 	
 	for s in spawns:
 		var player_dist = s.distance_to(player_pos)
-		var score = 1. - player_dist / average_dist
+		var score = 0.2 + (1. - player_dist / max_dist) * 0.8
 		score = clampf(score, 0, 1)
 		new_list[s] = score
 	
@@ -256,7 +256,7 @@ func get_spawn_point_list() -> Array[Vector2]:
 	
 	var space_state = get_world_2d().direct_space_state
 	
-	for i in 30:
+	for i in 60:
 		var rand_pos = Vector2(randf_range(top_left.x+100, bot_right.x-100), \
 								randf_range(top_left.y+100, bot_right.y-100))
 		
@@ -275,7 +275,7 @@ func check_enemy_spawn(pos: Vector2, spawns: Array[Vector2], \
 		if pos.distance_to(s) < enemy_spacing: return false
 	
 	var circle = CircleShape2D.new()
-	circle.radius = 200
+	circle.radius = 150
 	
 	var params = PhysicsShapeQueryParameters2D.new()
 	params.shape = circle

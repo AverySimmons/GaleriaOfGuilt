@@ -1,5 +1,7 @@
 extends Control
 
+@export var noise: FastNoiseLite
+
 @onready var blood_vignette: ColorRect = $BloodVignette
 @onready var blood_bar: Sprite2D = $BloodBar
 @onready var hp_fill: Sprite2D = $HealthBar/Fill
@@ -7,6 +9,13 @@ extends Control
 @onready var blood_meter_marker: Sprite2D = $BloodBar/BloodMeterMarker
 @onready var special_cooldown: Sprite2D = $SpecialCooldown
 @onready var special_progress: TextureProgressBar = $SpecialCooldownProgress
+@onready var health_bar: Sprite2D = $HealthBar
+
+var tot_time = 0
+
+var shake_timer = 0
+var shake_time = 0.75
+@onready var hp_bar_start_pos = health_bar.global_position
 
 var bb_tween: Tween
 var hp_tween: Tween
@@ -33,6 +42,11 @@ func _process(delta: float) -> void:
 	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.actual_special_cooldown)*100, 0.0, 100.0)
 	special_progress.value = ratio
 	#print(special_progress.value)
+	health_bar.global_position = hp_bar_start_pos + Vector2(noise.get_noise_1d(tot_time * 1500), \
+								noise.get_noise_1d(tot_time*1500+100)) * shake_timer * 30
+	
+	tot_time += delta
+	shake_timer = move_toward(shake_timer, 0, delta)
 	pass
 
 func remove_blood_meter_marker():
@@ -55,7 +69,9 @@ func xp_change() -> void:
 	var t = create_tween()
 	t.tween_property(xp_fill, "material:shader_parameter/fill_percent", fill_perc, 0.25)
 
-func health_change() -> void:
+func health_change(is_damage: bool) -> void:
+	if is_damage:
+		shake_timer = shake_time
 	var fill_perc = GameData.player.current_hp / float(GameData.player.max_hp)
 	var cur_fill: float = hp_fill.material.get_shader_parameter("fill_percent")
 	if hp_tween: hp_tween.kill()

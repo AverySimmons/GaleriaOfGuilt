@@ -30,6 +30,7 @@ func _setup() -> void:
 
 func _enter() -> void:
 	target_node = enemy
+	# enemy.get_node("ChargeSound").play()
 	shaking_time = 0
 	has_locked_dir = false
 	enemy.target_ind = enemy.level.spawn_arrow(0.5, 64, enemy.indicator_color)

@@ -9,8 +9,10 @@ var active_timer: float = 1.25
 var damage : float = 20
 
 func _ready() -> void:
-	await get_tree().create_timer(active_time).timeout
+	AudioData.play_sound("lightning_charge", $SpawnSound)
+	await get_tree().create_timer(active_time, false).timeout
 	$AnimationPlayer.play("ball_o_lightning_damaging")
+	AudioData.play_sound("lightning_explode", $ExplodeSound)
 	await $AnimationPlayer.animation_finished
 	call_deferred("queue_free")
 

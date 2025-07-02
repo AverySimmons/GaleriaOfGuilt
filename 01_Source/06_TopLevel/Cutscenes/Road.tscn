@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://baexbqtssd8nu"]
+[gd_scene load_steps=10 format=3 uid="uid://baexbqtssd8nu"]
 
 [ext_resource type="Script" uid="uid://qvy4jlpkee4h" path="res://01_Source/06_TopLevel/Cutscenes/road.gd" id="1_gy5pi"]
 [ext_resource type="Texture2D" uid="uid://c01mkplhd58r6" path="res://00_Assets/00_Sprites/Cutscene_sprites/morning_background.png" id="2_0ig6n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bmarg5htp8ilx" path="res://00_Assets/00_Sprites/Cutscene_sprites/night_background.png" id="5_0gmg6"]
 [ext_resource type="Texture2D" uid="uid://cqusahk2rf0he" path="res://00_Assets/00_Sprites/Cutscene_sprites/night_foreground.png" id="6_24ggo"]
 [ext_resource type="Texture2D" uid="uid://bl6o3nsq0ih10" path="res://00_Assets/00_Sprites/Cutscene_sprites/viola_driving_cutscene_night.png" id="7_xaksh"]
+[ext_resource type="AudioStream" uid="uid://bgpw1s00h4q5g" path="res://00_Assets/02_SoundEffects/car_ambience.wav" id="8_24ggo"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gy5pi"]
 
@@ -64,3 +65,8 @@ scroll_scale = Vector2(0, 0)
 [node name="Sprite2D" type="Sprite2D" parent="Night/Parallax2D3"]
 position = Vector2(640, 360)
 texture = ExtResource("7_xaksh")
+
+[node name="RoadAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_24ggo")
+volume_db = -20.0
+autoplay = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=47 format=3 uid="uid://bj5h3s11xhapu"]
 
 [ext_resource type="Texture2D" uid="uid://ce1jipg3j28dg" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_x4uw2"]
 [ext_resource type="AudioStream" uid="uid://c5grabv07e3m0" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
 [ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
+[ext_resource type="AudioStream" uid="uid://ped8ym86x0ho" path="res://00_Assets/02_SoundEffects/enemy_indicator_2.wav" id="13_iu5hu"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iu5hu"]
 
@@ -258,6 +259,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("11_j15t7")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tulm2"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("13_iu5hu")
+
 [node name="Locust" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 8
@@ -324,6 +330,7 @@ texture = ExtResource("6_tcqde")
 
 [node name="LocustAttack" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_j15t7")
+volume_db = 5.0
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_tnwp0")
@@ -332,4 +339,9 @@ volume_db = 16.0
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_iu5hu")
 volume_db = 15.0
+pitch_scale = 0.5
+
+[node name="ChargeSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_tulm2")
+volume_db = 7.0
 pitch_scale = 0.5

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://71jlh4ot3td3"]
+[gd_scene load_steps=10 format=3 uid="uid://71jlh4ot3td3"]
 
 [ext_resource type="Script" uid="uid://dqvmxsx0vsyql" path="res://01_Source/04_Projectiles/shotgun_blast.gd" id="1_rcbtq"]
 [ext_resource type="Texture2D" uid="uid://dfu0ee36uh2sq" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_shotgun_bullet_sprite.png" id="2_8wyyi"]
 [ext_resource type="Texture2D" uid="uid://d0kx60ciww8rj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="3_ggkjf"]
+[ext_resource type="AudioStream" uid="uid://00brbppvehee" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="4_rtbsv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wyyi"]
 size = Vector2(15, 60)
@@ -93,6 +94,10 @@ _data = {
 &"explode": SubResource("Animation_rtbsv")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_i2gy6"]
+streams_count = 1
+stream_0/stream = ExtResource("4_rtbsv")
+
 [node name="ShotgunBlast" type="Area2D"]
 collision_layer = 0
 collision_mask = 4
@@ -119,3 +124,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_oespb")
 }
 speed_scale = 3.0
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_i2gy6")
+volume_db = -6.0
+pitch_scale = 1.5

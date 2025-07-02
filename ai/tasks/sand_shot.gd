@@ -21,7 +21,6 @@ func _setup() -> void:
 func _enter() -> void:
 	mouth_pos = agent.mouth_pos.global_position
 	
-	
 	#if !agent.bullet_node:
 		#return
 	var sand_proj = sand_proj_scene.instantiate()

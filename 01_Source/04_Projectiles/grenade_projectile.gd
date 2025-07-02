@@ -66,7 +66,6 @@ func explode() -> void:
 	velocity = Vector2.ZERO
 	monitoring = true
 	await get_tree().physics_frame
-	$Explosion.visible = true
 	$Sprite2D.visible = false
 	$AnimationPlayer.play("explosion")
 	AudioData.play_sound("grenade_explosion", explosion_sound)
@@ -79,7 +78,7 @@ func explode() -> void:
 			player.gain_blood("special", 1.0, enemy)
 			enemies_hit[enemy] = null
 	
-	await get_tree().create_timer(explosion_time).timeout
+	await $ExplosionSound.finished
 	queue_free()
 	return
 

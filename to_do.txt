@@ -2,9 +2,9 @@ all scene transitions (what should these look like?)
 sounds effect implemented
 finalize upgrade text
 I want to add controller support but I don't have a controller
-enemies should not give xp on escape
 hp bar shake
 enemies spawning on escape
+change skill cooldown color
 
 adjust lots of values
 player values

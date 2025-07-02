@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://xoikojyvkrrx"]
+[gd_scene load_steps=30 format=3 uid="uid://xoikojyvkrrx"]
 
 [ext_resource type="Script" uid="uid://bolvkavyt28qx" path="res://01_Source/05_UI/overlay.gd" id="1_aqb7b"]
 [ext_resource type="Shader" uid="uid://orva0wcfmaii" path="res://01_Source/05_UI/blood_bar.gdshader" id="1_v104o"]
@@ -17,6 +17,8 @@
 [ext_resource type="Shader" uid="uid://h281i70ucd2m" path="res://02_Recources/00_Shaders/specialcdcircle.gdshader" id="14_l6mm0"]
 [ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="15_f4i42"]
 [ext_resource type="Texture2D" uid="uid://dyid55sdks4yl" path="res://00_Assets/00_Sprites/upgrade_icons/bite_glowing.png" id="15_hukq6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e0lrw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wvqx0"]
 shader = ExtResource("2_sn08a")
@@ -41,7 +43,7 @@ shader = ExtResource("14_e0lrw")
 
 [sub_resource type="Gradient" id="Gradient_5c0gh"]
 offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.7, 0.147, 0.322117, 0.588235)
+colors = PackedColorArray(0.51, 0, 0.00849987, 0.588235)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0ofvs"]
 gradient = SubResource("Gradient_5c0gh")
@@ -71,6 +73,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aqb7b")
+noise = SubResource("FastNoiseLite_e0lrw")
 
 [node name="BloodVignette" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_wvqx0")
@@ -114,23 +117,24 @@ texture = ExtResource("11_sn08a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ek8r3")
-position = Vector2(1213, 652)
+position = Vector2(1196, 638)
 texture = SubResource("GradientTexture2D_0ofvs")
 
 [node name="SpecialCooldown" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_e0lrw")
-position = Vector2(1213, 651)
+position = Vector2(1196, 637)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("15_hukq6")
 
 [node name="SpecialCooldownProgress" type="TextureProgressBar" parent="."]
-modulate = Color(0.28, 0.1512, 0.1512, 0.886275)
+modulate = Color(0.15, 0, 0.00249996, 0.886275)
 material = SubResource("ShaderMaterial_l6mm0")
 layout_mode = 0
-offset_left = 1143.0
-offset_top = 581.0
-offset_right = 1655.0
-offset_bottom = 1093.0
+offset_left = 1126.0
+offset_top = 567.0
+offset_right = 1638.0
+offset_bottom = 1079.0
 scale = Vector2(0.275159, 0.27472)
+value = 50.0
 fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_bsg8v")

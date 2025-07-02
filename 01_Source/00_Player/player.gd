@@ -434,7 +434,7 @@ func take_damage(amount: float) -> void:
 		SignalBus.player_death.emit()
 		pass
 	dealt_damage_took_damage = true
-	SignalBus.hp_change.emit()
+	SignalBus.hp_change.emit(true)
 	if sorryguysthisisstupidbutwererushing:
 		sorryguysthisisstupidbutwererushing = false
 		return
@@ -446,13 +446,13 @@ func take_damage(amount: float) -> void:
 	SignalBus.unpause.emit()
 	modulate = Color(1, 1, 1)
 	is_invincible = true
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.2).timeout
 	is_invincible = false
 	return
 
 func heal_damage(amount: float) -> void:
 	current_hp = move_toward(current_hp, max_hp, amount)
-	SignalBus.hp_change.emit()
+	SignalBus.hp_change.emit(false)
 	return
 
 func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:

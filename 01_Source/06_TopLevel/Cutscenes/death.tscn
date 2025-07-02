@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6ckunnkasuib"]
+[gd_scene load_steps=14 format=3 uid="uid://b6ckunnkasuib"]
 
 [ext_resource type="Texture2D" uid="uid://6e1l03iie5df" path="res://00_Assets/00_Sprites/UI_sprites/game_over_scren.png" id="1_ahbtf"]
 [ext_resource type="Script" uid="uid://dmufmqyxe52t" path="res://01_Source/06_TopLevel/Cutscenes/death.gd" id="1_o6s3g"]
 [ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="2_dlrx5"]
 [ext_resource type="Script" uid="uid://c4ht5tw4hys48" path="res://01_Source/06_TopLevel/Cutscenes/try_again.gd" id="3_o6s3g"]
+[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="5_pmsxa"]
+[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="6_cc3j6"]
+[ext_resource type="AudioStream" uid="uid://dvt3i4l4jtbt2" path="res://00_Assets/02_SoundEffects/radio_static.wav" id="7_cc3j6"]
 
 [sub_resource type="Animation" id="Animation_248a3"]
 length = 0.001
@@ -82,6 +85,16 @@ _data = {
 &"fade_out": SubResource("Animation_o6s3g")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_i3ebn"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("5_pmsxa")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x7esg"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("6_cc3j6")
+
 [node name="Death" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_o6s3g")
@@ -139,6 +152,21 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_i3ebn")
+volume_db = -15.0
+pitch_scale = 4.0
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_x7esg")
+volume_db = -5.0
+pitch_scale = 5.0
+
+[node name="Static" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_cc3j6")
+volume_db = -20.0
+autoplay = true
 
 [connection signal="mouse_entered" from="Node2D/TryAgain" to="Node2D/TryAgain" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Node2D/TryAgain" to="Node2D/TryAgain" method="_on_mouse_exited"]

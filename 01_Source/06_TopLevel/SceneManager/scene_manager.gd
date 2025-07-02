@@ -18,7 +18,7 @@ var death
 
 var player_dying = false
 
-var test_game = false
+var test_game = true
 
 var was_paused = false
 
@@ -33,6 +33,7 @@ func _ready() -> void:
 	if test_game:
 		$TitleScreen.call_deferred("queue_free")
 		spawn_game_manager()
+		$MenuMusic.paused = true
 		return
 	
 	
@@ -104,7 +105,7 @@ func stage_complete():
 	else:
 		$CarMusic.play()
 		var t2 = create_tween()
-		t2.tween_property($CarMusic, "volume", 0.35, 0.5)
+		t2.tween_property($CarMusic, "volume", 0.5, 0.5)
 		add_van(true)
 		Dialogic.start("post_mall_" + str(GameData.mall_ind))
 	
@@ -132,12 +133,13 @@ func unpause_game() -> void:
 	get_tree().paused = false
 
 func _on_button_pressed() -> void:
+	$ButtonClick.play()
 	var t = create_tween()
 	t.tween_property($MenuMusic, "volume", 0., 0.5)
 	$CarMusic.volume = 0.
 	$CarMusic.play()
 	var t2 = create_tween()
-	t2.tween_property($CarMusic, "volume", 0.35, 0.5)
+	t2.tween_property($CarMusic, "volume", 0.5, 0.5)
 	
 	$TitleScreen.call_deferred("queue_free")
 	intro = intro_scene.instantiate()
@@ -197,3 +199,7 @@ func death_reset():
 	GameData.player.get_parent().remove_child(GameData.player)
 	game_manager.call_deferred("queue_free")
 	spawn_game_manager()
+
+
+func _on_button_mouse_entered() -> void:
+	$ButtonHover.play()

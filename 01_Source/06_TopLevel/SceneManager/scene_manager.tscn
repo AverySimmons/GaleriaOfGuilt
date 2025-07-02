@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://iudn154k7uar"]
+[gd_scene load_steps=7 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://bvrvey0ql7x8m" path="res://00_Assets/00_Sprites/Cutscene_sprites/title_screen.png" id="2_mrl32"]
+=======
+[ext_resource type="Texture2D" uid="uid://byc5gw7glt56f" path="res://00_Assets/00_Sprites/Cutscene_sprites/title_screen.png" id="2_mrl32"]
+[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
+[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rvphk"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("3_wp6i4")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5q8bt"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("4_a4pbu")
+>>>>>>> Stashed changes
 
 [node name="SceneManager" type="Node"]
 process_mode = 3
@@ -21,13 +37,13 @@ volume = 0.35
 [node name="CarMusic" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/cutscene"
 event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
-volume = 0.35
+volume = 0.5
 
 [node name="MenuMusic" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/menu"
 event_guid = "{66a80aff-0450-44cb-b5b7-2abe0fe360b4}"
 autoplay = true
-volume = 0.35
+volume = 1.5
 "fmod_parameters/combat state/id" = -4863081333960352858
 "fmod_parameters/combat state" = 0
 "fmod_parameters/combat state/variant_type" = 2
@@ -48,4 +64,15 @@ text = "Play"
 [node name="TopLevelUI" type="CanvasLayer" parent="."]
 layer = 100
 
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_rvphk")
+volume_db = -15.0
+pitch_scale = 4.0
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_5q8bt")
+volume_db = -5.0
+pitch_scale = 5.0
+
+[connection signal="mouse_entered" from="TitleScreen/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreen/Button" to="." method="_on_button_pressed"]

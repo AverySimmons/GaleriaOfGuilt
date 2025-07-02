@@ -12,8 +12,8 @@
 [ext_resource type="AudioStream" uid="uid://c4oijspt4o5w" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
 [ext_resource type="AudioStream" uid="uid://cwxufdv1soh4f" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
 [ext_resource type="AudioStream" uid="uid://dwxhadpx6papq" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://c1wtb2867f5ea" path="res://00_Assets/02_SoundEffects/enemy_attack_2.wav" id="13_10xal"]
-[ext_resource type="AudioStream" uid="uid://dv2175y2e2vd6" path="res://00_Assets/02_SoundEffects/enemy_hit.wav" id="14_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://00brbppvehee" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://c875nhkd67ei1" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 radius = 27.074
@@ -799,7 +799,7 @@ stream_0/stream = ExtResource("12_pg4lp")
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wm5ru"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("13_10xal")
+stream_0/stream = ExtResource("13_pg4lp")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_10xal"]
 random_pitch = 1.2
@@ -892,24 +892,30 @@ hframes = 6
 
 [node name="SwipeSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_viynv")
-volume_db = 12.0
+volume_db = 10.0
 
 [node name="DashSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_dcinv")
-volume_db = 12.0
+volume_db = 10.0
 
 [node name="BiteSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_pg4lp")
-volume_db = 20.0
+volume_db = 15.0
+pitch_scale = 0.9
 
 [node name="GrenadeThrow" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_mthnb")
+volume_db = 15.0
 
 [node name="Shotgun" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_wm5ru")
+volume_db = 15.0
+pitch_scale = 2.0
 
 [node name="PlayerHit" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_10xal")
+volume_db = 15.0
+pitch_scale = 1.5
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true

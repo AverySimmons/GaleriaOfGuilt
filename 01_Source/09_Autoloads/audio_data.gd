@@ -6,10 +6,13 @@ const INDIVIDUAL_MAX_AMT: int = 4
 var cur_total: int = 0
 var locust_atk_amt: int = 0
 var worm_atk_amt: int = 0
+var light_charge_amt: int = 0
+var light_exp_amt: int = 0
 var swipe_amt: int = 0
 var bite_amt: int = 0
 var grenade_throw_amt: int = 0
 var shotgun_amt: int = 0
+var shotgun_expl_amt: int = 0
 var dash_amt: int = 0
 var enemy_hit_amt: int = 0
 var enemy_death_amt: int = 0
@@ -25,7 +28,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				locust_atk_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				locust_atk_amt -= 1
 		"sand_shot":
@@ -33,15 +36,31 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				worm_atk_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				worm_atk_amt -= 1
+		"lightning_charge":
+			if cur_total < MAX_SOUNDFX_AMT && light_charge_amt < INDIVIDUAL_MAX_AMT * 3:
+				sound.play()
+				light_charge_amt += 1
+				cur_total += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
+				cur_total -= 1
+				light_charge_amt -= 1
+		"lightning_explode":
+			if cur_total < MAX_SOUNDFX_AMT && light_exp_amt < INDIVIDUAL_MAX_AMT * 3:
+				sound.play()
+				light_exp_amt += 1
+				cur_total += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
+				cur_total -= 1
+				light_exp_amt -= 1
 		"swipe":
 			if swipe_amt < INDIVIDUAL_MAX_AMT:
 				sound.play()
 				swipe_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				swipe_amt -= 1
 		"bite":
@@ -49,7 +68,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				bite_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				bite_amt -= 1
 		"grenade_throw":
@@ -57,7 +76,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				grenade_throw_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				grenade_throw_amt -= 1
 		"shotgun":
@@ -65,15 +84,23 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				shotgun_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				shotgun_amt -= 1
+		"shotgun_explosion":
+			if cur_total < MAX_SOUNDFX_AMT && shotgun_expl_amt < INDIVIDUAL_MAX_AMT * 3:
+				sound.play()
+				shotgun_expl_amt += 1
+				cur_total += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
+				cur_total -= 1
+				shotgun_expl_amt -= 1
 		"dash":
 			if dash_amt < INDIVIDUAL_MAX_AMT:
 				sound.play()
 				dash_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				dash_amt -= 1
 		"enemy_hit":
@@ -81,7 +108,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				enemy_hit_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				enemy_hit_amt -= 1
 		"enemy_death":
@@ -89,7 +116,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				enemy_death_amt += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				enemy_death_amt -= 1
 		"grenade_explosion":
@@ -97,7 +124,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				explosion_sound += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				explosion_sound -= 1
 		"player_hit":
@@ -105,7 +132,7 @@ func play_sound(sound_name: String, sound) -> void:
 				sound.play()
 				player_hit += 1
 				cur_total += 1
-				await get_tree().create_timer(sound.stream.get_stream(0).get_length()).timeout
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				player_hit -= 1
 	return

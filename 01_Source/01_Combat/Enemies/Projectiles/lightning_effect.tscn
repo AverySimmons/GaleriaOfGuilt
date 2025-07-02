@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b20fmxj4jv2si"]
 
-[ext_resource type="Texture2D" uid="uid://n2ala4f0ipbv" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="1_dsnvx"]
+[ext_resource type="Texture2D" uid="uid://daso8fao0k6bd" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="1_dsnvx"]
 
 [sub_resource type="Animation" id="Animation_ktwp0"]
 length = 0.001
