@@ -228,6 +228,7 @@ func _physics_process(delta: float) -> void:
 					1:
 						#animation_player.play("bite_" + facing_dir)
 						#AudioData.play_sound("bite", bite_sound)
+						AudioData.play_sound("bite_chargeup", $BiteChargeup)
 						pass
 					2:
 						animation_player.play("special_" + facing_dir)

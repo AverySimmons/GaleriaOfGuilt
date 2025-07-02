@@ -1,20 +1,21 @@
-[gd_scene load_steps=48 format=3 uid="uid://cojgheax36bsk"]
+[gd_scene load_steps=50 format=3 uid="uid://dvbabi2s60kn0"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_f38sp"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
-[ext_resource type="Texture2D" uid="uid://7knr7kb3u1nw" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
+[ext_resource type="Texture2D" uid="uid://x3o61578d387" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
 [ext_resource type="Script" uid="uid://daalbp4x5irfh" path="res://01_Source/00_Player/dash.gd" id="4_fmg42"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
-[ext_resource type="Texture2D" uid="uid://b8074fuabdysh" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
-[ext_resource type="Texture2D" uid="uid://f63rbygin8c6" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
-[ext_resource type="AudioStream" uid="uid://cgogu5xi8pmo7" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
-[ext_resource type="AudioStream" uid="uid://c4oijspt4o5w" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
-[ext_resource type="AudioStream" uid="uid://cwxufdv1soh4f" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
-[ext_resource type="AudioStream" uid="uid://dwxhadpx6papq" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://00brbppvehee" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://c875nhkd67ei1" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://cch4javgwxps5" path="res://00_Assets/02_SoundEffects/blood_fill.wav" id="15_10xal"]
+[ext_resource type="Texture2D" uid="uid://dr6t5fegd6r7g" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
+[ext_resource type="Texture2D" uid="uid://dv0qvfnxsuxqy" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
+[ext_resource type="AudioStream" uid="uid://cr1d5n16llk4i" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
+[ext_resource type="AudioStream" uid="uid://d2sps4fgrp820" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
+[ext_resource type="AudioStream" uid="uid://cawej5d4ua5l0" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
+[ext_resource type="AudioStream" uid="uid://cgwt04pogutxt" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://k3y5d2dor06o" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://dp3yohxg1ii6n" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://bnutuv8qg2s8w" path="res://00_Assets/02_SoundEffects/blood_fill.wav" id="15_10xal"]
+[ext_resource type="AudioStream" uid="uid://o6h5n3vuvqt3" path="res://00_Assets/02_SoundEffects/MEH!!!.wav" id="15_j0112"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 radius = 27.074
@@ -807,6 +808,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("14_pg4lp")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_f77ox"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("15_j0112")
+
 [node name="Player2" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
@@ -917,6 +923,11 @@ pitch_scale = 2.0
 stream = SubResource("AudioStreamRandomizer_10xal")
 volume_db = 15.0
 pitch_scale = 1.5
+
+[node name="BiteChargeup" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_f77ox")
+volume_db = 24.0
+pitch_scale = 0.4
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true

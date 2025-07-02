@@ -135,4 +135,9 @@ func play_sound(sound_name: String, sound) -> void:
 				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 				cur_total -= 1
 				player_hit -= 1
+		"bite_chargeup":
+			sound.play()
+			cur_total += 1
+			await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
+			cur_total -= 1
 	return
