@@ -103,6 +103,8 @@ var dash_charges_amt: int = 1
 
 var sorryguysthisisstupidbutwererushing: bool = false
 
+var blood_effect_low_blood_upgrade_thing: float = 1.0
+
 @onready var swipe_sound = $SwipeSound
 @onready var dash_sound = $DashSound
 @onready var bite_sound = $BiteSound
@@ -340,9 +342,12 @@ func _physics_process(delta: float) -> void:
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
 	bb_hitspd_inc /= burst_mult_actual
 	bb_spd_inc *= burst_mult_actual
+	if UpgradeData.upgrades_gained[UpgradeData.LOW_BLOOD_BUFF] && blood_bar <= bb_max/2:
+		bb_spd_inc *= blood_effect_low_blood_upgrade_thing
+		bb_hitspd_inc *= blood_effect_low_blood_upgrade_thing
 	if bb_hitspd_inc <= 0.1:
 		bb_hitspd_inc = 0.1
-	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.2)
+	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.2*bb_multiplier2)
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
 	
@@ -441,6 +446,14 @@ func update_facing_direction(facing_dir: String) -> String:
 func take_damage(amount: float) -> void:
 	if is_invincible && !sorryguysthisisstupidbutwererushing:
 		return
+	if UpgradeData.upgrades_gained[UpgradeData.BLOOD_AS_HP] && blood_bar > 0:
+		var bb_before = blood_bar
+		blood_bar = move_toward(blood_bar, 0, amount*2)
+		SignalBus.bb_change.emit()
+		if bb_before < amount*2:
+			amount -= bb_before/2
+		else:
+			amount = 0
 	current_hp = move_toward(current_hp, 0, amount)
 	if current_hp <= 0:
 		SignalBus.player_death.emit()
