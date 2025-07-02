@@ -515,7 +515,7 @@ func kill_gain_blood(enemy: Enemy) -> void:
 	SignalBus.bb_change.emit()
 	return
 
-func kill_lower_spcd() -> void:
+func kill_lower_spcd(enemy) -> void:
 	if special_ability_timer >= 0:
 		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc * spcd_increase)/3)
 	return
@@ -535,7 +535,7 @@ func gain_exp(enemy: Enemy) -> void:
 	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
 		SignalBus.levelup.emit()
-		exp_needed += level*level*10
+		exp_needed += 50*level
 		level += 1
 		current_exp = 0
 	SignalBus.gained_exp.emit()
