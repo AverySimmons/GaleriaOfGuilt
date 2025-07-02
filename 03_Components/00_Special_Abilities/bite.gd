@@ -44,14 +44,28 @@ func _physics_process(delta: float) -> void:
 
 
 func use_ability() -> void:
+	
+	super.use_ability()
+	# Chargeup
+	special_slowdown_actual = chargeup_slowdown
+	await get_tree().create_timer(chargeup).timeout
+	is_active = true
+	active_timer = active_time * parent.bb_hitspd_inc
+	parent.using_attack_or_special_or_dash = true
+	if !is_active:
+		return
+	active_timer = active_time * parent.bb_hitspd_inc
+	special_slowdown_actual = special_slowdown
+	
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = (mouse_pos - global_position).normalized()
 	var angle: float = direction.angle()
-	#rotation = angle
-	
 	monitoring = true
 	await get_tree().physics_frame
-	super.use_ability()
+	var facing_dir = parent.name_from_vect_dir(direction)
+	facing_dir = parent.update_facing_direction(facing_dir)
+	parent.animation_player.play("bite_" + facing_dir)
+	AudioData.play_sound("bite", parent.bite_sound)
 	var offset = direction * Vector2(150, 150)
 	offset += Vector2(0, -20)
 	collision_shape_2d.global_position = parent.global_position + offset

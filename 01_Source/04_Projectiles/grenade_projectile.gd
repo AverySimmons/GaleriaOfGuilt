@@ -72,7 +72,8 @@ func explode() -> void:
 	var enemies = get_overlapping_areas()
 	for area in enemies:
 		var enemy = area.owner
-		if enemy is Enemy && enemies_hit.has(enemy):
+		if enemy is Enemy && !enemies_hit.has(enemy):
+			print(enemy)
 			enemy.take_damage(damage, flinch_amt, knockback_amt)
 			dealt_damage = true
 			player.gain_blood("special", 1.0, enemy)

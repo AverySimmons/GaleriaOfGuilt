@@ -223,8 +223,9 @@ func _physics_process(delta: float) -> void:
 				facing_dir = update_facing_direction(facing_dir)
 				match current_ability_name:
 					1:
-						animation_player.play("bite_" + facing_dir)
-						AudioData.play_sound("bite", bite_sound)
+						#animation_player.play("bite_" + facing_dir)
+						#AudioData.play_sound("bite", bite_sound)
+						pass
 					2:
 						animation_player.play("special_" + facing_dir)
 						AudioData.play_sound("grenade_throw", grenade_sound)
