@@ -7,13 +7,13 @@
 "sound_mood_default": "Mood 1",
 "sound_moods": {
 "Mood 1": {
-"mode": 0,
+"mode": 1,
 "name": "Mood 1",
-"pitch_base": 1.6,
-"pitch_variance": 0.7,
-"skip_characters": 10.0,
-"sound_path": "res://00_Assets/02_SoundEffects/viola_voice3.wav",
-"volume_base": 6.0,
+"pitch_base": 1.3,
+"pitch_variance": 0.4,
+"skip_characters": 8.0,
+"sound_path": "res://00_Assets/02_SoundEffects/viola_voice1.wav",
+"volume_base": 8.0,
 "volume_variance": 1.5
 }
 },
