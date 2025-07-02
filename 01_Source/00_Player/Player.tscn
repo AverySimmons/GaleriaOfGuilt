@@ -806,7 +806,7 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("14_pg4lp")
 
-[node name="Player2" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
 

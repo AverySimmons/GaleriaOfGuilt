@@ -2,9 +2,10 @@ all scene transitions (what should these look like?)
 sounds effect implemented
 finalize upgrade text
 I want to add controller support but I don't have a controller
-hp bar shake
 enemies spawning on escape
-change skill cooldown color
+dashing into a wall feels bad
+projectiles shouldnt disapear when dashed into
+lizard rework
 
 adjust lots of values
 player values
