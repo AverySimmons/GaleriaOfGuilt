@@ -42,10 +42,10 @@ void fragment() {
 	float line_mask2 = step(0.5, line_dist2) * step(uv2.x, perc * 1.5 - 0.2);
 	line_dist2 /= 2.;
 	
-	vec3 col1 = vec3(0.1,0.,0.05);
-	vec3 scol1 = vec3(1.,0.6,0.8) + 0.3;
+	vec3 col1 = vec3(0.1,0.,0.2);
+	vec3 scol1 = vec3(0.9,0,0.5) + 0.3;
 	
-	vec3 col2 = vec3(0.05,0.,0.1);
+	vec3 col2 = vec3(0.2,0.,0.2);
 	vec3 scol2 = vec3(1.,0,0.3) + 0.3;
 	
 	vec3 c1 = mix(col1, scol1, line_dist);

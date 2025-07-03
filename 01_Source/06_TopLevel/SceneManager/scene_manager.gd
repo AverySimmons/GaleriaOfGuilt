@@ -174,7 +174,7 @@ func _on_button_pressed() -> void:
 	$MenuMusic.stop()
 
 func intro_finished():
-	fade_rect.color = Color("06000d")
+	fade_rect.self_modulate = Color("06000d")
 	
 	var t = create_tween()
 	t.tween_property($CarMusic, "volume", 0., 0.5)
