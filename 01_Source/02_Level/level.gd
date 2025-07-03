@@ -185,6 +185,7 @@ func populate_enemies():
 	
 	var enemy_list = get_enemy_list()
 	enemies_left = len(enemy_list)
+	await get_tree().create_timer(1, false).timeout
 	while enemy_list:
 		spawn_wave(enemy_list)
 		await get_tree().create_timer(5, false).timeout
@@ -327,19 +328,16 @@ func enter(dir: Vector2) -> void:
 	blood_manager.spawn()
 	if dir == Vector2.ZERO:
 		GameData.player.global_position = entrance_door.player_spawn.global_position
-		camera.global_position = GameData.player.global_position
-		entities.add_child(GameData.player)
-		if wants_to_spawn:
-			populate_enemies()
-		return
 	
-	for d: Door in doors.get_children():
-		if d.direction == dir * -1:
-			GameData.player.global_position = d.player_spawn.global_position
-			entities.add_child(GameData.player)
-			break
+	else:
+		for d: Door in doors.get_children():
+			if d.direction == dir * -1:
+				GameData.player.global_position = d.player_spawn.global_position
+				break
 	
+	entities.add_child(GameData.player)
 	camera.global_position = GameData.player.global_position
+	
 	if wants_to_spawn:
 		populate_enemies()
 

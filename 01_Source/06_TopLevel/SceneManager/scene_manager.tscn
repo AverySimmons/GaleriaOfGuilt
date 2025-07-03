@@ -1,9 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://iudn154k7uar"]
+[gd_scene load_steps=22 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
 [ext_resource type="Texture2D" uid="uid://byc5gw7glt56f" path="res://00_Assets/00_Sprites/Cutscene_sprites/title_screen.png" id="2_mrl32"]
+[ext_resource type="Shader" uid="uid://d3g74gg2aqtir" path="res://01_Source/06_TopLevel/SceneManager/circ_fade.gdshader" id="3_rvphk"]
 [ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
 [ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
+[ext_resource type="Shader" uid="uid://b0p0y0knw8m0t" path="res://01_Source/06_TopLevel/SceneManager/level_swap.gdshader" id="4_nut0k"]
+[ext_resource type="AudioStream" uid="uid://b8se6ivrg14g3" path="res://00_Assets/02_SoundEffects/car_start.wav" id="5_a4pbu"]
+[ext_resource type="AudioStream" uid="uid://ut3rfvw6srca" path="res://00_Assets/02_SoundEffects/sigh.wav" id="7_5q8bt"]
+[ext_resource type="AudioStream" uid="uid://ddeu753wyg3b1" path="res://00_Assets/02_SoundEffects/door-open-107728.mp3" id="9_kgoma"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5q8bt"]
+shader = ExtResource("3_rvphk")
+shader_parameter/perc = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgoma"]
+shader = ExtResource("4_nut0k")
+shader_parameter/line_amount = 1.5
+shader_parameter/perc = 0.0
+shader_parameter/rot = 0.0
+shader_parameter/offset = 0.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wp6i4"]
 random_pitch = 1.2
@@ -14,6 +30,196 @@ stream_0/stream = ExtResource("3_wp6i4")
 random_pitch = 1.1
 streams_count = 1
 stream_0/stream = ExtResource("4_a4pbu")
+
+[sub_resource type="Animation" id="Animation_wp6i4"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a4pbu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TopLevelUI/CircFadeRect:material:shader_parameter/perc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopLevelUI/LevelSwap:material:shader_parameter/perc")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Swipe2:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Swipe:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rvphk"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nut0k"]
+resource_name = "circ_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/CircFadeRect:material:shader_parameter/perc")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kgoma"]
+resource_name = "circ_fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/CircFadeRect:material:shader_parameter/perc")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_lb6d1"]
+resource_name = "line_wipe_out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/LevelSwap:material:shader_parameter/perc")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Swipe:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_d1x83"]
+resource_name = "line_wipe_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopLevelUI/LevelSwap:material:shader_parameter/perc")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Swipe2:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5q8bt"]
+_data = {
+&"RESET": SubResource("Animation_a4pbu"),
+&"circ_fade_in": SubResource("Animation_nut0k"),
+&"circ_fade_out": SubResource("Animation_kgoma"),
+&"fade_in": SubResource("Animation_rvphk"),
+&"fade_out": SubResource("Animation_wp6i4"),
+&"line_wipe_in": SubResource("Animation_d1x83"),
+&"line_wipe_out": SubResource("Animation_lb6d1")
+}
 
 [node name="SceneManager" type="Node"]
 process_mode = 3
@@ -60,6 +266,26 @@ text = "Play"
 [node name="TopLevelUI" type="CanvasLayer" parent="."]
 layer = 100
 
+[node name="FadeRect" type="ColorRect" parent="TopLevelUI"]
+self_modulate = Color(1, 0.94, 1, 1)
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="CircFadeRect" type="ColorRect" parent="TopLevelUI"]
+material = SubResource("ShaderMaterial_5q8bt")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.0244329, 1.4261e-05, 0.0508169, 1)
+
+[node name="LevelSwap" type="ColorRect" parent="TopLevelUI"]
+material = SubResource("ShaderMaterial_kgoma")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
 [node name="ButtonHover" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_wp6i4")
 volume_db = -5.0
@@ -69,6 +295,27 @@ pitch_scale = 4.0
 stream = SubResource("AudioStreamRandomizer_a4pbu")
 volume_db = -5.0
 pitch_scale = 3.0
+
+[node name="TransitionPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5q8bt")
+}
+
+[node name="CarStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_a4pbu")
+
+[node name="Sigh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_5q8bt")
+
+[node name="Swipe" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_kgoma")
+volume_db = -10.0
+pitch_scale = 3.0
+
+[node name="Swipe2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_kgoma")
+volume_db = -10.0
+pitch_scale = 4.0
 
 [connection signal="mouse_entered" from="TitleScreen/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreen/Button" to="." method="_on_button_pressed"]

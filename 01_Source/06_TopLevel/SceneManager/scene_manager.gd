@@ -1,5 +1,11 @@
 extends Node
 
+@onready var transition_player: AnimationPlayer = $TransitionPlayer
+@onready var fade_rect: ColorRect = $TopLevelUI/FadeRect
+@onready var circ_fade_rect: ColorRect = $TopLevelUI/CircFadeRect
+@onready var level_swap: ColorRect = $TopLevelUI/LevelSwap
+
+
 var player_scene = preload("res://01_Source/00_Player/player.tscn")
 var game_manager_scene = preload("res://01_Source/01_Combat/GameManager/GameManager.tscn")
 var intro_scene = preload("res://01_Source/06_TopLevel/Cutscenes/intro.tscn")
@@ -18,7 +24,7 @@ var death
 
 var player_dying = false
 
-var test_game = true
+var test_game = false
 
 var was_paused = false
 
@@ -29,6 +35,10 @@ func _ready() -> void:
 	SignalBus.unpause.connect(unpause_game)
 	GameData.player = player_scene.instantiate()
 	GameData.music_event = $GameMusic
+	
+	$MenuMusic.volume = 0
+	var t = create_tween()
+	t.tween_property($MenuMusic, "volume", 1.5, 0.5)
 	
 	if test_game:
 		$TitleScreen.call_deferred("queue_free")
@@ -70,23 +80,25 @@ func settings_closed():
 func spawn_game_manager():
 	GameData.is_escaping = false
 	player_dying = false
-	var t = create_tween()
-	t.tween_property($CarMusic, "volume", 0, 0.5)
-	$GameMusic.play()
-	var t2 = create_tween()
-	t2.tween_property($GameMusic, "volume", 0.35, 0.5)
 	game_manager = game_manager_scene.instantiate()
 	game_manager.item_dialog.connect(item_dialog)
 	game_manager.stage_complete.connect(stage_complete)
+	game_manager.level_exit.connect(exit_level_transition)
+	game_manager.level_enter.connect(enter_level_transition)
 	add_child(game_manager)
-	
-	if GameData.mall_ind == 0 and not test_game:
-		await game_manager.ready
-		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
-		Dialogic.start("tutorial").process_mode = Node.PROCESS_MODE_ALWAYS
-	
-	await t.finished
-	$CarMusic.stop()
+
+func exit_level_transition():
+	level_swap.material.set_shader_parameter("rot", randf_range(0,TAU))
+	pause_game()
+	transition_player.play("line_wipe_out")
+	await transition_player.animation_finished
+	unpause_game()
+
+func enter_level_transition():
+	pause_game()
+	transition_player.play("line_wipe_in")
+	await transition_player.animation_finished
+	unpause_game()
 
 func item_dialog():
 	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -102,12 +114,17 @@ func stage_complete():
 	if GameData.mall_ind == 5:
 		ending = ending_scene.instantiate()
 		add_child(ending)
+		transition_player.play("line_wipe_in")
+		await transition_player.animation_finished
 		Dialogic.start("ending")
 	else:
+		await get_tree().create_timer(1.5).timeout
 		$CarMusic.play()
 		var t2 = create_tween()
-		t2.tween_property($CarMusic, "volume", 0.5, 0.5)
+		t2.tween_property($CarMusic, "volume", 0.5, 1)
 		add_van(true)
+		transition_player.play("line_wipe_in")
+		await transition_player.animation_finished
 		Dialogic.start("post_mall_" + str(GameData.mall_ind))
 	
 	await t.finished
@@ -124,9 +141,6 @@ func dialogic_stupid(inp: String) -> void:
 	elif inp == "pre_mall_finished": pre_mall_finished()
 	elif inp == "post_mall_finished": post_mall_finished()
 
-func start_stage():
-	spawn_game_manager()
-
 func pause_game() -> void:
 	get_tree().paused = true
 
@@ -137,31 +151,95 @@ func _on_button_pressed() -> void:
 	$ButtonClick.play()
 	var t = create_tween()
 	t.tween_property($MenuMusic, "volume", 0., 0.5)
+	
+	transition_player.play("fade_out")
+	await transition_player.animation_finished
+	
+	$TitleScreen.call_deferred("queue_free")
+	intro = intro_scene.instantiate()
+	add_child(intro)
+	
+	await get_tree().create_timer(0.5).timeout
+	
 	$CarMusic.volume = 0.
 	$CarMusic.play()
 	var t2 = create_tween()
 	t2.tween_property($CarMusic, "volume", 0.5, 0.5)
 	
-	$TitleScreen.call_deferred("queue_free")
-	intro = intro_scene.instantiate()
-	add_child(intro)
+	transition_player.play("fade_in")
+	await transition_player.animation_finished
+	
 	Dialogic.start("intro")
 	
-	await t.finished
 	$MenuMusic.stop()
 
 func intro_finished():
+	fade_rect.color = Color("06000d")
+	
+	var t = create_tween()
+	t.tween_property($CarMusic, "volume", 0., 0.5)
+	transition_player.play("fade_out")
+	await transition_player.animation_finished
 	intro.call_deferred("queue_free")
+	$CarStart.play()
+	await get_tree().create_timer(3).timeout
 	add_van(false)
+	transition_player.play("fade_in")
+	await transition_player.animation_finished
+	var t2 = create_tween()
+	t2.tween_property($CarMusic, "volume", 0.5, 1)
+	await t2.finished
 	Dialogic.start("post_intro")
 
-func post_mall_finished(): # or intro finished
+func post_mall_finished(): # or post intro finished
+	var t = create_tween()
+	t.tween_property($CarMusic, "volume", 0., 0.5)
+	transition_player.play("circ_fade_out")
+	await transition_player.animation_finished
+	
+	# play sound
+	await get_tree().create_timer(1).timeout
+	$Sigh.play()
 	add_van(false)
+	await get_tree().create_timer(3).timeout
+	
+	transition_player.play("circ_fade_in")
+	await transition_player.animation_finished
+	
+	var t2 = create_tween()
+	t2.tween_property($CarMusic, "volume", 0.5, 1)
+	await t2.finished
 	Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1))
 
 func pre_mall_finished():
+	var t = create_tween()
+	t.tween_property($CarMusic, "volume", 0, 0.5)
+	
+	level_swap.material.set_shader_parameter("offset", randf())
+	level_swap.material.set_shader_parameter("rot", randf_range(0,TAU))
+	
+	transition_player.play("line_wipe_out")
+	await transition_player.animation_finished
+	
+	$CarMusic.stop()
 	remove_van()
 	spawn_game_manager()
+	await get_tree().create_timer(0.1).timeout
+	pause_game()
+	
+	await get_tree().create_timer(1).timeout
+	
+	transition_player.play("line_wipe_in")
+	await transition_player.animation_finished
+	$GameMusic.play()
+	var t2 = create_tween()
+	t2.tween_property($GameMusic, "volume", 0.35, 1)
+	await get_tree().create_timer(1).timeout
+	unpause_game()
+	
+	if GameData.mall_ind == 0 and not test_game:
+		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+		Dialogic.start("tutorial").process_mode = Node.PROCESS_MODE_ALWAYS
 
 func add_van(is_night):
 	if van:

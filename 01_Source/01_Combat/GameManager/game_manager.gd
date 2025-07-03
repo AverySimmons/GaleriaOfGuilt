@@ -16,6 +16,8 @@ var mall_sizes = [
 
 signal item_dialog()
 signal stage_complete()
+signal level_exit()
+signal level_enter()
 
 func _ready() -> void:
 	GameData.player.reset()
@@ -40,6 +42,8 @@ func _input(event: InputEvent) -> void:
 
 func transition_levels(dir: Vector2) -> void:
 	if current_level:
+		level_exit.emit()
+		await get_tree().create_timer(0.2).timeout
 		current_level.blood_manager.despawn()
 		remove_child(current_level)
 	
@@ -53,6 +57,9 @@ func transition_levels(dir: Vector2) -> void:
 	
 	map_overlay.map_position = current_level.map_pos
 	map_overlay.display()
+	
+	await get_tree().create_timer(0.1, false).timeout
+	level_enter.emit()
 
 func item_picked_up():
 	GameData.is_escaping = true
