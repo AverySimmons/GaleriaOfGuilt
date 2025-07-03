@@ -1,39 +1,81 @@
+###
+
 all scene transitions (what should these look like?)
 finalize upgrade text
 I want to add controller support but I don't have a controller
 
 adjust lots of values
-player values
 special ability values
-enemy values
 upgrade values
 spawning values / level size
 
-upgrade reworks:
-general feeling is that blood gain is hard to notice, but maybe thats okay
-things that give increased blood feel less powerful then getting something more # Maybe just need to tune calculations a bit and give more payoff upgrades
-direct like an ability upgrade
-endless void: a little hard to feel the draining difference but I think its good # Buffed the draining a bit for this, I think it's better now
-easy prey: really fun to go for and difference is noticable but feels a little weak
-smell of prey: good but should def give more blood and should probably say "unexplored" instead of new # Buffed a bit
-insaitiable appetite: like other blood upgrades its a little hard to feel the change but I think its good # It's a blood gain payoff upgrade I think, I really like it personally
-destructive haste: has a less cool fantasy then the other upgrades bc it has no synergy with anything but its okay # Buffed a bit
-free lunch blah blah blah: really good, you can feel the dash distance
-sentient wounds: really good, makes all the "get more blood" upgrades feel like they have a pay off # This and lifesteal are really good. Maybe one more healing upgrade would be good
-blood infused claws: I think we should have more damage increases, but this one is way too weak, and once again it feels like anti-syergy to lose the blood # Buffed, and maybe other atkspd upgrades will make this better
-bloodlust: really fun - has natural synergy with having high blood bc of the attack speed
-explosive blood: incredibly broken has super low cooldown, does 2 hits, fills blood to full constantly, I pick this up and never slash again # Fixed two hit and made it not oneshot locusts
-bloodbath: im unsure how much this decreases the special cooldown so im always a little scared to pick it, but I like the fantasy # Maybe could make it cost blood instead as a payoff upgrade
-hungry claws: pretty simple, feels a little nothing burger, but I dont hate it # I think some more blood payoff upgrades will help this
-seeing red: another high risk high reward upgrade, we have 4 of these which might be a little too much, but I like this one too # This one is so strong and goated - One of those payoff upgrades
-reckless restless: pretty much a direct downgrade, I like the idea of this but I never pick it bc dash cooldown is already low # Maybe could be removed
-body of thorns: I love all the dash through enemy upgrades, this one the most, could maybe use some dash length # Added some dash length, def feels better
-monsturus tenacity: really fun upgrade, kinda has anti-synergy with all the dash upgrades, but by itself its one of the most fun
-rapid jaws: the tradeoff feels hard to understand, like the two things are so disconnected it feels hard to know if I should pick it or not # I think it's really strong but maybe weird
-retractable claws: just a fun upgrade that feels like it has synergy with blood and is fun by itself
-I NEED BLOOD: I never pick this, I always want my special and dont care about blood so much # Now just makes special give more blood, maybe good?
-vomit: fun to use, but def way worse then bite and grenade, tbh I think this should be the powerlevel of a special
-engulfing maw: pretty broken, gives an insane amount of blood and does 2 hits of damage, all on a giant hitbox that lingers # Added chargeup and fixed multihit
-vampiric frenzy: again we have 4 of these glass cannon ones which feels like a lot, this one is my least favorite bc getting more blood doesnt feel noticable
+## swipe:
 
-THINK OF A TITLE
+costs_blood_more_dmg:
+	swapped into while above 50% blood slashing costs a lot of blood, but deals more damage
+lower_hp_swipe_lifesteal:
+	perfect
+more_blood_swipe:
+	perfect
+third_slash_more_dmg:
+	perfect
+
+wanted upgrades:
+ - slashing enemies decreases special cooldown
+
+## special:
+
+lower_spcd_lower_bg:
+	swapped into lower special cooldown, costs 15% blood
+more_blood_more_cd:
+	perfect
+special_cd_red_health:
+	perfect
+
+wanted upgrades:
+ - special spends entire blood bar deals more damage based on blood spent
+ - special cooldown decreases quickly at high blood - not at all at low blood
+ - on entering a frenzy, refresh special - increase special cooldown and damage
+
+## dash:
+
+dash_charges:
+	perfect
+dash_damage:
+	perfect
+dash_dist_longer:
+	perfect
+infinite_dash:
+	maybe make dash cooldown even lower but dash much faster
+mark_dash_upgrade:
+	perfect
+
+wanted upgrades:
+ - 
+
+overall:
+bb_inc_less_blood_gain:
+	switched into increase blood effectiveness - greatly increase blood drain
+bloodrage_mult_inc:
+	perfect - could maybe be split into multiple but also maybe not
+blood_at_start:
+	perfect
+ever_consuming_void:
+	perfect - should be nerfed, doubled blood is a lot
+high_blood_regen:
+	perfect
+inc_blood_effect_less_hp:
+	perfect
+kills_gain_blood_less_hp:
+	I dont like it that much but I dont think we should remove it
+more_spd_less_blood_gain:
+	switched into more speed at low blood
+
+wanted upgrades:
+ - when you hit low health, enter a frenzy
+ - damage is taken to bloodbar first
+ - gain more blood at low blood - but blood drains very quickly at over 60%
+ - increased attack and movement speed at low blood - blood effectiveness decreased
+ - 
+
+###
