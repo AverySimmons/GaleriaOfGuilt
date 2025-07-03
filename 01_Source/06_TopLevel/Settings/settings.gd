@@ -10,7 +10,8 @@ func close() -> void:
 	$ButtonClick.play()
 	animation_player.play("close")
 	await animation_player.animation_finished
-	
+	if not Dialogic.current_timeline:
+		SignalBus.unpause.emit()
 	closed.emit()
 	call_deferred("queue_free")
 
