@@ -2,7 +2,7 @@ extends Upgrade
 
 func _init() -> void:
 	upgrade_name = "Lick Your Talons"
-	upgrade_description = "Half your max hp, but your swipe attack heals you."
+	upgrade_description = "Lose half of your max hp, but your swipe attack heals you."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/slash_blood.png")
 	upgrade_number = UpgradeData.LIFESTEAL
 	upgrade_scene = self

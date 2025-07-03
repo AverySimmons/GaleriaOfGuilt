@@ -189,6 +189,7 @@ func populate_enemies():
 	await get_tree().create_timer(1, false).timeout
 	while enemy_list:
 		spawn_wave(enemy_list)
+		if !is_inside_tree(): return
 		await get_tree().create_timer(5, false).timeout
 
 func spawn_wave(enemy_list):

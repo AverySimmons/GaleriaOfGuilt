@@ -349,7 +349,7 @@ func _physics_process(delta: float) -> void:
 	bb_spd_inc *= burst_mult_actual
 	if UpgradeData.upgrades_gained[UpgradeData.LOW_BLOOD_BUFF] && blood_bar <= bb_max/2:
 		bb_spd_inc *= blood_effect_low_blood_upgrade_thing
-		bb_hitspd_inc *= blood_effect_low_blood_upgrade_thing
+		bb_hitspd_inc /= blood_effect_low_blood_upgrade_thing
 	if bb_hitspd_inc <= 0.1:
 		bb_hitspd_inc = 0.1
 	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.2*bb_multiplier2)
@@ -477,6 +477,7 @@ func take_damage(amount: float) -> void:
 		SignalBus.unpause.emit()
 	modulate = Color(1, 1, 1)
 	is_invincible = true
+	if !is_inside_tree(): return
 	await get_tree().create_timer(0.2).timeout
 	is_invincible = false
 	return

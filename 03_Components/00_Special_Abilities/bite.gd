@@ -62,6 +62,7 @@ func use_ability() -> void:
 	var direction: Vector2 = (mouse_pos - global_position).normalized()
 	var angle: float = direction.angle()
 	monitoring = true
+	if !is_inside_tree(): return
 	await get_tree().physics_frame
 	var facing_dir = parent.name_from_vect_dir(direction)
 	facing_dir = parent.update_facing_direction(facing_dir)

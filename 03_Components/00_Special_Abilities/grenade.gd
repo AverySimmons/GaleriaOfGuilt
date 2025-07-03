@@ -34,7 +34,7 @@ func use_ability() -> void:
 	rotation = angle
 	
 	super.use_ability()
-	
+	if !is_inside_tree(): return
 	var projectiles_scene = get_tree().current_scene.get_node_or_null("Projectiles")
 	if !projectiles_scene:
 		projectiles_scene = get_tree().current_scene

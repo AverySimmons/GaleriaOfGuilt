@@ -194,6 +194,7 @@ func post_mall_finished(): # or post intro finished
 	await get_tree().create_timer(1).timeout
 	$Sigh.play()
 	add_van(false)
+	if !is_inside_tree(): return
 	await get_tree().create_timer(3).timeout
 	
 	transition_player.play("circ_fade_in")
@@ -220,6 +221,7 @@ func pre_mall_finished():
 	await get_tree().create_timer(0.1).timeout
 	pause_game()
 	
+	if !is_inside_tree(): return
 	await get_tree().create_timer(1).timeout
 	
 	transition_player.play("line_wipe_in")
@@ -227,6 +229,7 @@ func pre_mall_finished():
 	$GameMusic.play()
 	var t2 = create_tween()
 	t2.tween_property($GameMusic, "volume", 0.35, 1)
+	if !is_inside_tree(): return
 	await get_tree().create_timer(1).timeout
 	unpause_game()
 	

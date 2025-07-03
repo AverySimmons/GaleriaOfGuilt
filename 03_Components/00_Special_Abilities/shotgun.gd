@@ -41,7 +41,7 @@ func use_ability() -> void:
 	
 	var muzzle_position: Vector2 = $CollisionShape2D.global_transform * Vector2($CollisionShape2D.shape.extents.x, 0)
 	var offset: float = -3
-	
+	if !is_inside_tree(): return
 	var projectiles_scene = get_tree().current_scene.get_node_or_null("Projectiles")
 	if !projectiles_scene:
 		projectiles_scene = get_tree().current_scene

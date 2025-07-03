@@ -18,6 +18,7 @@ func _ready() -> void:
 	await get_tree().create_timer(randf_range(0, 0.2), false).timeout
 	animation_player.speed_scale = 1 / spawn_time
 	$AnimationPlayer.play("default")
+	if !is_inside_tree(): return
 	get_tree().create_timer(spawn_time, false).timeout.connect(spawn, ConnectFlags.CONNECT_DEFERRED)
 
 func spawn() -> void:

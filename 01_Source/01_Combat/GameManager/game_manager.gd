@@ -57,7 +57,7 @@ func transition_levels(dir: Vector2) -> void:
 	
 	map_overlay.map_position = current_level.map_pos
 	map_overlay.display()
-	
+	if !is_inside_tree(): return
 	await get_tree().create_timer(0.1, false).timeout
 	level_enter.emit()
 
