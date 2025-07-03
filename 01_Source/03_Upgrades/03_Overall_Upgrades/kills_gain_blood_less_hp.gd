@@ -1,7 +1,7 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "Vampiric Frenzy" 
+	upgrade_name = "I'M STARVING" 
 	upgrade_description = "You have less max hp, but killing enemies provides blood."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_bloody.png")
 	upgrade_number = UpgradeData.HIGH_BLOOD_REGEN

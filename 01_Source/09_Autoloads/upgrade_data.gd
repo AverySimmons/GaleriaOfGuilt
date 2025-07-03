@@ -1,6 +1,6 @@
 extends Node
 # THE BIG DECLARATION
-const NUM_UPGRADES: int = 26
+const NUM_UPGRADES: int = 28
 const BITE: int = 0
 const SHOTGUN: int = 1
 const GRENADE: int = 2
@@ -27,6 +27,8 @@ const ALL_UPGRADES: int = 22
 const BR_INCREASE: int = 23
 const LOW_BLOOD_BUFF: int = 24
 const BLOOD_AS_HP: int = 25
+const SP_DAMAGE_COST_BLOOD: int = 26
+const SLASH_SPCD: int = 27
 
 var upgrades_gained: Array
 
@@ -61,13 +63,16 @@ func _ready() -> void:
 @onready var BR_INCREASE_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/bloodrage_mult_inc.gd").new()
 @onready var LOW_BLOOD_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/low_blood_better.gd").new()
 @onready var BLOOD_AS_HP_CLASS = preload("res://01_Source/03_Upgrades/03_Overall_Upgrades/lose_hp_to_blood_first.gd").new()
+@onready var SP_DAMAGE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/lower_spcd_costs_blood.gd").new()
+@onready var SLASH_SPCD_CLASS = preload("res://01_Source/03_Upgrades/00_Swipe_Upgrades/slash_dec_spcd.gd").new()
 
 @onready var selectable_upgrades: Array[Upgrade] = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
 											INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
 											BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS,
 											SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
 											DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS, ENDLESS_VOID_CLASS,
-											ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS, BR_INCREASE_CLASS, LOW_BLOOD_CLASS, BLOOD_AS_HP_CLASS]
+											ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS, BR_INCREASE_CLASS, LOW_BLOOD_CLASS, BLOOD_AS_HP_CLASS,
+											SP_DAMAGE_CLASS, SLASH_SPCD_CLASS]
 
 @onready var unseen_upgrades: Array[Upgrade] = selectable_upgrades.duplicate()
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://6f67n6fgmbn6"]
 
 [ext_resource type="Script" uid="uid://clka6aw5ssvse" path="res://03_Components/00_Special_Abilities/bite.gd" id="1_01fqm"]
-[ext_resource type="Texture2D" uid="uid://cg2p0qifcx0qr" path="res://00_Assets/00_Sprites/Charcter_sprites/bite_effect_spritesheet.png" id="2_ncxjq"]
+[ext_resource type="Texture2D" uid="uid://ci3rn81yyvyyc" path="res://00_Assets/00_Sprites/Charcter_sprites/bite_effect_spritesheet.png" id="2_ncxjq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncxjq"]
 radius = 100.0

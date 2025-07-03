@@ -6,7 +6,7 @@ extends Area2D
 var is_active: bool = false
 var active_time: float = 1.
 var active_timer: float = 1.
-var damage : float = 20
+var damage : float = 15
 
 func _ready() -> void:
 	#AudioData.play_sound("lightning_charge", $SpawnSound)

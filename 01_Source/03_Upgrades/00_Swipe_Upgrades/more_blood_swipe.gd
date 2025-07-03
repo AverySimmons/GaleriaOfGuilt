@@ -1,8 +1,8 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "Hungry Claws"
-	upgrade_description = "Your swipe attack provide more blood."
+	upgrade_name = "Torture Them"
+	upgrade_description = "Your swipe attack generates 30% more blood."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/slash_blood.png")
 	upgrade_number = UpgradeData.SWIPE_MORE_BG
 	upgrade_scene = self

@@ -5,11 +5,11 @@ extends SpecialAbility
 func _ready() -> void:
 	super._ready()
 	damage = 50
-	cooldown = 4
+	cooldown = 8
 	chargeup = 0.4
 	active_time = 0.6
 	special_slowdown = 0.4
-	flinch_amount = 0.3
+	flinch_amount = 1.2
 	blood_gain_multiplier = 1.5
 	chargeup_slowdown = 0.3
 	
@@ -83,7 +83,7 @@ func use_ability() -> void:
 			continue
 		parent.gain_blood("special", blood_gain_multiplier, enemy)
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount, 0)
+		enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amount, 0)
 	return
 
 func _on_area_entered(area: Area2D) -> void:
@@ -96,7 +96,7 @@ func dash_cancel() -> void:
 		active_timer = 0
 		parent.using_attack_or_special_or_dash = false
 		monitoring = false
-		is_active = false	
+		is_active = false
 		hit_enemies.clear()
 		special_slowdown_actual = 1.0
 		collision_shape_2d.get_node("Sprite2D").visible = false

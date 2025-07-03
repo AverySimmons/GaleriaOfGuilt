@@ -74,7 +74,7 @@ func explode() -> void:
 		var enemy = area.owner
 		if enemy is Enemy && !enemies_hit.has(enemy):
 			print(enemy)
-			enemy.take_damage(damage, flinch_amt, knockback_amt)
+			enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amt, knockback_amt)
 			dealt_damage = true
 			player.gain_blood("special", 1.0, enemy)
 			enemies_hit[enemy] = null
@@ -90,7 +90,7 @@ func _on_area_entered(area) -> void:
 	var enemy = area.owner
 	if enemy is not Enemy || enemies_hit.has(enemy):
 		return
-	enemy.take_damage(damage, flinch_amt, knockback_amt)
+	enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amt, knockback_amt)
 	dealt_damage = true
 	player.gain_blood("special", 1.0, enemy)
 	enemies_hit[enemy] = null

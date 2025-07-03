@@ -8,10 +8,10 @@ var current_level: Level
 
 var mall_sizes = [
 	4,
-	1,
-	1,
-	1,
-	1
+	6,
+	8,
+	10,
+	12
 ]
 
 signal item_dialog()

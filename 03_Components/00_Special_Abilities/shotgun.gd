@@ -7,12 +7,12 @@ var cur_bullet_speed
 func _ready() -> void:
 	super._ready()
 	damage = 15
-	cooldown = 3
-	chargeup = 0.3
+	cooldown = 5
+	chargeup = 0.2
 	active_time = 0.2
-	special_slowdown = 0.5
+	special_slowdown = 0.3
 	flinch_amount = 0.0
-	chargeup_slowdown = 0.3
+	chargeup_slowdown = 0.15
 	parent.start_dash.connect(dash_cancel)
 	pass
 

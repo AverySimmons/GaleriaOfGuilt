@@ -17,6 +17,7 @@ var is_locked = false
 signal exit(dir: Vector2)
 
 func _physics_process(delta: float) -> void:
+	if not GameData.is_escaping and direction == Vector2.ZERO: return
 	if has_overlapping_areas() and not is_locked:
 		exit.emit(direction)
 

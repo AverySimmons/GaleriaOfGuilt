@@ -86,6 +86,8 @@ var current_exp: float = 0
 var exp_mult: float = 1.0
 
 # Upgrade stuff ----------------------------------------
+var special_damage_increase = 1
+
 var dash_blood_cost: float = 0
 var swipe_blood_cost: float = 0
 var special_blood_cost: float = 0
@@ -212,7 +214,8 @@ func _physics_process(delta: float) -> void:
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
-		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
+		if special_ability_timer == 0 && using_attack_or_special_or_dash == false \
+				and blood_bar >= special_blood_cost:
 			# Sorry this is basically to check just for one upgrade, usually it doesn't matter so completely ignore it
 			var guysthiscodesucksbutimrushing: bool = true
 			if UpgradeData.upgrades_gained[UpgradeData.SPECIAL_CD_RED_COST_HP]:
@@ -223,6 +226,8 @@ func _physics_process(delta: float) -> void:
 					take_damage(max_hp/10.0)
 			## same here as above (blah blah blah repeating code)
 			if guysthiscodesucksbutimrushing:
+				blood_bar -= special_blood_cost
+				SignalBus.bb_change.emit()
 				var dir = global_position.direction_to(get_global_mouse_position())
 				var facing_dir = name_from_vect_dir(dir)
 				facing_dir = update_facing_direction(facing_dir)
@@ -448,10 +453,10 @@ func take_damage(amount: float) -> void:
 		return
 	if UpgradeData.upgrades_gained[UpgradeData.BLOOD_AS_HP] && blood_bar > 0:
 		var bb_before = blood_bar
-		blood_bar = move_toward(blood_bar, 0, amount*2)
+		blood_bar = move_toward(blood_bar, 0, amount*10)
 		SignalBus.bb_change.emit()
-		if bb_before < amount*2:
-			amount -= bb_before/2
+		if bb_before < amount*10:
+			amount -= bb_before/10.
 		else:
 			amount = 0
 	current_hp = move_toward(current_hp, 0, amount)
@@ -466,9 +471,10 @@ func take_damage(amount: float) -> void:
 	SignalBus.player_hit.emit()
 	modulate = Color(1, 0.5, 0.5)
 	AudioData.play_sound("player_hit", $PlayerHit)
-	SignalBus.pause.emit()
-	await get_tree().create_timer(0.1).timeout
-	SignalBus.unpause.emit()
+	if current_hp > 0:
+		SignalBus.pause.emit()
+		await get_tree().create_timer(0.1).timeout
+		SignalBus.unpause.emit()
 	modulate = Color(1, 1, 1)
 	is_invincible = true
 	await get_tree().create_timer(0.2).timeout
@@ -483,9 +489,6 @@ func heal_damage(amount: float) -> void:
 func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 	if blood_bar >= bb_max:
 		return
-	if enemy != null:
-		if enemy.is_marked:
-			mult = mult * 2.5
 	var gain: float = swipe_bb_actual
 	match attack_type:
 		"swipe": 
@@ -541,7 +544,7 @@ func kill_gain_blood(enemy: Enemy) -> void:
 
 func kill_lower_spcd(enemy) -> void:
 	if special_ability_timer >= 0:
-		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc * spcd_increase)/3)
+		special_ability_timer = move_toward(special_ability_timer, 0, (current_ability.cooldown * bb_hitspd_inc * spcd_increase)/3.)
 	return
 
 # Level stuff

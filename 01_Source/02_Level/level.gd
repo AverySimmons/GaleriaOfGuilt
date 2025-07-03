@@ -24,15 +24,15 @@ var escape_timer = 0
 var distance = 0
 
 var mall_scaling: Array[float] = [
-	2, 3, 4, 5, 6
+	5, 8, 15, 20, 25
 ]
 
 var mall_flat: Array[float] = [
-	60, 20, 25, 30, 35
+	15, 22, 30, 37, 45
 ]
 
 var size_scaling: Array[float] = [
-	1, 1.2, 1.4, 1.6
+	1, 1.15, 1.3, 1.45
 ]
 
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
@@ -90,7 +90,7 @@ func _ready() -> void:
 	
 	enemy_credits *= size_scaling[con_num]
 	
-	max_enemies_in_wave = max(min_wave_size, int(enemy_credits / 10.))
+	max_enemies_in_wave = max(min_wave_size, int(enemy_credits / 15.))
 	
 	$MultiplyLayer.color = tint
 	
@@ -103,7 +103,7 @@ func _ready() -> void:
 	
 	# HEY IT"S Me JOEY
 	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
-		GameData.player.gain_blood_other(50)
+		GameData.player.gain_blood_other(80)
 		GameData.player.dealt_damage_took_damage = true
 	
 	#var center = Vector3((top_left.x+bot_right.x) * 0.5, (top_left.y+bot_right.y) * 0.5, 0)
@@ -113,6 +113,7 @@ func _ready() -> void:
 	for d in doors.get_children():
 		if d is EntranceDoor:
 			entrance_door = d
+			camera.global_position = d.global_position
 			d.exit.connect(exit, ConnectFlags.CONNECT_DEFERRED)
 			continue
 		var con_value = connections[GameData.DIRECTIONS[d.direction]]

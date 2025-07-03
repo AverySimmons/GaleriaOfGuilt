@@ -40,6 +40,11 @@ func _physics_process(delta: float) -> void:
 		#print(damage)
 		if UpgradeData.upgrades_gained[UpgradeData.LIFESTEAL]:
 			parent.heal_damage(2)
+		if UpgradeData.upgrades_gained[UpgradeData.SLASH_SPCD]:
+			if parent.special_ability_timer >= 0:
+				parent.special_ability_timer = move_toward(parent.special_ability_timer, 0, 0.2)
+		
+		
 		# Enemy take damage thing
 	enemies_just_entered.clear()
 	
@@ -127,6 +132,9 @@ func initiate_attack(upgrade_mult: float) -> void:
 		enemy.take_damage(damage, flinch_amount, 0)
 		if UpgradeData.upgrades_gained[UpgradeData.LIFESTEAL]:
 			parent.heal_damage(2)
+		if UpgradeData.upgrades_gained[UpgradeData.SLASH_SPCD]:
+			if parent.special_ability_timer >= 0:
+				parent.special_ability_timer = move_toward(parent.special_ability_timer, 0, 0.2)
 	# Functions:
 	# Deal dmg
 	# Gain blood for each enemy hit and killed

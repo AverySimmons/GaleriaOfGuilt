@@ -1,8 +1,8 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "Explosive Blood"
-	upgrade_description = "Replace your special with a grenade, dealing damage and knockback over a large radius."
+	upgrade_name = "Unstable Plasma"
+	upgrade_description = "Replace your special with a blood grenade that deals damage in a large radius."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword1_super.png")
 	upgrade_number = UpgradeData.GRENADE
 	upgrade_scene = self

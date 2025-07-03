@@ -1,8 +1,8 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "RAGHHHH!!!! I NEED BLOOD!" # Maybe WIP name? Idk it's pretty goated
-	upgrade_description = "Your special gains more blood."
+	upgrade_name = "RAGHHH!!!"
+	upgrade_description = "Your special produces twice as much blood."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/bite_bloody.png")
 	upgrade_number = UpgradeData.SP_MORE_BLOOD_CD
 	upgrade_scene = self

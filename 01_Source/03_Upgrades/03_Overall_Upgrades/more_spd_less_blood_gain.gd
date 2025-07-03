@@ -1,7 +1,7 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "Destructive Haste" 
+	upgrade_name = "MORE MORE MORE" 
 	upgrade_description = "You have an increased baseline movement speed."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/boots_super.png")
 	upgrade_number = UpgradeData.MORE_SPD_LESS_BG
@@ -11,5 +11,5 @@ func _init() -> void:
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	GameData.player.baseline_speed += 120
+	GameData.player.baseline_speed += 90
 	return

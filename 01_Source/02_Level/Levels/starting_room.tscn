@@ -544,6 +544,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 position = Vector2(0, 344)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

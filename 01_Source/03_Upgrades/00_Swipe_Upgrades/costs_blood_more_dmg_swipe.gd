@@ -1,8 +1,8 @@
 extends Upgrade
 
 func _init() -> void:
-	upgrade_name = "Blood-Infused Claws"
-	upgrade_description = "Your swipe attack costs some blood but deals more damage."
+	upgrade_name = "Artful Mauling"
+	upgrade_description = "Your swipe attack generates less blood but deals 50% more damage."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/slash_glowing.png")
 	upgrade_number = UpgradeData.COSTS_BLOOD_MORE_DMG
 	upgrade_scene = self

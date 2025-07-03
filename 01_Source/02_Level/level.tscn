@@ -324,6 +324,7 @@ offset_bottom = 769.0
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

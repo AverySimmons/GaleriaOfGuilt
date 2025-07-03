@@ -24,7 +24,7 @@ var death
 
 var player_dying = false
 
-var test_game = false
+var test_game = true
 
 var was_paused = false
 
@@ -257,17 +257,13 @@ func player_death():
 	player_dying = true
 	GameData.music_event.set_parameter("combat state", 0)
 	
-	var t = create_tween()
-	t.tween_property(Engine, "time_scale", 0.3, 0.5)
+	pause_game()
 	
 	var t2 = create_tween()
 	t2.tween_property(GameData.player, "modulate", Color("red"), 0.5)
 	
-	await t.finished
 	
-	pause_game()
-	
-	Engine.time_scale = 1
+	await t2.finished
 	
 	death = death_scene.instantiate()
 	death.try_again.connect(death_reset)
@@ -278,7 +274,6 @@ func death_reset():
 	GameData.player.get_parent().remove_child(GameData.player)
 	game_manager.call_deferred("queue_free")
 	spawn_game_manager()
-
 
 func _on_button_mouse_entered() -> void:
 	$ButtonHover.play()

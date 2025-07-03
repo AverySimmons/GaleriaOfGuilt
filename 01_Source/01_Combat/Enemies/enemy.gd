@@ -87,8 +87,8 @@ func _physics_process(delta: float) -> void:
 	
 	#death
 	#DEBUG DAMAGE TESTABLE
-	if Input.is_action_just_pressed('take_damage_debug'):
-		take_damage(1, 0.5, 0) #take 1 damage and flinch for a second
+	#if Input.is_action_just_pressed('take_damage_debug'):
+		#take_damage(1, 0.5, 0) #take 1 damage and flinch for a second
 	
 	if hp <= 0:
 		if not death_state:
@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void:
 	var overlapping_areas = $Hitbox.get_overlapping_areas()
 	if overlapping_areas:
 		var player : Player = overlapping_areas[0].owner
-		player.take_damage(10)
+		player.take_damage(15)
 	
 	# For upgrades:
 	if is_marked:
@@ -126,6 +126,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	if death_state: return
+	if is_marked: damage *= 2
 	hp -= damage
 	AudioData.play_sound("enemy_hit", hit_sound)
 	sprite.material.set_shader_parameter("blood_intensity", 1. - hp / hp_max)
