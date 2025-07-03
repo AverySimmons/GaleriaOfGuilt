@@ -24,9 +24,7 @@ var death
 
 var player_dying = false
 
-var test_game = true
-
-var was_paused = false
+var test_game = false
 
 func _ready() -> void:
 	SignalBus.player_death.connect(player_death)
@@ -67,15 +65,10 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("settings"):
 		if not settings:
 			settings = settings_scene.instantiate()
-			settings.closed.connect(settings_closed)
 			$TopLevelUI.add_child(settings)
-			was_paused = get_tree().paused
 			get_tree().paused = true
 		else:
 			settings.close()
-
-func settings_closed():
-	get_tree().paused = was_paused
 
 func spawn_game_manager():
 	GameData.is_escaping = false
