@@ -23,8 +23,8 @@ var current_hp: float
 # Blood Bar stuff
 var blood_bar = 0
 @export var bb_max: float = 250
-@export var swipe_bb_gain: float = 7
-@export var special_bb_gain: float = 10
+@export var swipe_bb_gain: float = 9.5
+@export var special_bb_gain: float = 14
 var swipe_bb_actual: float = 1
 var special_bb_actual: float = 1
 var bb_multiplier: float = 1.0
@@ -107,6 +107,8 @@ var sorryguysthisisstupidbutwererushing: bool = false
 
 var blood_effect_low_blood_upgrade_thing: float = 1.0
 
+var mult_because_im_dumb: float = 1.0
+
 @onready var swipe_sound = $SwipeSound
 @onready var dash_sound = $DashSound
 @onready var bite_sound = $BiteSound
@@ -162,11 +164,13 @@ func _physics_process(delta: float) -> void:
 				# Upgrade stuff?
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DAMAGE]:
 					enemy.take_damage(swipe.damage, 0.2, 0)
+					dealt_damage_took_damage = true
 				if UpgradeData.upgrades_gained[UpgradeData.MARK_DASH]:
 					enemy.get_marked()
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DISTANCE_BLOOD_GAIN]:
 					if !(blood_bar >= bb_max):
-						blood_bar = move_toward(blood_bar, bb_max, 15*bb_multiplier)
+						blood_bar = move_toward(blood_bar, bb_max, 10*bb_multiplier*bb_multiplier2)
+						dealt_damage_took_damage = true
 						SignalBus.bb_change.emit()
 					
 				dashed_into_enemies[enemy] = null
@@ -211,6 +215,8 @@ func _physics_process(delta: float) -> void:
 			
 			
 			$blood_swipe.initiate_attack(upgrade_swipe_mult)
+			if UpgradeData.upgrades_gained[UpgradeData.LOW_BLOOD_BUFF] && blood_bar <= bb_max/2:
+				bb_hitspd_inc /= blood_effect_low_blood_upgrade_thing
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
@@ -331,6 +337,12 @@ func _physics_process(delta: float) -> void:
 		burst_mult_actual = burst_mult
 		burst_begin.emit()
 	
+	if UpgradeData.upgrades_gained[UpgradeData.LOW_HP_BR] && current_hp <= max_hp/5:
+		if burst_timer == 0:
+			burst_begin.emit()
+		burst_timer = max(burst_timer, 0.5)
+		burst_mult_actual = burst_mult * 0.8
+	
 	var was_in_burst = burst_timer > 0
 	burst_timer = move_toward(burst_timer, 0, delta)
 	
@@ -347,12 +359,13 @@ func _physics_process(delta: float) -> void:
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
 	bb_hitspd_inc /= burst_mult_actual
 	bb_spd_inc *= burst_mult_actual
+	if UpgradeData.upgrades_gained[UpgradeData.MORE_BLOOD_EFFECT_LESS_HP] || UpgradeData.upgrades_gained[UpgradeData.BB_SIZE_INC_LESS_BG]:
+		mult_because_im_dumb += bb_hitspd_inc * blood_bar
 	if UpgradeData.upgrades_gained[UpgradeData.LOW_BLOOD_BUFF] && blood_bar <= bb_max/2:
 		bb_spd_inc *= blood_effect_low_blood_upgrade_thing
-		bb_hitspd_inc /= blood_effect_low_blood_upgrade_thing
 	if bb_hitspd_inc <= 0.1:
 		bb_hitspd_inc = 0.1
-	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.2*bb_multiplier2)
+	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc*mult_because_im_dumb, 0.35*bb_multiplier2)
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
 	
@@ -478,7 +491,7 @@ func take_damage(amount: float) -> void:
 	modulate = Color(1, 1, 1)
 	is_invincible = true
 	if !is_inside_tree(): return
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.3).timeout
 	is_invincible = false
 	return
 
@@ -498,6 +511,7 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 			gain = special_bb_actual * sp_blood_mult
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	SignalBus.bb_change.emit()
+	print(gain*mult)
 	return
 
 func gain_blood_other(amount: float) -> void:
@@ -562,10 +576,10 @@ func gain_exp(enemy: Enemy) -> void:
 			amount = 3
 	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
-		SignalBus.levelup.emit()
 		exp_needed += 50*level
 		level += 1
 		current_exp = 0
+		SignalBus.levelup.emit()
 	SignalBus.gained_exp.emit()
 	return
 

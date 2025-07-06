@@ -11,7 +11,7 @@ func _init() -> void:
 
 func choose_upgrade() -> void:
 	super.choose_upgrade()
-	GameData.player.blood_effect_low_blood_upgrade_thing *= 1.5
+	GameData.player.blood_effect_low_blood_upgrade_thing *= 1.4
 	GameData.player.bb_hitspd *= 0.85
 	GameData.player.bb_spd *= 0.85
 	return

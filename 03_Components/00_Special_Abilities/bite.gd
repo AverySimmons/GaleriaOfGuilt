@@ -4,9 +4,9 @@ extends SpecialAbility
 
 func _ready() -> void:
 	super._ready()
-	damage = 50
+	damage = 40
 	cooldown = 8
-	chargeup = 0.4
+	chargeup = 0.5
 	active_time = 0.6
 	special_slowdown = 0.4
 	flinch_amount = 1.2
