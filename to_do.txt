@@ -1,8 +1,45 @@
-make boss
-split tutorial
-more spawns during escape
-less blood gain on grenade
-shotgun more bullets more spread
-MORE MORE MORE nerf
-more i-frames less hp
-change character voices
+sandy ground sprite
+heart sprite
+	idle fly around
+	aoe attack
+	projectile attack
+boss health bar sprite
+blood grenade tornado sprite
+red lighting effect
+
+upgraded enemy versions - Brian
+
+phase 1:
+	upgrades enemies
+
+phase 2:
+	upgrades enemies
+	shoots lightning
+	shoots projectiles
+
+phase 3:
+	faster phase 2 / better
+
+boss logic - Joey
+	movement
+	states
+	taking damage
+projectile module - Joey
+
+lightning module - Avery
+new level script - Avery
+
+music 3 levels of intensity - Justin
+boss sounds - Justin
+change character voices - Justin
+
+split tutorial - Avery
+escape text flashing - Avery
+turn off monitoring on dead enemies - Brian
+// put icons in - Joey
+// more spawns during escape - Avery
+// less blood gain on grenade - Joey
+// shotgun more bullets more spread - Joey
+// MORE MORE MORE nerf - Joey
+// more i-frames less hp - Joey
+// enemies cant damage / get damaged when dying - Brian
