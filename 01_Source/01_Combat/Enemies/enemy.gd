@@ -106,11 +106,7 @@ func _physics_process(delta: float) -> void:
 		#print('movement animations')
 		select_movement_animations()
 		
-	#deal damage to player
-	var overlapping_areas = $Hitbox.get_overlapping_areas()
-	if overlapping_areas:
-		var player : Player = overlapping_areas[0].owner
-		player.take_damage(15)
+
 	
 	# For upgrades:
 	if is_marked:

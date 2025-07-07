@@ -2,7 +2,7 @@ extends Upgrade
 
 func _init() -> void:
 	upgrade_name = "Vomit"
-	upgrade_description = "Replace your special ability with a shotgun-style attack."
+	upgrade_description = "Replace your special ability with a shotgun-style attack. Immediately gain most of your exp back."
 	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png")
 	upgrade_number = UpgradeData.SHOTGUN
 	upgrade_scene = self
@@ -20,4 +20,6 @@ func choose_upgrade() -> void:
 	UpgradeData.current_ability_class = upgrade_scene
 	GameData.player.current_ability_name = 3
 	GameData.overlay.special_cooldown.texture = icon
+	GameData.player.current_exp = GameData.player.exp_needed * 0.8
+	SignalBus.gained_exp.emit()
 	return
