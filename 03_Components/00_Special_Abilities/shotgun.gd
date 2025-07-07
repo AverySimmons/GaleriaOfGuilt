@@ -6,7 +6,7 @@ var cur_bullet_speed
 
 func _ready() -> void:
 	super._ready()
-	damage = 15
+	damage = 8
 	cooldown = 4.5
 	chargeup = 0.2
 	active_time = 0.2
@@ -36,7 +36,7 @@ func use_ability() -> void:
 	
 	super.use_ability()
 	# For shooting out bullets semi-randomly
-	var angle_variance: float = -30.0/180.0
+	var angle_variance: float = -80/180.0
 	var angle_randomness: float = 5.0/180.0
 	
 	var muzzle_position: Vector2 = $CollisionShape2D.global_transform * Vector2($CollisionShape2D.shape.extents.x, 0)
@@ -46,7 +46,7 @@ func use_ability() -> void:
 	if !projectiles_scene:
 		projectiles_scene = get_tree().current_scene
 	
-	for i in range(6):
+	for i in range(16):
 		var new_bullet = bullet_scene.instantiate()
 		
 		cur_bullet_speed = randfn(bullet_speed, 100)
@@ -54,7 +54,7 @@ func use_ability() -> void:
 		new_bullet.rotation = angle
 		var angle_shot_out: float = angle + angle_variance
 		new_bullet.get_shot(angle_shot_out-angle_randomness, angle_shot_out+angle_randomness, cur_bullet_speed, damage, flinch_amount)
-		angle_variance += 10.0/180.0
+		angle_variance += 10/180.0
 		
 		offset += 1
 		

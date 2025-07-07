@@ -76,7 +76,7 @@ func explode() -> void:
 			print(enemy)
 			enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amt, knockback_amt)
 			dealt_damage = true
-			player.gain_blood("special", 1.0, enemy)
+			player.gain_blood("special", 0.6, enemy)
 			enemies_hit[enemy] = null
 	
 	if $ExplosionSound.playing:
@@ -92,6 +92,6 @@ func _on_area_entered(area) -> void:
 		return
 	enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amt, knockback_amt)
 	dealt_damage = true
-	player.gain_blood("special", 1.0, enemy)
+	player.gain_blood("special", 0.6, enemy)
 	enemies_hit[enemy] = null
 	pass

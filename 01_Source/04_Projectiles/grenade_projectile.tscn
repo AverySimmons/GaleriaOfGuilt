@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://ddjg7w4r3uby2"]
 
 [ext_resource type="Script" uid="uid://pywfcjgyrl8s" path="res://01_Source/04_Projectiles/grenade_projectile.gd" id="1_npbrj"]
-[ext_resource type="Texture2D" uid="uid://btnltd12ox4mj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_sprite.png" id="2_kijbu"]
+[ext_resource type="Texture2D" uid="uid://daov6m18nfd5j" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_sprite.png" id="2_kijbu"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="3_4nrk6"]
-[ext_resource type="Texture2D" uid="uid://d0kx60ciww8rj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="4_4261l"]
-[ext_resource type="AudioStream" uid="uid://00brbppvehee" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="5_668oe"]
+[ext_resource type="Texture2D" uid="uid://csiikdblpmono" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="4_4261l"]
+[ext_resource type="AudioStream" uid="uid://k3y5d2dor06o" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="5_668oe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kijbu"]
 radius = 225.0
