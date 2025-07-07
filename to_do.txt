@@ -1,2 +1,8 @@
+make boss
+split tutorial
+more spawns during escape
+less blood gain on grenade
+shotgun more bullets more spread
+MORE MORE MORE nerf
+more i-frames less hp
 change character voices
-controller support
