@@ -113,7 +113,8 @@ folder_colors={
 "res://00_Assets/": "orange",
 "res://01_Source/": "yellow",
 "res://02_Recources/": "green",
-"res://03_Components/": "blue"
+"res://03_Components/": "blue",
+"res://_BossStuff/": "red"
 }
 
 [input]
