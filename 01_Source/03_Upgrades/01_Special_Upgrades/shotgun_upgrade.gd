@@ -3,7 +3,7 @@ extends Upgrade
 func _init() -> void:
 	upgrade_name = "Vomit"
 	upgrade_description = "Replace your special ability with a shotgun-style attack. Immediately gain most of your exp back."
-	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png")
+	icon = preload("res://00_Assets/00_Sprites/upgrade_icons/shotgun.png")
 	upgrade_number = UpgradeData.SHOTGUN
 	upgrade_scene = self
 	type = 3
