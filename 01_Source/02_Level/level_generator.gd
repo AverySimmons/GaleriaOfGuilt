@@ -53,8 +53,8 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 	set_distance()
 	
 	var h = randf()
-	var s = randf_range(0.1, 0.2)
-	var v = randf_range(0.9, 1)
+	var s = randf_range(0.2, 0.3)
+	var v = randf_range(0.8, 1)
 	
 	var tint = Color.from_hsv(h,s,v)
 	

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfjtqh4bk21v"]
+
+[ext_resource type="Script" uid="uid://c1s3tpppcjwnn" path="res://_BossStuff/BossLevel/boss_level.gd" id="1_et2my"]
+[ext_resource type="PackedScene" uid="uid://bka1wtsyvvvgk" path="res://01_Source/01_Combat/Blood/blood_manager.tscn" id="1_o4hei"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
+size = Vector2(100, -100)
+
+[sub_resource type="MultiMesh" id="MultiMesh_o4hei"]
+resource_local_to_scene = true
+use_custom_data = true
+visible_instance_count = 0
+mesh = SubResource("QuadMesh_x8ck2")
+
+[node name="BossLevel" type="Node2D"]
+script = ExtResource("1_et2my")
+
+[node name="SandLayer" type="TileMapLayer" parent="."]
+
+[node name="BloodManager" parent="." instance=ExtResource("1_o4hei")]
+multimesh = SubResource("MultiMesh_o4hei")
+
+[node name="AttackIndicators" type="Node2D" parent="."]
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]

@@ -13,6 +13,7 @@ var van_scene = preload("res://01_Source/06_TopLevel/Cutscenes/Road.tscn")
 var ending_scene = preload("res://01_Source/06_TopLevel/Cutscenes/ending.tscn")
 var settings_scene = preload("res://01_Source/06_TopLevel/Settings/settings.tscn")
 var death_scene = preload("res://01_Source/06_TopLevel/Cutscenes/death.tscn")
+var boss_scene = preload("res://_BossStuff/BossLevel/boss_level.tscn")
 
 var title_screen
 var game_manager
@@ -21,10 +22,12 @@ var van
 var ending
 var settings
 var death
+var boss_level
 
 var player_dying = false
 
 var test_game = true
+var test_boss = true
 
 func _ready() -> void:
 	SignalBus.player_death.connect(player_death)
@@ -40,7 +43,10 @@ func _ready() -> void:
 	
 	if test_game:
 		$TitleScreen.call_deferred("queue_free")
-		spawn_game_manager()
+		if test_boss:
+			spawn_boss_level()
+		else:
+			spawn_game_manager()
 		$MenuMusic.paused = true
 		return
 	
@@ -69,6 +75,11 @@ func _input(event: InputEvent) -> void:
 			get_tree().paused = true
 		else:
 			settings.close()
+
+func spawn_boss_level():
+	player_dying = false
+	boss_level = boss_scene.instantiate()
+	add_child(boss_level)
 
 func spawn_game_manager():
 	GameData.is_escaping = false
