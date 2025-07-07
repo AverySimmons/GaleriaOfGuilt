@@ -28,6 +28,7 @@ projectile module - Joey
 
 lightning module - Avery
 new level script - Avery
+implement title screen - Avery
 
 music 3 levels of intensity - Justin
 boss sounds - Justin
