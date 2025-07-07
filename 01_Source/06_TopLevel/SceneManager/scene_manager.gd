@@ -24,7 +24,7 @@ var death
 
 var player_dying = false
 
-var test_game = false
+var test_game = true
 
 func _ready() -> void:
 	SignalBus.player_death.connect(player_death)

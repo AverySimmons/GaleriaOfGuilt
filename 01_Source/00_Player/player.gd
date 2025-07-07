@@ -17,7 +17,7 @@ var movement_vector: Vector2
 var base_velocity := Vector2.ZERO
 
 # HP stuff
-@export var max_hp: float = 100
+@export var max_hp: float = 80
 var current_hp: float
 
 # Blood Bar stuff
@@ -359,13 +359,11 @@ func _physics_process(delta: float) -> void:
 	bb_hitspd_inc = 1.0 - (blood_bar * bb_hitspd)
 	bb_hitspd_inc /= burst_mult_actual
 	bb_spd_inc *= burst_mult_actual
-	if UpgradeData.upgrades_gained[UpgradeData.MORE_BLOOD_EFFECT_LESS_HP] || UpgradeData.upgrades_gained[UpgradeData.BB_SIZE_INC_LESS_BG]:
-		mult_because_im_dumb += bb_hitspd_inc * blood_bar / 2
 	if UpgradeData.upgrades_gained[UpgradeData.LOW_BLOOD_BUFF] && blood_bar <= bb_max/2:
 		bb_spd_inc *= blood_effect_low_blood_upgrade_thing
 	if bb_hitspd_inc <= 0.1:
 		bb_hitspd_inc = 0.1
-	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc*mult_because_im_dumb, 0.35*bb_multiplier2)
+	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.35*bb_multiplier2)
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
 	
@@ -466,10 +464,10 @@ func take_damage(amount: float) -> void:
 		return
 	if UpgradeData.upgrades_gained[UpgradeData.BLOOD_AS_HP] && blood_bar > 0:
 		var bb_before = blood_bar
-		blood_bar = move_toward(blood_bar, 0, amount*10)
+		blood_bar = move_toward(blood_bar, 0, amount*5)
 		SignalBus.bb_change.emit()
-		if bb_before < amount*10:
-			amount -= bb_before/10.
+		if bb_before < amount*5:
+			amount -= bb_before/5.
 		else:
 			amount = 0
 	current_hp = move_toward(current_hp, 0, amount)
@@ -491,7 +489,7 @@ func take_damage(amount: float) -> void:
 	modulate = Color(1, 1, 1)
 	is_invincible = true
 	if !is_inside_tree(): return
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.4).timeout
 	is_invincible = false
 	return
 
