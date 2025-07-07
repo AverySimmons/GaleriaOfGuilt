@@ -360,7 +360,7 @@ func _physics_process(delta: float) -> void:
 	bb_hitspd_inc /= burst_mult_actual
 	bb_spd_inc *= burst_mult_actual
 	if UpgradeData.upgrades_gained[UpgradeData.MORE_BLOOD_EFFECT_LESS_HP] || UpgradeData.upgrades_gained[UpgradeData.BB_SIZE_INC_LESS_BG]:
-		mult_because_im_dumb += bb_hitspd_inc * blood_bar
+		mult_because_im_dumb += bb_hitspd_inc * blood_bar / 2
 	if UpgradeData.upgrades_gained[UpgradeData.LOW_BLOOD_BUFF] && blood_bar <= bb_max/2:
 		bb_spd_inc *= blood_effect_low_blood_upgrade_thing
 	if bb_hitspd_inc <= 0.1:
@@ -548,9 +548,9 @@ func kill_gain_blood(enemy: Enemy) -> void:
 	var amount: float = 0
 	match enemy.type:
 		"Lizard":
-			amount = 20
+			amount = 15
 		"Worm":
-			amount = 12
+			amount = 10
 		"Locust":
 			amount = 5
 	blood_bar = move_toward(blood_bar, bb_max, amount*bb_multiplier)
@@ -576,7 +576,7 @@ func gain_exp(enemy: Enemy) -> void:
 			amount = 3
 	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
-		exp_needed += 50*level
+		exp_needed += 40*level
 		level += 1
 		current_exp = 0
 		SignalBus.levelup.emit()

@@ -36,7 +36,7 @@ var upgrades_gained: Array
 func _ready() -> void:
 	for i in range(NUM_UPGRADES):
 		upgrades_gained.append(false)
-	SignalBus.player_death.connect(reset)
+	#SignalBus.player_death.connect(reset)
 	pass
 
 @onready var BITE_CLASS = preload("res://01_Source/03_Upgrades/01_Special_Upgrades/bite_upgrade.gd").new()
@@ -80,15 +80,15 @@ func _ready() -> void:
 
 @onready var current_ability_class = BITE_CLASS
 
-func reset() -> void:
-	for i in range(NUM_UPGRADES):
-		upgrades_gained[i] = false
-	selectable_upgrades = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
-							INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
-							BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS,
-							SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
-							DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS, ENDLESS_VOID_CLASS,
-							ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS, BR_INCREASE_CLASS, LOW_BLOOD_CLASS, BLOOD_AS_HP_CLASS,
-							SP_DAMAGE_CLASS, SLASH_SPCD_CLASS, LOW_HP_BR_CLASS]
-	unseen_upgrades = selectable_upgrades.duplicate()
-	return
+#func reset() -> void:
+	#for i in range(NUM_UPGRADES):
+		#pgrades_gained[i] = false
+	#selectable_upgrades = [SHOTGUN_CLASS, GRENADE_CLASS, RETRACT_SWIPE_CLASS, DASH_DAMAGE_CLASS,
+							#INF_DASH_CLASS, MARK_DASH_CLASS, BBUP_BGDOWN_CLASS, HIGH_BB_REGEN_CLASS, 
+							#BEUP_HPDOWN_CLASS, BG_KILL_HPDOWN_CLASS, SPDUP_BGDOWN_CLASS, KILL_LOWER_SPCD_CLASS,
+							#SWIPE_DMG_UP_COST_BLOOD_CLASS, SWIPE_MORE_BLOOD_CLASS, LIFESTEAL_SWIPE_CLASS,
+							#DASH_CHARGES_CLASS, DASH_DIST_CLASS, SPECIAL_CD_UP_BLOOD_UP_CLASS, ENDLESS_VOID_CLASS,
+							#ENTER_ROOM_BLOOD_CLASS, RAPID_JAWS_CLASS, BR_INCREASE_CLASS, LOW_BLOOD_CLASS, BLOOD_AS_HP_CLASS,
+							#SP_DAMAGE_CLASS, SLASH_SPCD_CLASS, LOW_HP_BR_CLASS]
+	#unseen_upgrades = selectable_upgrades.duplicate()
+	#return
