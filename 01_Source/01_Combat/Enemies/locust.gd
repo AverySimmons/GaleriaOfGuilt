@@ -12,11 +12,12 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
 	#deal damage to player
-	var overlapping_areas = $Hitbox.get_overlapping_areas()
-	if overlapping_areas:
-		var player : Player = overlapping_areas[0].owner
-		player.take_damage(15)
-	
+	if not death_state:
+		var overlapping_areas = $Hitbox.get_overlapping_areas()
+		if overlapping_areas:
+			var player : Player = overlapping_areas[0].owner
+			player.take_damage(15)
+		
 
 func _process(delta: float) -> void:
 	if $Sprite2D.scale.y < 0:
