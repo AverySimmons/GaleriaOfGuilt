@@ -63,7 +63,9 @@ func _ready() -> void:
 
 func start_death() -> void:
 	if death_state: return
-	
+	var hurtbox = $Hurtbox
+	if hurtbox != null:
+		hurtbox.monitorable = false
 	death_state = true
 	AudioData.play_sound("enemy_death", $DeathSound)
 	if target_ind: target_ind.conceal()

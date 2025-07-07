@@ -583,5 +583,6 @@ func gain_exp(enemy: Enemy) -> void:
 
 func reset():
 	current_hp = max_hp
+	is_dashing = false
 	blood_bar = 0
 	modulate = Color("white")
