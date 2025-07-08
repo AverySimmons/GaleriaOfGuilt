@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://golx8qccvonh"]
+
+[ext_resource type="Script" uid="uid://bxf47eeet2vgs" path="res://_BossStuff/02_BossProjectiles/boss_bullet.gd" id="1_xp4ff"]
+[ext_resource type="Texture2D" uid="uid://dki180hfws3cw" path="res://_BossStuff/00_Sprites/boss_sprites/blood_spray_attack_sprite.png" id="2_pnhoq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xp4ff"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sa7c2"]
+radius = 13.0
+
+[node name="BossBullet" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_xp4ff")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+rotation = -1.5708
+texture = ExtResource("2_pnhoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_xp4ff")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_sa7c2")
