@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cm3gximniggbi"]
+[gd_scene load_steps=18 format=3 uid="uid://cm3gximniggbi"]
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://db75cik2vni6e" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
 [ext_resource type="Texture2D" uid="uid://dramhfq3nyqcj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
 [ext_resource type="Script" uid="uid://bn3pm2wrv0ff3" path="res://_BossStuff/LightningModule/lightning_module.gd" id="6_su3p6"]
+[ext_resource type="Texture2D" uid="uid://cyw6ffpmgcyxe" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
 
 [sub_resource type="Animation" id="Animation_tk2ht"]
 resource_name = "HeartBeat"
@@ -84,6 +85,43 @@ _data = {
 &"tornado_spawn": SubResource("Animation_22jes")
 }
 
+[sub_resource type="Animation" id="Animation_refew"]
+resource_name = "lightning_spawning"
+length = 0.2664
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LightningSpawn:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_e0yi2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LightningSpawn:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3bdry"]
+_data = {
+&"RESET": SubResource("Animation_e0yi2"),
+&"lightning_spawning": SubResource("Animation_refew")
+}
+
 [node name="Boss" type="Node2D"]
 script = ExtResource("1_cymkw")
 
@@ -127,4 +165,14 @@ shape = SubResource("CircleShape2D_22jes")
 [node name="TornadoSpawning" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_refew")
+}
+
+[node name="LightningSpawn" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("7_su3p6")
+hframes = 8
+
+[node name="LightningSpawning" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3bdry")
 }

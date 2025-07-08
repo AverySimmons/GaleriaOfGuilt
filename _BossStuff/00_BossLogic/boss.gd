@@ -6,6 +6,8 @@ extends Node2D
 @onready var heartbeat_ap: AnimationPlayer = $HeartBeat
 @onready var tornado_spawn_ap: AnimationPlayer = $TornadoSpawning
 @onready var tornado_spawn: Sprite2D = $TornadoSpawn
+@onready var lightning_spawn_ap: AnimationPlayer = $LightningSpawning
+@onready var lightning_spawn: Sprite2D = $LightningSpawn
 @onready var upgrade_proj_scene = preload("res://_BossStuff/02_BossProjectiles/upgrade_projectile.tscn")
 @onready var lightning_module: BossLightningModule = $BossLightningModule
 @onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
@@ -102,12 +104,15 @@ func _physics_process(delta: float) -> void:
 			# Adjust heart y position
 			adjust_heart_y_pos(delta)
 		LIGHTNING:
+			if !lightning_spawn_ap.is_playing():
+				lightning_spawn_ap.play("lightning_spawning")
 			movement_point.stop_moving()
 			adjust_heart_y_pos(delta)
 			heartbeat_ap.speed_scale = 2.0
 			lightning_timer = move_toward(lightning_timer, 0, delta)
 			if lightning_timer <= 0:
 				cur_state = MOVING
+				lightning_spawn.visible = false
 		SPRINKLER:
 			if !tornado_spawn_ap.is_playing():
 				tornado_spawn_ap.play("tornado_spawn")
@@ -127,9 +132,16 @@ func _physics_process(delta: float) -> void:
 			if between_sprinklers_timer <= 0:
 				between_sprinklers_timer = BETWEEN_SPRINKLERS_TIME
 				place_sprinkler()
-			
+		FALLING:
+			pass
+		GROUND:
+			pass
+		RISING: 
+			pass
 	
 	
+	if !can_attack:
+		return
 	
 	upgrade_timer = move_toward(upgrade_timer, 0, delta)
 	
@@ -245,6 +257,7 @@ func choose_attack() -> int:
 
 func start_lightning_attack() -> void:
 	cur_state = LIGHTNING
+	lightning_spawn.visible = true
 	match phase:
 		1:
 			return
@@ -314,4 +327,12 @@ func place_sprinkler() -> void:
 	entities.add_child(cur_tornado)
 	sprinklers_placed += 1
 	last_sprinkler_angle = angle_to_place
+	return
+
+func initiate_falling() -> void:
+	cur_state = FALLING
+	# interrupt whatever it's doing: moving, lightning (activating the lightning, and remove current lightning maybe?)
+	# sprinkler (placing sprinklers, moving, maybe get rid of current sprinklers?) and set vars to default
+	# stop attack cooldown timer/other timers and set them all to 0, stop movement_point, y_speed to 0
+	can_attack = false
 	return
