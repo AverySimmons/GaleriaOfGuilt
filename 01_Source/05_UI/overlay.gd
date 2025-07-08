@@ -5,11 +5,13 @@ extends Control
 @onready var blood_vignette: ColorRect = $BloodVignette
 @onready var blood_bar: Sprite2D = $BloodBar
 @onready var hp_fill: Sprite2D = $HealthBar/Fill
+@onready var xp_bar: Sprite2D = $XPBar
 @onready var xp_fill: Sprite2D = $XPBar/Fill
 @onready var blood_meter_marker: Sprite2D = $BloodBar/BloodMeterMarker
 @onready var special_cooldown: Sprite2D = $SpecialCooldown
 @onready var special_progress: TextureProgressBar = $SpecialCooldownProgress
 @onready var health_bar: Sprite2D = $HealthBar
+@onready var boss_health_bar: Sprite2D = $BossHealthBar
 
 var tot_time = 0
 
@@ -96,3 +98,9 @@ func blood_bar_update_helper(val):
 
 func health_bar_update_helper(val):
 	hp_fill.material.set_shader_parameter("fill_percent", val)
+	
+func hide_xp():
+	xp_bar.visible = false
+	
+func show_boss_health_bar():
+	boss_health_bar.visible = true

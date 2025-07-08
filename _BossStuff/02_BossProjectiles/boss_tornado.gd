@@ -6,7 +6,7 @@ extends Node2D
 var bullet_scene = preload("res://_BossStuff/02_BossProjectiles/boss_bullet.tscn")
 
 var bullet_speed = 200
-var entities_node: Node2D
+var entities_node
 var z_offset: float = 400
 var fall_speed = 1000
 var total_waves = 10
@@ -17,13 +17,12 @@ var cur_rot = randf_range(0, TAU)
 var rot_inc = PI / 8.
 
 func _process(delta: float) -> void:
-	sprite_2d.position.y = -z_offset
+	sprite_2d.position.y = global_position.y - z_offset
 
 func _physics_process(delta: float) -> void:
 	if z_offset > 0:
 		z_offset = move_toward(z_offset, 0, delta * fall_speed)
 		return
-	
 	wave_timer -= delta
 	if wave_timer <= 0:
 		spawn_wave()

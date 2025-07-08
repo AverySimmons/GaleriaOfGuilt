@@ -43,7 +43,7 @@ func _on_area_entered(area) -> void:
 	var enemy = area.owner
 	if enemy is Enemy:
 		GameData.player.dealt_damage_took_damage = true
-		GameData.player.gain_blood("special", 1.0/12.0, enemy)
+		GameData.player.gain_blood("special", 1.0/9.0, enemy)
 		enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amt, 0)
 		despawn()
 	return

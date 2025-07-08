@@ -12,6 +12,7 @@ var acceleration: float = TOP_SPEED / 0.1
 var direction: float = -1 # -1 means going left, 1 means going right
 var x_offset: float = 0
 var offsets: Vector2 = Vector2(x_offset, Y_OFFSET)
+var is_moving: bool = true
 
 func _ready() -> void:
 	#global_position = camera.position + offsets
@@ -19,7 +20,8 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	
+	if !is_moving:
+		return
 	# Offset stuff: X offset is calculated and applied to player position, and y offset is applied to player position
 	if x_offset <= -X_OFFSET_BOUND:
 		direction = 1
@@ -34,3 +36,12 @@ func _physics_process(delta: float) -> void:
 	#global_position = camera.position + offsets # should be camera
 	global_position = Vector2(620, 360) + offsets
 	pass
+
+func stop_moving() -> void:
+	is_moving = false
+	speed = 0
+	return
+
+func start_moving() -> void:
+	is_moving = true
+	return

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://8qw4audbqwng"]
+[gd_scene load_steps=4 format=3 uid="uid://8qw4audbqwng"]
 
 [ext_resource type="Script" uid="uid://2qfcakh205dj" path="res://_BossStuff/02_BossProjectiles/upgrade_projectile.gd" id="1_tfsfq"]
+[ext_resource type="Texture2D" uid="uid://drrpsg5is1e4l" path="res://_BossStuff/00_Sprites/boss_sprites/knife_that_transforms_the_baddies_into_bigger_baddies.png" id="2_e05jh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e05jh"]
 
@@ -10,6 +11,7 @@ collision_mask = 0
 script = ExtResource("1_tfsfq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_e05jh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_e05jh")
