@@ -48,7 +48,8 @@ func _process(delta: float) -> void:
 	
 	tot_time += delta
 	shake_timer = move_toward(shake_timer, 0, delta)
-	pass
+	
+	$Label.visible = GameData.is_escaping
 
 func remove_blood_meter_marker():
 	blood_meter_marker.visible = false

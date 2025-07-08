@@ -259,14 +259,14 @@ pattern_3 = SubResource("TileMapPattern_x4irm")
 pattern_4 = SubResource("TileMapPattern_ny8pg")
 pattern_5 = SubResource("TileMapPattern_vr87o")
 
-[sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
+[sub_resource type="QuadMesh" id="QuadMesh_tk8so"]
 size = Vector2(30, -30)
 
 [sub_resource type="MultiMesh" id="MultiMesh_dtdhi"]
 resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
-mesh = SubResource("QuadMesh_x8ck2")
+mesh = SubResource("QuadMesh_tk8so")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tk8so"]
 blend_mode = 3

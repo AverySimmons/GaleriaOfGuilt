@@ -66,10 +66,11 @@ directories/dtl_directory={
 "pre_mall_3": "res://04_DialogicStuff/Timelines/pre_mall_3.dtl",
 "pre_mall_4": "res://04_DialogicStuff/Timelines/pre_mall_4.dtl",
 "pre_mall_5": "res://04_DialogicStuff/Timelines/pre_mall_5.dtl",
-"tutorial": "res://04_DialogicStuff/Timelines/tutorial.dtl"
+"tutorial": "res://04_DialogicStuff/Timelines/tutorial.dtl",
+"tutorial2": "res://04_DialogicStuff/Timelines/tutorial2.dtl"
 }
 glossary/default_case_sensitive=true
-layout/style_list=["res://04_DialogicStuff/Styles/default.tres", "res://04_DialogicStuff/Styles/test.tres"]
+layout/style_list=["res://04_DialogicStuff/Styles/default.tres", "res://04_DialogicStuff/Styles/test.tres", "res://04_DialogicStuff/Styles/DefaultViola/default_viola.tres"]
 layout/default_style="res://04_DialogicStuff/Styles/default.tres"
 variables={}
 extensions_folder="res://addons/dialogic_additions"

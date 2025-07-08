@@ -29,6 +29,8 @@ var player_dying = false
 var test_game = true
 var test_boss = true
 
+var tut2 = false
+
 func _ready() -> void:
 	SignalBus.player_death.connect(player_death)
 	Dialogic.signal_event.connect(dialogic_stupid)
@@ -79,6 +81,7 @@ func _input(event: InputEvent) -> void:
 func spawn_boss_level():
 	player_dying = false
 	boss_level = boss_scene.instantiate()
+	boss_level.boss_defeated.connect(boss_defeated)
 	add_child(boss_level)
 
 func spawn_game_manager():
@@ -103,6 +106,10 @@ func enter_level_transition():
 	transition_player.play("line_wipe_in")
 	await transition_player.animation_finished
 	unpause_game()
+	if not tut2:
+		tut2 = true
+		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+		Dialogic.start("tutorial2").process_mode = Node.PROCESS_MODE_ALWAYS
 
 func item_dialog():
 	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -116,11 +123,9 @@ func stage_complete():
 	t.tween_property($GameMusic, "volume", 0, 0.5)
 	
 	if GameData.mall_ind == 5:
-		ending = ending_scene.instantiate()
-		add_child(ending)
+		spawn_boss_level()
 		transition_player.play("line_wipe_in")
 		await transition_player.animation_finished
-		Dialogic.start("ending")
 	else:
 		await get_tree().create_timer(1.5).timeout
 		$CarMusic.play()
@@ -284,3 +289,29 @@ func death_reset():
 
 func _on_button_mouse_entered() -> void:
 	$ButtonHover.play()
+	$TitleScreen/Button/ColorRect.color.a = 0.15
+
+func _on_button_mouse_exited() -> void:
+	$TitleScreen/Button/ColorRect.color.a = 0.
+
+func boss_defeated() -> void:
+	fade_rect.self_modulate = Color("06000d")
+	pause_game()
+	var t = create_tween()
+	t.tween_property($BossMusic, "volume", 0., 0.5)
+	
+	transition_player.play("fade_out")
+	await transition_player.animation_finished
+	
+	boss_level.queue_free()
+	unpause_game()
+	
+	await get_tree().create_timer(2, false).timeout
+	
+	## play music?
+	
+	ending = ending_scene.instantiate()
+	add_child(ending)
+	transition_player.play("fade_in")
+	await transition_player.animation_finished
+	Dialogic.start("ending")

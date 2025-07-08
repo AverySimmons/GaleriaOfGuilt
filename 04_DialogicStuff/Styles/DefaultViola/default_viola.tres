@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=5 format=3 uid="uid://b67vnl1omr4i5"]
+
+[ext_resource type="Script" uid="uid://m88bw8je8jtf" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_3adfe"]
+[ext_resource type="PackedScene" uid="uid://bm7g4asb1g4r" path="res://04_DialogicStuff/Styles/DefaultViola/DefaultViola/DefaultLayoutBase/custom_default_layout_base.tscn" id="1_47udj"]
+[ext_resource type="Script" uid="uid://b0l8litnxhlii" path="res://addons/dialogic/Resources/dialogic_style.gd" id="2_47udj"]
+
+[sub_resource type="Resource" id="Resource_wa7l3"]
+script = ExtResource("1_3adfe")
+scene = ExtResource("1_47udj")
+overrides = {}
+
+[resource]
+script = ExtResource("2_47udj")
+name = "default_viola"
+layer_list = Array[String]([])
+layer_info = {
+"": SubResource("Resource_wa7l3")
+}
+base_overrides = {}
+layers = Array[ExtResource("1_3adfe")]([])
+metadata/_latest_layer = ""

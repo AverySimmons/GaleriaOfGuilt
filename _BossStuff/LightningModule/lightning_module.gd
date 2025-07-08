@@ -10,8 +10,7 @@ var indicator_node: Node2D
 
 var animation_finished = false
 
-var spawner_num = 3
-var base_lightning_acc = 1000
+var base_lightning_acc = 250
 var speed_up_lightning_acc = 3000
 var acc = base_lightning_acc
 var spawners: Array[BossLightningSpawner]
@@ -27,8 +26,10 @@ func add_lightning(num: int) -> void:
 		start_angle += TAU / float(num)
 
 func activate(time: float) -> void:
+	print("activated!")
 	acc = speed_up_lightning_acc
-	await get_tree().create_timer(time,false)
+	await get_tree().create_timer(time,false).timeout
+	print("not activated")
 	acc = base_lightning_acc
 	finished.emit()
 
@@ -43,7 +44,6 @@ func _physics_process(delta: float) -> void:
 			s.last_spawn_position = s.pos
 
 func spawn_lightning(pos: Vector2) -> void:
-	print("!")
 	var new_lightning = blood_lightning_scene.instantiate()
 	new_lightning.global_position = pos
 	indicator_node.add_child(new_lightning)

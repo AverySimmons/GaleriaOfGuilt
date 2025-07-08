@@ -28,7 +28,7 @@ var going_down: bool = false #approximately stright down
 
 var Animations : AnimationPlayer
 
-var level: Level
+var level
 
 var player_position: Vector2
 @export var shake_length: float = 1
