@@ -5,7 +5,7 @@ const X_OFFSET_BOUND: float = 500 # 640 for a bit more than fullscreen --- check
 const TOP_SPEED: float = 250
 
 @onready var player: Player = GameData.player
-@onready var camera: Camera2D = $Boss.camera
+@onready var camera: Camera2D# = $Boss.camera
 
 var speed: float = 0
 var acceleration: float = TOP_SPEED / 0.1
@@ -14,8 +14,8 @@ var x_offset: float = 0
 var offsets: Vector2 = Vector2(x_offset, Y_OFFSET)
 
 func _ready() -> void:
-	global_position = camera.position + offsets
-	#global_position = Vector2(620, 360) + offsets
+	#global_position = camera.position + offsets
+	global_position = Vector2(620, 360) + offsets
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -31,6 +31,6 @@ func _physics_process(delta: float) -> void:
 	
 	# apply offsets to player global pos to find this dude's position
 	offsets = Vector2(x_offset, Y_OFFSET)
-	global_position = camera.position + offsets # should be camera
-	#global_position = Vector2(620, 360) + offsets
+	#global_position = camera.position + offsets # should be camera
+	global_position = Vector2(620, 360) + offsets
 	pass
