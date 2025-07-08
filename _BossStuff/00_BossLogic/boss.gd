@@ -29,13 +29,14 @@ var y_acceleration: float = y_top_speed/0.2
 var special_move_time_phase2: float = 7.0
 var special_move_time_phase3: float = 5.0
 var special_move_timer: float = 0
+var will_be_lightning: bool = true
 
 # Lightning variables ============================================================
-var lightning_time: float
+var lightning_time: float = 6
 var lightning_timer: float = lightning_time
 
 # Sprinkler variables =============================================================
-var sprinkler_time: float
+var sprinkler_time: float = 3
 var sprinkler_timer: float = sprinkler_time
 
 # Enemy upgrade
@@ -64,8 +65,10 @@ func _physics_process(delta: float) -> void:
 		heartbeat_ap.play("HeartBeat")
 	
 	# Determining state
-	if !(phase == 1):
+	if !(phase == 1) && special_move_timer>0:
 		special_move_timer = move_toward(special_move_timer, 0, delta)
+		if special_move_timer <= 0:
+			initiate_attack()
 	# Movement stuff
 	if moving_state:
 		# Moving to movement point
@@ -139,7 +142,7 @@ func upgrade_enemies() -> void:
 		enemy.mark_for_upgrade()
 	
 	await get_tree().create_timer(2).timeout
-	if falling_state || ground_state:
+	if falling_state || ground_state || !is_inside_tree():
 		return
 	for enemy in chosen_enemies:
 		if is_instance_id_valid(enemy.get_instance_id()):
@@ -164,3 +167,15 @@ func upgrade_enemies() -> void:
 func remove_from_selectable(enemy: Enemy) -> void:
 	list_of_unupgraded_enemies.erase(enemy)
 	return
+
+func initiate_attack() -> void:
+	var chosen_attack = choose_attack()
+	return
+
+func choose_attack() -> int:
+	var chosen_attack: int # 0 for lightning, 1 for sprinkler
+	if will_be_lightning:
+		chosen_attack = 0
+	else:
+		chosen_attack = randi_range(0, 1)
+	return chosen_attack

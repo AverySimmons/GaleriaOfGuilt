@@ -37,7 +37,7 @@ change character voices - Justin
 // split tutorial - Avery
 // escape text flashing - Avery
 // text color changing - Avery
-turn off monitoring on dead enemies - Brian
+// turn off monitoring on dead enemies - Brian
 // put icons in - Joey
 // more spawns during escape - Avery
 // less blood gain on grenade - Joey
