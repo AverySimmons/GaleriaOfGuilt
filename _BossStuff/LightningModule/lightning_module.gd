@@ -8,8 +8,6 @@ const level_radius = 360
 var blood_lightning_scene = preload("res://_BossStuff/LightningModule/blood_lightning.tscn")
 var indicator_node: Node2D
 
-var animation_finished = false
-
 var base_lightning_acc = 250
 var speed_up_lightning_acc = 3000
 var acc = base_lightning_acc
