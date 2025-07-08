@@ -213,6 +213,7 @@ script = ExtResource("1_83qs0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cule5")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="LightningBall" type="Sprite2D" parent="CollisionShape2D"]
 visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=55 format=3 uid="uid://bj5h3s11xhapu"]
 
 [ext_resource type="Texture2D" uid="uid://61otys7l5v1q" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_x4uw2"]
 [ext_resource type="AudioStream" uid="uid://bfkp10cudnvw2" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
+[ext_resource type="Texture2D" uid="uid://bnaow87p7ut3a" path="res://_BossStuff/00_Sprites/enemy_sprites/blood_that_causes_you_to_be_upgraded_wowie_spritesheet.png" id="10_tulm2"]
 [ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
+[ext_resource type="Texture2D" uid="uid://dbf1mpcbubgay" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="11_sq15d"]
 [ext_resource type="AudioStream" uid="uid://dxhxdo5ef8h4r" path="res://00_Assets/02_SoundEffects/enemy_indicator_2.wav" id="13_iu5hu"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iu5hu"]
@@ -246,6 +248,116 @@ _data = {
 &"hit_flash": SubResource("Animation_eeflq")
 }
 
+[sub_resource type="Animation" id="Animation_4m86y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeMark:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpgradeMark:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BeatingHeart:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BeatingHeart:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sq15d"]
+resource_name = "upgrade_mark"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeMark:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpgradeMark:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BeatingHeart:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BeatingHeart:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4m86y"]
+_data = {
+&"RESET": SubResource("Animation_4m86y"),
+&"upgrade_mark": SubResource("Animation_sq15d")
+}
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j15t7"]
 random_pitch = 1.2
 streams_count = 1
@@ -383,11 +495,32 @@ libraries = {
 &"": SubResource("AnimationLibrary_tulm2")
 }
 
+[node name="MarkForUpgrade" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4m86y")
+}
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="DashMark" type="Sprite2D" parent="."]
 position = Vector2(0, -67)
 texture = ExtResource("6_tcqde")
+
+[node name="UpgradeMark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, -65)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("10_tulm2")
+hframes = 5
+
+[node name="BeatingHeart" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.735)
+position = Vector2(-1, -54)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_sq15d")
+hframes = 2
+vframes = 2
 
 [node name="BloodModule" parent="." instance=ExtResource("9_x4uw2")]
 
