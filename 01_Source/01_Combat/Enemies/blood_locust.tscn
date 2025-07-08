@@ -1,18 +1,18 @@
-[gd_scene load_steps=50 format=3 uid="uid://bj5h3s11xhapu"]
+[gd_scene load_steps=57 format=3 uid="uid://cvlef2ga2wu8c"]
 
-[ext_resource type="Texture2D" uid="uid://61otys7l5v1q" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
-[ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
-[ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_prp80"]
-[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_tnwp0"]
-[ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="3_x5ri8"]
-[ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
-[ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
-[ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="5_tcqde"]
-[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
-[ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_x4uw2"]
-[ext_resource type="AudioStream" uid="uid://bfkp10cudnvw2" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
-[ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
-[ext_resource type="AudioStream" uid="uid://dxhxdo5ef8h4r" path="res://00_Assets/02_SoundEffects/enemy_indicator_2.wav" id="13_iu5hu"]
+[ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_nis2y"]
+[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_spq5c"]
+[ext_resource type="Texture2D" uid="uid://61otys7l5v1q" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="3_bjohf"]
+[ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="4_arkbg"]
+[ext_resource type="Script" uid="uid://cbm5vqwyb6y6o" path="res://ai/tasks/surround_player.gd" id="5_rbdj3"]
+[ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="6_8283r"]
+[ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="7_awx5l"]
+[ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="8_f5yab"]
+[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="9_kfwwy"]
+[ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="10_0jl8c"]
+[ext_resource type="AudioStream" uid="uid://bfkp10cudnvw2" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="11_47nhr"]
+[ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="12_tk2uh"]
+[ext_resource type="AudioStream" uid="uid://dxhxdo5ef8h4r" path="res://00_Assets/02_SoundEffects/enemy_indicator_2.wav" id="13_en2eb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iu5hu"]
 
@@ -22,13 +22,13 @@ noise = SubResource("FastNoiseLite_iu5hu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sq15d"]
 resource_local_to_scene = true
-shader = ExtResource("2_tnwp0")
+shader = ExtResource("2_spq5c")
 shader_parameter/blood_scale = 1.0
 shader_parameter/blood_intensity = 0.0
 shader_parameter/res_x_over_y = 1.0
 shader_parameter/hit_flash = 0.0
 shader_parameter/red_amount = 0.0
-shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/modulate = Color(0.576399, 0, 0.0882346, 1)
 shader_parameter/offset_x = 0.0
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_tulm2")
@@ -37,45 +37,66 @@ shader_parameter/bloodmask = SubResource("NoiseTexture2D_tulm2")
 size = Vector2(45, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elxkq"]
-size = Vector2(41, 34)
+size = Vector2(91.625, 58.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5ri8"]
-size = Vector2(60, 45)
+size = Vector2(95, 141.156)
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_l72ei"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_nis2y"]
 
-[sub_resource type="BTWait" id="BTWait_prp80"]
+[sub_resource type="BTWait" id="BTWait_spq5c"]
 duration = 0.5
 
-[sub_resource type="BTRunLimit" id="BTRunLimit_x4uw2"]
-children = [SubResource("BTWait_prp80")]
+[sub_resource type="BTRunLimit" id="BTRunLimit_bjohf"]
+children = [SubResource("BTWait_spq5c")]
 
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_eeflq"]
-children = [SubResource("BTRunLimit_x4uw2")]
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_arkbg"]
+children = [SubResource("BTRunLimit_bjohf")]
 
-[sub_resource type="BTAction" id="BTAction_x5ri8"]
-script = ExtResource("3_x5ri8")
+[sub_resource type="BTAction" id="BTAction_nis2y"]
+script = ExtResource("6_8283r")
 
-[sub_resource type="BTAction" id="BTAction_x4uw2"]
-script = ExtResource("4_tcqde")
+[sub_resource type="BTWait" id="BTWait_awx5l"]
 
-[sub_resource type="BTWait" id="BTWait_x4uw2"]
-duration = 0.5
+[sub_resource type="BTAction" id="BTAction_f5yab"]
+script = ExtResource("5_rbdj3")
 
-[sub_resource type="BTAction" id="BTAction_eeflq"]
-script = ExtResource("5_tcqde")
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_nis2y"]
+text = "going through attack sequence"
 
-[sub_resource type="BTAction" id="BTAction_oe0yt"]
-script = ExtResource("4_l72ei")
+[sub_resource type="BTAction" id="BTAction_kfwwy"]
+script = ExtResource("6_8283r")
 
-[sub_resource type="BTSequence" id="BTSequence_tcqde"]
-children = [SubResource("BTAlwaysSucceed_eeflq"), SubResource("BTAction_x5ri8"), SubResource("BTAction_x4uw2"), SubResource("BTWait_x4uw2"), SubResource("BTAction_eeflq"), SubResource("BTAction_oe0yt")]
+[sub_resource type="BTWait" id="BTWait_0jl8c"]
+duration = 0.1
 
-[sub_resource type="BehaviorTree" id="BehaviorTree_oe0yt"]
-blackboard_plan = SubResource("BlackboardPlan_l72ei")
-root_task = SubResource("BTSequence_tcqde")
+[sub_resource type="BTAction" id="BTAction_47nhr"]
+script = ExtResource("7_awx5l")
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_prp80"]
+[sub_resource type="BTAction" id="BTAction_tk2uh"]
+script = ExtResource("8_f5yab")
+
+[sub_resource type="BTWait" id="BTWait_nis2y"]
+duration = 0.02
+
+[sub_resource type="BTSequence" id="BTSequence_spq5c"]
+children = [SubResource("BTConsolePrint_nis2y"), SubResource("BTAction_kfwwy"), SubResource("BTWait_0jl8c"), SubResource("BTAction_47nhr"), SubResource("BTAction_tk2uh"), SubResource("BTWait_nis2y")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_bjohf"]
+times = 3
+children = [SubResource("BTSequence_spq5c")]
+
+[sub_resource type="BTWait" id="BTWait_bjohf"]
+duration = 0.6
+
+[sub_resource type="BTSequence" id="BTSequence_q0yf6"]
+children = [SubResource("BTAlwaysSucceed_arkbg"), SubResource("BTAction_nis2y"), SubResource("BTWait_awx5l"), SubResource("BTAction_f5yab"), SubResource("BTRepeat_bjohf"), SubResource("BTWait_bjohf")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_ejo52"]
+blackboard_plan = SubResource("BlackboardPlan_nis2y")
+root_task = SubResource("BTSequence_q0yf6")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_h6ua1"]
 
 [sub_resource type="Animation" id="Animation_x4uw2"]
 length = 0.001
@@ -101,7 +122,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.3, 0.3)]
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.576399, 0, 0.0882346, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_tnwp0"]
@@ -198,7 +231,7 @@ tracks/0/keys = {
 "values": [2, 3]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_iu5hu"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nis2y"]
 _data = {
 &"RESET": SubResource("Animation_x4uw2"),
 &"death": SubResource("Animation_tnwp0"),
@@ -240,7 +273,7 @@ tracks/0/keys = {
 "values": [0.0, 1.0, 0.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tulm2"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tnwp0"]
 _data = {
 &"RESET": SubResource("Animation_j15t7"),
 &"hit_flash": SubResource("Animation_eeflq")
@@ -249,22 +282,22 @@ _data = {
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j15t7"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("10_eeflq")
+stream_0/stream = ExtResource("11_47nhr")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tnwp0"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("11_j15t7")
+stream_0/stream = ExtResource("12_tk2uh")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iu5hu"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("11_j15t7")
+stream_0/stream = ExtResource("12_tk2uh")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tulm2"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("13_iu5hu")
+stream_0/stream = ExtResource("13_en2eb")
 
 [sub_resource type="Animation" id="Animation_tulm2"]
 length = 0.001
@@ -330,21 +363,24 @@ _data = {
 [node name="Locust" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("1_qlpsa")
-hp_max = 40.0
+script = ExtResource("1_nis2y")
+hp_max = 80.0
+flinch_guard = 1.5
+shake_length = 0.6
 arrow_dist = 500.0
 indicator_color = Color(0.337255, 0.960784, 0, 0.301961)
 chase_dist = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.850579, 0.18057, 0.225183, 1)
 material = SubResource("ShaderMaterial_sq15d")
-position = Vector2(-1, -66)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_popms")
+position = Vector2(3, -66)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_bjohf")
 hframes = 2
 vframes = 2
 
-[node name="Shadow" parent="Sprite2D" instance=ExtResource("2_prp80")]
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("4_arkbg")]
 position = Vector2(3.33333, 180)
 scale = Vector2(2, 1.09375)
 
@@ -357,7 +393,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-0.5, -17)
+position = Vector2(-1, 15)
 shape = SubResource("RectangleShape2D_elxkq")
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -365,31 +401,31 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -23.5)
+position = Vector2(-0.5, -28.4219)
 shape = SubResource("RectangleShape2D_x5ri8")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
-behavior_tree = SubResource("BehaviorTree_oe0yt")
-blackboard_plan = SubResource("BlackboardPlan_prp80")
+behavior_tree = SubResource("BehaviorTree_ejo52")
+blackboard_plan = SubResource("BlackboardPlan_h6ua1")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_iu5hu")
+&"": SubResource("AnimationLibrary_nis2y")
 }
 speed_scale = 4.0
 
 [node name="HitFlash" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_tulm2")
+&"": SubResource("AnimationLibrary_tnwp0")
 }
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="DashMark" type="Sprite2D" parent="."]
 position = Vector2(0, -67)
-texture = ExtResource("6_tcqde")
+texture = ExtResource("9_kfwwy")
 
-[node name="BloodModule" parent="." instance=ExtResource("9_x4uw2")]
+[node name="BloodModule" parent="." instance=ExtResource("10_0jl8c")]
 
 [node name="LocustAttack" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_j15t7")
