@@ -25,6 +25,11 @@ var y_speed: float
 var y_direction: int = -1 # 1 is down, -1 is up
 var y_acceleration: float = y_top_speed/0.2
 
+# Special Move Timers ============================================================
+var special_move_time_phase2: float = 7.0
+var special_move_time_phase3: float = 5.0
+var special_move_timer: float = 0
+
 # Lightning variables ============================================================
 var lightning_time: float
 var lightning_timer: float = lightning_time
@@ -51,22 +56,32 @@ func _ready() -> void:
 	global_position = movement_point.global_position
 	heart_sprite.global_position += Vector2(0, y_offset)
 	heartbeat_ap.play("HeartBeat")
+	SignalBus.death.connect(remove_from_selectable)
 	pass
 
 func _physics_process(delta: float) -> void:
 	if !heartbeat_ap.is_playing():
 		heartbeat_ap.play("HeartBeat")
-	# movement stuff
+	
+	# Determining state
+	if !(phase == 1):
+		special_move_timer = move_toward(special_move_timer, 0, delta)
+	# Movement stuff
 	if moving_state:
 		# Moving to movement point
 		move_to_movement_point()
 		# Adjust heart y position
 		adjust_heart_y_pos(delta)
 	
+	
+	
+	
+	
 	upgrade_timer = move_toward(upgrade_timer, 0, delta)
 	
 	if upgrade_timer <= 0 && was_before_threshold:
 		upgrade_enemies()
+		was_before_threshold = false
 	
 	pass
 
@@ -92,6 +107,13 @@ func adjust_heart_y_pos(delta: float) -> void:
 func change_phase(current_phase: int) -> void:
 	phase = current_phase + 1
 	SignalBus.change_phase.emit(phase)
+	
+	# Setting special move timer to begin with:
+	match phase:
+		2:
+			special_move_timer = special_move_time_phase2/2.0
+		3:
+			special_move_timer = special_move_time_phase3/2.0
 	return
 
 func choose_enemies() -> Array[Enemy]:
@@ -125,4 +147,20 @@ func upgrade_enemies() -> void:
 			upgrade_proj.global_position = global_position
 			upgrade_proj.get_shot(y_offset, enemy.global_position)
 			entities.add_child(upgrade_proj)
+	
+	# For resetting the timer:
+	was_before_threshold = true
+	var upgrade_time: int = randi_range(ENEMY_INTERVAL_LOWER, ENEMY_INTERVAL_UPPER)
+	upgrade_timer = upgrade_time
+	chosen_interval = upgrade_timer
+	if phase == 1:
+		amt_to_upgrade = upgrade_time
+	elif phase == 2:
+		amt_to_upgrade = int(round(upgrade_time * 1.5))
+	elif phase == 3:
+		amt_to_upgrade = int(round(upgrade_time * 2))
+	return
+
+func remove_from_selectable(enemy: Enemy) -> void:
+	list_of_unupgraded_enemies.erase(enemy)
 	return
