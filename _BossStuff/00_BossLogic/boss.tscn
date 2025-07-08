@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cm3gximniggbi"]
+[gd_scene load_steps=10 format=3 uid="uid://cm3gximniggbi"]
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
 [ext_resource type="Texture2D" uid="uid://candc11pcrb6u" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
 [ext_resource type="Texture2D" uid="uid://db75cik2vni6e" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
+[ext_resource type="Texture2D" uid="uid://dramhfq3nyqcj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
+[ext_resource type="Script" uid="uid://bn3pm2wrv0ff3" path="res://_BossStuff/LightningModule/lightning_module.gd" id="6_su3p6"]
 
 [sub_resource type="Animation" id="Animation_tk2ht"]
 resource_name = "HeartBeat"
@@ -65,3 +67,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_22jes")
 }
 autoplay = "HeartBeat"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_22jes")
+
+[node name="BossLightningModule" type="Node" parent="."]
+script = ExtResource("6_su3p6")
+metadata/_custom_type_script = "uid://bn3pm2wrv0ff3"

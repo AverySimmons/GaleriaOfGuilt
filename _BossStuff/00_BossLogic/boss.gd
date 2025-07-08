@@ -5,13 +5,19 @@ extends Node2D
 @onready var heart_sprite: Sprite2D = $Heart
 @onready var heartbeat_ap: AnimationPlayer = $HeartBeat
 @onready var upgrade_proj_scene = preload("res://_BossStuff/02_BossProjectiles/upgrade_projectile.tscn")
+@onready var lightning_module: BossLightningModule = $BossLightningModule
+@onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
+
 var entities
 # State variables =================================================================
-var moving_state: bool = true
-var lightning_state: bool = false
-var sprinkler_state: bool = false
-var falling_state: bool = false
-var ground_state: bool = false
+const MOVING: int = 0
+const LIGHTNING: int = 1
+const TORNADO: int = 2
+const FALLING: int = 3
+const GROUND: int = 4
+const RISING: int = 5
+var cur_state: int = MOVING
+
 var phase: int = 1
 
 # Movement variables ==============================================================
@@ -28,15 +34,20 @@ var y_acceleration: float = y_top_speed/0.2
 # Special Move Timers ============================================================
 var special_move_time_phase2: float = 7.0
 var special_move_time_phase3: float = 5.0
-var special_move_timer: float = 0
+var special_move_timer: float = 0.0
 var will_be_lightning: bool = true
 
 # Lightning variables ============================================================
+const MAX_LIGHTNING_AMT_P2: int = 2
+const MAX_LIGHTNING_AMT_P3: int = 4
 var lightning_time: float = 6
 var lightning_timer: float = lightning_time
+var lightning_amt: int = 0
 
 # Sprinkler variables =============================================================
-var sprinkler_time: float = 3
+const AMT_SPRINKLERS_P2: int = 2
+const AMT_SPRINKLERS_P3: int = 3
+var sprinkler_time: float = 2
 var sprinkler_timer: float = sprinkler_time
 
 # Enemy upgrade
@@ -54,6 +65,8 @@ var was_before_threshold: bool = true
 var list_of_unupgraded_enemies: Array[Enemy]
 
 func _ready() -> void:
+	#var player = test_player_scene.instantiate()
+	#get_tree().current_scene.add_child(player)
 	global_position = movement_point.global_position
 	heart_sprite.global_position += Vector2(0, y_offset)
 	heartbeat_ap.play("HeartBeat")
@@ -70,13 +83,21 @@ func _physics_process(delta: float) -> void:
 		if special_move_timer <= 0:
 			initiate_attack()
 	# Movement stuff
-	if moving_state:
-		# Moving to movement point
-		move_to_movement_point()
-		# Adjust heart y position
-		adjust_heart_y_pos(delta)
-	
-	
+	match cur_state:
+		MOVING:
+			movement_point.start_moving()
+			heartbeat_ap.speed_scale = 1.0
+			# Moving to movement point
+			move_to_movement_point()
+			# Adjust heart y position
+			adjust_heart_y_pos(delta)
+		LIGHTNING:
+			movement_point.stop_moving()
+			heartbeat_ap.speed_scale = 2.0
+			lightning_timer = move_toward(lightning_timer, 0, delta)
+			if lightning_timer <= 0:
+				cur_state = MOVING
+			
 	
 	
 	
@@ -141,8 +162,8 @@ func upgrade_enemies() -> void:
 	for enemy in chosen_enemies:
 		enemy.mark_for_upgrade()
 	
-	await get_tree().create_timer(2).timeout
-	if falling_state || ground_state || !is_inside_tree():
+	await get_tree().create_timer(2, false).timeout
+	if cur_state in [FALLING, GROUND, RISING] || !is_inside_tree():
 		return
 	for enemy in chosen_enemies:
 		if is_instance_id_valid(enemy.get_instance_id()):
@@ -169,7 +190,14 @@ func remove_from_selectable(enemy: Enemy) -> void:
 	return
 
 func initiate_attack() -> void:
+	if phase == 1:
+		return
 	var chosen_attack = choose_attack()
+	match chosen_attack:
+		0:
+			start_lightning_attack()
+		1:
+			start_sprinkler_attack()
 	return
 
 func choose_attack() -> int:
@@ -179,3 +207,33 @@ func choose_attack() -> int:
 	else:
 		chosen_attack = randi_range(0, 1)
 	return chosen_attack
+
+func start_lightning_attack() -> void:
+	cur_state = LIGHTNING
+	match phase:
+		1:
+			return
+		2:
+			if lightning_amt < MAX_LIGHTNING_AMT_P2:
+				lightning_module.add_lightning(1)
+				lightning_amt += 1
+			special_move_timer = special_move_time_phase2 + lightning_time
+		3:
+			if lightning_amt < MAX_LIGHTNING_AMT_P3:
+				lightning_module.add_lightning(2)
+				lightning_amt += 2
+			special_move_timer = special_move_time_phase3 + lightning_time
+	lightning_module.activate(lightning_time)
+	lightning_timer = lightning_time
+	return
+
+func start_sprinkler_attack() -> void:
+	cur_state = TORNADO
+	match phase:
+		1:
+			return
+		2:
+			pass
+		3:
+			pass
+	return
