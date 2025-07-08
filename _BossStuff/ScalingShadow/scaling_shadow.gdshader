@@ -11,7 +11,7 @@ void fragment() {
 	float circ_dist = length(uv);
 	circ_dist = smoothstep(0.5 - z / 450., 1., circ_dist);
 	
-	COLOR.a = 1. - circ_dist;
+	COLOR.a = (1. - circ_dist) * COLOR.a;
 }
 
 //void light() {
