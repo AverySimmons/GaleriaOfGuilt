@@ -2,8 +2,14 @@ extends Node2D
 
 @onready var entities: Node2D = $Entities
 @onready var attack_indicators: Node2D = $AttackIndicators
-@onready var blood_manager: BloodManager = $BloodManager
+@onready var blood_manager: BloodManager = $Level/BloodManager
 @onready var camera: Camera2D = $Camera2D
+@onready var walls: Sprite2D = $Level/Walls
+@onready var inner_walls: Sprite2D = $Level/Walls/InnerWalls
+@onready var level: Node2D = $Level
+@onready var sand_effect: ColorRect = $CanvasLayer/SandEffect
+@onready var sand_particles: GPUParticles2D = $Camera2D/SandParticles
+
 
 var arrow_scene = preload("res://03_Components/arrow_indicator.tscn")
 
@@ -21,6 +27,8 @@ var upgraded_scenes = {
 
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
 
+@export var try_again_mode = true
+
 var max_enemies_in_wave = 10
 var enemy_credits = 50
 var level_radius = 720 - 100
@@ -30,20 +38,50 @@ var enemy_spacing = 100
 var enemies_left = 0
 
 var is_roaming = true
-var roaming_timer = 15
+var roaming_window = 25
+var roaming_timer = roaming_window
 
 signal boss_defeated()
 var timer = 5
+
+var shader_wind1_offset = Vector2.ZERO
+var shader_wind2_offset = Vector2.ZERO
+var shader_wind_direction: Vector2 = Vector2(1, 0)
+var shader_wind_speed = 1.
+
+var is_zooming_in = false
+
+@export var inner_wall_rot_speed = 0.5
 
 func _ready() -> void:
 	GameData.player.global_position = $PlayerSpawn.global_position
 	GameData.is_escaping = false
 	entities.add_child(GameData.player)
 	blood_manager.spawn()
+	change_wind_dir()
+	
+	if not try_again_mode:
+		var t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		t.tween_property(sand_effect, "material:shader_parameter/strength", 1., roaming_window)
+		await get_tree().create_timer(15, false).timeout
+		
+		var t2 = create_tween().set_ease(Tween.EASE_IN)
+		t2.tween_property(camera, "zoom", Vector2.ONE * 0.5, roaming_window-15)
+	else:
+		is_roaming = false
+		sand_effect.material.set_shader_parameter("strength", 1)
+		camera.zoom = Vector2.ONE * 0.5
+		lock_level()
+	
 
 func _process(delta: float) -> void:
 	camera.global_position = GameData.player.global_position
-	print(camera.global_position)
+	
+	if is_zooming_in:
+		walls.global_position = camera.global_position
+	
+	inner_walls.rotate(delta*inner_wall_rot_speed)
+	update_wind_shader(delta)
 
 func _physics_process(delta: float) -> void:
 	if is_roaming:
@@ -51,26 +89,75 @@ func _physics_process(delta: float) -> void:
 		
 		roaming_timer -= delta
 		if roaming_timer < 0:
-			lock_level()
-			spawn_boss()
-			
 			is_roaming = false
+			
+			lock_level()
 	
+
+func update_wind_shader(delta) -> void:
+	var shader: ShaderMaterial = sand_effect.material
 	
+	var particles: ParticleProcessMaterial = sand_particles.process_material
+	
+	shader_wind1_offset += 0.5 * shader_wind_direction * delta * shader_wind_speed
+	shader_wind2_offset += 0.5 * shader_wind_direction.rotated(1.) * delta * shader_wind_speed
+	
+	shader.set_shader_parameter("player_pos", camera.global_position)
+	shader.set_shader_parameter("wind1_offset", shader_wind1_offset)
+	shader.set_shader_parameter("wind2_offset", shader_wind2_offset)
+	shader.set_shader_parameter("zoom", camera.zoom.x)
+	
+	particles.initial_velocity_min = shader_wind_direction.length() * 1000
+	var particle_dir = shader_wind_direction.rotated(0.5)
+	particles.direction = Vector3(particle_dir.x, particle_dir.y, 0)
+	sand_particles.self_modulate.a = shader.get_shader_parameter("strength")
+
+func change_wind_dir() -> void:
+	await get_tree().create_timer(randf_range(5, 8), false).timeout
+	var new_wind_dir = Vector2.from_angle(randf_range(0,TAU)) * 1.
+	var t = create_tween().set_ease(Tween.EASE_IN)
+	t.tween_method(set_wind_dir, shader_wind_direction, new_wind_dir, 2.)
+	await t.finished
+	change_wind_dir()
+
+func set_wind_dir(new_dir) -> void:
+	shader_wind_direction = new_dir
 
 func spawn_boss() -> void:
 	pass
 
+func try_again_setup() -> void:
+	pass
+
 func lock_level() -> void:
+	is_zooming_in = true
+	walls.global_position = camera.global_position
+	walls.scale = Vector2.ONE / camera.zoom + Vector2.ONE * 0.1
+	
+	var t2 = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	t2.tween_property(walls, "scale", Vector2.ONE, 0.5)
+	await t2.finished
+	
+	is_zooming_in = false
+	
 	GameData.boss_fight_offset = camera.global_position
-	var top_left = $TopLeft.global_position + GameData.boss_fight_offset
-	var bot_right = $BottomRight.global_position + GameData.boss_fight_offset
+	level.global_position = GameData.boss_fight_offset
+	walls.global_position = level.global_position
+	
+	var t3 = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	t3.tween_property(camera, "zoom", Vector2.ONE, 0.75)
+	await t3.finished
+	
+	var top_left = $Level/TopLeft.global_position
+	var bot_right = $Level/BottomRight.global_position
 	camera.limit_left = top_left.x
 	camera.limit_top = top_left.y
 	camera.limit_right = bot_right.x
 	camera.limit_bottom = bot_right.y
 	
 	SignalBus.death.connect(enemy_died)
+	
+	spawn_boss()
 
 func upgrade_enemy(enemy: Enemy) -> void:
 	var new_enemy = upgraded_scenes[enemy.type]
