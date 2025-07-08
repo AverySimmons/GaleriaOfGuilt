@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://xoikojyvkrrx" path="res://01_Source/05_UI/overlay.tscn" id="4_3qoh1"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
-size = Vector2(30, -30)
+size = Vector2(100, -100)
 
-[sub_resource type="MultiMesh" id="MultiMesh_5ug5k"]
+[sub_resource type="MultiMesh" id="MultiMesh_o4hei"]
 resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
@@ -17,16 +17,10 @@ mesh = SubResource("QuadMesh_x8ck2")
 process_mode = 1
 script = ExtResource("1_et2my")
 
-[node name="TopLeft" type="Marker2D" parent="."]
-position = Vector2(-1020, -1020)
-
-[node name="BottomRight" type="Marker2D" parent="."]
-position = Vector2(1020, 1020)
-
 [node name="SandLayer" type="TileMapLayer" parent="."]
 
 [node name="BloodManager" parent="." instance=ExtResource("1_o4hei")]
-multimesh = SubResource("MultiMesh_5ug5k")
+multimesh = SubResource("MultiMesh_o4hei")
 
 [node name="AttackIndicators" type="Node2D" parent="."]
 
