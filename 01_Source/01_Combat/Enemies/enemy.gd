@@ -90,7 +90,7 @@ func _physics_process(delta: float) -> void:
 	#death
 	#DEBUG DAMAGE TESTABLE
 	#if Input.is_action_just_pressed('take_damage_debug'):
-		#take_damage(1, 0.5, 0) #take 1 damage and flinch for a second
+		#mark_for_upgrade()
 	
 	if hp <= 0:
 		if not death_state:
@@ -184,3 +184,20 @@ func get_marked() -> void:
 	marked_timer = marked_time
 	$DashMark.visible = true
 	return
+	
+func mark_for_upgrade() -> void:
+	$MarkForUpgrade.play('upgrade_mark')
+	await get_tree().create_timer(2, false).timeout
+	
+	
+	velocity = Vector2.ZERO
+	var btplayer := get_node_or_null(^"BTPlayer") as BTPlayer
+	if btplayer:
+		btplayer.set_active(false)
+	
+	if !is_inside_tree():
+		return
+	await get_tree().create_timer(0.3, false).timeout
+	if death_state:
+		return
+	level.upgrade_enemy(self)
