@@ -4,6 +4,8 @@ extends Node2D
 @onready var camera: Camera2D
 @onready var heart_sprite: Sprite2D = $Heart
 @onready var heartbeat_ap: AnimationPlayer = $HeartBeat
+@onready var upgrade_proj_scene = preload("res://_BossStuff/02_BossProjectiles/upgrade_projectile.tscn")
+var entities
 # State variables =================================================================
 var moving_state: bool = true
 var lightning_state: bool = false
@@ -114,4 +116,13 @@ func upgrade_enemies() -> void:
 	for enemy in chosen_enemies:
 		enemy.mark_for_upgrade()
 	
+	await get_tree().create_timer(2).timeout
+	if falling_state || ground_state:
+		return
+	for enemy in chosen_enemies:
+		if is_instance_id_valid(enemy.get_instance_id()):
+			var upgrade_proj = upgrade_proj_scene.instantiate()
+			upgrade_proj.global_position = global_position
+			upgrade_proj.get_shot(y_offset, enemy.global_position)
+			entities.add_child(upgrade_proj)
 	return
