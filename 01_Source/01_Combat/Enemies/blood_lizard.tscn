@@ -1,18 +1,18 @@
-[gd_scene load_steps=65 format=3 uid="uid://bmxb5t3rbvnwu"]
+[gd_scene load_steps=67 format=3 uid="uid://c3ap430u4w7b5"]
 
-[ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_c4j58"]
-[ext_resource type="Texture2D" uid="uid://we2o66nyt8hx" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="1_k6vpa"]
-[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="2_7debl"]
-[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_kkm87"]
-[ext_resource type="Texture2D" uid="uid://n2ala4f0ipbv" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="3_cule5"]
-[ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="4_khl08"]
-[ext_resource type="Script" path="res://ai/tasks/run_at_player.gd" id="5_khl08"]
-[ext_resource type="Script" uid="uid://d4e5cyas3vtqu" path="res://ai/tasks/lightning_attack.gd" id="6_hkm1r"]
-[ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="6_w81gv"]
-[ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_w81gv"]
-[ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="10_kkm87"]
-[ext_resource type="AudioStream" uid="uid://oa8uvx4xa3py" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="12_em8vn"]
-[ext_resource type="AudioStream" uid="uid://8o7vk85cya6s" path="res://00_Assets/02_SoundEffects/enemy_indicator_3.wav" id="13_ym5t2"]
+[ext_resource type="Script" uid="uid://bnj3nv2m5p8j5" path="res://01_Source/01_Combat/Enemies/lizard.gd" id="1_qo134"]
+[ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_h6rd7"]
+[ext_resource type="Texture2D" uid="uid://we2o66nyt8hx" path="res://00_Assets/00_Sprites/Enemies/lightning_lizard_spritesheet.png" id="3_wuy6s"]
+[ext_resource type="Texture2D" uid="uid://n2ala4f0ipbv" path="res://00_Assets/00_Sprites/Enemies/new_lightning_lizard_attack_special_effect.png" id="4_2yd7q"]
+[ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="5_87l2u"]
+[ext_resource type="Script" path="res://ai/tasks/run_at_player.gd" id="6_44sdk"]
+[ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="7_7ucjr"]
+[ext_resource type="Script" uid="uid://d4e5cyas3vtqu" path="res://ai/tasks/lightning_attack.gd" id="8_nlar3"]
+[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="9_6glg6"]
+[ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="10_b5eeg"]
+[ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_02avk"]
+[ext_resource type="AudioStream" uid="uid://oa8uvx4xa3py" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="12_66cc3"]
+[ext_resource type="AudioStream" uid="uid://8o7vk85cya6s" path="res://00_Assets/02_SoundEffects/enemy_indicator_3.wav" id="13_6pc20"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vxyij"]
 
@@ -22,13 +22,13 @@ noise = SubResource("FastNoiseLite_vxyij")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ym5t2"]
 resource_local_to_scene = true
-shader = ExtResource("2_kkm87")
+shader = ExtResource("2_h6rd7")
 shader_parameter/blood_scale = 2.0
 shader_parameter/blood_intensity = 0.0
 shader_parameter/res_x_over_y = 15.0
 shader_parameter/hit_flash = 0.0
 shader_parameter/red_amount = 0.0
-shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/modulate = Color(0.614322, 0.0243504, 0.0138567, 1)
 shader_parameter/offset_x = 0.0
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_em8vn")
@@ -61,13 +61,13 @@ check_type = 3
 value = SubResource("BBVariant_khl08")
 
 [sub_resource type="BTAction" id="BTAction_h1ucq"]
-script = ExtResource("5_khl08")
+script = ExtResource("6_44sdk")
 
 [sub_resource type="BTSequence" id="BTSequence_5yibh"]
 children = [SubResource("BTCheckAgentProperty_w81gv"), SubResource("BTAction_h1ucq")]
 
 [sub_resource type="BTAction" id="BTAction_em8vn"]
-script = ExtResource("6_w81gv")
+script = ExtResource("7_7ucjr")
 
 [sub_resource type="BBNode" id="BBNode_mxsq5"]
 saved_value = NodePath("Animations")
@@ -78,10 +78,10 @@ animation_player = SubResource("BBNode_mxsq5")
 animation_name = &"idle"
 
 [sub_resource type="BTWait" id="BTWait_h1ucq"]
-duration = 0.3
+duration = 0.1
 
 [sub_resource type="BTAction" id="BTAction_wc4pt"]
-script = ExtResource("6_w81gv")
+script = ExtResource("7_7ucjr")
 
 [sub_resource type="BBNode" id="BBNode_hkm1r"]
 saved_value = NodePath("Animations")
@@ -92,7 +92,7 @@ animation_player = SubResource("BBNode_hkm1r")
 animation_name = &"charge_attack"
 
 [sub_resource type="BTAction" id="BTAction_ks4qc"]
-script = ExtResource("6_hkm1r")
+script = ExtResource("8_nlar3")
 
 [sub_resource type="BBNode" id="BBNode_ym5t2"]
 saved_value = NodePath("Animations")
@@ -103,7 +103,6 @@ animation_player = SubResource("BBNode_ym5t2")
 animation_name = &"attack"
 
 [sub_resource type="BTWait" id="BTWait_howy7"]
-duration = 2.0
 
 [sub_resource type="BBNode" id="BBNode_rq04b"]
 saved_value = NodePath("Animations")
@@ -113,12 +112,20 @@ resource_name = "Animations"
 animation_player = SubResource("BBNode_rq04b")
 animation_name = &"idle"
 
+[sub_resource type="BTSequence" id="BTSequence_qo134"]
+children = [SubResource("BTAction_em8vn"), SubResource("BTPlayAnimation_howy7"), SubResource("BTWait_h1ucq"), SubResource("BTAction_wc4pt"), SubResource("BTPlayAnimation_khl08"), SubResource("BTAction_ks4qc"), SubResource("BTPlayAnimation_mxsq5"), SubResource("BTWait_howy7"), SubResource("BTPlayAnimation_3ajd1")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_h6rd7"]
+times = 3
+children = [SubResource("BTSequence_qo134")]
+
 [sub_resource type="BTWait" id="BTWait_fjdy1"]
 duration = 3.0
+custom_name = "Attack CD"
 
 [sub_resource type="BTSequence" id="BTSequence_howy7"]
 custom_name = "Initiate Attack"
-children = [SubResource("BTAction_em8vn"), SubResource("BTPlayAnimation_howy7"), SubResource("BTWait_h1ucq"), SubResource("BTAction_wc4pt"), SubResource("BTPlayAnimation_khl08"), SubResource("BTAction_ks4qc"), SubResource("BTPlayAnimation_mxsq5"), SubResource("BTWait_howy7"), SubResource("BTPlayAnimation_3ajd1"), SubResource("BTWait_fjdy1")]
+children = [SubResource("BTRepeat_h6rd7"), SubResource("BTWait_fjdy1")]
 
 [sub_resource type="BTSelector" id="BTSelector_hv73n"]
 children = [SubResource("BTRunLimit_vxyij"), SubResource("BTSequence_5yibh"), SubResource("BTSequence_howy7")]
@@ -127,7 +134,7 @@ children = [SubResource("BTRunLimit_vxyij"), SubResource("BTSequence_5yibh"), Su
 blackboard_plan = SubResource("BlackboardPlan_4tlpb")
 root_task = SubResource("BTSelector_hv73n")
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_hkm1r"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_shukg"]
 
 [sub_resource type="Animation" id="Animation_w81gv"]
 length = 0.001
@@ -225,7 +232,19 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.55, 0.55)]
+"values": [Vector2(0.8, 0.8)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D:material:shader_parameter/modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.614322, 0.0243504, 0.0138567, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vxyij"]
@@ -741,7 +760,7 @@ tracks/4/keys = {
 "values": [Vector2(-9, -66)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ym5t2"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qo134"]
 _data = {
 &"RESET": SubResource("Animation_w81gv"),
 &"attack": SubResource("Animation_vxyij"),
@@ -795,22 +814,22 @@ _data = {
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vxyij"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("10_kkm87")
+stream_0/stream = ExtResource("11_02avk")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ym5t2"]
 random_pitch = 1.1
 streams_count = 1
-stream_0/stream = ExtResource("12_em8vn")
+stream_0/stream = ExtResource("12_66cc3")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mxsq5"]
 random_pitch = 1.3
 streams_count = 1
-stream_0/stream = ExtResource("13_ym5t2")
+stream_0/stream = ExtResource("13_6pc20")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_howy7"]
 random_pitch = 1.3
 streams_count = 1
-stream_0/stream = ExtResource("12_em8vn")
+stream_0/stream = ExtResource("12_66cc3")
 
 [sub_resource type="Animation" id="Animation_tulm2"]
 length = 0.001
@@ -873,28 +892,28 @@ _data = {
 &"spawn": SubResource("Animation_iu5hu")
 }
 
-[node name="Lizard2" type="CharacterBody2D"]
+[node name="Lizard" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_c4j58")
-hp_max = 120.0
+script = ExtResource("1_qo134")
+hp_max = 220.0
 flinch_guard = 1.0
 chase_dist = 400.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ym5t2")
 position = Vector2(14, -43)
-scale = Vector2(0.55, 0.55)
-texture = ExtResource("1_k6vpa")
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_wuy6s")
 hframes = 15
 
 [node name="LightningEffect" type="Sprite2D" parent="Sprite2D"]
 visible = false
 position = Vector2(63, 24)
 scale = Vector2(1.81818, 1.81818)
-texture = ExtResource("3_cule5")
+texture = ExtResource("4_2yd7q")
 hframes = 9
 
-[node name="Shadow" parent="Sprite2D" instance=ExtResource("4_khl08")]
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("5_87l2u")]
 position = Vector2(-24.3636, 43.6364)
 scale = Vector2(1.38068, 1.96023)
 
@@ -924,11 +943,11 @@ shape = SubResource("RectangleShape2D_cule5")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = SubResource("BehaviorTree_khl08")
-blackboard_plan = SubResource("BlackboardPlan_hkm1r")
+blackboard_plan = SubResource("BlackboardPlan_shukg")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_ym5t2")
+&"": SubResource("AnimationLibrary_qo134")
 }
 
 [node name="HitFlash" type="AnimationPlayer" parent="."]
@@ -940,9 +959,9 @@ libraries = {
 
 [node name="DashMark" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("2_7debl")
+texture = ExtResource("9_6glg6")
 
-[node name="BloodModule" parent="." instance=ExtResource("9_w81gv")]
+[node name="BloodModule" parent="." instance=ExtResource("10_b5eeg")]
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_vxyij")
