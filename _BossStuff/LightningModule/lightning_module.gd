@@ -21,15 +21,13 @@ func add_lightning(num: int) -> void:
 	for i in num:
 		var new_spawner = BossLightningSpawner.new()
 		new_spawner.velocity = Vector2.ZERO
-		new_spawner.pos = Vector2.from_angle(start_angle) * level_radius
+		new_spawner.pos = Vector2.from_angle(start_angle) * level_radius + GameData.boss_fight_offset
 		spawners.push_back(new_spawner)
 		start_angle += TAU / float(num)
 
 func activate(time: float) -> void:
-	print("activated!")
 	acc = speed_up_lightning_acc
 	await get_tree().create_timer(time,false).timeout
-	print("not activated")
 	acc = base_lightning_acc
 	finished.emit()
 

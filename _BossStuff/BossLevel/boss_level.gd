@@ -13,6 +13,12 @@ var enemy_scenes = {
 	preload("res://01_Source/01_Combat/Enemies/locust.tscn") : 5.,
 }
 
+var upgraded_scenes = {
+	"Locust" : preload("res://01_Source/01_Combat/Enemies/locust.tscn"),
+	"Worm" : preload("res://01_Source/01_Combat/Enemies/worm.tscn"),
+	"Lizard" : preload("res://01_Source/01_Combat/Enemies/lizard.tscn")
+}
+
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
 
 var max_enemies_in_wave = 10
@@ -23,6 +29,9 @@ var enemy_spacing = 100
 
 var enemies_left = 0
 
+var is_roaming = true
+var roaming_timer = 15
+
 signal boss_defeated()
 var timer = 5
 
@@ -31,21 +40,43 @@ func _ready() -> void:
 	GameData.is_escaping = false
 	entities.add_child(GameData.player)
 	blood_manager.spawn()
+
+func _process(delta: float) -> void:
+	camera.global_position = GameData.player.global_position
+	print(camera.global_position)
+
+func _physics_process(delta: float) -> void:
+	if is_roaming:
+		
+		
+		roaming_timer -= delta
+		if roaming_timer < 0:
+			lock_level()
+			spawn_boss()
+			
+			is_roaming = false
 	
-	var top_left = $TopLeft.global_position
-	var bot_right = $BottomRight.global_position
+	
+
+func spawn_boss() -> void:
+	pass
+
+func lock_level() -> void:
+	GameData.boss_fight_offset = camera.global_position
+	var top_left = $TopLeft.global_position + GameData.boss_fight_offset
+	var bot_right = $BottomRight.global_position + GameData.boss_fight_offset
 	camera.limit_left = top_left.x
 	camera.limit_top = top_left.y
 	camera.limit_right = bot_right.x
 	camera.limit_bottom = bot_right.y
 	
-	populate_enemies()
+	SignalBus.death.connect(enemy_died)
 
-func _process(delta: float) -> void:
-	camera.global_position = GameData.player.global_position
-
-func _physics_process(delta: float) -> void:
-	pass
+func upgrade_enemy(enemy: Enemy) -> void:
+	var new_enemy = upgraded_scenes[enemy.type]
+	new_enemy.global_position = enemy.global_position
+	enemy.queue_free()
+	entities.add_child(new_enemy)
 
 func enemy_died(enemy) -> void:
 	enemies_left -= 1

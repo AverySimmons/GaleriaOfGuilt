@@ -23,3 +23,5 @@ var mall_ind: int = 0
 var is_escaping = false
 
 var overlay
+
+var boss_fight_offset: Vector2

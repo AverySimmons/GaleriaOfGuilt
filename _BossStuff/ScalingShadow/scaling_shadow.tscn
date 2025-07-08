@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb064mi715uwj"]
+
+[ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="1_jf43m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atngp"]
+resource_local_to_scene = true
+shader = ExtResource("1_jf43m")
+shader_parameter/z = 0.0
+
+[sub_resource type="Gradient" id="Gradient_ap6m3"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ib0ys"]
+gradient = SubResource("Gradient_ap6m3")
+
+[node name="ScalingShadow" type="Sprite2D"]
+material = SubResource("ShaderMaterial_atngp")
+texture = SubResource("GradientTexture2D_ib0ys")
