@@ -4,21 +4,25 @@ extends Node2D
 @onready var camera: Camera2D
 @onready var heart_sprite: Sprite2D = $Heart
 @onready var heartbeat_ap: AnimationPlayer = $HeartBeat
+@onready var tornado_spawn_ap: AnimationPlayer = $TornadoSpawning
+@onready var tornado_spawn: Sprite2D = $TornadoSpawn
 @onready var upgrade_proj_scene = preload("res://_BossStuff/02_BossProjectiles/upgrade_projectile.tscn")
 @onready var lightning_module: BossLightningModule = $BossLightningModule
 @onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
+@onready var sprinkler_scene = preload("res://_BossStuff/02_BossProjectiles/boss_tornado.tscn")
 
 var entities
 # State variables =================================================================
 const MOVING: int = 0
 const LIGHTNING: int = 1
-const TORNADO: int = 2
+const SPRINKLER: int = 2
 const FALLING: int = 3
 const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
 var phase: int = 1
+var can_attack: bool = false
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
@@ -47,8 +51,13 @@ var lightning_amt: int = 0
 # Sprinkler variables =============================================================
 const AMT_SPRINKLERS_P2: int = 2
 const AMT_SPRINKLERS_P3: int = 3
-var sprinkler_time: float = 2
-var sprinkler_timer: float = sprinkler_time
+const BETWEEN_SPRINKLERS_TIME: int = 1
+var amt_sprinklers: int
+var sprinkler_timer: float
+var between_sprinklers_timer: float
+var last_sprinkler_angle: float
+var sprinklers_placed: int
+var radius_from_player: Vector2 = Vector2(400, 0)
 
 # Enemy upgrade
 signal upgrade_enemy(enemy: Enemy)
@@ -65,7 +74,8 @@ var was_before_threshold: bool = true
 var list_of_unupgraded_enemies: Array[Enemy]
 
 func _ready() -> void:
-	#var player = test_player_scene.instantiate()
+	#var player_2 = test_player_scene.instantiate()
+	#player = player_2
 	#get_tree().current_scene.add_child(player)
 	global_position = movement_point.global_position
 	heart_sprite.global_position += Vector2(0, y_offset)
@@ -78,7 +88,7 @@ func _physics_process(delta: float) -> void:
 		heartbeat_ap.play("HeartBeat")
 	
 	# Determining state
-	if !(phase == 1) && special_move_timer>0:
+	if can_attack && special_move_timer>0:
 		special_move_timer = move_toward(special_move_timer, 0, delta)
 		if special_move_timer <= 0:
 			initiate_attack()
@@ -93,10 +103,30 @@ func _physics_process(delta: float) -> void:
 			adjust_heart_y_pos(delta)
 		LIGHTNING:
 			movement_point.stop_moving()
+			adjust_heart_y_pos(delta)
 			heartbeat_ap.speed_scale = 2.0
 			lightning_timer = move_toward(lightning_timer, 0, delta)
 			if lightning_timer <= 0:
 				cur_state = MOVING
+		SPRINKLER:
+			if !tornado_spawn_ap.is_playing():
+				tornado_spawn_ap.play("tornado_spawn")
+			tornado_spawn.global_position = heart_sprite.global_position
+			movement_point.stop_moving()
+			adjust_heart_y_pos(delta)
+			heartbeat_ap.speed_scale = 2.0
+			# Control logic of if it should end
+			sprinkler_timer = move_toward(sprinkler_timer, 0, delta)
+			if sprinkler_timer <= 0:
+				cur_state = MOVING
+				tornado_spawn.visible = false
+				amt_sprinklers = 0
+				sprinklers_placed = 0
+			# Control when it should place sprinklers
+			between_sprinklers_timer = move_toward(between_sprinklers_timer, 0, delta)
+			if between_sprinklers_timer <= 0:
+				between_sprinklers_timer = BETWEEN_SPRINKLERS_TIME
+				place_sprinkler()
 			
 	
 	
@@ -131,6 +161,7 @@ func adjust_heart_y_pos(delta: float) -> void:
 func change_phase(current_phase: int) -> void:
 	phase = current_phase + 1
 	SignalBus.change_phase.emit(phase)
+	can_attack = true
 	
 	# Setting special move timer to begin with:
 	match phase:
@@ -138,6 +169,10 @@ func change_phase(current_phase: int) -> void:
 			special_move_timer = special_move_time_phase2/2.0
 		3:
 			special_move_timer = special_move_time_phase3/2.0
+	# Enter room gain blood upgrade lets you gain blood when phase changes
+	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
+		GameData.player.gain_blood_other(80)
+		GameData.player.dealt_damage_took_damage = true
 	return
 
 func choose_enemies() -> Array[Enemy]:
@@ -205,7 +240,7 @@ func choose_attack() -> int:
 	if will_be_lightning:
 		chosen_attack = 0
 	else:
-		chosen_attack = randi_range(0, 1)
+		chosen_attack = randi_range(1, 1)
 	return chosen_attack
 
 func start_lightning_attack() -> void:
@@ -228,12 +263,55 @@ func start_lightning_attack() -> void:
 	return
 
 func start_sprinkler_attack() -> void:
-	cur_state = TORNADO
+	sprinklers_placed = 0
+	cur_state = SPRINKLER
+	tornado_spawn.visible = true
 	match phase:
 		1:
 			return
 		2:
+			# Give time for warmup and time for each sprinkler placement
+			sprinkler_timer = (AMT_SPRINKLERS_P2+1) * BETWEEN_SPRINKLERS_TIME
+			between_sprinklers_timer = BETWEEN_SPRINKLERS_TIME
+			amt_sprinklers = AMT_SPRINKLERS_P2
+			special_move_timer = special_move_time_phase2 + sprinkler_timer
 			pass
 		3:
+			sprinkler_timer = (AMT_SPRINKLERS_P3+1) * BETWEEN_SPRINKLERS_TIME
+			between_sprinklers_timer = BETWEEN_SPRINKLERS_TIME
+			amt_sprinklers = AMT_SPRINKLERS_P3
+			special_move_timer = special_move_time_phase3 + sprinkler_timer
 			pass
+	return
+
+func place_sprinkler() -> void:
+	# This function places sprinklers along an oval from the player, and the radius of that oval is
+	# defined up above in radius_from_player where x is that value, and y is that value*9/16 (so it's like the screen
+	# and it'll randomize the angle to shift that position from along the radius, taking into account the previous sprinkler
+	if sprinklers_placed >= amt_sprinklers:
+		return
+	var position_for_sprinkler: Vector2
+	var angle_to_place: float
+	
+	if sprinklers_placed == 0:
+		angle_to_place = randf_range(0, TAU)
+	else:
+		var bounds: float = -last_sprinkler_angle
+		angle_to_place = randf_range(angle_to_place-(TAU/6), angle_to_place+(TAU/6))
+	position_for_sprinkler = radius_from_player.rotated(angle_to_place)
+	position_for_sprinkler.y *= 9/16
+	var t: Tween = create_tween()
+	t.tween_property(self, "global_position", player.global_position+position_for_sprinkler, 0.3)
+	if !is_inside_tree():
+		return
+	await get_tree().create_timer(0.6).timeout
+	if cur_state != SPRINKLER:
+		return
+	#print("Placing")
+	var cur_tornado: Node2D = sprinkler_scene.instantiate()
+	cur_tornado.z_offset = y_offset
+	cur_tornado.global_position = global_position
+	entities.add_child(cur_tornado)
+	sprinklers_placed += 1
+	last_sprinkler_angle = angle_to_place
 	return
