@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cm3gximniggbi"]
+[gd_scene load_steps=20 format=3 uid="uid://cm3gximniggbi"]
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
@@ -123,6 +123,14 @@ _data = {
 &"lightning_spawning": SubResource("Animation_refew")
 }
 
+[sub_resource type="Animation" id="Animation_3bdry"]
+resource_name = "hit_flash"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wx8sf"]
+_data = {
+&"hit_flash": SubResource("Animation_3bdry")
+}
+
 [node name="Boss" type="Node2D"]
 script = ExtResource("1_cymkw")
 
@@ -176,4 +184,9 @@ hframes = 8
 [node name="LightningSpawning" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_3bdry")
+}
+
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wx8sf")
 }
