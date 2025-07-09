@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bka1wtsyvvvgk" path="res://01_Source/01_Combat/Blood/blood_manager.tscn" id="1_o4hei"]
 [ext_resource type="Texture2D" uid="uid://c5x5blcyurcri" path="res://_BossStuff/00_Sprites/background_sprites/sand_tile.png" id="2_3qoh1"]
 [ext_resource type="PackedScene" uid="uid://xoikojyvkrrx" path="res://01_Source/05_UI/overlay.tscn" id="4_3qoh1"]
-[ext_resource type="Texture2D" uid="uid://ceco2wijbay5p" path="res://_BossStuff/00_Sprites/background_sprites/tornado_background.png" id="4_5p0tm"]
+[ext_resource type="Texture2D" uid="uid://d23ahtmpa8cnl" path="res://_BossStuff/00_Sprites/background_sprites/big_tornado_circle.png" id="4_ax301"]
 [ext_resource type="Texture2D" uid="uid://cedfsuff28njf" path="res://_BossStuff/00_Sprites/background_sprites/tornado_storm_swirl_sprite.png" id="5_ax301"]
 [ext_resource type="Shader" uid="uid://cfw2fpkavxf0f" path="res://_BossStuff/BossLevel/sand_effect.gdshader" id="6_ax301"]
 
@@ -105,7 +105,7 @@ polygon = PackedVector2Array(-1020, 1019, 1017, 1021, 1015, -1021, -1020, -1016,
 navigation_polygon = SubResource("NavigationPolygon_ax301")
 
 [node name="Walls" type="Sprite2D" parent="Level"]
-texture = ExtResource("4_5p0tm")
+texture = ExtResource("4_ax301")
 
 [node name="InnerWalls" type="Sprite2D" parent="Level/Walls"]
 texture = ExtResource("5_ax301")
