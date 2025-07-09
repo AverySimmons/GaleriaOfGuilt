@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cvlef2ga2wu8c"]
+[gd_scene load_steps=56 format=3 uid="uid://cvlef2ga2wu8c"]
 
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_nis2y"]
 [ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_spq5c"]
@@ -61,9 +61,6 @@ script = ExtResource("6_8283r")
 [sub_resource type="BTAction" id="BTAction_f5yab"]
 script = ExtResource("5_rbdj3")
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_nis2y"]
-text = "going through attack sequence"
-
 [sub_resource type="BTAction" id="BTAction_kfwwy"]
 script = ExtResource("6_8283r")
 
@@ -80,7 +77,7 @@ script = ExtResource("8_f5yab")
 duration = 0.02
 
 [sub_resource type="BTSequence" id="BTSequence_spq5c"]
-children = [SubResource("BTConsolePrint_nis2y"), SubResource("BTAction_kfwwy"), SubResource("BTWait_0jl8c"), SubResource("BTAction_47nhr"), SubResource("BTAction_tk2uh"), SubResource("BTWait_nis2y")]
+children = [SubResource("BTAction_kfwwy"), SubResource("BTWait_0jl8c"), SubResource("BTAction_47nhr"), SubResource("BTAction_tk2uh"), SubResource("BTWait_nis2y")]
 
 [sub_resource type="BTRepeat" id="BTRepeat_bjohf"]
 times = 3
