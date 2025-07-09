@@ -1,6 +1,6 @@
 viola_character: Good morning.
 marie_character: Mornin’.
-viola_character: The signal for the blood storm has gotten stronger. But it looks like its gotten stronger too, seems like theres more and more rubble on its trail. 
+viola_character: The signal for the bloodstorm has gotten stronger. But it looks like its gotten stronger too, seems like theres more and more rubble on its trail.
 marie_character: I see...
 viola_character: Are you alright?
 marie_character: I’m running outta time. I gotta destroy that storm.
@@ -10,6 +10,6 @@ viola_character: Oh… Marie I’m so sorry. Was the other ring hers?
 marie_character: Yeah, we were planning on gettin' married, jus' the two us out there where no one could find us.
 marie_character: She's all I had.
 viola_character: Don't worry, you'll get your revenge. I promise.
-viola_character: We're so close to finding the blood storm, I can feel it.
+viola_character: We're so close to finding the bloodstorm, I can feel it.
 marie_character: Thank you.
 [signal arg="pre_mall_finished"]

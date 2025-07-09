@@ -3,6 +3,21 @@
 [ext_resource type="Script" uid="uid://61tamjpp2pna" path="res://_BossStuff/02_BossProjectiles/boss_tornado.gd" id="1_6qm3r"]
 [ext_resource type="Texture2D" uid="uid://bdni113svcvmb" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
 
+[sub_resource type="Animation" id="Animation_htwm2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_fx1ra"]
 resource_name = "default"
 length = 0.6
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_htwm2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gq5cc"]
 _data = {
 &"RESET": SubResource("Animation_htwm2"),
@@ -46,8 +46,8 @@ _data = {
 script = ExtResource("1_6qm3r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(5, -61)
-scale = Vector2(0.5, 0.5)
+position = Vector2(5, -91)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_2cisa")
 hframes = 6
 

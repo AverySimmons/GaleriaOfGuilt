@@ -61,11 +61,14 @@ directories/dtl_directory={
 "post_mall_2": "res://04_DialogicStuff/Timelines/post_mall_2.dtl",
 "post_mall_3": "res://04_DialogicStuff/Timelines/post_mall_3.dtl",
 "post_mall_4": "res://04_DialogicStuff/Timelines/post_mall_4.dtl",
+"post_mall_5": "res://04_DialogicStuff/Timelines/post_mall_5.dtl",
+"pre_boss": "res://04_DialogicStuff/Timelines/pre_boss.dtl",
 "pre_mall_1": "res://04_DialogicStuff/Timelines/pre_mall_1.dtl",
 "pre_mall_2": "res://04_DialogicStuff/Timelines/pre_mall_2.dtl",
 "pre_mall_3": "res://04_DialogicStuff/Timelines/pre_mall_3.dtl",
 "pre_mall_4": "res://04_DialogicStuff/Timelines/pre_mall_4.dtl",
 "pre_mall_5": "res://04_DialogicStuff/Timelines/pre_mall_5.dtl",
+"pre_mall_6": "res://04_DialogicStuff/Timelines/pre_mall_6.dtl",
 "tutorial": "res://04_DialogicStuff/Timelines/tutorial.dtl",
 "tutorial2": "res://04_DialogicStuff/Timelines/tutorial2.dtl"
 }

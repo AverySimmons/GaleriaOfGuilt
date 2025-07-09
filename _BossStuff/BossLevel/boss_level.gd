@@ -21,9 +21,9 @@ var enemy_scenes = {
 }
 
 var upgraded_scenes = {
-	"Locust" : preload("res://01_Source/01_Combat/Enemies/locust.tscn"),
-	"Worm" : preload("res://01_Source/01_Combat/Enemies/worm.tscn"),
-	"Lizard" : preload("res://01_Source/01_Combat/Enemies/lizard.tscn")
+	"Locust" : preload("res://01_Source/01_Combat/Enemies/blood_locust.tscn"),
+	"Worm" : preload("res://01_Source/01_Combat/Enemies/blood_worm.tscn"),
+	"Lizard" : preload("res://01_Source/01_Combat/Enemies/blood_lizard.tscn")
 }
 
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
@@ -54,7 +54,7 @@ var shader_wind_speed = 1.
 
 var is_zooming_in = false
 
-var boss
+var boss: Boss
 
 @export var inner_wall_rot_speed = 0.5
 
@@ -78,7 +78,9 @@ func _ready() -> void:
 		sand_effect.material.set_shader_parameter("strength", 1)
 		camera.zoom = Vector2.ONE * 0.5
 		lock_level()
-	
+
+func boss_dies() -> void:
+	boss_defeated.emit()
 
 func _process(delta: float) -> void:
 	camera.global_position = GameData.player.global_position
@@ -135,7 +137,11 @@ func spawn_boss() -> void:
 	boss.global_position = level.global_position
 	boss.entities = entities
 	boss.indicators_node = attack_indicators
+	# boss.phase_change.connect(trigger_phase)
+	# boss.boss_dies.connect(boss_dies)
 	entities.add_child(boss)
+	
+	phase1()
 
 func try_again_setup() -> void:
 	pass
@@ -171,8 +177,11 @@ func lock_level() -> void:
 	spawn_boss()
 
 func upgrade_enemy(enemy: Enemy) -> void:
-	var new_enemy = upgraded_scenes[enemy.type]
+	var new_enemy: Enemy = upgraded_scenes[enemy.type].instantiate()
 	new_enemy.global_position = enemy.global_position
+	new_enemy.level = self
+	new_enemy.indicator_node = attack_indicators
+	new_enemy.bullet_node = entities
 	enemy.queue_free()
 	entities.add_child(new_enemy)
 
@@ -182,8 +191,15 @@ func enemy_died(enemy) -> void:
 		## tell boss to drop
 		pass
 
+func trigger_phase(val):
+	match val:
+		2:
+			phase2()
+		3:
+			phase3()
+
 func phase1() -> void:
-	pass
+	populate_enemies()
 
 func phase2() -> void:
 	pass
@@ -197,14 +213,16 @@ func populate_enemies() -> void:
 	await get_tree().create_timer(1, false).timeout
 	while enemy_list:
 		spawn_wave(enemy_list)
-		if !is_inside_tree(): return
 		await get_tree().create_timer(5, false).timeout
 
 func spawn_wave(enemy_list):
 	var spawns = get_spawn_point_list()
 	
 	var scored_spawns = score_spawn_list(spawns)
-	
+	#print("new wave:")
+	#print(spawns)
+	#print(scored_spawns)
+	#print(enemy_list)
 	var enemy_num = min(len(scored_spawns.keys()), len(enemy_list), max_enemies_in_wave)
 	
 	for i in enemy_num:
@@ -284,7 +302,8 @@ func get_spawn_point_list() -> Array[Vector2]:
 	var space_state = get_world_2d().direct_space_state
 	
 	for i in 60:
-		var rand_pos = Vector2.from_angle(randf_range(0, TAU)) * level_radius
+		var rand_pos = Vector2.from_angle(randf_range(0, TAU)) * randf_range(0, level_radius) \
+			+ GameData.boss_fight_offset
 		
 		if not check_enemy_spawn(rand_pos, list, space_state): continue
 		
@@ -321,7 +340,8 @@ func spawn_enemy(pos: Vector2, ene: PackedScene) -> void:
 	new_enemy_spawn.entities_node = entities
 	new_enemy_spawn.global_position = pos
 	new_enemy_spawn.enemy = new_enemy
-	new_enemy_spawn.spawn_time = 0.5 if GameData.is_escaping else 1
+	new_enemy_spawn.spawn_time = 1
+	new_enemy_spawn.boss = boss
 	entities.add_child(new_enemy_spawn)
 
 func spawn_arrow(size: float, arrow_size: float, color: Color) -> ArrowIndicator:

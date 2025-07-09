@@ -1,0 +1,5 @@
+viola_character: Marie!! Wake up! The bloodstorm, I see it!
+marie_character: What!?
+marie_character: Floor it Viola! Let's get this bastard!
+viola_character: Already on it!
+[signal arg="pre_mall_finished"]
