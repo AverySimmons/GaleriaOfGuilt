@@ -30,6 +30,7 @@ var test_game = true
 var test_boss = true
 
 var tut2 = false
+var boss_intro_played = false
 
 func _ready() -> void:
 	SignalBus.player_death.connect(player_death)
@@ -39,7 +40,6 @@ func _ready() -> void:
 	GameData.player = player_scene.instantiate()
 	GameData.music_event = $GameMusic
 	
-	$MenuMusic.volume = 0
 	var t = create_tween()
 	t.tween_property($MenuMusic, "volume", 1.5, 0.5)
 	
@@ -82,6 +82,8 @@ func spawn_boss_level():
 	player_dying = false
 	boss_level = boss_scene.instantiate()
 	boss_level.boss_defeated.connect(boss_defeated)
+	boss_level.try_again_mode = boss_intro_played
+	boss_intro_played = true
 	add_child(boss_level)
 
 func spawn_game_manager():
@@ -122,19 +124,14 @@ func stage_complete():
 	var t = create_tween()
 	t.tween_property($GameMusic, "volume", 0, 0.5)
 	
-	if GameData.mall_ind == 5:
-		spawn_boss_level()
-		transition_player.play("line_wipe_in")
-		await transition_player.animation_finished
-	else:
-		await get_tree().create_timer(1.5).timeout
-		$CarMusic.play()
-		var t2 = create_tween()
-		t2.tween_property($CarMusic, "volume", 0.5, 1)
-		add_van(true)
-		transition_player.play("line_wipe_in")
-		await transition_player.animation_finished
-		Dialogic.start("post_mall_" + str(GameData.mall_ind))
+	await get_tree().create_timer(1.5).timeout
+	$CarMusic.play()
+	var t2 = create_tween()
+	t2.tween_property($CarMusic, "volume", 0.5, 1)
+	add_van(true)
+	transition_player.play("line_wipe_in")
+	await transition_player.animation_finished
+	Dialogic.start("post_mall_" + str(GameData.mall_ind))
 	
 	await t.finished
 	$GameMusic.stop()
@@ -233,7 +230,12 @@ func pre_mall_finished():
 	
 	$CarMusic.stop()
 	remove_van()
-	spawn_game_manager()
+	
+	if GameData.mall_ind == 5:
+		spawn_boss_level()
+	else:
+		spawn_game_manager()
+	
 	await get_tree().create_timer(0.1).timeout
 	pause_game()
 	
@@ -242,9 +244,16 @@ func pre_mall_finished():
 	
 	transition_player.play("line_wipe_in")
 	await transition_player.animation_finished
-	$GameMusic.play()
-	var t2 = create_tween()
-	t2.tween_property($GameMusic, "volume", 0.35, 1)
+	
+	if GameData.mall_ind == 5:
+		$BossMusic.play()
+		var t2 = create_tween()
+		t2.tween_property($BossMusic, "volume", 0.35, 1)
+	else:
+		$GameMusic.play()
+		var t2 = create_tween()
+		t2.tween_property($GameMusic, "volume", 0.35, 1)
+	
 	if !is_inside_tree(): return
 	await get_tree().create_timer(1).timeout
 	unpause_game()
@@ -252,6 +261,8 @@ func pre_mall_finished():
 	if GameData.mall_ind == 0 and not test_game:
 		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
 		Dialogic.start("tutorial").process_mode = Node.PROCESS_MODE_ALWAYS
+	## if GameData.mall_ind == 5:
+	## 	Dialogic.start("")
 
 func add_van(is_night):
 	if van:
@@ -284,8 +295,15 @@ func player_death():
 func death_reset():
 	GameData.player.reset()
 	GameData.player.get_parent().remove_child(GameData.player)
-	game_manager.call_deferred("queue_free")
-	spawn_game_manager()
+	if game_manager:
+		game_manager.call_deferred("queue_free")
+	if boss_level:
+		boss_level.call_deferred("queue_free")
+	
+	if GameData.mall_ind == 5:
+		spawn_boss_level()
+	else:
+		spawn_game_manager()
 
 func _on_button_mouse_entered() -> void:
 	$ButtonHover.play()
@@ -302,13 +320,16 @@ func boss_defeated() -> void:
 	
 	transition_player.play("fade_out")
 	await transition_player.animation_finished
+	$BossMusic.stop()
 	
 	boss_level.queue_free()
 	unpause_game()
 	
 	await get_tree().create_timer(2, false).timeout
 	
-	## play music?
+	$EndingMusic.play()
+	var t2 = create_tween()
+	t2.tween_property($EndingMusic, "volume", 0.5, 1)
 	
 	ending = ending_scene.instantiate()
 	add_child(ending)
