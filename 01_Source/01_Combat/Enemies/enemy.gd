@@ -45,6 +45,9 @@ var is_marked: bool = false
 var marked_time: float = 8
 var marked_timer: float = marked_time
 
+@onready var upgrade_mark_sprite = $UpgradeMark
+@onready var beating_heart_sprite = $BeatingHeart
+
 func _ready() -> void:
 	hp = hp_max
 	sprite.material.set_shader_parameter("offset_x", randf_range(0,10))
@@ -63,6 +66,12 @@ func _ready() -> void:
 
 func start_death() -> void:
 	if death_state: return
+	if $MarkForUpgrade != null:
+		$MarkForUpgrade.stop()
+	if upgrade_mark_sprite != null:
+		upgrade_mark_sprite.visible = false
+	if beating_heart_sprite != null:
+		beating_heart_sprite.visible = false
 	var hurtbox = $Hurtbox
 	if hurtbox != null:
 		hurtbox.monitorable = false
