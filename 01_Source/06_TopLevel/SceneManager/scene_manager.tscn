@@ -1,14 +1,14 @@
 [gd_scene load_steps=22 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
-[ext_resource type="Texture2D" uid="uid://fdn5vv3eyl4l" path="res://00_Assets/00_Sprites/Cutscene_sprites/new_title_screen_with_button.png" id="2_kgoma"]
+[ext_resource type="Texture2D" uid="uid://xm1itgmohr14" path="res://00_Assets/00_Sprites/Cutscene_sprites/new_title_screen_with_button.png" id="2_kgoma"]
 [ext_resource type="Shader" uid="uid://d3g74gg2aqtir" path="res://01_Source/06_TopLevel/SceneManager/circ_fade.gdshader" id="3_rvphk"]
-[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
-[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
+[ext_resource type="AudioStream" uid="uid://ch6b6f5xfovy7" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
+[ext_resource type="AudioStream" uid="uid://csfl3tic6ke0p" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
 [ext_resource type="Shader" uid="uid://b0p0y0knw8m0t" path="res://01_Source/06_TopLevel/SceneManager/level_swap.gdshader" id="4_nut0k"]
-[ext_resource type="AudioStream" uid="uid://b8se6ivrg14g3" path="res://00_Assets/02_SoundEffects/car_start.wav" id="5_a4pbu"]
-[ext_resource type="AudioStream" uid="uid://ut3rfvw6srca" path="res://00_Assets/02_SoundEffects/sigh.wav" id="7_5q8bt"]
-[ext_resource type="AudioStream" uid="uid://ddeu753wyg3b1" path="res://00_Assets/02_SoundEffects/door-open-107728.mp3" id="9_kgoma"]
+[ext_resource type="AudioStream" uid="uid://cfuihl5g0g07m" path="res://00_Assets/02_SoundEffects/car_start.wav" id="5_a4pbu"]
+[ext_resource type="AudioStream" uid="uid://qqlim3upyvn4" path="res://00_Assets/02_SoundEffects/sigh.wav" id="7_5q8bt"]
+[ext_resource type="AudioStream" uid="uid://cm32dmxsusexs" path="res://00_Assets/02_SoundEffects/door-open-107728.mp3" id="9_kgoma"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5q8bt"]
 shader = ExtResource("3_rvphk")
