@@ -30,7 +30,7 @@ var test_game = true
 var test_boss = true
 
 var tut2 = false
-var boss_intro_played = false
+var boss_intro_played = true
 
 func _ready() -> void:
 	SignalBus.player_death.connect(player_death)

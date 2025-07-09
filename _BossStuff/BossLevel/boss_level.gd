@@ -78,7 +78,9 @@ func _ready() -> void:
 		sand_effect.material.set_shader_parameter("strength", 1)
 		camera.zoom = Vector2.ONE * 0.5
 		lock_level()
-	
+
+func boss_dies() -> void:
+	boss_defeated.emit()
 
 func _process(delta: float) -> void:
 	camera.global_position = GameData.player.global_position
@@ -135,6 +137,7 @@ func spawn_boss() -> void:
 	boss.global_position = level.global_position
 	boss.entities = entities
 	boss.indicators_node = attack_indicators
+	# boss.boss_dies.connect(boss_dies)
 	entities.add_child(boss)
 
 func try_again_setup() -> void:
