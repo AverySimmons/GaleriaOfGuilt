@@ -59,6 +59,7 @@ var boss: Boss
 @export var inner_wall_rot_speed = 0.5
 
 func _ready() -> void:
+	GameData.player.exp_mult = 0
 	overlay.hide_xp()
 	GameData.player.global_position = $PlayerSpawn.global_position
 	GameData.is_escaping = false
@@ -185,6 +186,7 @@ func upgrade_enemy(enemy: Enemy) -> void:
 	new_enemy.level = self
 	new_enemy.indicator_node = attack_indicators
 	new_enemy.bullet_node = entities
+	if enemy.target_ind: enemy.target_ind.conceal()
 	enemy.queue_free()
 	entities.add_child(new_enemy)
 

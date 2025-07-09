@@ -23,6 +23,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	sprite_2d.global_position.y = global_position.y + z_offset - 81
+	$ScalingShadow.material.set_shader_parameter("z", -z_offset)
 
 func _physics_process(delta: float) -> void:
 	if z_offset != 0:

@@ -32,6 +32,9 @@ func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	pass
 
+func _process(delta: float) -> void:
+	$ScalingShadow.material.set_shader_parameter("z", -z)
+
 func _physics_process(delta: float) -> void:
 	if has_exploded:
 		return
