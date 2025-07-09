@@ -33,6 +33,9 @@ var tut2 = false
 var boss_intro_played = true
 
 func _ready() -> void:
+	if test_boss:
+		GameData.mall_ind = 5
+	
 	SignalBus.player_death.connect(player_death)
 	Dialogic.signal_event.connect(dialogic_stupid)
 	SignalBus.pause.connect(pause_game)
@@ -261,8 +264,9 @@ func pre_mall_finished():
 	if GameData.mall_ind == 0 and not test_game:
 		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
 		Dialogic.start("tutorial").process_mode = Node.PROCESS_MODE_ALWAYS
-	## if GameData.mall_ind == 5:
-	## 	Dialogic.start("")
+	if GameData.mall_ind == 5:
+		Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+		Dialogic.start("pre_boss").process_mode = Node.PROCESS_MODE_ALWAYS
 
 func add_van(is_night):
 	if van:

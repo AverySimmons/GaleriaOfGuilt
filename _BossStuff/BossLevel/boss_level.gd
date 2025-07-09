@@ -219,10 +219,10 @@ func spawn_wave(enemy_list):
 	var spawns = get_spawn_point_list()
 	
 	var scored_spawns = score_spawn_list(spawns)
-	print("new wave:")
-	print(spawns)
-	print(scored_spawns)
-	print(enemy_list)
+	#print("new wave:")
+	#print(spawns)
+	#print(scored_spawns)
+	#print(enemy_list)
 	var enemy_num = min(len(scored_spawns.keys()), len(enemy_list), max_enemies_in_wave)
 	
 	for i in enemy_num:
