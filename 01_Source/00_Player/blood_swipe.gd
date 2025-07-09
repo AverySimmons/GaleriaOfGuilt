@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 	if !is_active:
 		return
 	for area in enemies_just_entered:
-		if !is_instance_id_valid(area.owner.get_instance_id()):
+		if !is_instance_valid(area.owner):
 			continue
 		if not area: continue
 		var enemy = area.owner
@@ -145,7 +145,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 	return
 
 func _on_area_entered(area: Area2D) -> void:
-	enemies_just_entered.append(area)
+	#enemies_just_entered.append(area)
 	pass
 
 func on_burst_begin() -> void:

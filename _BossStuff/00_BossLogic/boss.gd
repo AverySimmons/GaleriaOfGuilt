@@ -28,8 +28,8 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 3
-var can_attack: bool = true
+var phase: int = 1
+var can_attack: bool = false
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
@@ -172,8 +172,6 @@ func _physics_process(delta: float) -> void:
 	#if test_timer == 0:
 		#initiate_falling()
 		#test_timer = 2500000
-	if !can_attack:
-		return
 	
 	upgrade_timer = move_toward(upgrade_timer, 0, delta)
 	
@@ -238,13 +236,15 @@ func upgrade_enemies() -> void:
 	var chosen_enemies: Array[Enemy] = choose_enemies()
 	
 	for enemy in chosen_enemies:
+		if !is_instance_valid(enemy):
+			continue
 		enemy.mark_for_upgrade()
 	
 	await get_tree().create_timer(2, false).timeout
 	if cur_state in [FALLING, GROUND, RISING] || !is_inside_tree():
 		return
 	for enemy in chosen_enemies:
-		if is_instance_id_valid(enemy.get_instance_id()):
+		if is_instance_valid(enemy):
 			var upgrade_proj = upgrade_proj_scene.instantiate()
 			upgrade_proj.global_position = global_position
 			upgrade_proj.get_shot(y_offset, enemy.global_position)
