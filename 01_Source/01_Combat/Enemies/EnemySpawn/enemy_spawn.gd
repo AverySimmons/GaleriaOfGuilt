@@ -5,6 +5,7 @@ extends Sprite2D
 var enemy: Enemy
 var entities_node: Node2D
 var spawn_time: float = 1
+var boss: Boss
 
 func _ready() -> void:
 	match enemy.type:
@@ -24,3 +25,5 @@ func _ready() -> void:
 func spawn() -> void:
 	enemy.global_position = global_position
 	entities_node.add_child(enemy)
+	if boss:
+		boss.list_of_unupgraded_enemies.push_back(enemy)
