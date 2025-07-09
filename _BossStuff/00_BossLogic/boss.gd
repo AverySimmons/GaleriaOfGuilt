@@ -1,3 +1,4 @@
+class_name Boss
 extends Node2D
 
 @onready var player: Player = GameData.player
@@ -8,6 +9,7 @@ extends Node2D
 @onready var tornado_spawn: Sprite2D = $TornadoSpawn
 @onready var lightning_spawn_ap: AnimationPlayer = $LightningSpawning
 @onready var lightning_spawn: Sprite2D = $LightningSpawn
+@onready var hurtbox: Area2D = $Hurtbox
 @onready var upgrade_proj_scene = preload("res://_BossStuff/02_BossProjectiles/upgrade_projectile.tscn")
 @onready var lightning_module: BossLightningModule = $BossLightningModule
 @onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
@@ -43,7 +45,7 @@ var y_acceleration: float = y_top_speed/0.2
 # Special Move Timers ============================================================
 var special_move_time_phase2: float = 7.0
 var special_move_time_phase3: float = 5.0
-var special_move_timer: float = 0.0
+var special_move_timer: float = 7.0
 var will_be_lightning: bool = false
 
 # Lightning variables ============================================================
@@ -56,7 +58,7 @@ var lightning_amt: int = 0
 # Sprinkler variables =============================================================
 const AMT_SPRINKLERS_P2: int = 2
 const AMT_SPRINKLERS_P3: int = 3
-const BETWEEN_SPRINKLERS_TIME: int = 1
+const BETWEEN_SPRINKLERS_TIME: float = 1.5
 var amt_sprinklers: int
 var sprinkler_timer: float
 var between_sprinklers_timer: float
@@ -88,6 +90,7 @@ func _ready() -> void:
 	heart_sprite.global_position += Vector2(0, y_offset)
 	heartbeat_ap.play("HeartBeat")
 	SignalBus.death.connect(remove_from_selectable)
+	hurtbox.monitorable = false
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -139,6 +142,7 @@ func _physics_process(delta: float) -> void:
 				between_sprinklers_timer = BETWEEN_SPRINKLERS_TIME
 				place_sprinkler()
 		FALLING:
+			
 			pass
 		GROUND:
 			pass
@@ -180,7 +184,9 @@ func change_phase(current_phase: int) -> void:
 	phase = current_phase + 1
 	SignalBus.change_phase.emit(phase)
 	can_attack = true
-	
+	reset_upgrade_timer()
+	lightning_module.resume()
+	cur_state = MOVING
 	# Setting special move timer to begin with:
 	match phase:
 		2:
@@ -226,6 +232,10 @@ func upgrade_enemies() -> void:
 			entities.add_child(upgrade_proj)
 	
 	# For resetting the timer:
+	reset_upgrade_timer()
+	return
+
+func reset_upgrade_timer() -> void:
 	was_before_threshold = true
 	var upgrade_time: int = randi_range(ENEMY_INTERVAL_LOWER, ENEMY_INTERVAL_UPPER)
 	upgrade_timer = upgrade_time
@@ -254,11 +264,13 @@ func initiate_attack() -> void:
 	return
 
 func choose_attack() -> int:
-	var chosen_attack: int # 0 for sprinkler, 1 for lightning
+	var chosen_attack: int # 1 for sprinkler, 0 for lightning
 	if will_be_lightning:
 		chosen_attack = 0
+		will_be_lightning = false
 	else:
-		chosen_attack = randi_range(1, 1)
+		chosen_attack = randi_range(0, 1)
+		print(chosen_attack)
 	return chosen_attack
 
 func start_lightning_attack() -> void:
@@ -316,14 +328,14 @@ func place_sprinkler() -> void:
 		angle_to_place = randf_range(0, TAU)
 	else:
 		var bounds: float = -last_sprinkler_angle
-		angle_to_place = randf_range(angle_to_place-(TAU/6), angle_to_place+(TAU/6))
+		angle_to_place = randf_range(angle_to_place-(TAU/8.0), angle_to_place+(TAU/8.0))
 	position_for_sprinkler = radius_from_player.rotated(angle_to_place)
-	position_for_sprinkler.y *= 9/16.
+	position_for_sprinkler.y *= 9.0/16.0
 	var t: Tween = create_tween()
 	t.tween_property(self, "global_position", player.global_position+position_for_sprinkler, 0.3)
 	if !is_inside_tree():
 		return
-	await get_tree().create_timer(0.6).timeout
+	await get_tree().create_timer(0.8).timeout
 	if cur_state != SPRINKLER:
 		return
 	#print("Placing")
@@ -338,17 +350,43 @@ func place_sprinkler() -> void:
 
 func initiate_falling() -> void:
 	cur_state = FALLING
+	can_attack = false
 	# interrupt whatever it's doing: moving, lightning (activating the lightning, and remove current lightning maybe?)
 	# sprinkler (placing sprinklers, moving, maybe get rid of current sprinklers?) and set vars to default
 	# stop attack cooldown timer/other timers and set them all to 0, stop movement_point, y_speed to 0
+	# General interrupts:
+	y_speed = 0
+	special_move_timer = 0
+	y_offset = 0
+	# Lightning interrupts:
+	lightning_timer = 0
+	lightning_spawn_ap.stop()
+	lightning_spawn.visible = false
+	# Sprinkler interrupts:
+	sprinkler_timer = 0
+	sprinklers_placed = 0
+	tornado_spawn_ap.stop()
+	tornado_spawn.visible = false
 	
 	## I think dont get rid of sprinklers is fine
 	
 	lightning_module.stop()
-	##
-	lightning_module.resume()
 	
-	can_attack = false
+	var t: Tween = create_tween()
+	t.tween_property(self, "global_position", GameData.boss_fight_offset, 1.0)
+	await get_tree().create_timer(1.2).timeout
+	var t2: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	t2.tween_property(heart_sprite, "heart_sprite.global_position.y", y_offset, 1.5)
+	
+	return
+
+func initiate_ground() -> void:
+	cur_state = GROUND
+	# Hurtbox stuff
+	return
+
+func initiate_rising() -> void:
+	cur_state = RISING
 	return
 
 func take_damage() -> void:
