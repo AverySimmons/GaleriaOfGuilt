@@ -198,7 +198,8 @@ func _physics_process(delta: float) -> void:
 					enemy.take_damage(swipe.damage, 0.2, 0)
 					dealt_damage_took_damage = true
 				if UpgradeData.upgrades_gained[UpgradeData.MARK_DASH]:
-					enemy.get_marked()
+					if !(enemy is Boss):
+						enemy.get_marked()
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DISTANCE_BLOOD_GAIN]:
 					if !(blood_bar >= bb_max):
 						blood_bar = move_toward(blood_bar, bb_max, 10*bb_multiplier*bb_multiplier2)
