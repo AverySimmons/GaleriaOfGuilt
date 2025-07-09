@@ -97,7 +97,7 @@ var list_of_unupgraded_enemies: Array[Enemy]
 var entities_node
 var indicators_node
 
-var test_timer: float = 1
+#var test_timer: float = 1
 
 func _ready() -> void:
 	lightning_module.indicator_node = indicators_node
@@ -168,10 +168,10 @@ func _physics_process(delta: float) -> void:
 		RISING: 
 			pass
 	
-	test_timer = move_toward(test_timer, 0, delta)
-	if test_timer == 0:
-		initiate_falling()
-		test_timer = 2500000
+	#test_timer = move_toward(test_timer, 0, delta)
+	#if test_timer == 0:
+		#initiate_falling()
+		#test_timer = 2500000
 	if !can_attack:
 		return
 	
@@ -438,7 +438,7 @@ func initiate_rising() -> void:
 	reset_upgrade_timer()
 	lightning_module.resume()
 	cur_state = MOVING
-	test_timer = 5
+	#test_timer = 5
 	return
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
