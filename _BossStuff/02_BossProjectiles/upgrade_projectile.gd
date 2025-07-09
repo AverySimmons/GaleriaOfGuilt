@@ -19,4 +19,7 @@ func get_shot(input_y_offset: float, input_target_position: Vector2) -> void:
 	t.tween_property(self, "global_position", target_position, 0.3)
 	var t2: Tween = create_tween()
 	t2.tween_property(self, "y_offset", 0, 0.3)
+	
+	await t2.finished
+	queue_free()
 	return
