@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_atngp"]
 resource_local_to_scene = true
 shader = ExtResource("1_jf43m")
-shader_parameter/z = 0.0
+shader_parameter/z = 100.0
 
 [sub_resource type="Gradient" id="Gradient_ap6m3"]
 offsets = PackedFloat32Array(0)

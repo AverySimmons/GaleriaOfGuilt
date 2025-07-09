@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bneo63uiplbde"]
+[gd_scene load_steps=9 format=3 uid="uid://bneo63uiplbde"]
 
 [ext_resource type="Script" uid="uid://61tamjpp2pna" path="res://_BossStuff/02_BossProjectiles/boss_tornado.gd" id="1_6qm3r"]
 [ext_resource type="Texture2D" uid="uid://bdni113svcvmb" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
+[ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="3_htwm2"]
+[ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="4_gq5cc"]
 
 [sub_resource type="Animation" id="Animation_htwm2"]
 length = 0.001
@@ -42,6 +44,11 @@ _data = {
 &"default": SubResource("Animation_fx1ra")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cmbt"]
+resource_local_to_scene = true
+shader = ExtResource("4_gq5cc")
+shader_parameter/z = 0.0
+
 [node name="BossTornado" type="Node2D"]
 script = ExtResource("1_6qm3r")
 
@@ -56,3 +63,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_gq5cc")
 }
 autoplay = "default"
+
+[node name="ScalingShadow" parent="." instance=ExtResource("3_htwm2")]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_8cmbt")
+scale = Vector2(8, 4)

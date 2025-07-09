@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddjg7w4r3uby2"]
+[gd_scene load_steps=13 format=3 uid="uid://ddjg7w4r3uby2"]
 
 [ext_resource type="Script" uid="uid://pywfcjgyrl8s" path="res://01_Source/04_Projectiles/grenade_projectile.gd" id="1_npbrj"]
-[ext_resource type="Texture2D" uid="uid://daov6m18nfd5j" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_sprite.png" id="2_kijbu"]
-[ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="3_4nrk6"]
-[ext_resource type="Texture2D" uid="uid://csiikdblpmono" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="4_4261l"]
-[ext_resource type="AudioStream" uid="uid://k3y5d2dor06o" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="5_668oe"]
+[ext_resource type="Texture2D" uid="uid://btnltd12ox4mj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_sprite.png" id="2_kijbu"]
+[ext_resource type="Texture2D" uid="uid://d0kx60ciww8rj" path="res://00_Assets/00_Sprites/Charcter_sprites/blood_grenade_effect_animation_spritesheet.png" id="4_4261l"]
+[ext_resource type="AudioStream" uid="uid://00brbppvehee" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="5_668oe"]
+[ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="6_ul4t2"]
+[ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="7_tipfs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kijbu"]
 radius = 225.0
@@ -99,6 +100,11 @@ _data = {
 streams_count = 1
 stream_0/stream = ExtResource("5_668oe")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rioc"]
+resource_local_to_scene = true
+shader = ExtResource("7_tipfs")
+shader_parameter/z = 0.0
+
 [node name="GrenadeProjectile" type="Area2D"]
 collision_layer = 0
 collision_mask = 4
@@ -109,9 +115,6 @@ shape = SubResource("CircleShape2D_kijbu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_kijbu")
-
-[node name="Shadow" parent="." instance=ExtResource("3_4nrk6")]
-scale = Vector2(0.5, 0.25)
 
 [node name="Explosion" type="Sprite2D" parent="."]
 visible = false
@@ -129,3 +132,8 @@ libraries = {
 stream = SubResource("AudioStreamRandomizer_74g1v")
 volume_db = 15.0
 pitch_scale = 0.75
+
+[node name="ScalingShadow" parent="." instance=ExtResource("6_ul4t2")]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_2rioc")
+scale = Vector2(8, 4)

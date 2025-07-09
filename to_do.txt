@@ -1,9 +1,10 @@
-blood modules for enemy and boss
-shadows for boss, upgrade projectiles, tornado, grenade
+blood modules for enemy and boss - Avery
+shadows for boss, upgrade projectiles, tornado, grenade - Avery
 music implemented
 sound effects implemented
-boss bar logic and color
+player walking intro - Brian
 tutorial wording
-boss phase transition animations / hit flash
+boss phase transition animations / hit flash - Joey
+blood lizard hitbox bigger - Brian
 
 balance and tweaking

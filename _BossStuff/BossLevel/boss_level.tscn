@@ -99,6 +99,8 @@ position = Vector2(1020, 1020)
 multimesh = SubResource("MultiMesh_5ug5k")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+collision_layer = 9
+collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/StaticBody2D"]
 polygon = PackedVector2Array(-1020, 1019, 1017, 1021, 1015, -1021, -1020, -1016, -1021, 1017, -470, 550, -586, 440, -660, 301, -700, 146, -731, -10, -723, -137, -670, -275, -602, -400, -517, -511, -396, -589, -242, -669, -92, -705, 68, -698, 241, -673, 382, -614, 504, -501, 611, -378, 680, -224, 721, -42, 699, 133, 639, 328, 548, 475, 401, 598, 247, 695, 59, 739, -86, 733, -258, 679, -467, 555)
