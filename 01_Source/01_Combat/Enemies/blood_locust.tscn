@@ -28,7 +28,7 @@ shader_parameter/blood_intensity = 0.0
 shader_parameter/res_x_over_y = 1.0
 shader_parameter/hit_flash = 0.0
 shader_parameter/red_amount = 0.0
-shader_parameter/modulate = Color(0.576399, 0, 0.0882346, 1)
+shader_parameter/modulate = Color(0.92, 0.3036, 0.324147, 1)
 shader_parameter/offset_x = 0.0
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_tulm2")
@@ -131,7 +131,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.576399, 0, 0.0882346, 1)]
+"values": [Color(0.92, 0.3036, 0.324147, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_tnwp0"]

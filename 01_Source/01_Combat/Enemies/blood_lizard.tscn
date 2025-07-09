@@ -28,7 +28,7 @@ shader_parameter/blood_intensity = 0.0
 shader_parameter/res_x_over_y = 15.0
 shader_parameter/hit_flash = 0.0
 shader_parameter/red_amount = 0.0
-shader_parameter/modulate = Color(0.614322, 0.0243504, 0.0138567, 1)
+shader_parameter/modulate = Color(0.99, 0.49995, 0.4554, 1)
 shader_parameter/offset_x = 0.0
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_em8vn")
@@ -244,7 +244,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.614322, 0.0243504, 0.0138567, 1)]
+"values": [Color(0.99, 0.49995, 0.4554, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vxyij"]
