@@ -9,12 +9,12 @@
 "Mood 1": {
 "mode": 1,
 "name": "Mood 1",
-"pitch_base": 1.3,
-"pitch_variance": 0.4,
-"skip_characters": 8.0,
-"sound_path": "res://00_Assets/02_SoundEffects/viola_voice1.wav",
-"volume_base": 8.0,
-"volume_variance": 1.5
+"pitch_base": 0.5,
+"pitch_variance": 0.1,
+"skip_characters": 3.0,
+"sound_path": "res://_BossStuff/01_Assets/01_SoundEffects/Menu Click.wav",
+"volume_base": -15.0,
+"volume_variance": 0.5
 }
 },
 "style": "default_viola"
