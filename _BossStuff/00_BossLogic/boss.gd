@@ -28,8 +28,8 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 2
-var can_attack: bool = true
+var phase: int = 1
+var can_attack: bool = false
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
@@ -42,10 +42,23 @@ var y_speed: float
 var y_direction: int = -1 # 1 is down, -1 is up
 var y_acceleration: float = y_top_speed/0.2
 
+# HP/Ground state variables ======================================================
+const MAX_HP: float = 100
+const MAX_TIME_ON_GROUND: float = 8
+const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
+const PHASE_2_THRESHOLD: float = MAX_HP*0.667
+const PHASE_3_THRESHOLD: float = MAX_HP*0.334
+var cur_hp: float = MAX_HP
+var prev_hp: float = MAX_HP
+var hp_lost_this_phase: float = 0
+var time_on_ground: float = 0
+
+signal boss_dies()
+
 # Special Move Timers ============================================================
 var special_move_time_phase2: float = 7.0
 var special_move_time_phase3: float = 5.0
-var special_move_timer: float = 7.0
+var special_move_timer: float = 0
 var will_be_lightning: bool = false
 
 # Lightning variables ============================================================
@@ -66,7 +79,7 @@ var last_sprinkler_angle: float
 var sprinklers_placed: int
 var radius_from_player: Vector2 = Vector2(400, 0)
 
-# Enemy upgrade
+# Enemy upgrade ===================================================================
 signal upgrade_enemy(enemy: Enemy)
 
 const ENEMY_INTERVAL_LOWER: int = 2
@@ -83,6 +96,8 @@ var list_of_unupgraded_enemies: Array[Enemy]
 # references to other nodes
 var entities_node
 var indicators_node
+
+#var test_timer: float = 1
 
 func _ready() -> void:
 	lightning_module.indicator_node = indicators_node
@@ -142,14 +157,21 @@ func _physics_process(delta: float) -> void:
 				between_sprinklers_timer = BETWEEN_SPRINKLERS_TIME
 				place_sprinkler()
 		FALLING:
-			
 			pass
 		GROUND:
+			time_on_ground = move_toward(time_on_ground, MAX_TIME_ON_GROUND, delta)
+			hp_lost_this_phase += (prev_hp-cur_hp)
+			prev_hp = cur_hp
+			if (hp_lost_this_phase >= LOSABLE_HP_PER_PHASE) || (time_on_ground >= MAX_TIME_ON_GROUND):
+				initiate_rising()
 			pass
 		RISING: 
 			pass
 	
-	
+	#test_timer = move_toward(test_timer, 0, delta)
+	#if test_timer == 0:
+		#initiate_falling()
+		#test_timer = 2500000
 	if !can_attack:
 		return
 	
@@ -183,10 +205,7 @@ func adjust_heart_y_pos(delta: float) -> void:
 func change_phase(current_phase: int) -> void:
 	phase = current_phase + 1
 	SignalBus.change_phase.emit(phase)
-	can_attack = true
-	reset_upgrade_timer()
-	lightning_module.resume()
-	cur_state = MOVING
+	print(phase)
 	# Setting special move timer to begin with:
 	match phase:
 		2:
@@ -356,8 +375,7 @@ func initiate_falling() -> void:
 	# stop attack cooldown timer/other timers and set them all to 0, stop movement_point, y_speed to 0
 	# General interrupts:
 	y_speed = 0
-	special_move_timer = 0
-	y_offset = 0
+	#special_move_timer = 0
 	# Lightning interrupts:
 	lightning_timer = 0
 	lightning_spawn_ap.stop()
@@ -376,18 +394,57 @@ func initiate_falling() -> void:
 	t.tween_property(self, "global_position", GameData.boss_fight_offset, 1.0)
 	await get_tree().create_timer(1.2).timeout
 	var t2: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	t2.tween_property(heart_sprite, "heart_sprite.global_position.y", y_offset, 1.5)
-	
+	t2.tween_property(heart_sprite, "global_position", global_position, 1.0)
+	var t3: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	t3.tween_property(heart_sprite, "rotation", TAU/4.0, 1.0)
+	await get_tree().create_timer(1.0).timeout
+	initiate_ground()
 	return
 
 func initiate_ground() -> void:
 	cur_state = GROUND
 	# Hurtbox stuff
+	hurtbox.monitorable = true
+	time_on_ground = 0
+	hp_lost_this_phase = 0
 	return
 
 func initiate_rising() -> void:
 	cur_state = RISING
+	hurtbox.monitorable = false
+	var phase_changed: bool = false
+	if phase == 1 && cur_hp <= PHASE_2_THRESHOLD:
+		change_phase(phase)
+		phase_changed = true
+		# Cool transition?
+	elif phase == 2 && cur_hp <= PHASE_3_THRESHOLD:
+		change_phase(phase)
+		phase_changed = true
+		# Cool transition:
+		# Some sort of flash starts happening
+		# Lies down on ground for how long?
+	var t: Tween = create_tween()
+	t.tween_property(heart_sprite, "rotation", 0, 1.0)
+	await get_tree().create_timer(1.5).timeout
+	var t2: Tween = create_tween()
+	t2.tween_property(heart_sprite, "global_position", Vector2(global_position.x, global_position.y+y_offset), 1.5)
+	await get_tree().create_timer(3.0).timeout
+	if phase_changed:
+		heartbeat_ap.speed_scale = 3.0
+		await get_tree().create_timer(3.0).timeout
+	if phase != 1:
+		can_attack = true
+		special_move_timer = 6.0
+	reset_upgrade_timer()
+	lightning_module.resume()
+	cur_state = MOVING
+	#test_timer = 5
 	return
 
-func take_damage() -> void:
+func take_damage(damage: float, flinch: float, knockback: float) -> void:
+	cur_hp -= damage
+	# Hitflash?
+	print(cur_hp)
+	if cur_hp <= 0:
+		boss_dies.emit()
 	SignalBus.boss_health_changed.emit() # needs boss health percent in emit
