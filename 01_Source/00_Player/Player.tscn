@@ -1,20 +1,23 @@
-[gd_scene load_steps=49 format=3 uid="uid://cojgheax36bsk"]
+[gd_scene load_steps=53 format=3 uid="uid://cojgheax36bsk"]
 
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_f38sp"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
-[ext_resource type="Texture2D" uid="uid://7knr7kb3u1nw" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
+[ext_resource type="Texture2D" uid="uid://dfa5ak5k3pi1h" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
 [ext_resource type="Script" uid="uid://daalbp4x5irfh" path="res://01_Source/00_Player/dash.gd" id="4_fmg42"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
-[ext_resource type="Texture2D" uid="uid://b8074fuabdysh" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
-[ext_resource type="Texture2D" uid="uid://f63rbygin8c6" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
-[ext_resource type="AudioStream" uid="uid://cgogu5xi8pmo7" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
-[ext_resource type="AudioStream" uid="uid://c4oijspt4o5w" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
-[ext_resource type="AudioStream" uid="uid://cwxufdv1soh4f" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
-[ext_resource type="AudioStream" uid="uid://dwxhadpx6papq" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://00brbppvehee" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://c875nhkd67ei1" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://cch4javgwxps5" path="res://00_Assets/02_SoundEffects/blood_fill.wav" id="15_10xal"]
+[ext_resource type="Texture2D" uid="uid://deagpoqh5jsjh" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
+[ext_resource type="Texture2D" uid="uid://bi0vh001lmcxm" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
+[ext_resource type="AudioStream" uid="uid://bjikoaeelkjou" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
+[ext_resource type="AudioStream" uid="uid://ct42r20netipt" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
+[ext_resource type="AudioStream" uid="uid://u61nq2mb5lvc" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
+[ext_resource type="AudioStream" uid="uid://dppntk2vutuxi" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://bfynlrtxef0mr" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://c6siibn8pltnj" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://d3w2kajxriqhn" path="res://00_Assets/02_SoundEffects/blood_fill.wav" id="15_10xal"]
+[ext_resource type="AudioStream" uid="uid://btf2ef7ewxxyx" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_1.wav" id="16_wm5ru"]
+[ext_resource type="AudioStream" uid="uid://dkig8o1ws6und" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_2.wav" id="17_f77ox"]
+[ext_resource type="AudioStream" uid="uid://dg3fmvg4pcre0" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_3.wav" id="18_sc3rt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 radius = 27.074
@@ -812,6 +815,14 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/stream = ExtResource("11_dcinv")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_05x3w"]
+random_pitch = 1.2
+random_volume_offset_db = 0.79
+streams_count = 3
+stream_0/stream = ExtResource("16_wm5ru")
+stream_1/stream = ExtResource("17_f77ox")
+stream_2/stream = ExtResource("18_sc3rt")
+
 [node name="Player3" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_olyoe")
@@ -933,3 +944,6 @@ current = true
 
 [node name="BloodHealing" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_10xal")
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_05x3w")

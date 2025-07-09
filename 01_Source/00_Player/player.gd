@@ -109,11 +109,21 @@ var blood_effect_low_blood_upgrade_thing: float = 1.0
 
 var mult_because_im_dumb: float = 1.0
 
+var footstep_base_time: float = 1
+var footstep_timer: float = 1
+var footstep_vel_modifier: float = 2
+var footstep_timer_max: float = 2.5
+var footsteps_audible: bool = false
+
+var is_walking: bool = false
+
+
 @onready var swipe_sound = $SwipeSound
 @onready var dash_sound = $DashSound
 @onready var bite_sound = $BiteSound
 @onready var grenade_sound = $GrenadeThrow
 @onready var shotgun_sound = $Shotgun
+@onready var footstep_sound = $Footsteps
 
 var movement_animations = {
 	"idle" : null,
@@ -141,21 +151,43 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	
+	
 	# Movement --------------------------------------------------------------
 	movement_vector = get_movement_vector()
 	if !is_dashing:
 		#movement_vector = get_movement_vector()
 		if movement_vector != Vector2.ZERO:
+			if !is_walking:
+				is_walking = true
 			if base_velocity.normalized().dot(movement_vector) < -0.5:
 				base_velocity = base_velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
 			else: 
 				base_velocity = base_velocity.move_toward(movement_vector * top_speed, acceleration * delta)
 		else:
+			if is_walking:
+				is_walking = false
 			base_velocity = base_velocity.move_toward(Vector2.ZERO, idle_friction * delta)
 		velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 		if UpgradeData.upgrades_gained[UpgradeData.MORE_SPD_LESS_BG]:
 			velocity += baseline_speed * movement_vector * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 		move_and_slide()
+		#sandy footsteps. Will be edited later
+		
+		var velocity_mod = (1 / (velocity.length()+0.01)) + 0.3 #smaller number means faster footsteps
+		var footstep_timer_reset = footstep_base_time * velocity_mod 
+		if footstep_timer_reset >= footstep_timer_max:
+			footstep_timer_reset = footstep_timer_max
+		#footstep_base_time * Float(0,1]
+		if footstep_timer <= 0 and is_walking and footsteps_audible:
+			footstep_sound.play()
+			footstep_timer = footstep_timer_reset #this is the only place we need to reset the timer
+				
+			
+		footstep_timer -= delta
+		
+		
+		
 	else:
 		var collided_enemies = $DashChecker.get_overlapping_areas()
 		for area in collided_enemies:
