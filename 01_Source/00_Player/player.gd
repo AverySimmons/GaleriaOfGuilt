@@ -160,7 +160,7 @@ func _physics_process(delta: float) -> void:
 		var collided_enemies = $DashChecker.get_overlapping_areas()
 		for area in collided_enemies:
 			var enemy = area.owner
-			if enemy is Enemy && !dashed_into_enemies.has(enemy):
+			if (enemy is Enemy or enemy is Boss) && !dashed_into_enemies.has(enemy):
 				# Upgrade stuff?
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DAMAGE]:
 					enemy.take_damage(swipe.damage, 0.2, 0)
@@ -498,7 +498,7 @@ func heal_damage(amount: float) -> void:
 	SignalBus.hp_change.emit(false)
 	return
 
-func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
+func gain_blood(attack_type: String, mult: float, enemy) -> void:
 	if blood_bar >= bb_max:
 		return
 	var gain: float = swipe_bb_actual
@@ -509,7 +509,6 @@ func gain_blood(attack_type: String, mult: float, enemy: Enemy) -> void:
 			gain = special_bb_actual * sp_blood_mult
 	blood_bar = move_toward(blood_bar, bb_max, gain*mult)
 	SignalBus.bb_change.emit()
-	print(gain*mult)
 	return
 
 func gain_blood_other(amount: float) -> void:

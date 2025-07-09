@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 	for area in enemies_just_entered:
 		if not area: continue
 		var enemy = area.owner
-		if enemy is not Enemy || hit_enemies.has(enemy):
+		if (enemy is not Enemy and enemy is not Boss) || hit_enemies.has(enemy):
 			continue
 		parent.gain_blood("special", blood_gain_multiplier, enemy)
 		hit_enemies[enemy] = null
@@ -80,7 +80,7 @@ func use_ability() -> void:
 	var enemies_hit = get_overlapping_areas()
 	for area in enemies_hit:
 		var enemy = area.owner
-		if enemy is not Enemy:
+		if enemy is not Enemy or enemy is not Boss:
 			continue
 		parent.gain_blood("special", blood_gain_multiplier, enemy)
 		hit_enemies[enemy] = null

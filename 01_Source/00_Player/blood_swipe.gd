@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 	if !is_active:
 		return
 	for enemy in enemies_just_entered:
-		if enemy is not Enemy || hit_enemies.has(enemy):
+		if (enemy is not Enemy and enemy is not Boss) || hit_enemies.has(enemy):
 			continue
 		parent.gain_blood("swipe", 1.0, enemy)
 		hit_enemies[enemy] = null
@@ -123,7 +123,7 @@ func initiate_attack(upgrade_mult: float) -> void:
 		## I've switched this to the area's owner, since enemy's hurtbox
 		## is just an area - owner gives us the root node of the scene
 		var enemy = area.owner
-		if enemy is not Enemy:
+		if enemy is not Enemy or enemy is not Boss:
 			continue
 		var enemy_dir = parent.global_position.direction_to(enemy.global_position)
 		$BloodModule.enemy_hit(enemy.global_position, enemy_dir)

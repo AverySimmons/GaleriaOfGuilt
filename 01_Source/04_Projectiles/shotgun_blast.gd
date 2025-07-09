@@ -41,7 +41,7 @@ func get_shot(angle_from: float, angle_to: float, shot_speed: float,
 
 func _on_area_entered(area) -> void:
 	var enemy = area.owner
-	if enemy is Enemy:
+	if enemy is Enemy or enemy is Boss:
 		GameData.player.dealt_damage_took_damage = true
 		GameData.player.gain_blood("special", 1.0/9.0, enemy)
 		enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amt, 0)
