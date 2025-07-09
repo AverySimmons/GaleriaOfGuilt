@@ -1,23 +1,26 @@
-[gd_scene load_steps=31 format=3 uid="uid://xoikojyvkrrx"]
+[gd_scene load_steps=35 format=3 uid="uid://xoikojyvkrrx"]
 
 [ext_resource type="Script" uid="uid://bolvkavyt28qx" path="res://01_Source/05_UI/overlay.gd" id="1_aqb7b"]
 [ext_resource type="Shader" uid="uid://orva0wcfmaii" path="res://01_Source/05_UI/blood_bar.gdshader" id="1_v104o"]
-[ext_resource type="Texture2D" uid="uid://dfl30rowq7qvt" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter_inside.png" id="2_llo78"]
-[ext_resource type="Shader" path="res://01_Source/05_UI/blood_vignette.gdshader" id="2_sn08a"]
-[ext_resource type="Texture2D" uid="uid://bgqqkxqynkxmb" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter.png" id="3_6miwi"]
-[ext_resource type="Texture2D" uid="uid://cx17tpejpkeg5" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_background.png" id="4_cvdph"]
+[ext_resource type="Texture2D" uid="uid://b8d2tp4l7e38c" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter_inside.png" id="2_llo78"]
+[ext_resource type="Shader" uid="uid://beb7qstmb7gi3" path="res://01_Source/05_UI/blood_vignette.gdshader" id="2_sn08a"]
+[ext_resource type="Texture2D" uid="uid://dfgutgrgvaso" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter.png" id="3_6miwi"]
+[ext_resource type="Texture2D" uid="uid://bthqafaem4ery" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_background.png" id="4_cvdph"]
 [ext_resource type="Shader" uid="uid://bjqbs23grvarw" path="res://01_Source/05_UI/health_bar.gdshader" id="5_aqb7b"]
-[ext_resource type="Texture2D" uid="uid://dbf2vy3pub508" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_meter.png" id="6_4qtrq"]
-[ext_resource type="Texture2D" uid="uid://v2eg6wc8v8k4" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter_marker.png" id="6_xlcx7"]
-[ext_resource type="Texture2D" uid="uid://pqp4admh7iqu" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_outline.png" id="7_h7e3t"]
-[ext_resource type="Texture2D" uid="uid://cdtbvsxpfaecc" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar_greyed.png" id="9_4qtrq"]
+[ext_resource type="Texture2D" uid="uid://dqro6ei1a5nx3" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_meter.png" id="6_4qtrq"]
+[ext_resource type="Texture2D" uid="uid://dc572488q230f" path="res://00_Assets/00_Sprites/UI_sprites/blood_meter_marker.png" id="6_xlcx7"]
+[ext_resource type="Texture2D" uid="uid://d0u405efoms67" path="res://00_Assets/00_Sprites/UI_sprites/marie_therese_hp_outline.png" id="7_h7e3t"]
+[ext_resource type="Texture2D" uid="uid://cfyqby1bfgt1b" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar_greyed.png" id="9_4qtrq"]
 [ext_resource type="Shader" uid="uid://o6sexqq22nic" path="res://01_Source/05_UI/xp_bar.gdshader" id="10_d3c2y"]
-[ext_resource type="Texture2D" uid="uid://eu5vl5upt7x1" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar.png" id="11_sn08a"]
+[ext_resource type="Texture2D" uid="uid://6yrhmtfjcsat" path="res://00_Assets/00_Sprites/UI_sprites/experience_bar.png" id="11_sn08a"]
+[ext_resource type="Texture2D" uid="uid://ewegrvh1ehwk" path="res://_BossStuff/00_Sprites/boss_sprites/boss_hp_bar.png" id="14_5c0gh"]
 [ext_resource type="Shader" uid="uid://cbhesdlsk13gp" path="res://02_Recources/00_Shaders/circle.gdshader" id="14_e0lrw"]
-[ext_resource type="Shader" path="res://02_Recources/00_Shaders/specialcdcircle.gdshader" id="14_l6mm0"]
-[ext_resource type="Shader" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="15_f4i42"]
-[ext_resource type="Texture2D" uid="uid://by68bc43x6wb7" path="res://00_Assets/00_Sprites/upgrade_icons/bite_glowing.png" id="15_hukq6"]
-[ext_resource type="FontFile" uid="uid://b6axvqw2ruhek" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="18_f4i42"]
+[ext_resource type="Shader" uid="uid://h281i70ucd2m" path="res://02_Recources/00_Shaders/specialcdcircle.gdshader" id="14_l6mm0"]
+[ext_resource type="Texture2D" uid="uid://b256ecf0k5ovl" path="res://_BossStuff/00_Sprites/boss_sprites/boss_hp_contents.png" id="15_0ofvs"]
+[ext_resource type="Shader" uid="uid://duabhxj588x1e" path="res://01_Source/05_UI/UpgradeScreen/remove_black.gdshader" id="15_f4i42"]
+[ext_resource type="Texture2D" uid="uid://dyid55sdks4yl" path="res://00_Assets/00_Sprites/upgrade_icons/bite_glowing.png" id="15_hukq6"]
+[ext_resource type="Shader" uid="uid://dkymdcqsgt64b" path="res://01_Source/05_UI/boss_health.gdshader" id="15_xbmgx"]
+[ext_resource type="FontFile" uid="uid://bidocwsqk31u" path="res://00_Assets/03_Fonts/Handjet/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="18_f4i42"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_e0lrw"]
 
@@ -38,6 +41,14 @@ shader_parameter/fill_percent = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlcx7"]
 shader = ExtResource("10_d3c2y")
 shader_parameter/fill_percent = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bsg8v"]
+shader = ExtResource("15_xbmgx")
+shader_parameter/fill_percent = 1.0
+shader_parameter/fill2_percent = 1.0
+shader_parameter/bar_color = Color(1, 1, 1, 1)
+shader_parameter/bar2_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/back_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ek8r3"]
 shader = ExtResource("14_e0lrw")
@@ -118,8 +129,14 @@ texture = ExtResource("11_sn08a")
 
 [node name="BossHealthBar" type="Sprite2D" parent="."]
 visible = false
+position = Vector2(640, 639)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("14_5c0gh")
 
 [node name="Fill" type="Sprite2D" parent="BossHealthBar"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bsg8v")
+texture = ExtResource("15_0ofvs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ek8r3")

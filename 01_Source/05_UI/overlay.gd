@@ -12,6 +12,7 @@ extends Control
 @onready var special_progress: TextureProgressBar = $SpecialCooldownProgress
 @onready var health_bar: Sprite2D = $HealthBar
 @onready var boss_health_bar: Sprite2D = $BossHealthBar
+@onready var boss_health_bar_fill: Sprite2D = $BossHealthBar/Fill
 
 var tot_time = 0
 
@@ -22,6 +23,10 @@ var shake_time = 0.75
 var bb_tween: Tween
 var hp_tween: Tween
 
+var boss_health_updated = true
+var boss_health_update_window = 1
+var boss_health_update_timer = 0
+
 func _ready() -> void:
 	GameData.player.burst_begin.connect(enter_burst)
 	GameData.player.burst_end.connect(exit_burst)
@@ -29,6 +34,7 @@ func _ready() -> void:
 	SignalBus.hp_change.connect(health_change)
 	SignalBus.bb_change.connect(blood_change)
 	SignalBus.remove_blood_line.connect(remove_blood_meter_marker)
+	SignalBus.boss_health_changed.connect(boss_health_changed)
 	if UpgradeData.upgrades_gained[UpgradeData.ENDLESS_VOID]:
 		remove_blood_meter_marker()
 	special_cooldown.texture = UpgradeData.current_ability_class.icon
@@ -42,6 +48,8 @@ func _ready() -> void:
 	GameData.overlay = self
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("left"):
+		boss_health_changed(0.5)
 	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.actual_special_cooldown)*100, 0.0, 100.0)
 	special_progress.value = ratio
 	#print(special_progress.value)
@@ -52,6 +60,14 @@ func _process(delta: float) -> void:
 	shake_timer = move_toward(shake_timer, 0, delta)
 	
 	$Label.visible = GameData.is_escaping
+	
+	if not boss_health_updated:
+		boss_health_update_timer -= delta
+		if boss_health_update_timer < 0:
+			boss_health_updated = true
+			var val = boss_health_bar_fill.material.get_shader_parameter("fill_percent")
+			var t = create_tween()
+			t.tween_property(boss_health_bar_fill, "material:shader_parameter/fill2_percent", val, 0.5)
 
 func remove_blood_meter_marker():
 	blood_meter_marker.visible = false
@@ -98,9 +114,16 @@ func blood_bar_update_helper(val):
 
 func health_bar_update_helper(val):
 	hp_fill.material.set_shader_parameter("fill_percent", val)
-	
+
 func hide_xp():
 	xp_bar.visible = false
-	
+
 func show_boss_health_bar():
 	boss_health_bar.visible = true
+
+func boss_health_changed(val):
+	var t = create_tween()
+	t.tween_property(boss_health_bar_fill, "material:shader_parameter/fill_percent", val, 0.1)
+	
+	boss_health_update_timer = boss_health_update_window
+	boss_health_updated = false

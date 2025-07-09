@@ -16,7 +16,7 @@ var is_moving: bool = true
 
 func _ready() -> void:
 	#global_position = camera.position + offsets
-	global_position = Vector2(620, 360) + offsets
+	global_position = player.global_position + offsets
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -33,8 +33,8 @@ func _physics_process(delta: float) -> void:
 	
 	# apply offsets to player global pos to find this dude's position
 	offsets = Vector2(x_offset, Y_OFFSET)
-	#global_position = camera.position + offsets # should be camera
-	global_position = Vector2(620, 360) + offsets
+	global_position = player.global_position + offsets
+	#global_position = Vector2(620, 360) + offsets
 	pass
 
 func stop_moving() -> void:

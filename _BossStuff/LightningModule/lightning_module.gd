@@ -10,8 +10,20 @@ var indicator_node: Node2D
 
 var base_lightning_acc = 250
 var speed_up_lightning_acc = 3000
-var acc = base_lightning_acc
 var spawners: Array[BossLightningSpawner]
+
+var timer = 0
+var state: int:
+	set(val):
+		state = val
+		if val == PASSIVE:
+			for s in spawners:
+				s.velocity = Vector2.ZERO
+
+enum {STOPPED, PASSIVE, ACTIVE}
+
+func _ready() -> void:
+	state = PASSIVE
 
 func add_lightning(num: int) -> void:
 	var start_angle = randf_range(0, TAU)
@@ -24,12 +36,30 @@ func add_lightning(num: int) -> void:
 		start_angle += TAU / float(num)
 
 func activate(time: float) -> void:
-	acc = speed_up_lightning_acc
-	await get_tree().create_timer(time,false).timeout
-	acc = base_lightning_acc
-	finished.emit()
+	state = ACTIVE
+	timer = time
+
+func stop() -> void:
+	state = STOPPED
+	timer = 0
+
+func resume() -> void:
+	state = PASSIVE
 
 func _physics_process(delta: float) -> void:
+	timer -= delta
+	if timer < 0 and state == ACTIVE:
+		state = PASSIVE
+	
+	var acc
+	match state:
+		STOPPED:
+			acc = 0
+		PASSIVE:
+			acc = base_lightning_acc
+		ACTIVE:
+			acc = speed_up_lightning_acc
+	
 	for s in spawners:
 		var dir = s.pos.direction_to(GameData.player.global_position)
 		s.velocity += dir * acc * delta

@@ -9,6 +9,7 @@ extends Node2D
 @onready var level: Node2D = $Level
 @onready var sand_effect: ColorRect = $CanvasLayer/SandEffect
 @onready var sand_particles: GPUParticles2D = $Camera2D/SandParticles
+@onready var overlay: Control = $CanvasLayer/Overlay
 
 
 var arrow_scene = preload("res://03_Components/arrow_indicator.tscn")
@@ -26,6 +27,8 @@ var upgraded_scenes = {
 }
 
 var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/enemy_spawn.tscn")
+
+var boss_scene = preload("res://_BossStuff/00_BossLogic/boss.tscn")
 
 @export var try_again_mode = true
 
@@ -51,9 +54,12 @@ var shader_wind_speed = 1.
 
 var is_zooming_in = false
 
+var boss
+
 @export var inner_wall_rot_speed = 0.5
 
 func _ready() -> void:
+	overlay.hide_xp()
 	GameData.player.global_position = $PlayerSpawn.global_position
 	GameData.is_escaping = false
 	entities.add_child(GameData.player)
@@ -124,7 +130,12 @@ func set_wind_dir(new_dir) -> void:
 	shader_wind_direction = new_dir
 
 func spawn_boss() -> void:
-	pass
+	overlay.show_boss_health_bar()
+	boss = boss_scene.instantiate()
+	boss.global_position = level.global_position
+	boss.entities = entities
+	boss.indicators_node = attack_indicators
+	entities.add_child(boss)
 
 func try_again_setup() -> void:
 	pass

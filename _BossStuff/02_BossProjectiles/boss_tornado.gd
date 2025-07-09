@@ -17,7 +17,7 @@ var cur_rot = randf_range(0, TAU)
 var rot_inc = PI / 8.
 
 func _process(delta: float) -> void:
-	sprite_2d.position.y = -z_offset - 81
+	sprite_2d.global_position.y = global_position.y -z_offset - 81
 
 func _physics_process(delta: float) -> void:
 	if z_offset > 0:

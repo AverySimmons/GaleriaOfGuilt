@@ -13,6 +13,9 @@ extends Node2D
 @onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
 @onready var sprinkler_scene = preload("res://_BossStuff/02_BossProjectiles/boss_tornado.tscn")
 
+## boss should drop down a little when attacking so its more clearly in view?
+## might be bad for visiblity of enemies though
+
 var entities
 # State variables =================================================================
 const MOVING: int = 0
@@ -23,13 +26,13 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 1
-var can_attack: bool = false
+var phase: int = 2
+var can_attack: bool = true
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
 
-const Y_OFFSET_RANGE: float = -500
+const Y_OFFSET_RANGE: float = -700
 var y_offset: float = Y_OFFSET_RANGE
 var y_variance: float = 30
 var y_top_speed: float = 7
@@ -41,7 +44,7 @@ var y_acceleration: float = y_top_speed/0.2
 var special_move_time_phase2: float = 7.0
 var special_move_time_phase3: float = 5.0
 var special_move_timer: float = 0.0
-var will_be_lightning: bool = true
+var will_be_lightning: bool = false
 
 # Lightning variables ============================================================
 const MAX_LIGHTNING_AMT_P2: int = 2
@@ -75,10 +78,12 @@ var was_before_threshold: bool = true
 
 var list_of_unupgraded_enemies: Array[Enemy]
 
+# references to other nodes
+var entities_node
+var indicators_node
+
 func _ready() -> void:
-	#var player_2 = test_player_scene.instantiate()
-	#player = player_2
-	#get_tree().current_scene.add_child(player)
+	lightning_module.indicator_node = indicators_node
 	global_position = movement_point.global_position
 	heart_sprite.global_position += Vector2(0, y_offset)
 	heartbeat_ap.play("HeartBeat")
@@ -92,8 +97,8 @@ func _physics_process(delta: float) -> void:
 	# Determining state
 	if can_attack && special_move_timer>0:
 		special_move_timer = move_toward(special_move_timer, 0, delta)
-		if special_move_timer <= 0:
-			initiate_attack()
+	if special_move_timer <= 0:
+		initiate_attack()
 	# Movement stuff
 	match cur_state:
 		MOVING:
@@ -106,6 +111,7 @@ func _physics_process(delta: float) -> void:
 		LIGHTNING:
 			if !lightning_spawn_ap.is_playing():
 				lightning_spawn_ap.play("lightning_spawning")
+			lightning_spawn.global_position = heart_sprite.global_position
 			movement_point.stop_moving()
 			adjust_heart_y_pos(delta)
 			heartbeat_ap.speed_scale = 2.0
@@ -248,7 +254,7 @@ func initiate_attack() -> void:
 	return
 
 func choose_attack() -> int:
-	var chosen_attack: int # 0 for lightning, 1 for sprinkler
+	var chosen_attack: int # 0 for sprinkler, 1 for lightning
 	if will_be_lightning:
 		chosen_attack = 0
 	else:
@@ -312,7 +318,7 @@ func place_sprinkler() -> void:
 		var bounds: float = -last_sprinkler_angle
 		angle_to_place = randf_range(angle_to_place-(TAU/6), angle_to_place+(TAU/6))
 	position_for_sprinkler = radius_from_player.rotated(angle_to_place)
-	position_for_sprinkler.y *= 9/16
+	position_for_sprinkler.y *= 9/16.
 	var t: Tween = create_tween()
 	t.tween_property(self, "global_position", player.global_position+position_for_sprinkler, 0.3)
 	if !is_inside_tree():
@@ -324,6 +330,7 @@ func place_sprinkler() -> void:
 	var cur_tornado: Node2D = sprinkler_scene.instantiate()
 	cur_tornado.z_offset = y_offset
 	cur_tornado.global_position = global_position
+	cur_tornado.entities_node = entities
 	entities.add_child(cur_tornado)
 	sprinklers_placed += 1
 	last_sprinkler_angle = angle_to_place
@@ -334,5 +341,15 @@ func initiate_falling() -> void:
 	# interrupt whatever it's doing: moving, lightning (activating the lightning, and remove current lightning maybe?)
 	# sprinkler (placing sprinklers, moving, maybe get rid of current sprinklers?) and set vars to default
 	# stop attack cooldown timer/other timers and set them all to 0, stop movement_point, y_speed to 0
+	
+	## I think dont get rid of sprinklers is fine
+	
+	lightning_module.stop()
+	##
+	lightning_module.resume()
+	
 	can_attack = false
 	return
+
+func take_damage() -> void:
+	SignalBus.boss_health_changed.emit() # needs boss health percent in emit
