@@ -18,6 +18,7 @@ var enemy_hit_amt: int = 0
 var enemy_death_amt: int = 0
 var explosion_sound: int = 0
 var player_hit: int
+var upgrade_amt: int
 
 func play_sound(sound_name: String, sound) -> void:
 	if sound == null:
@@ -140,4 +141,13 @@ func play_sound(sound_name: String, sound) -> void:
 			cur_total += 1
 			await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 			cur_total -= 1
+			
+		"enemy_transform":
+			if upgrade_amt < INDIVIDUAL_MAX_AMT:
+				sound.play()
+				cur_total += 1
+				upgrade_amt += 1
+				await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
+				cur_total -= 1
+				upgrade_amt -= 1
 	return

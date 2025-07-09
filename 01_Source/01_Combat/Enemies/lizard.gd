@@ -13,6 +13,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	super._ready()
+	if upgraded:
+		AudioData.play_sound("enemy_transform", $EnemyTransform)
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

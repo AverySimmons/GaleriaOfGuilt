@@ -1,20 +1,21 @@
-[gd_scene load_steps=71 format=3 uid="uid://djvom0aikn87g"]
+[gd_scene load_steps=73 format=3 uid="uid://djvom0aikn87g"]
 
 [ext_resource type="Script" uid="uid://dwdq8h7mo3icl" path="res://01_Source/01_Combat/Enemies/worm.gd" id="1_ar8lh"]
 [ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_cdfsm"]
-[ext_resource type="Texture2D" uid="uid://cjkvm4wdewyuj" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="3_26c7w"]
+[ext_resource type="Texture2D" uid="uid://m6gfaypku7f2" path="res://00_Assets/00_Sprites/Enemies/sandworm_sprite_sheet.png" id="3_26c7w"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="4_p6akv"]
 [ext_resource type="Script" uid="uid://dabtng0qvrhdi" path="res://ai/tasks/run_away.gd" id="5_2fug4"]
 [ext_resource type="Script" path="res://ai/tasks/run_at_player.gd" id="6_px4yl"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="7_rg5fh"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="8_lrnoo"]
 [ext_resource type="Script" uid="uid://dxr3ecdqdtty2" path="res://ai/tasks/sand_shot.gd" id="9_0nxu2"]
-[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="10_dvqxk"]
+[ext_resource type="Texture2D" uid="uid://bwdqcjjnemb5j" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="10_dvqxk"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="11_lmrsr"]
-[ext_resource type="AudioStream" uid="uid://dwkp1b2rrl1c" path="res://00_Assets/02_SoundEffects/enemy_attack_3.wav" id="12_vjm37"]
-[ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="13_u5de8"]
-[ext_resource type="AudioStream" uid="uid://oa8uvx4xa3py" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="14_vmjk4"]
-[ext_resource type="AudioStream" uid="uid://dwcfvu47dp7cb" path="res://00_Assets/02_SoundEffects/enemy_indicator_1.wav" id="15_fcjiy"]
+[ext_resource type="AudioStream" uid="uid://b31bj8l3o84v4" path="res://00_Assets/02_SoundEffects/enemy_attack_3.wav" id="12_vjm37"]
+[ext_resource type="AudioStream" uid="uid://07f38rxh33sn" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="13_u5de8"]
+[ext_resource type="AudioStream" uid="uid://d3xsh66yxgyfk" path="res://00_Assets/02_SoundEffects/enemy_attack_4 (lizard).wav" id="14_vmjk4"]
+[ext_resource type="AudioStream" uid="uid://ci3m1bm4j3upx" path="res://00_Assets/02_SoundEffects/enemy_indicator_1.wav" id="15_fcjiy"]
+[ext_resource type="AudioStream" uid="uid://cghub33aq7502" path="res://_BossStuff/01_Assets/01_SoundEffects/enemy_transform.wav" id="16_cdfsm"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cs4dq"]
 
@@ -575,11 +576,16 @@ _data = {
 &"spawn": SubResource("Animation_iu5hu")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cdfsm"]
+streams_count = 1
+stream_0/stream = ExtResource("16_cdfsm")
+
 [node name="Worm" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_ar8lh")
 move_speed = 60.0
 hp_max = 120.0
+upgraded = true
 shake_length = 0.8
 arrow_dist = 700.0
 indicator_color = Color(0.7, 0.431667, 0, 0.584314)
@@ -667,3 +673,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_sq15d")
 }
 autoplay = "spawn"
+
+[node name="EnemyTransform" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_cdfsm")
