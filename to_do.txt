@@ -1,47 +1,9 @@
-sandy ground sprite
-heart sprite
-	idle fly around
-	aoe attack
-	projectile attack
-boss health bar sprite
-blood grenade tornado sprite
-red lighting effect
+blood modules for enemy and boss
+shadows for boss, upgrade projectiles, tornado, grenade
+music implemented
+sound effects implemented
+boss bar logic and color
+tutorial wording
+boss phase transition animations / hit flash
 
-upgraded enemy versions - Brian
-
-phase 1:
-	upgrades enemies
-
-phase 2:
-	upgrades enemies
-	shoots lightning
-	shoots projectiles
-
-phase 3:
-	faster phase 2 / better
-
-boss logic - Joey
-	movement
-	states
-	taking damage
-projectile module - Joey
-
-- lightning module - Avery
-- new level script - Avery
-// implement title screen - Avery
-
-music 3 levels of intensity - Justin
-boss sounds - Justin
-change character voices - Justin
-
-// split tutorial - Avery
-// escape text flashing - Avery
-// text color changing - Avery
-// turn off monitoring on dead enemies - Brian
-// put icons in - Joey
-// more spawns during escape - Avery
-// less blood gain on grenade - Joey
-// shotgun more bullets more spread - Joey
-// MORE MORE MORE nerf - Joey
-// more i-frames less hp - Joey
-// enemies cant damage / get damaged when dying - Brian
+balance and tweaking

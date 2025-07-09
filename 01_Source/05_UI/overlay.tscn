@@ -46,9 +46,9 @@ shader_parameter/fill_percent = 0.0
 shader = ExtResource("15_xbmgx")
 shader_parameter/fill_percent = 1.0
 shader_parameter/fill2_percent = 1.0
-shader_parameter/bar_color = Color(1, 1, 1, 1)
-shader_parameter/bar2_color = Color(0.5, 0.5, 0.5, 1)
-shader_parameter/back_color = Color(0, 0, 0, 1)
+shader_parameter/bar_color = Color(1, 0, 0, 1)
+shader_parameter/bar2_color = Color(0.31, 0, 0, 1)
+shader_parameter/back_color = Color(0.45, 0.243, 0.243, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ek8r3"]
 shader = ExtResource("14_e0lrw")
@@ -162,6 +162,7 @@ fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_bsg8v")
 
 [node name="Label" type="RichTextLabel" parent="."]
+visible = false
 custom_minimum_size = Vector2(400, 120)
 layout_mode = 0
 offset_left = 440.0

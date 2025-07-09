@@ -26,7 +26,7 @@ void fragment() {
 	col = mix(back_color, col, max(fill_mask, fill2_mask));
 	
 	COLOR.rgb = col;
-	COLOR.a = COLOR.a * max(fill_mask, fill2_mask);
+	COLOR.a = COLOR.a * max(fill_mask, fill2_mask) + COLOR.a;
 	
 }
 

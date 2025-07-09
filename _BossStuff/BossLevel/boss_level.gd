@@ -92,6 +92,9 @@ func _process(delta: float) -> void:
 	update_wind_shader(delta)
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("levelup_debug"):
+		SignalBus.levelup.emit()
+	
 	if is_roaming:
 		
 		
@@ -188,8 +191,7 @@ func upgrade_enemy(enemy: Enemy) -> void:
 func enemy_died(enemy) -> void:
 	enemies_left -= 1
 	if enemies_left <= 0:
-		## tell boss to drop
-		pass
+		boss.initiate_falling()
 
 func trigger_phase(val):
 	match val:

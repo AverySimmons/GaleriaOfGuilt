@@ -48,8 +48,6 @@ func _ready() -> void:
 	GameData.overlay = self
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("left"):
-		boss_health_changed(0.5)
 	var ratio: float = clamp((GameData.player.special_ability_timer/GameData.player.actual_special_cooldown)*100, 0.0, 100.0)
 	special_progress.value = ratio
 	#print(special_progress.value)
