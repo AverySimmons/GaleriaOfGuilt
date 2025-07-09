@@ -454,6 +454,8 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	cur_hp -= damage
 	# Hitflash?
 	#print(cur_hp)
+	$HitFlash.play("RESET")
+	$HitFlash.play("hit_flash")
 	if cur_hp <= 0:
 		boss_dies.emit()
 	SignalBus.boss_health_changed.emit(MAX_HP/cur_hp) # needs boss health percent in emit
