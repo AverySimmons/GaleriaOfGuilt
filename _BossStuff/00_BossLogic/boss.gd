@@ -28,8 +28,8 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 1
-var can_attack: bool = false
+var phase: int = 3
+var can_attack: bool = true
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
@@ -58,7 +58,7 @@ signal boss_dies()
 # Special Move Timers ============================================================
 var special_move_time_phase2: float = 7.0
 var special_move_time_phase3: float = 5.0
-var special_move_timer: float = 0
+var special_move_timer: float = 7.0
 var will_be_lightning: bool = false
 
 # Lightning variables ============================================================
@@ -186,7 +186,7 @@ func _physics_process(delta: float) -> void:
 func move_to_movement_point() -> void:
 	# Moving to movement point
 	var t = create_tween()
-	t.tween_property(self, "global_position", movement_point.global_position, 0.3)
+	t.tween_property(self, "global_position", movement_point.global_position, 0.7)
 	return
 
 func adjust_heart_y_pos(delta: float) -> void:
