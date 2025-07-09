@@ -203,7 +203,7 @@ func adjust_heart_y_pos(delta: float) -> void:
 func change_phase(current_phase: int) -> void:
 	phase = current_phase + 1
 	SignalBus.change_phase.emit(phase)
-	print(phase)
+	#print(phase)
 	# Setting special move timer to begin with:
 	match phase:
 		2:
@@ -219,16 +219,22 @@ func change_phase(current_phase: int) -> void:
 func choose_enemies() -> Array[Enemy]:
 	var chosen_enemies: Array[Enemy]
 	if list_of_unupgraded_enemies.size() <= amt_to_upgrade:
-		return list_of_unupgraded_enemies
+		chosen_enemies = list_of_unupgraded_enemies
+		list_of_unupgraded_enemies.clear()
+		return chosen_enemies
 	
 	for i in range(amt_to_upgrade):
 		var random: int = randi_range(0, list_of_unupgraded_enemies.size()-1)
 		chosen_enemies.append(list_of_unupgraded_enemies[random])
+		#print("Pre-remove: ", list_of_unupgraded_enemies)
+		#print("To-remove: ", list_of_unupgraded_enemies[random])
 		list_of_unupgraded_enemies.remove_at(random)
+		#print("Post-remove: ", list_of_unupgraded_enemies)
 	return chosen_enemies
 
 func upgrade_enemies() -> void:
 	# Make sure there are enemies to upgrade
+	#print("start: ", list_of_unupgraded_enemies)
 	if list_of_unupgraded_enemies.size() == 0:
 		upgrade_timer = 1
 		was_before_threshold = true
@@ -249,7 +255,7 @@ func upgrade_enemies() -> void:
 			upgrade_proj.global_position = global_position
 			upgrade_proj.get_shot(y_offset, enemy.global_position)
 			entities.add_child(upgrade_proj)
-	
+	#print("end: ", list_of_unupgraded_enemies)
 	# For resetting the timer:
 	reset_upgrade_timer()
 	return
@@ -268,7 +274,10 @@ func reset_upgrade_timer() -> void:
 	return
 
 func remove_from_selectable(enemy: Enemy) -> void:
+	#print("pre-remove: ", list_of_unupgraded_enemies)
+	#print("to_remove: ", enemy)
 	list_of_unupgraded_enemies.erase(enemy)
+	#print("remove: ", list_of_unupgraded_enemies)
 	return
 
 func initiate_attack() -> void:
@@ -289,7 +298,7 @@ func choose_attack() -> int:
 		will_be_lightning = false
 	else:
 		chosen_attack = randi_range(0, 1)
-		print(chosen_attack)
+		#print(chosen_attack)
 	return chosen_attack
 
 func start_lightning_attack() -> void:
@@ -444,7 +453,7 @@ func initiate_rising() -> void:
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	cur_hp -= damage
 	# Hitflash?
-	print(cur_hp)
+	#print(cur_hp)
 	if cur_hp <= 0:
 		boss_dies.emit()
-	SignalBus.boss_health_changed.emit() # needs boss health percent in emit
+	SignalBus.boss_health_changed.emit(MAX_HP/cur_hp) # needs boss health percent in emit

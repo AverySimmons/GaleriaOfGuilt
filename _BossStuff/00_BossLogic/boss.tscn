@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
-[ext_resource type="Texture2D" uid="uid://dmjo52o3r23q" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
-[ext_resource type="Texture2D" uid="uid://dpdg4s1xv36s0" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
-[ext_resource type="Texture2D" uid="uid://xmvn0qkitb11" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
+[ext_resource type="Texture2D" uid="uid://candc11pcrb6u" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
+[ext_resource type="Texture2D" uid="uid://db75cik2vni6e" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
+[ext_resource type="Texture2D" uid="uid://dramhfq3nyqcj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
 [ext_resource type="Script" uid="uid://bn3pm2wrv0ff3" path="res://_BossStuff/LightningModule/lightning_module.gd" id="6_su3p6"]
-[ext_resource type="Texture2D" uid="uid://g2aysg5l6faj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
+[ext_resource type="Texture2D" uid="uid://cyw6ffpmgcyxe" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
 
 [sub_resource type="Animation" id="Animation_tk2ht"]
 resource_name = "HeartBeat"
@@ -47,6 +47,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_22jes"]
+radius = 100.0
 
 [sub_resource type="Animation" id="Animation_su3p6"]
 length = 0.001
