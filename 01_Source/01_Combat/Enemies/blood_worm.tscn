@@ -30,7 +30,7 @@ shader_parameter/blood_intensity = 0.0
 shader_parameter/res_x_over_y = 1.333
 shader_parameter/hit_flash = 0.0
 shader_parameter/red_amount = 0.0
-shader_parameter/modulate = Color(0.601082, 0.0235605, 0.0135933, 1)
+shader_parameter/modulate = Color(0.94, 0.385713, 0.3666, 1)
 shader_parameter/offset_x = 0.0
 shader_parameter/offset_y = 0.0
 shader_parameter/bloodmask = SubResource("NoiseTexture2D_6j3kt")
@@ -213,7 +213,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.601082, 0.0235605, 0.0135933, 1)]
+"values": [Color(0.94, 0.385713, 0.3666, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_2ho74"]
