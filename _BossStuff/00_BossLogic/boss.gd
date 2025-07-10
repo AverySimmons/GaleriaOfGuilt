@@ -407,7 +407,7 @@ func initiate_falling() -> void:
 	t.tween_property(self, "global_position", GameData.boss_fight_offset, 1.0)
 	await get_tree().create_timer(1.2).timeout
 	var t2: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	t2.tween_property(heart_sprite, "global_position", global_position, 1.0)
+	t2.tween_property(heart_sprite, "global_position", Vector2(global_position.x, global_position.y-146), 1.0)
 	var t3: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	t3.tween_property(heart_sprite, "rotation", TAU/4.0, 1.0)
 	await get_tree().create_timer(1.0).timeout

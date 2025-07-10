@@ -75,8 +75,8 @@ _data = {
 &"RESET": SubResource("Animation_5vros")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_22jes"]
-radius = 100.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wx8sf"]
+size = Vector2(383, 255)
 
 [sub_resource type="Animation" id="Animation_su3p6"]
 length = 0.001
@@ -216,6 +216,8 @@ texture = ExtResource("3_pg52s")
 
 [node name="Heart" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_e0yi2")
+position = Vector2(0, -140)
+rotation = 1.5708
 texture = ExtResource("4_tk2ht")
 hframes = 2
 vframes = 2
@@ -242,7 +244,8 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("CircleShape2D_22jes")
+position = Vector2(9.5, -114.5)
+shape = SubResource("RectangleShape2D_wx8sf")
 
 [node name="TornadoSpawning" type="AnimationPlayer" parent="."]
 libraries = {
