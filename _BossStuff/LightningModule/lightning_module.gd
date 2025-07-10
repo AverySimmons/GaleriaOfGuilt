@@ -60,6 +60,9 @@ func _physics_process(delta: float) -> void:
 		ACTIVE:
 			acc = speed_up_lightning_acc
 	
+	if state == STOPPED:
+		return
+	
 	for s in spawners:
 		var dir = s.pos.direction_to(GameData.player.global_position)
 		s.velocity += dir * acc * delta

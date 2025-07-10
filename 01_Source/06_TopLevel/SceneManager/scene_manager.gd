@@ -5,6 +5,8 @@ extends Node
 @onready var circ_fade_rect: ColorRect = $TopLevelUI/CircFadeRect
 @onready var level_swap: ColorRect = $TopLevelUI/LevelSwap
 
+# tint stays
+# weird movement stuff
 
 var player_scene = preload("res://01_Source/00_Player/player.tscn")
 var game_manager_scene = preload("res://01_Source/01_Combat/GameManager/GameManager.tscn")
@@ -27,12 +29,15 @@ var boss_level
 var player_dying = false
 
 var test_game = true
-var test_boss = true
+var test_boss = false
 
 var tut2 = false
 var boss_intro_played = true
 
+var cur_tint
+
 func _ready() -> void:
+	GameData.mall_ind = 4
 	if test_boss:
 		GameData.mall_ind = 5
 	
@@ -51,7 +56,7 @@ func _ready() -> void:
 		if test_boss:
 			spawn_boss_level()
 		else:
-			spawn_game_manager()
+			spawn_game_manager(false)
 		$MenuMusic.paused = true
 		return
 	
@@ -89,10 +94,18 @@ func spawn_boss_level():
 	boss_intro_played = true
 	add_child(boss_level)
 
-func spawn_game_manager():
+func spawn_game_manager(is_respawn: bool):
+	if not is_respawn:
+		var h = randf()
+		var s = randf_range(0.2, 0.3)
+		var v = randf_range(0.8, 1)
+		
+		cur_tint = Color.from_hsv(h,s,v)
+	
 	GameData.is_escaping = false
 	player_dying = false
 	game_manager = game_manager_scene.instantiate()
+	game_manager.tint = cur_tint
 	game_manager.item_dialog.connect(item_dialog)
 	game_manager.stage_complete.connect(stage_complete)
 	game_manager.level_exit.connect(exit_level_transition)
@@ -237,7 +250,7 @@ func pre_mall_finished():
 	if GameData.mall_ind == 5:
 		spawn_boss_level()
 	else:
-		spawn_game_manager()
+		spawn_game_manager(false)
 	
 	await get_tree().create_timer(0.1).timeout
 	pause_game()
@@ -307,7 +320,7 @@ func death_reset():
 	if GameData.mall_ind == 5:
 		spawn_boss_level()
 	else:
-		spawn_game_manager()
+		spawn_game_manager(true)
 
 func _on_button_mouse_entered() -> void:
 	$ButtonHover.play()
