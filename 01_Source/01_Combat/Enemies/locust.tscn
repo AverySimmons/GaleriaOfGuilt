@@ -1,6 +1,6 @@
 [gd_scene load_steps=55 format=3 uid="uid://bj5h3s11xhapu"]
 
-[ext_resource type="Texture2D" uid="uid://61otys7l5v1q" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
+[ext_resource type="Texture2D" uid="uid://ce1jipg3j28dg" path="res://00_Assets/00_Sprites/Enemies/locust_spritesheet.png" id="1_popms"]
 [ext_resource type="Script" uid="uid://53epsj0n2v3u" path="res://01_Source/01_Combat/Enemies/locust.gd" id="1_qlpsa"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_prp80"]
 [ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="2_tnwp0"]
@@ -8,13 +8,13 @@
 [ext_resource type="Script" uid="uid://b5bacfxm3lisb" path="res://ai/tasks/locust_attack.gd" id="4_l72ei"]
 [ext_resource type="Script" uid="uid://sx3ysp5o8786" path="res://ai/tasks/face_player.gd" id="4_tcqde"]
 [ext_resource type="Script" uid="uid://dt1nd1xcr4fsd" path="res://ai/tasks/shake.gd" id="5_tcqde"]
-[ext_resource type="Texture2D" uid="uid://npxf8t7igtiq" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
+[ext_resource type="Texture2D" uid="uid://on4od7tsq211" path="res://00_Assets/00_Sprites/Enemies/dash_mark.png" id="6_tcqde"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="9_x4uw2"]
-[ext_resource type="AudioStream" uid="uid://bfkp10cudnvw2" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
-[ext_resource type="Texture2D" uid="uid://bnaow87p7ut3a" path="res://_BossStuff/00_Sprites/enemy_sprites/blood_that_causes_you_to_be_upgraded_wowie_spritesheet.png" id="10_tulm2"]
-[ext_resource type="AudioStream" uid="uid://5bs7prrb8ij5" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
-[ext_resource type="Texture2D" uid="uid://dbf1mpcbubgay" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="11_sq15d"]
-[ext_resource type="AudioStream" uid="uid://dxhxdo5ef8h4r" path="res://00_Assets/02_SoundEffects/enemy_indicator_2.wav" id="13_iu5hu"]
+[ext_resource type="AudioStream" uid="uid://c5grabv07e3m0" path="res://00_Assets/02_SoundEffects/enemy_attack_1.wav" id="10_eeflq"]
+[ext_resource type="Texture2D" uid="uid://kp676epgn1rc" path="res://_BossStuff/00_Sprites/enemy_sprites/blood_that_causes_you_to_be_upgraded_wowie_spritesheet.png" id="10_tulm2"]
+[ext_resource type="AudioStream" uid="uid://d22ul6qeyx45a" path="res://00_Assets/02_SoundEffects/thiscouldbeusedforanythingtbh.wav" id="11_j15t7"]
+[ext_resource type="Texture2D" uid="uid://dpdg4s1xv36s0" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="11_sq15d"]
+[ext_resource type="AudioStream" uid="uid://ped8ym86x0ho" path="res://00_Assets/02_SoundEffects/enemy_indicator_2.wav" id="13_iu5hu"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iu5hu"]
 

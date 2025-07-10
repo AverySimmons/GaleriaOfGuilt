@@ -9,6 +9,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	blood_sprite.global_position.y = global_position.y + y_offset
+	$ScalingShadow.material.set_shader_parameter("z", -y_offset)
 	return
 
 func get_shot(input_y_offset: float, input_target_position: Vector2) -> void:
