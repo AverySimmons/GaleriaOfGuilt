@@ -10,6 +10,7 @@ var damage : float = 15
 func _ready() -> void:
 	await get_tree().create_timer(active_time, false).timeout
 	$AnimationPlayer.play("trigger")
+	AudioData.play_sound("lightning", $Lightning)
 	await $AnimationPlayer.animation_finished
 	call_deferred("queue_free")
 

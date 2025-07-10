@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://x8hv2j8vcyjd"]
+[gd_scene load_steps=13 format=3 uid="uid://x8hv2j8vcyjd"]
 
 [ext_resource type="Script" uid="uid://i0vehj7sjii1" path="res://_BossStuff/LightningModule/blood_lightning.gd" id="1_k7nap"]
-[ext_resource type="Shader" uid="uid://cbfbpgic6dipr" path="res://03_Components/ball_o_lightning.gdshader" id="2_0w458"]
-[ext_resource type="Texture2D" uid="uid://jk1m57t87unn" path="res://_BossStuff/00_Sprites/boss_sprites/boss_lightning_attack.png" id="2_easli"]
+[ext_resource type="Shader" path="res://03_Components/ball_o_lightning.gdshader" id="2_0w458"]
+[ext_resource type="Texture2D" uid="uid://chml33du8c7kc" path="res://_BossStuff/00_Sprites/boss_sprites/boss_lightning_attack.png" id="2_easli"]
+[ext_resource type="AudioStream" uid="uid://bks25wrjix26e" path="res://_BossStuff/01_Assets/01_SoundEffects/lightning.wav" id="4_ytx6g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yxvog"]
 radius = 45.0
@@ -129,6 +130,11 @@ _data = {
 &"trigger": SubResource("Animation_k7nap")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v2vem"]
+random_pitch = 1.26
+streams_count = 1
+stream_0/stream = ExtResource("4_ytx6g")
+
 [node name="BloodLightning" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
@@ -155,3 +161,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_easli")
 }
 speed_scale = 0.75
+
+[node name="Lightning" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_v2vem")
+volume_db = 0.577

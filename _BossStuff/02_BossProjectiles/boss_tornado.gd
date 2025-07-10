@@ -20,6 +20,7 @@ var wait_timer = 0.5
 
 func _ready() -> void:
 	sprite_2d.global_position.y = global_position.y + z_offset - 81
+	AudioData.play_sound("tornado_spawn", $TornadoSpawn)
 
 func _process(delta: float) -> void:
 	sprite_2d.global_position.y = global_position.y + z_offset - 81
@@ -45,6 +46,7 @@ func spawn_wave() -> void:
 	for i in bullet_num:
 		var dir = Vector2.from_angle(cur_rot + TAU * i / bullet_num)
 		spawn_bullet(dir)
+		AudioData.play_sound("tornado_shoot", $TornadoShoot)
 
 func spawn_bullet(dir: Vector2) -> void:
 	var new_bullet = bullet_scene.instantiate()

@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var hp_max: float = 10 #change this
 @export var type: String = '' #enemy type. How will this be used, is it declared in some spawn_enemy function?
 @export var flinch_guard: float = 0
+@export var upgraded: bool = false
 
 @onready var blood_module: Node2D = $BloodModule
 

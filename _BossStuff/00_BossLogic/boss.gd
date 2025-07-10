@@ -10,6 +10,7 @@ extends Node2D
 @onready var lightning_spawn_ap: AnimationPlayer = $LightningSpawning
 @onready var lightning_spawn: Sprite2D = $LightningSpawn
 @onready var hurtbox: Area2D = $Hurtbox
+@onready var heartbeat_sound: AudioStreamPlayer2D = $HeartBeatSound
 @onready var upgrade_proj_scene = preload("res://_BossStuff/02_BossProjectiles/upgrade_projectile.tscn")
 @onready var lightning_module: BossLightningModule = $BossLightningModule
 @onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
@@ -43,7 +44,7 @@ var y_direction: int = -1 # 1 is down, -1 is up
 var y_acceleration: float = y_top_speed/0.2
 
 # HP/Ground state variables ======================================================
-const MAX_HP: float = 100
+const MAX_HP: float = 1000
 const MAX_TIME_ON_GROUND: float = 8
 const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
 const PHASE_2_THRESHOLD: float = MAX_HP*0.667
@@ -122,6 +123,7 @@ func _physics_process(delta: float) -> void:
 		MOVING:
 			movement_point.start_moving()
 			heartbeat_ap.speed_scale = 1.0
+			heartbeat_sound.pitch_scale = 1.0
 			# Moving to movement point
 			move_to_movement_point()
 			# Adjust heart y position
@@ -133,6 +135,7 @@ func _physics_process(delta: float) -> void:
 			movement_point.stop_moving()
 			adjust_heart_y_pos(delta)
 			heartbeat_ap.speed_scale = 2.0
+			heartbeat_sound.pitch_scale = 1.5
 			lightning_timer = move_toward(lightning_timer, 0, delta)
 			if lightning_timer <= 0:
 				cur_state = MOVING
@@ -144,6 +147,7 @@ func _physics_process(delta: float) -> void:
 			movement_point.stop_moving()
 			adjust_heart_y_pos(delta)
 			heartbeat_ap.speed_scale = 2.0
+			heartbeat_sound.pitch_scale = 1.5
 			# Control logic of if it should end
 			sprinkler_timer = move_toward(sprinkler_timer, 0, delta)
 			if sprinkler_timer <= 0:
@@ -403,10 +407,11 @@ func initiate_falling() -> void:
 	t.tween_property(self, "global_position", GameData.boss_fight_offset, 1.0)
 	await get_tree().create_timer(1.2).timeout
 	var t2: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	t2.tween_property(heart_sprite, "global_position", global_position, 1.0)
+	t2.tween_property(heart_sprite, "global_position", Vector2(global_position.x, global_position.y-146), 1.0)
 	var t3: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	t3.tween_property(heart_sprite, "rotation", TAU/4.0, 1.0)
 	await get_tree().create_timer(1.0).timeout
+	$HeartFalls.play()
 	initiate_ground()
 	return
 
@@ -440,7 +445,10 @@ func initiate_rising() -> void:
 	await get_tree().create_timer(3.0).timeout
 	if phase_changed:
 		heartbeat_ap.speed_scale = 3.0
+		heartbeat_sound.pitch_scale = 2.0
+		heart_sprite.scale = Vector2(1.5, 1.5)
 		await get_tree().create_timer(3.0).timeout
+		heart_sprite.scale = Vector2(1.0, 1.0)
 	if phase != 1:
 		can_attack = true
 		special_move_timer = 6.0
@@ -456,6 +464,7 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	#print(cur_hp)
 	$HitFlash.play("RESET")
 	$HitFlash.play("hit_flash")
+	$HitSound.play()
 	if cur_hp <= 0:
 		boss_dies.emit()
 	SignalBus.boss_health_changed.emit(MAX_HP/cur_hp) # needs boss health percent in emit
