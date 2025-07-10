@@ -288,7 +288,8 @@ func _physics_process(delta: float) -> void:
 				special_ability_timer = actual_special_cooldown
 	
 	if Input.is_action_just_pressed("dash"):
-		if dash_charges > 0 && is_dashing == false && (blood_bar-dash_blood_cost>=0):
+		if (dash_charges > 0 || (UpgradeData.upgrades_gained[UpgradeData.DASH_INFINITE] && blood_bar>=dash_blood_cost)) \
+		&& is_dashing == false:
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
 			var dir_string = update_facing_direction(get_facing_direction())
@@ -321,7 +322,7 @@ func _physics_process(delta: float) -> void:
 			$Dash.start_dash(dash_speed*bb_spd_inc, dash_distance, movement_vector)
 			dash_timer = dash_cd * bb_hitspd_inc
 			dash_charges -= 1
-			blood_bar -= dash_blood_cost
+			blood_bar = move_toward(blood_bar, 0, dash_blood_cost)
 			if dash_blood_cost != 0:
 				SignalBus.bb_change.emit()
 	
