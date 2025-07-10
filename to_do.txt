@@ -1,5 +1,3 @@
-blood modules for enemy and boss - Avery
-shadows for boss, upgrade projectiles, tornado, grenade - Avery
 music implemented
 sound effects implemented
 player walking intro - Brian
