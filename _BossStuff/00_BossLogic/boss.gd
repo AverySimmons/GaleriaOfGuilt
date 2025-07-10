@@ -407,6 +407,7 @@ func initiate_falling() -> void:
 	var t3: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	t3.tween_property(heart_sprite, "rotation", TAU/4.0, 1.0)
 	await get_tree().create_timer(1.0).timeout
+	$HeartFalls.play()
 	initiate_ground()
 	return
 
