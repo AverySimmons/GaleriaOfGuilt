@@ -29,8 +29,8 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 2
-var can_attack: bool = true
+var phase: int = 1
+var can_attack: bool = false
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
@@ -44,7 +44,7 @@ var y_direction: int = -1 # 1 is down, -1 is up
 var y_acceleration: float = y_top_speed/0.2
 
 # HP/Ground state variables ======================================================
-const MAX_HP: float = 100
+const MAX_HP: float = 1000
 const MAX_TIME_ON_GROUND: float = 8
 const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
 const PHASE_2_THRESHOLD: float = MAX_HP*0.667
@@ -446,7 +446,9 @@ func initiate_rising() -> void:
 	if phase_changed:
 		heartbeat_ap.speed_scale = 3.0
 		heartbeat_sound.pitch_scale = 2.0
+		heart_sprite.scale = Vector2(1.5, 1.5)
 		await get_tree().create_timer(3.0).timeout
+		heart_sprite.scale = Vector2(1.0, 1.0)
 	if phase != 1:
 		can_attack = true
 		special_move_timer = 6.0

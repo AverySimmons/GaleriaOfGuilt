@@ -266,6 +266,7 @@ libraries = {
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_3bdry")
+volume_db = 8.0
 
 [node name="HeartFalls" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_wx8sf")
