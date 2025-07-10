@@ -29,7 +29,7 @@ var boss_level
 var player_dying = false
 
 var test_game = true
-var test_boss = false
+var test_boss = true
 
 var tut2 = false
 var boss_intro_played = true
@@ -37,7 +37,6 @@ var boss_intro_played = true
 var cur_tint
 
 func _ready() -> void:
-	GameData.mall_ind = 4
 	if test_boss:
 		GameData.mall_ind = 5
 	
@@ -83,10 +82,15 @@ func _input(event: InputEvent) -> void:
 			settings = settings_scene.instantiate()
 			$TopLevelUI.add_child(settings)
 			get_tree().paused = true
+			if GameData.mall_ind == 5:
+				$BossMusic.paused = true
 		else:
 			settings.close()
+			if GameData.mall_ind == 5:
+				$BossMusic.paused = false
 
 func spawn_boss_level():
+	GameData.music_event = $BossMusic
 	player_dying = false
 	boss_level = boss_scene.instantiate()
 	boss_level.boss_defeated.connect(boss_defeated)
@@ -261,11 +265,7 @@ func pre_mall_finished():
 	transition_player.play("line_wipe_in")
 	await transition_player.animation_finished
 	
-	if GameData.mall_ind == 5:
-		$BossMusic.play()
-		var t2 = create_tween()
-		t2.tween_property($BossMusic, "volume", 0.35, 1)
-	else:
+	if GameData.mall_ind != 5:
 		$GameMusic.play()
 		var t2 = create_tween()
 		t2.tween_property($GameMusic, "volume", 0.35, 1)
@@ -295,7 +295,7 @@ func remove_van():
 func player_death():
 	if player_dying: return
 	player_dying = true
-	GameData.music_event.set_parameter("combat state", 0)
+	# GameData.music_event.set_parameter("combat state", 0)
 	
 	pause_game()
 	

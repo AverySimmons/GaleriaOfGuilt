@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://bneo63uiplbde"]
 
 [ext_resource type="Script" uid="uid://61tamjpp2pna" path="res://_BossStuff/02_BossProjectiles/boss_tornado.gd" id="1_6qm3r"]
-[ext_resource type="Texture2D" uid="uid://dsey6bee516ku" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
+[ext_resource type="Texture2D" uid="uid://bdni113svcvmb" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
 [ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="3_htwm2"]
 [ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="4_gq5cc"]
-[ext_resource type="AudioStream" uid="uid://47iksolj818x" path="res://_BossStuff/01_Assets/01_SoundEffects/tornado_spawn.wav" id="5_gq5cc"]
-[ext_resource type="AudioStream" uid="uid://e8hd3hv3lgou" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="6_8cmbt"]
+[ext_resource type="AudioStream" uid="uid://diaxahptlnnpr" path="res://_BossStuff/01_Assets/01_SoundEffects/tornado_spawn.wav" id="5_gq5cc"]
+[ext_resource type="AudioStream" uid="uid://dwxhadpx6papq" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="6_8cmbt"]
 
 [sub_resource type="Animation" id="Animation_htwm2"]
 length = 0.001

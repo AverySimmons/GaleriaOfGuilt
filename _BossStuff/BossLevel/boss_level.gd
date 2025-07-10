@@ -44,6 +44,8 @@ var is_roaming = true
 var roaming_window = 25
 var roaming_timer = roaming_window
 
+var music_startup_length = 10
+
 signal boss_defeated()
 var timer = 5
 
@@ -66,8 +68,10 @@ func _ready() -> void:
 	entities.add_child(GameData.player)
 	blood_manager.spawn()
 	change_wind_dir()
+	# GameData.music_event.set_parameter("phase", 1)
 	
 	if not try_again_mode:
+		start_music()
 		var t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		t.tween_property(sand_effect, "material:shader_parameter/strength", 1., roaming_window)
 		await get_tree().create_timer(15, false).timeout
@@ -75,6 +79,8 @@ func _ready() -> void:
 		var t2 = create_tween().set_ease(Tween.EASE_IN)
 		t2.tween_property(camera, "zoom", Vector2.ONE * 0.5, roaming_window-15)
 	else:
+		# GameData.music_event.set_parameter("___", 1) # set it not to do startup
+		GameData.music_event.play()
 		is_roaming = false
 		sand_effect.material.set_shader_parameter("strength", 1)
 		camera.zoom = Vector2.ONE * 0.5
@@ -82,6 +88,10 @@ func _ready() -> void:
 
 func boss_dies() -> void:
 	boss_defeated.emit()
+
+func start_music() -> void:
+	await get_tree().create_timer(music_startup_length, false).timeout
+	GameData.music_event.play()
 
 func _process(delta: float) -> void:
 	camera.global_position = GameData.player.global_position
@@ -147,9 +157,6 @@ func spawn_boss() -> void:
 	entities.add_child(boss)
 	
 	phase1()
-
-func try_again_setup() -> void:
-	pass
 
 func lock_level() -> void:
 	is_zooming_in = true

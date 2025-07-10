@@ -15,5 +15,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_ap6m3")
 
 [node name="ScalingShadow" type="Sprite2D"]
+z_index = -1
+z_as_relative = false
 material = SubResource("ShaderMaterial_atngp")
 texture = SubResource("GradientTexture2D_ib0ys")

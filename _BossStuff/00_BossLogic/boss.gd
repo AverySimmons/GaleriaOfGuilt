@@ -437,18 +437,21 @@ func initiate_rising() -> void:
 	if phase == 1 && cur_hp <= PHASE_2_THRESHOLD:
 		change_phase(phase)
 		phase_changed = true
+		# GameData.music_event.set_parameter("phase", 2)
+		
 		# Cool transition?
 	elif phase == 2 && cur_hp <= PHASE_3_THRESHOLD:
 		change_phase(phase)
 		phase_changed = true
+		# GameData.music_event.set_parameter("phase", 3)
+		
 		# Cool transition:
 		# Some sort of flash starts happening
 		# Lies down on ground for how long?
 	var t: Tween = create_tween()
-	t.tween_property(heart_sprite, "rotation", 0, 1.0)
-	await get_tree().create_timer(1.5).timeout
+	t.tween_property(heart_sprite, "rotation", 0, 1.)
 	var t2: Tween = create_tween()
-	t2.tween_property(heart_sprite, "global_position", Vector2(global_position.x, global_position.y+y_offset), 1.5)
+	t2.tween_property(heart_sprite, "global_position", Vector2(global_position.x, global_position.y+y_offset), 1.)
 	await get_tree().create_timer(3.0).timeout
 	if phase_changed:
 		heartbeat_ap.speed_scale = 3.0

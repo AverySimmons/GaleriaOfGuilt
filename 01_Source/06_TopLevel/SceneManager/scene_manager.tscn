@@ -1,14 +1,14 @@
 [gd_scene load_steps=22 format=3 uid="uid://iudn154k7uar"]
 
 [ext_resource type="Script" uid="uid://dkbxd12fyei2g" path="res://01_Source/06_TopLevel/SceneManager/scene_manager.gd" id="1_1l5et"]
-[ext_resource type="Texture2D" uid="uid://c4pksn0t3jdes" path="res://00_Assets/00_Sprites/Cutscene_sprites/new_title_screen_with_button.png" id="2_kgoma"]
-[ext_resource type="Shader" path="res://01_Source/06_TopLevel/SceneManager/circ_fade.gdshader" id="3_rvphk"]
-[ext_resource type="AudioStream" uid="uid://dw1e5vdtroxgi" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
-[ext_resource type="AudioStream" uid="uid://dqe8cginpwmws" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
-[ext_resource type="Shader" path="res://01_Source/06_TopLevel/SceneManager/level_swap.gdshader" id="4_nut0k"]
-[ext_resource type="AudioStream" uid="uid://det722nvnd0vv" path="res://00_Assets/02_SoundEffects/car_start.wav" id="5_a4pbu"]
-[ext_resource type="AudioStream" uid="uid://de8lrnrfqnxp1" path="res://00_Assets/02_SoundEffects/sigh.wav" id="7_5q8bt"]
-[ext_resource type="AudioStream" uid="uid://24lvfgyrok00" path="res://00_Assets/02_SoundEffects/door-open-107728.mp3" id="9_kgoma"]
+[ext_resource type="Texture2D" uid="uid://fdn5vv3eyl4l" path="res://00_Assets/00_Sprites/Cutscene_sprites/new_title_screen_with_button.png" id="2_kgoma"]
+[ext_resource type="Shader" uid="uid://d3g74gg2aqtir" path="res://01_Source/06_TopLevel/SceneManager/circ_fade.gdshader" id="3_rvphk"]
+[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="3_wp6i4"]
+[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="4_a4pbu"]
+[ext_resource type="Shader" uid="uid://b0p0y0knw8m0t" path="res://01_Source/06_TopLevel/SceneManager/level_swap.gdshader" id="4_nut0k"]
+[ext_resource type="AudioStream" uid="uid://b8se6ivrg14g3" path="res://00_Assets/02_SoundEffects/car_start.wav" id="5_a4pbu"]
+[ext_resource type="AudioStream" uid="uid://ut3rfvw6srca" path="res://00_Assets/02_SoundEffects/sigh.wav" id="7_5q8bt"]
+[ext_resource type="AudioStream" uid="uid://ddeu753wyg3b1" path="res://00_Assets/02_SoundEffects/door-open-107728.mp3" id="9_kgoma"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5q8bt"]
 shader = ExtResource("3_rvphk")
@@ -241,18 +241,24 @@ event_name = "event:/cutscene"
 event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
 volume = 0.0
 
-[node name="BossMusic" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/cutscene"
-event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
-volume = 0.0
-
-[node name="EndingMusic" type="FmodEventEmitter2D" parent="."]
-volume = 0.0
-
 [node name="MenuMusic" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/menu"
 event_guid = "{66a80aff-0450-44cb-b5b7-2abe0fe360b4}"
 autoplay = true
+volume = 0.0
+"fmod_parameters/combat state/id" = -4863081333960352858
+"fmod_parameters/combat state" = 0
+"fmod_parameters/combat state/variant_type" = 2
+
+[node name="FmodBankLoader2" type="FmodBankLoader" parent="."]
+
+[node name="BossMusic" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/cutscene"
+event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
+
+[node name="EndingMusic" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/level"
+event_guid = "{f37587d6-2eb5-42a9-9817-fb44b87e9446}"
 volume = 0.0
 "fmod_parameters/combat state/id" = -4863081333960352858
 "fmod_parameters/combat state" = 0

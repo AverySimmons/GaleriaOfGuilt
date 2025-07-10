@@ -9,7 +9,7 @@ void vertex() {
 void fragment() {
 	vec2 uv = UV * 2. - 1.;
 	float circ_dist = length(uv) - 0.05;
-	circ_dist = smoothstep(0. - z / 2000., 0.05 + z / 2000., circ_dist);
+	circ_dist = smoothstep(0. - z / 8000., 0.05 + z / 8000., circ_dist);
 	
 	COLOR.a = (1. - circ_dist) * COLOR.a;
 }
