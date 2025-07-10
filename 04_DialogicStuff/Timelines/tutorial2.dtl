@@ -1,11 +1,7 @@
 [signal arg="pause_game"]
-marie_character: I’ve made it into the mall.
-viola_character: I’m getting a signal from one of the rooms. Press TAB to check the map. I'll update it as you move.
-marie_character: Got it. Use WASD to move around.
-marie_character: Press LEFT CLICK to attack. RIGHT CLICK to use my special move.
-marie_character: Press SPACE to dash forward.
-marie_character: The blood bar on the right side of the screen fills up when you fight, the more blood that's in it, the faster I get.
-marie_character: The left silhouette is my HP. Don’t let me die!
-marie_character: The bottom bar is my XP bar, get XP from fighting! Each time it fills up you can choose a new upgrade!
-marie_character: Lets dust these puny omens!
+marie_character: When I reach maximum blood, I enter a blood rage state.
+marie_character: My attacks and movement get stronger and better!
+marie_character: When I'm not fighting my blood bar will drain and I'll heal a little. 
+marie_character: When my blood is over half full, it'll start draining over time.
+marie_character: Let's dust these puny omens!
 [signal arg="tutorial_over"]

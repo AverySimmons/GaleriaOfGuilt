@@ -606,7 +606,7 @@ func gain_exp(enemy: Enemy) -> void:
 			amount = 3
 	current_exp = move_toward(current_exp, exp_needed, amount*exp_mult)
 	if current_exp >= exp_needed:
-		exp_needed += 40*level
+		exp_needed += 30*level
 		level += 1
 		current_exp = 0
 		SignalBus.levelup.emit()
