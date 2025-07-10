@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://golx8qccvonh"]
 
 [ext_resource type="Script" uid="uid://bxf47eeet2vgs" path="res://_BossStuff/02_BossProjectiles/boss_bullet.gd" id="1_xp4ff"]
-[ext_resource type="Texture2D" uid="uid://dki180hfws3cw" path="res://_BossStuff/00_Sprites/boss_sprites/blood_spray_attack_sprite.png" id="2_pnhoq"]
+[ext_resource type="Texture2D" uid="uid://bwa7xguiry7dt" path="res://_BossStuff/00_Sprites/boss_sprites/blood_spray_attack_sprite.png" id="2_pnhoq"]
 
 [sub_resource type="Animation" id="Animation_sa7c2"]
 length = 0.001
