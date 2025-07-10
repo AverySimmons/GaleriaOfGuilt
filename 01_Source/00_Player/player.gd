@@ -202,7 +202,7 @@ func _physics_process(delta: float) -> void:
 						enemy.get_marked()
 				if UpgradeData.upgrades_gained[UpgradeData.DASH_DISTANCE_BLOOD_GAIN]:
 					if !(blood_bar >= bb_max):
-						blood_bar = move_toward(blood_bar, bb_max, 10*bb_multiplier*bb_multiplier2)
+						blood_bar = move_toward(blood_bar, bb_max, 10*bb_multiplier)
 						dealt_damage_took_damage = true
 						SignalBus.bb_change.emit()
 					
@@ -618,3 +618,7 @@ func reset():
 	is_dashing = false
 	blood_bar = 0
 	modulate = Color("white")
+
+func reset_inputs() -> void:
+	most_recent_press = Input.get_vector("left", "right", "up", "down")
+	return
