@@ -8,7 +8,7 @@ extends CharacterBody2D
 # Velocity stuff
 @export var top_speed: float = 250
 @export var acceleration: float = top_speed / 0.1 #700
-@export var reverse_acceleration: float = top_speed / 0.05 #1400 * 4
+@export var reverse_acceleration: float = top_speed / 0.03 #1400 * 4
 @export var idle_friction: float = top_speed / 0.07 #600 * 4
 # For handling priority. -1 means left/up, 1 means right/down, 0 means idle
 var most_recent_press: Vector2 = Vector2(0, 0)
@@ -160,7 +160,7 @@ func _physics_process(delta: float) -> void:
 		if movement_vector != Vector2.ZERO:
 			if !is_walking:
 				is_walking = true
-			if base_velocity.normalized().dot(movement_vector) < -0.5:
+			if base_velocity.normalized().dot(movement_vector) < 0.:
 				base_velocity = base_velocity.move_toward(movement_vector * top_speed, reverse_acceleration * delta)
 			else: 
 				base_velocity = base_velocity.move_toward(movement_vector * top_speed, acceleration * delta)
