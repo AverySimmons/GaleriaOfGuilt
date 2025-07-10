@@ -6,10 +6,10 @@ void vertex() {
 
 void fragment() {
 	vec2 uv = UV * 2. - 1.;
-	
+
 	float mask = length(uv);
 	mask = 1. - step(1., mask);
-	
+
 	COLOR.a = mask * COLOR.a;
 }
 

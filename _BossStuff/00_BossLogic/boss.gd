@@ -49,7 +49,7 @@ var y_direction: int = -1 # 1 is down, -1 is up
 var y_acceleration: float = y_top_speed/0.2
 
 # HP/Ground state variables ======================================================
-const MAX_HP: float = 1000
+const MAX_HP: float = 55
 const MAX_TIME_ON_GROUND: float = 8
 const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
 const PHASE_2_THRESHOLD: float = MAX_HP*0.667
@@ -178,9 +178,9 @@ func _physics_process(delta: float) -> void:
 				initiate_rising()
 			pass
 		RISING: 
-			if changing_phase:
-				heart_sprite.global_position = player.global_position
-				global_position = player.global_position
+			if changing_phase:pass
+				#heart_sprite.global_position = player.global_position
+				#global_position = player.global_position
 			pass
 	
 	#test_timer = move_toward(test_timer, 0, delta)
@@ -463,13 +463,15 @@ func initiate_rising() -> void:
 		heart_sprite.scale = Vector2(1.5, 1.5)
 		var prev_sprite_position = heart_sprite.global_position
 		var prev_position = global_position
-		heart_sprite.global_position = player.global_position
-		global_position = player.global_position
+		var t3 = create_tween()
+		t3.tween_property(self, "global_position", player.global_position + Vector2(0, -y_offset), 0.25)
+		#heart_sprite.global_position = player.global_position
+		# global_position = player.global_position
 		changing_phase = true
 		await get_tree().create_timer(3.0).timeout
 		changing_phase = false
-		heart_sprite.global_position = prev_sprite_position
-		global_position = prev_position
+		#heart_sprite.global_position = prev_sprite_position
+		#global_position = prev_position
 		heart_sprite.scale = Vector2(1.0, 1.0)
 	if phase != 1:
 		can_attack = true
