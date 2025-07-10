@@ -34,6 +34,7 @@ const RISING: int = 5
 var cur_state: int = MOVING
 
 var phase: int = 1
+var changing_phase: bool = false
 var can_attack: bool = false
 
 # Movement variables ==============================================================
@@ -177,6 +178,9 @@ func _physics_process(delta: float) -> void:
 				initiate_rising()
 			pass
 		RISING: 
+			if changing_phase:
+				heart_sprite.global_position = player.global_position
+				global_position = player.global_position
 			pass
 	
 	#test_timer = move_toward(test_timer, 0, delta)
@@ -457,7 +461,15 @@ func initiate_rising() -> void:
 		heartbeat_ap.speed_scale = 3.0
 		heartbeat_sound.pitch_scale = 2.0
 		heart_sprite.scale = Vector2(1.5, 1.5)
+		var prev_sprite_position = heart_sprite.global_position
+		var prev_position = global_position
+		heart_sprite.global_position = player.global_position
+		global_position = player.global_position
+		changing_phase = true
 		await get_tree().create_timer(3.0).timeout
+		changing_phase = false
+		heart_sprite.global_position = prev_sprite_position
+		global_position = prev_position
 		heart_sprite.scale = Vector2(1.0, 1.0)
 	if phase != 1:
 		can_attack = true
