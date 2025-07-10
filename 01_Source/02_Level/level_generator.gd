@@ -27,6 +27,7 @@ var big_level_scenes: Array[PackedScene] = [
 var starting_level_scene = preload("res://01_Source/02_Level/Levels/starting_room.tscn")
 var secret_level_scene = preload("res://01_Source/02_Level/Levels/starting_room.tscn")
 
+var tint
 
 var map: Dictionary[Vector2, MapNode] = {}
 
@@ -51,12 +52,6 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 	while not generate_map(node_num): continue
 	
 	set_distance()
-	
-	var h = randf()
-	var s = randf_range(0.2, 0.3)
-	var v = randf_range(0.8, 1)
-	
-	var tint = Color.from_hsv(h,s,v)
 	
 	var levels: Dictionary[Vector2, Level] = {}
 	for node: MapNode in map.values():

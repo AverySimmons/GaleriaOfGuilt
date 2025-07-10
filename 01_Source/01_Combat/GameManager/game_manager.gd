@@ -6,6 +6,8 @@ extends Node
 var levels: Dictionary[Vector2, Level]
 var current_level: Level
 
+var tint
+
 var mall_sizes = [
 	4,
 	6,
@@ -21,6 +23,7 @@ signal level_enter()
 
 func _ready() -> void:
 	GameData.player.reset()
+	level_generator.tint = tint
 	levels = level_generator.get_levels(mall_sizes[GameData.mall_ind])
 	map_overlay.generate_map(levels.values())
 	
