@@ -1,16 +1,18 @@
-[gd_scene load_steps=29 format=3 uid="uid://cm3gximniggbi"]
+[gd_scene load_steps=32 format=3 uid="uid://cm3gximniggbi"]
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
-[ext_resource type="Texture2D" uid="uid://candc11pcrb6u" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
+[ext_resource type="Texture2D" uid="uid://dmjo52o3r23q" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
 [ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="4_refew"]
-[ext_resource type="Texture2D" uid="uid://db75cik2vni6e" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
-[ext_resource type="Texture2D" uid="uid://dramhfq3nyqcj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
+[ext_resource type="Texture2D" uid="uid://dpdg4s1xv36s0" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
+[ext_resource type="Texture2D" uid="uid://xmvn0qkitb11" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
 [ext_resource type="Script" uid="uid://bn3pm2wrv0ff3" path="res://_BossStuff/LightningModule/lightning_module.gd" id="6_su3p6"]
-[ext_resource type="Texture2D" uid="uid://cyw6ffpmgcyxe" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
-[ext_resource type="AudioStream" uid="uid://oftuux4jvd1d" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_land_sandy.wav" id="9_e0yi2"]
-[ext_resource type="AudioStream" uid="uid://dsywowwqrwk5i" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_hit.wav" id="9_wx8sf"]
-[ext_resource type="AudioStream" uid="uid://s8dci5bj1ilk" path="res://_BossStuff/01_Assets/01_SoundEffects/heartpulsesmaller.wav" id="11_bnn20"]
+[ext_resource type="Texture2D" uid="uid://g2aysg5l6faj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
+[ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="9_3bdry"]
+[ext_resource type="AudioStream" uid="uid://brplgvm7uoh16" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_land_sandy.wav" id="9_e0yi2"]
+[ext_resource type="AudioStream" uid="uid://c758fqyh5h700" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_hit.wav" id="9_wx8sf"]
+[ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="10_wx8sf"]
+[ext_resource type="AudioStream" uid="uid://ckndh2ceqswmg" path="res://_BossStuff/01_Assets/01_SoundEffects/heartpulsesmaller.wav" id="11_bnn20"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e0yi2"]
 shader = ExtResource("4_refew")
@@ -203,6 +205,11 @@ stream_0/stream = ExtResource("9_e0yi2")
 streams_count = 1
 stream_0/stream = ExtResource("11_bnn20")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phhev"]
+resource_local_to_scene = true
+shader = ExtResource("10_wx8sf")
+shader_parameter/z = 0.0
+
 [node name="Boss" type="Node2D"]
 script = ExtResource("1_cymkw")
 
@@ -217,7 +224,6 @@ texture = ExtResource("3_pg52s")
 [node name="Heart" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_e0yi2")
 position = Vector2(0, -140)
-rotation = 1.5708
 texture = ExtResource("4_tk2ht")
 hframes = 2
 vframes = 2
@@ -278,3 +284,9 @@ volume_db = 24.0
 [node name="HeartBeatSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_bnn20")
 volume_db = 12.0
+
+[node name="ScalingShadow" parent="." instance=ExtResource("9_3bdry")]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_phhev")
+position = Vector2(-27, -10)
+scale = Vector2(64, 32)

@@ -33,7 +33,7 @@ var boss_scene = preload("res://_BossStuff/00_BossLogic/boss.tscn")
 @export var try_again_mode = true
 
 var max_enemies_in_wave = 10
-var enemy_credits = 50
+var enemy_credits = 5
 var level_radius = 720 - 100
 var enemy_player_spacing = 200
 var enemy_spacing = 100
@@ -141,8 +141,9 @@ func spawn_boss() -> void:
 	boss.global_position = level.global_position
 	boss.entities = entities
 	boss.indicators_node = attack_indicators
-	# boss.phase_change.connect(trigger_phase)
-	# boss.boss_dies.connect(boss_dies)
+	SignalBus.change_phase.connect(trigger_phase)
+	boss.spawn_enemies.connect(populate_enemies)
+	boss.boss_dies.connect(boss_dies)
 	entities.add_child(boss)
 	
 	phase1()

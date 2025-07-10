@@ -16,6 +16,10 @@ extends Node2D
 @onready var test_player_scene = preload("res://01_Source/00_Player/Player.tscn")
 @onready var sprinkler_scene = preload("res://_BossStuff/02_BossProjectiles/boss_tornado.tscn")
 
+signal spawn_enemies()
+
+## boss should go to the middle of the player's screen when phase transitioning
+
 ## boss should drop down a little when attacking so its more clearly in view?
 ## might be bad for visiblity of enemies though
 
@@ -108,6 +112,9 @@ func _ready() -> void:
 	SignalBus.death.connect(remove_from_selectable)
 	hurtbox.monitorable = false
 	pass
+
+func _process(delta: float) -> void:
+	$ScalingShadow.material.set_shader_parameter("z", -heart_sprite.position.y-140)
 
 func _physics_process(delta: float) -> void:
 	if !heartbeat_ap.is_playing():
@@ -456,15 +463,16 @@ func initiate_rising() -> void:
 	lightning_module.resume()
 	cur_state = MOVING
 	#test_timer = 5
+	
+	spawn_enemies.emit()
+	
 	return
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	cur_hp -= damage
-	# Hitflash?
-	#print(cur_hp)
 	$HitFlash.play("RESET")
 	$HitFlash.play("hit_flash")
 	$HitSound.play()
 	if cur_hp <= 0:
 		boss_dies.emit()
-	SignalBus.boss_health_changed.emit(MAX_HP/cur_hp) # needs boss health percent in emit
+	SignalBus.boss_health_changed.emit(cur_hp/float(MAX_HP)) # needs boss health percent in emit
