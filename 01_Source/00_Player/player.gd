@@ -359,7 +359,7 @@ func _physics_process(delta: float) -> void:
 		if $BloodHealing.playing:
 			$BloodHealing.stop()
 	
-	if UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN] && blood_bar >= 200:
+	if UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN] && blood_bar >= bb_max*0.7:
 		heal_damage(hp_regen*delta)
 	
 	if blood_bar == bb_max:
