@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bneo63uiplbde"]
 
 [ext_resource type="Script" uid="uid://61tamjpp2pna" path="res://_BossStuff/02_BossProjectiles/boss_tornado.gd" id="1_6qm3r"]
-[ext_resource type="Texture2D" uid="uid://bdni113svcvmb" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
+[ext_resource type="Texture2D" uid="uid://dsey6bee516ku" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
 [ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="3_htwm2"]
 [ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="4_gq5cc"]
 
