@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
-[ext_resource type="Texture2D" uid="uid://candc11pcrb6u" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
+[ext_resource type="Texture2D" uid="uid://caln1jy2i8r6t" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
 [ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="4_refew"]
-[ext_resource type="Texture2D" uid="uid://db75cik2vni6e" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
-[ext_resource type="Texture2D" uid="uid://dramhfq3nyqcj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
+[ext_resource type="Texture2D" uid="uid://b3h7q1evfhbdm" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
+[ext_resource type="Texture2D" uid="uid://dkkaq2liqyoku" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
 [ext_resource type="Script" uid="uid://bn3pm2wrv0ff3" path="res://_BossStuff/LightningModule/lightning_module.gd" id="6_su3p6"]
-[ext_resource type="Texture2D" uid="uid://cyw6ffpmgcyxe" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
-[ext_resource type="AudioStream" uid="uid://oftuux4jvd1d" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_land_sandy.wav" id="9_e0yi2"]
-[ext_resource type="AudioStream" uid="uid://gxmthx4dno05" path="res://_BossStuff/01_Assets/01_SoundEffects/heartbeat_pulse.wav" id="10_3bdry"]
+[ext_resource type="Texture2D" uid="uid://cjafg8gu081xs" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
+[ext_resource type="AudioStream" uid="uid://ihit2m1vmlhh" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_land_sandy.wav" id="9_e0yi2"]
+[ext_resource type="AudioStream" uid="uid://jsg13ertngxk" path="res://_BossStuff/01_Assets/01_SoundEffects/heartbeat_pulse.wav" id="10_3bdry"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e0yi2"]
 shader = ExtResource("4_refew")
@@ -137,6 +137,21 @@ _data = {
 &"lightning_spawning": SubResource("Animation_refew")
 }
 
+[sub_resource type="Animation" id="Animation_wx8sf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Heart:material:shader_parameter/hit_flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_3bdry"]
 resource_name = "hit_flash"
 length = 0.2
@@ -151,21 +166,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_wx8sf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Heart:material:shader_parameter/hit_flash")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wx8sf"]

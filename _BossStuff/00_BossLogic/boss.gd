@@ -28,8 +28,8 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 1
-var can_attack: bool = false
+var phase: int = 2
+var can_attack: bool = true
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint

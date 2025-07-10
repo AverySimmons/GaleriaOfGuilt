@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bneo63uiplbde"]
+[gd_scene load_steps=13 format=3 uid="uid://bneo63uiplbde"]
 
 [ext_resource type="Script" uid="uid://61tamjpp2pna" path="res://_BossStuff/02_BossProjectiles/boss_tornado.gd" id="1_6qm3r"]
 [ext_resource type="Texture2D" uid="uid://dsey6bee516ku" path="res://_BossStuff/00_Sprites/boss_sprites/tornado_attack_spritesheet.png" id="2_2cisa"]
 [ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="3_htwm2"]
 [ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="4_gq5cc"]
+[ext_resource type="AudioStream" uid="uid://47iksolj818x" path="res://_BossStuff/01_Assets/01_SoundEffects/tornado_spawn.wav" id="5_gq5cc"]
+[ext_resource type="AudioStream" uid="uid://e8hd3hv3lgou" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="6_8cmbt"]
 
 [sub_resource type="Animation" id="Animation_htwm2"]
 length = 0.001
@@ -49,6 +51,16 @@ resource_local_to_scene = true
 shader = ExtResource("4_gq5cc")
 shader_parameter/z = 0.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8cmbt"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("5_gq5cc")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jks3x"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("6_8cmbt")
+
 [node name="BossTornado" type="Node2D"]
 script = ExtResource("1_6qm3r")
 
@@ -68,3 +80,11 @@ autoplay = "default"
 show_behind_parent = true
 material = SubResource("ShaderMaterial_8cmbt")
 scale = Vector2(8, 4)
+
+[node name="TornadoSpawn" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_8cmbt")
+volume_db = 8.667
+
+[node name="TornadoShoot" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_jks3x")
+volume_db = 10.0

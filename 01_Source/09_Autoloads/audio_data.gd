@@ -2,7 +2,9 @@ extends Node
 
 const MAX_SOUNDFX_AMT: int = 16
 const INDIVIDUAL_MAX_AMT: int = 4
-const LIGHTNING_MAX: int = 10
+
+const LIGHTNING_MAX: int = 8
+const LIGHTNING_CADENCE: int = 4
 const TORNADO_BULLET_MAX: int = 16
 
 var cur_total: int = 0
@@ -22,7 +24,7 @@ var explosion_sound: int = 0
 var player_hit: int
 var upgrade_amt: int
 var lightning_amt: int
-var lightning_alt: bool = true
+var lightning_interval: int = LIGHTNING_CADENCE
 var tornado_amt: int
 var tornado_bullets: int
 
@@ -159,14 +161,16 @@ func play_sound(sound_name: String, sound) -> void:
 				
 		"lightning":
 			if lightning_amt < LIGHTNING_MAX:
-				lightning_alt = !lightning_alt
-				if lightning_alt:
+				if lightning_interval >= LIGHTNING_CADENCE:
+					lightning_interval = 0
 					sound.play()
 					cur_total += 1
 					lightning_amt += 1
 					await get_tree().create_timer(sound.stream.get_stream(0).get_length(), false).timeout
 					cur_total -= 1
 					lightning_amt -= 1
+				else:
+					lightning_interval += 1
 					
 		"tornado_spawn":
 			if tornado_amt < INDIVIDUAL_MAX_AMT:
@@ -178,7 +182,7 @@ func play_sound(sound_name: String, sound) -> void:
 				tornado_amt -= 1
 				
 		"tornado_shoot":
-			if tornado_bullets < TORNADO_BULLET_MAX:
+			#if tornado_bullets < TORNADO_BULLET_MAX:
 				sound.play()
 				cur_total += 1
 				tornado_bullets += 1

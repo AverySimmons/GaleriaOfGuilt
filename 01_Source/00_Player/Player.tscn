@@ -3,21 +3,21 @@
 [ext_resource type="Script" uid="uid://bkigas5iinswu" path="res://01_Source/00_Player/player.gd" id="1_olyoe"]
 [ext_resource type="PackedScene" uid="uid://bqdo4xcwviugk" path="res://03_Components/shadow.tscn" id="2_f38sp"]
 [ext_resource type="Script" uid="uid://co051lvx0udm5" path="res://01_Source/00_Player/blood_swipe.gd" id="2_i8wje"]
-[ext_resource type="Texture2D" uid="uid://dfa5ak5k3pi1h" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
+[ext_resource type="Texture2D" uid="uid://c2cjtvw3usqau" path="res://00_Assets/00_Sprites/Charcter_sprites/slash_effect_spritesheet.png" id="3_fsf3c"]
 [ext_resource type="Script" uid="uid://daalbp4x5irfh" path="res://01_Source/00_Player/dash.gd" id="4_fmg42"]
 [ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="4_iobk5"]
-[ext_resource type="Texture2D" uid="uid://deagpoqh5jsjh" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
-[ext_resource type="Texture2D" uid="uid://bi0vh001lmcxm" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
-[ext_resource type="AudioStream" uid="uid://bjikoaeelkjou" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
-[ext_resource type="AudioStream" uid="uid://ct42r20netipt" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
-[ext_resource type="AudioStream" uid="uid://u61nq2mb5lvc" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
-[ext_resource type="AudioStream" uid="uid://dppntk2vutuxi" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://bfynlrtxef0mr" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://c6siibn8pltnj" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
-[ext_resource type="AudioStream" uid="uid://d3w2kajxriqhn" path="res://00_Assets/02_SoundEffects/blood_fill.wav" id="15_10xal"]
-[ext_resource type="AudioStream" uid="uid://btf2ef7ewxxyx" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_1.wav" id="16_wm5ru"]
-[ext_resource type="AudioStream" uid="uid://dkig8o1ws6und" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_2.wav" id="17_f77ox"]
-[ext_resource type="AudioStream" uid="uid://dg3fmvg4pcre0" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_3.wav" id="18_sc3rt"]
+[ext_resource type="Texture2D" uid="uid://1ke63i0cjuqb" path="res://00_Assets/00_Sprites/Charcter_sprites/marie_therese_final_spritesheet.png" id="5_f38sp"]
+[ext_resource type="Texture2D" uid="uid://clxn81n4d54ks" path="res://00_Assets/00_Sprites/Charcter_sprites/dash_effect_spritesheet.png" id="8_ukmie"]
+[ext_resource type="AudioStream" uid="uid://7j28ck00cirg" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="9_i14xg"]
+[ext_resource type="AudioStream" uid="uid://baeb4jikao7e5" path="res://00_Assets/02_SoundEffects/player_dash.wav" id="10_fe6dk"]
+[ext_resource type="AudioStream" uid="uid://dlwsuh24nss7s" path="res://00_Assets/02_SoundEffects/player_bite.wav" id="11_dcinv"]
+[ext_resource type="AudioStream" uid="uid://e8hd3hv3lgou" path="res://00_Assets/02_SoundEffects/grenade_throw.wav" id="12_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://c22qa71kl61jp" path="res://00_Assets/02_SoundEffects/grenade_expl.wav" id="13_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://vd3eacdp86ej" path="res://00_Assets/02_SoundEffects/MT_voice.wav" id="14_pg4lp"]
+[ext_resource type="AudioStream" uid="uid://cnb2ofwh1deqf" path="res://00_Assets/02_SoundEffects/blood_fill.wav" id="15_10xal"]
+[ext_resource type="AudioStream" uid="uid://cwpo4nq7ecwb7" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_1.wav" id="16_wm5ru"]
+[ext_resource type="AudioStream" uid="uid://bumreq1fcnlhc" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_2.wav" id="17_f77ox"]
+[ext_resource type="AudioStream" uid="uid://doqimlv8o7j2x" path="res://_BossStuff/01_Assets/01_SoundEffects/sand_walk_3.wav" id="18_sc3rt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_et3bk"]
 radius = 27.074
@@ -936,7 +936,7 @@ pitch_scale = 1.5
 
 [node name="BiteChargeup" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_f77ox")
-volume_db = 24.0
+volume_db = 10.0
 pitch_scale = 2.0
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]

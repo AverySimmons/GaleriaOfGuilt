@@ -1093,7 +1093,7 @@ pitch_scale = 2.0
 [node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_howy7")
 volume_db = 10.0
-pitch_scale = 1.2
+pitch_scale = 0.9
 
 [node name="Spawn" type="AnimationPlayer" parent="."]
 libraries = {

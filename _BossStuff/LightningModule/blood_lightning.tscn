@@ -164,4 +164,4 @@ speed_scale = 0.75
 
 [node name="Lightning" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_v2vem")
-volume_db = 8.088
+volume_db = 0.577
