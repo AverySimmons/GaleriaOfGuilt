@@ -646,8 +646,3 @@ func reset():
 func reset_inputs() -> void:
 	most_recent_press = Input.get_vector("left", "right", "up", "down")
 	return
-
-func play_sandy_footstep() -> void:
-	if is_in_boss_level:
-		footstep_sound.play()
-	return
