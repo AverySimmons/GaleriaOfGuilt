@@ -65,6 +65,7 @@ func _ready() -> void:
 	overlay.hide_xp()
 	GameData.player.global_position = $PlayerSpawn.global_position
 	GameData.is_escaping = false
+	GameData.player.is_in_boss_level = true
 	entities.add_child(GameData.player)
 	blood_manager.spawn()
 	change_wind_dir()
@@ -185,6 +186,9 @@ func lock_level() -> void:
 	camera.limit_bottom = bot_right.y
 	
 	SignalBus.death.connect(enemy_died)
+	
+	GameData.player.boss_intro_ended = true
+	GameData.player.cur_step_slowdown = 1.0
 	
 	spawn_boss()
 

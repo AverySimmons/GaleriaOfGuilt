@@ -1,8 +1,8 @@
 music implemented
-sound effects implemented
+sound effects implemented - Done?
 player walking intro - Brian
-tutorial wording
-boss phase transition animations / hit flash - Joey
+tutorial wording - Done?
+boss phase transition animations - Joey
 blood lizard hitbox bigger - Brian
 
 balance and tweaking

@@ -109,13 +109,19 @@ var blood_effect_low_blood_upgrade_thing: float = 1.0
 
 var mult_because_im_dumb: float = 1.0
 
-var footstep_base_time: float = 1
-var footstep_timer: float = 1
+var footstep_base_time: float = 0.3
+var footstep_timer: float = 0
 var footstep_vel_modifier: float = 2
 var footstep_timer_max: float = 2.5
 var footsteps_audible: bool = false
 
 var is_walking: bool = false
+
+var timer_for_step_slowdown: float = 8
+var cur_step_slowdown: float = 1.0
+var is_in_boss_level: bool = false
+var boss_intro_ended: bool = false
+var zoom_out_timer: float = 19
 
 
 @onready var swipe_sound = $SwipeSound
@@ -171,22 +177,39 @@ func _physics_process(delta: float) -> void:
 		velocity = base_velocity * bb_spd_inc * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
 		if UpgradeData.upgrades_gained[UpgradeData.MORE_SPD_LESS_BG]:
 			velocity += baseline_speed * movement_vector * $blood_swipe.attack_slowdown_actual * current_ability.special_slowdown_actual
+		
+		if is_in_boss_level:
+			if timer_for_step_slowdown > 0:
+				timer_for_step_slowdown -= delta
+			if !boss_intro_ended && timer_for_step_slowdown <= 0:
+				cur_step_slowdown = move_toward(cur_step_slowdown, 0.5, 0.05*delta)
+			velocity *= cur_step_slowdown
+			if footstep_timer > 0:
+				footstep_timer -= delta
+			footstep_base_time = 0.3 + (0.075 - (0.075*cur_step_slowdown))
+			zoom_out_timer -= delta
+			if zoom_out_timer <= 0:
+				footstep_sound.volume_db = move_toward(footstep_sound.volume_db, -24., delta*3.5)
+				if footstep_sound.volume_db <= -24: footstep_timer = 10000000
+			if is_walking && footstep_timer <= 0:
+				footstep_sound.play()
+				footstep_timer = footstep_base_time * 1/cur_step_slowdown
+		else: cur_step_slowdown = 1.0
+		
 		move_and_slide()
 		#sandy footsteps. Will be edited later
 		
-		var velocity_mod = (1 / (velocity.length()+0.01)) + 0.3 #smaller number means faster footsteps
-		var footstep_timer_reset = footstep_base_time * velocity_mod 
-		if footstep_timer_reset >= footstep_timer_max:
-			footstep_timer_reset = footstep_timer_max
+		#var velocity_mod = (1 / (velocity.length()+0.01)) + 0.3 #smaller number means faster footsteps
+		#var footstep_timer_reset = footstep_base_time * velocity_mod 
+		#if footstep_timer_reset >= footstep_timer_max:
+			#footstep_timer_reset = footstep_timer_max
 		#footstep_base_time * Float(0,1]
-		if footstep_timer <= 0 and is_walking and footsteps_audible:
-			footstep_sound.play()
-			footstep_timer = footstep_timer_reset #this is the only place we need to reset the timer
+		#if footstep_timer <= 0 and is_walking and footsteps_audible:
+			#footstep_sound.play()
+			#footstep_timer = footstep_timer_reset #this is the only place we need to reset the timer
 				
 			
-		footstep_timer -= delta
-		
-		
+		#footstep_timer -= delta
 		
 	else:
 		var collided_enemies = $DashChecker.get_overlapping_areas()
@@ -406,7 +429,7 @@ func _physics_process(delta: float) -> void:
 		return
 	## JOEY this is setting the animation player run speed
 	## idk how to scale this with speed exactly
-	animation_player.speed_scale = 1.0 * bb_spd_inc
+	animation_player.speed_scale = 1.0 * bb_spd_inc * cur_step_slowdown
 	
 	## changed this so that if we are playing an attack animation
 	## we dont switch
@@ -622,4 +645,9 @@ func reset():
 
 func reset_inputs() -> void:
 	most_recent_press = Input.get_vector("left", "right", "up", "down")
+	return
+
+func play_sandy_footstep() -> void:
+	if is_in_boss_level:
+		footstep_sound.play()
 	return

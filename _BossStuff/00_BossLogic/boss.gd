@@ -370,10 +370,11 @@ func place_sprinkler() -> void:
 	if sprinklers_placed == 0:
 		angle_to_place = randf_range(0, TAU)
 	else:
-		var bounds: float = -last_sprinkler_angle
+		var bounds: float = last_sprinkler_angle + TAU/2.
 		angle_to_place = randf_range(angle_to_place-(TAU/8.0), angle_to_place+(TAU/8.0))
 	position_for_sprinkler = radius_from_player.rotated(angle_to_place)
 	position_for_sprinkler.y *= 9.0/16.0
+	
 	var t: Tween = create_tween()
 	t.tween_property(self, "global_position", player.global_position+position_for_sprinkler, 0.3)
 	if !is_inside_tree():
