@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://chq5vriu2eqny" path="res://00_Assets/00_Sprites/Map_sprites/player_icon_sprite.png" id="2_qdemy"]
 
 [node name="MapOverlay" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

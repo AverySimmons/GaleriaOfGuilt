@@ -32,10 +32,10 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_wvjyu"]
@@ -72,7 +72,6 @@ script = ExtResource("1_uaasl")
 [node name="Overlay" parent="CanvasLayer" instance=ExtResource("3_d6io1")]
 
 [node name="MapOverlay" parent="CanvasLayer" instance=ExtResource("3_wvjyu")]
-process_mode = 3
 modulate = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/MapOverlay"]

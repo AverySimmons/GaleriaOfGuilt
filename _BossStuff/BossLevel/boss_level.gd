@@ -30,7 +30,7 @@ var enemy_spawn_scene = preload("res://01_Source/01_Combat/Enemies/EnemySpawn/en
 
 var boss_scene = preload("res://_BossStuff/00_BossLogic/boss.tscn")
 
-@export var try_again_mode = true
+@export var try_again_mode = false
 
 var max_enemies_in_wave = 10
 var enemy_credits = 5
@@ -41,10 +41,10 @@ var enemy_spacing = 100
 var enemies_left = 0
 
 var is_roaming = true
-var roaming_window = 25
+var roaming_window = 40
 var roaming_timer = roaming_window
 
-var music_startup_length = 10
+var music_startup_length = 20
 
 signal boss_defeated()
 var timer = 5
@@ -65,23 +65,34 @@ func _ready() -> void:
 	overlay.hide_xp()
 	GameData.player.global_position = $PlayerSpawn.global_position
 	GameData.is_escaping = false
-	GameData.player.is_in_boss_level = true
+	GameData.player.is_in_boss_level = not try_again_mode
 	entities.add_child(GameData.player)
 	blood_manager.spawn()
 	change_wind_dir()
-	# GameData.music_event.set_parameter("phase", 1)
+	GameData.music_event.set_parameter("phase", 1)
+	
+	$Wind.volume_db = -20
+	$Wind.pitch_scale = 0.5
 	
 	if not try_again_mode:
 		start_music()
 		var t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		t.tween_property(sand_effect, "material:shader_parameter/strength", 1., roaming_window)
+		var t3 = create_tween()
+		t3.tween_property($Wind, "volume_db", 0, roaming_window)
+		var t4 = create_tween()
+		t4.tween_property($Wind, "pitch_scale", 1., roaming_window)
 		await get_tree().create_timer(15, false).timeout
 		
 		var t2 = create_tween().set_ease(Tween.EASE_IN)
 		t2.tween_property(camera, "zoom", Vector2.ONE * 0.5, roaming_window-15)
 	else:
-		# GameData.music_event.set_parameter("___", 1) # set it not to do startup
+		GameData.music_event.set_parameter("first_encounter", 0)
 		GameData.music_event.play()
+		var t = create_tween()
+		t.tween_property($Wind, "volume_db", 0, 1)
+		var t2 = create_tween()
+		t2.tween_property($Wind, "pitch_scale", 1, 1)
 		is_roaming = false
 		sand_effect.material.set_shader_parameter("strength", 1)
 		camera.zoom = Vector2.ONE * 0.5
@@ -216,12 +227,41 @@ func trigger_phase(val):
 
 func phase1() -> void:
 	populate_enemies()
+	
+	inner_wall_rot_speed = 2.
 
 func phase2() -> void:
-	pass
+	
+	var t = create_tween()
+	t.tween_property($Wind, "pitch_scale", 1.5, 0.5)
+	inner_wall_rot_speed = 4.
+	shader_wind_speed = 2
 
 func phase3() -> void:
-	pass
+	
+	var t = create_tween()
+	t.tween_property($Wind, "pitch_scale", 2, 0.5)
+	inner_wall_rot_speed = 8.
+	shader_wind_speed = 4.
+
+func phase_3_wind_down(anim) -> void:
+	var t = create_tween()
+	t.tween_property($Wind, "volume_db", -10, 3)
+	inner_wall_rot_speed = 1.5
+	shader_wind_speed = 0.5
+	await anim.animation_finished
+	var t2 = create_tween()
+	t2.tween_property($Wind, "volume_db", 0, 0.5)
+	var t3 = create_tween()
+	t3.tween_method(set_inner_wall_rot_speed, 1.5, 8, 1)
+	var t4 = create_tween()
+	t4.tween_method(set_shader_wind_speed, 0.5, 2, 1)
+
+func set_inner_wall_rot_speed(val):
+	inner_wall_rot_speed = val
+
+func set_shader_wind_speed(val):
+	shader_wind_speed = val
 
 func populate_enemies() -> void:
 	var enemy_list = get_enemy_list()

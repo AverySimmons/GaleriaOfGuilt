@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 			continue
 		parent.gain_blood("special", blood_gain_multiplier, enemy)
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage, flinch_amount, 0)
+		enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amount, 0)
 		parent.dealt_damage_took_damage = true
 		
 	enemies_just_entered.clear()
@@ -73,8 +73,6 @@ func use_ability() -> void:
 	var offset = direction * Vector2(150, 150)
 	offset += Vector2(0, -20)
 	collision_shape_2d.global_position = parent.global_position + offset
-	print(collision_shape_2d.global_position)
-	print(parent.global_position)
 	if has_overlapping_areas():
 		parent.dealt_damage_took_damage = true
 	collision_shape_2d.get_node("Sprite2D").visible = true

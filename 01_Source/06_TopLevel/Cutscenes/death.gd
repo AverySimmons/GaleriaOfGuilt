@@ -10,7 +10,10 @@ func _ready() -> void:
 
 func _on_button_pressed() -> void:
 	var t = create_tween()
-	t.tween_property(GameData.music_event, "volume", 0.35 , 0.8)
+	if GameData.mall_ind == 5:
+		t.tween_property(GameData.music_event, "volume", 1 , 0.8)
+	else:
+		t.tween_property(GameData.music_event, "volume", 0.35 , 0.8)
 	var t2 = create_tween()
 	t2.tween_property($Static, "volume_db", -30, 0.8)
 	

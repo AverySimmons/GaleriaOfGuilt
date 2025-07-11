@@ -226,43 +226,36 @@ process_mode = 3
 script = ExtResource("1_1l5et")
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
-bank_paths = ["res://00_Assets/01_LongAudio/FMOD/Master.strings.bank", "res://00_Assets/01_LongAudio/FMOD/Master.bank"]
 
 [node name="GameMusic" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/level"
-event_guid = "{f37587d6-2eb5-42a9-9817-fb44b87e9446}"
+event_guid = "{00000000-0010-0000-1846-630003020000}"
 volume = 0.0
-"fmod_parameters/combat state/id" = -4863081333960352858
-"fmod_parameters/combat state" = 0
-"fmod_parameters/combat state/variant_type" = 2
 
 [node name="CarMusic" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/cutscene"
-event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
+event_guid = "{00000000-0000-0000-0000-000000000000}"
 volume = 0.0
 
 [node name="MenuMusic" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/menu"
-event_guid = "{66a80aff-0450-44cb-b5b7-2abe0fe360b4}"
+event_guid = "{00000000-0000-0000-0000-000000000000}"
 autoplay = true
 volume = 0.0
-"fmod_parameters/combat state/id" = -4863081333960352858
-"fmod_parameters/combat state" = 0
-"fmod_parameters/combat state/variant_type" = 2
 
 [node name="FmodBankLoader2" type="FmodBankLoader" parent="."]
+bank_paths = ["res://00_Assets/01_LongAudio/FMOD/Master.strings.bank", "res://00_Assets/01_LongAudio/FMOD/Master.bank"]
 
 [node name="BossMusic" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/cutscene"
-event_guid = "{d9526a70-0e90-47c5-8a38-b0d981ea7c76}"
+event_name = "event:/bossfight"
+event_guid = "{e564ba7a-862f-4862-b236-43da7692fd5e}"
+fmod_parameters/first_encounter/id = 1869686323612913196
+fmod_parameters/first_encounter = 1
+fmod_parameters/first_encounter/variant_type = 2
+fmod_parameters/phase/id = -7862763298804866782
+fmod_parameters/phase = 1
+fmod_parameters/phase/variant_type = 2
 
 [node name="EndingMusic" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/level"
-event_guid = "{f37587d6-2eb5-42a9-9817-fb44b87e9446}"
+event_guid = "{00000000-0000-0000-0000-000000000000}"
 volume = 0.0
-"fmod_parameters/combat state/id" = -4863081333960352858
-"fmod_parameters/combat state" = 0
-"fmod_parameters/combat state/variant_type" = 2
 
 [node name="FmodListener2D" type="FmodListener2D" parent="."]
 

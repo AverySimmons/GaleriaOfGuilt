@@ -1,18 +1,19 @@
-[gd_scene load_steps=32 format=3 uid="uid://cm3gximniggbi"]
+[gd_scene load_steps=36 format=3 uid="uid://cm3gximniggbi"]
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
-[ext_resource type="Texture2D" uid="uid://candc11pcrb6u" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
+[ext_resource type="Texture2D" uid="uid://dmjo52o3r23q" path="res://00_Assets/00_Sprites/upgrade_icons/blood_sword2_super.png" id="3_pg52s"]
 [ext_resource type="Shader" uid="uid://hjco17t7vuh3" path="res://01_Source/04_Tests/bloodtest.gdshader" id="4_refew"]
-[ext_resource type="Texture2D" uid="uid://db75cik2vni6e" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
-[ext_resource type="Texture2D" uid="uid://dramhfq3nyqcj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
+[ext_resource type="Texture2D" uid="uid://dpdg4s1xv36s0" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_sprite.png" id="4_tk2ht"]
+[ext_resource type="Texture2D" uid="uid://xmvn0qkitb11" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_tornado_spawn_effect_spritesheet.png" id="5_22jes"]
 [ext_resource type="Script" uid="uid://bn3pm2wrv0ff3" path="res://_BossStuff/LightningModule/lightning_module.gd" id="6_su3p6"]
-[ext_resource type="Texture2D" uid="uid://cyw6ffpmgcyxe" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
+[ext_resource type="Texture2D" uid="uid://g2aysg5l6faj" path="res://_BossStuff/00_Sprites/boss_sprites/heart_boss_lightning_spawn_effect_spritesheet.png" id="7_su3p6"]
 [ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="9_3bdry"]
-[ext_resource type="AudioStream" uid="uid://oftuux4jvd1d" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_land_sandy.wav" id="9_e0yi2"]
-[ext_resource type="AudioStream" uid="uid://dsywowwqrwk5i" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_hit.wav" id="9_wx8sf"]
+[ext_resource type="AudioStream" uid="uid://brplgvm7uoh16" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_land_sandy.wav" id="9_e0yi2"]
+[ext_resource type="AudioStream" uid="uid://c758fqyh5h700" path="res://_BossStuff/01_Assets/01_SoundEffects/heart_hit.wav" id="9_wx8sf"]
 [ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="10_wx8sf"]
-[ext_resource type="AudioStream" uid="uid://s8dci5bj1ilk" path="res://_BossStuff/01_Assets/01_SoundEffects/heartpulsesmaller.wav" id="11_bnn20"]
+[ext_resource type="AudioStream" uid="uid://ckndh2ceqswmg" path="res://_BossStuff/01_Assets/01_SoundEffects/heartpulsesmaller.wav" id="11_bnn20"]
+[ext_resource type="PackedScene" uid="uid://dkvfwytj6lxdc" path="res://01_Source/01_Combat/Blood/blood_module.tscn" id="14_hdxcd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e0yi2"]
 shader = ExtResource("4_refew")
@@ -210,6 +211,145 @@ resource_local_to_scene = true
 shader = ExtResource("10_wx8sf")
 shader_parameter/z = 0.0
 
+[sub_resource type="Animation" id="Animation_phhev"]
+resource_name = "trans"
+length = 9.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Heart:material:shader_parameter/hit_flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 6, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 7, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BloodModule")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.8, 7.05, 7.3, 7.55, 7.8, 8.05, 8.3, 8.4, 8.5, 8.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}, {
+"args": [],
+"method": &"boss_bleeding"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hdxcd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Heart:material:shader_parameter/hit_flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e3top"]
+_data = {
+&"RESET": SubResource("Animation_hdxcd"),
+&"trans": SubResource("Animation_phhev")
+}
+
 [node name="Boss" type="Node2D"]
 script = ExtResource("1_cymkw")
 
@@ -289,3 +429,11 @@ show_behind_parent = true
 material = SubResource("ShaderMaterial_phhev")
 position = Vector2(-27, -10)
 scale = Vector2(64, 32)
+
+[node name="Phase3" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_e3top")
+}
+speed_scale = 0.45
+
+[node name="BloodModule" parent="." instance=ExtResource("14_hdxcd")]

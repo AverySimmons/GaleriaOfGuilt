@@ -36,7 +36,7 @@ var bb_spd_inc: float = 1.0
 var bb_hitspd_inc: float = 1.0
 @export var bb_timer_time: float = 3
 @onready var bb_timer: float = bb_timer_time
-@export var bb_to_health_ratio: float = 0.7
+@export var bb_to_health_ratio: float = 0.55
 var dealt_damage_took_damage: bool = false
 @export var bb_decrease_rate: float = 10
 var bb_decrease: float = 0
@@ -182,14 +182,14 @@ func _physics_process(delta: float) -> void:
 			if timer_for_step_slowdown > 0:
 				timer_for_step_slowdown -= delta
 			if !boss_intro_ended && timer_for_step_slowdown <= 0:
-				cur_step_slowdown = move_toward(cur_step_slowdown, 0.5, 0.05*delta)
+				cur_step_slowdown = move_toward(cur_step_slowdown, 0.5, 0.035*delta)
 			velocity *= cur_step_slowdown
 			if footstep_timer > 0:
 				footstep_timer -= delta
 			footstep_base_time = 0.3 + (0.075 - (0.075*cur_step_slowdown))
 			zoom_out_timer -= delta
 			if zoom_out_timer <= 0:
-				footstep_sound.volume_db = move_toward(footstep_sound.volume_db, -24., delta*3.5)
+				footstep_sound.volume_db = move_toward(footstep_sound.volume_db, -24., delta*2.)
 				if footstep_sound.volume_db <= -24: footstep_timer = 10000000
 			if is_walking && footstep_timer <= 0:
 				footstep_sound.play()
@@ -382,6 +382,9 @@ func _physics_process(delta: float) -> void:
 		bb_is_decreasing = false
 		if $BloodHealing.playing:
 			$BloodHealing.stop()
+	
+	if blood_bar <= 0 and $BloodHealing.playing:
+		$BloodHealing.stop()
 	
 	if UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN] && blood_bar >= bb_max*0.7:
 		heal_damage(hp_regen*delta)

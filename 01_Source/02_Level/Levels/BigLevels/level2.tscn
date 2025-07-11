@@ -190,6 +190,9 @@ shape = SubResource("RectangleShape2D_cf11v")
 position = Vector2(-385, -499)
 shape = SubResource("RectangleShape2D_cf11v")
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="9"]
+polygon = PackedVector2Array(-3, 28, 68, 25, 157, -2, 181, -28, 144, -60, 85, -78, 6, -81, -68, -76, -130, -53, -167, -20, -142, 2, -93, 20)
+
 [node name="NavigationRegion2D" parent="." index="12"]
 navigation_polygon = SubResource("NavigationPolygon_cf11v")
 

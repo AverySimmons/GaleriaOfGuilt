@@ -69,7 +69,7 @@ func get_levels(node_num) -> Dictionary[Vector2, Level]:
 		var new_level: Level
 		if node.pos == Vector2.ZERO:
 			new_level = starting_level_scene.instantiate()
-		elif con_num == 4 and randf() < 0.01:
+		elif con_num == 4 and randf() < 0.03:
 			new_level = secret_level_scene.instantiate()
 		else:
 			new_level = lvl_list.pick_random().instantiate()

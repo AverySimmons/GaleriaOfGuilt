@@ -33,7 +33,7 @@ const GROUND: int = 4
 const RISING: int = 5
 var cur_state: int = MOVING
 
-var phase: int = 3
+var phase: int = 1
 var changing_phase: bool = false
 var can_attack: bool = true
 
@@ -106,6 +106,7 @@ var indicators_node
 #var test_timer: float = 1
 
 func _ready() -> void:
+	SignalBus.boss_health_changed.emit(cur_hp/float(MAX_HP))
 	lightning_module.indicator_node = indicators_node
 	global_position = movement_point.global_position
 	heart_sprite.global_position += Vector2(0, y_offset)
@@ -217,7 +218,6 @@ func adjust_heart_y_pos(delta: float) -> void:
 
 func change_phase(current_phase: int) -> void:
 	phase = current_phase + 1
-	SignalBus.change_phase.emit(phase)
 	#print(phase)
 	# Setting special move timer to begin with:
 	match phase:
@@ -441,13 +441,18 @@ func initiate_rising() -> void:
 	if phase == 1 && cur_hp <= PHASE_2_THRESHOLD:
 		change_phase(phase)
 		phase_changed = true
-		# GameData.music_event.set_parameter("phase", 2)
+		GameData.music_event.set_parameter("phase", 2)
 		
 		# Cool transition?
 	elif phase == 2 && cur_hp <= PHASE_3_THRESHOLD:
 		change_phase(phase)
 		phase_changed = true
-		# GameData.music_event.set_parameter("phase", 3)
+		GameData.music_event.set_parameter("phase", 3)
+		
+		get_parent().get_parent().phase_3_wind_down($Phase3)
+		
+		$Phase3.play("trans")
+		await $Phase3.animation_finished
 		
 		# Cool transition:
 		# Some sort of flash starts happening
@@ -468,8 +473,9 @@ func initiate_rising() -> void:
 		#heart_sprite.global_position = player.global_position
 		# global_position = player.global_position
 		changing_phase = true
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(2.0).timeout
 		changing_phase = false
+		SignalBus.change_phase.emit(phase)
 		#heart_sprite.global_position = prev_sprite_position
 		#global_position = prev_position
 		heart_sprite.scale = Vector2(1.0, 1.0)

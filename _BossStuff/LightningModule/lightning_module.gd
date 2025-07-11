@@ -38,6 +38,8 @@ func add_lightning(num: int) -> void:
 func activate(time: float) -> void:
 	state = ACTIVE
 	timer = time
+	for s in spawners:
+		s.velocity += Vector2.from_angle(randf_range(0,TAU)) * 500
 
 func stop() -> void:
 	state = STOPPED

@@ -90,6 +90,7 @@ func _input(event: InputEvent) -> void:
 				$BossMusic.paused = false
 
 func spawn_boss_level():
+	GameData.player.reset()
 	GameData.music_event = $BossMusic
 	player_dying = false
 	boss_level = boss_scene.instantiate()
@@ -108,6 +109,7 @@ func spawn_game_manager(is_respawn: bool):
 	
 	GameData.is_escaping = false
 	player_dying = false
+	GameData.player.reset()
 	game_manager = game_manager_scene.instantiate()
 	game_manager.tint = cur_tint
 	game_manager.item_dialog.connect(item_dialog)
@@ -167,12 +169,20 @@ func dialogic_stupid(inp: String) -> void:
 	elif inp == "intro_finished": intro_finished()
 	elif inp == "pre_mall_finished": pre_mall_finished()
 	elif inp == "post_mall_finished": post_mall_finished()
+	elif inp == "ending_over": ending_over()
 
 func pause_game() -> void:
 	get_tree().paused = true
 
 func unpause_game() -> void:
 	get_tree().paused = false
+
+func ending_over():
+	transition_player.speed_scale = 0.25
+	transition_player.play("fade_out")
+	await transition_player.animation_finished
+	await get_tree().create_timer(1).timeout
+	get_tree().quit()
 
 func _on_button_pressed() -> void:
 	$ButtonClick.play()

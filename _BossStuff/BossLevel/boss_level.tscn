@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://cfjtqh4bk21v"]
+[gd_scene load_steps=22 format=4 uid="uid://cfjtqh4bk21v"]
 
 [ext_resource type="Script" uid="uid://c1s3tpppcjwnn" path="res://_BossStuff/BossLevel/boss_level.gd" id="1_et2my"]
 [ext_resource type="PackedScene" uid="uid://bka1wtsyvvvgk" path="res://01_Source/01_Combat/Blood/blood_manager.tscn" id="1_o4hei"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://cfw2fpkavxf0f" path="res://_BossStuff/BossLevel/sand_effect.gdshader" id="6_ax301"]
 [ext_resource type="Script" uid="uid://cis273ry02krq" path="res://01_Source/01_Combat/GameManager/upgrade_manager.gd" id="8_3v1p3"]
 [ext_resource type="PackedScene" uid="uid://uv6n8vwwakt0" path="res://01_Source/05_UI/UpgradeScreen/upgrade_screen.tscn" id="9_4ae0g"]
+[ext_resource type="AudioStream" uid="uid://cdiehl7jmdhve" path="res://_BossStuff/01_Assets/00_LongAudio/sand_wind_loop.wav" id="10_4ae0g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pmn66"]
 texture = ExtResource("2_3qoh1")
@@ -19,14 +20,14 @@ texture_region_size = Vector2i(512, 512)
 tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_pmn66")
 
-[sub_resource type="QuadMesh" id="QuadMesh_x8ck2"]
+[sub_resource type="QuadMesh" id="QuadMesh_tk8so"]
 size = Vector2(30, -30)
 
-[sub_resource type="MultiMesh" id="MultiMesh_5ug5k"]
+[sub_resource type="MultiMesh" id="MultiMesh_4ae0g"]
 resource_local_to_scene = true
 use_custom_data = true
 visible_instance_count = 0
-mesh = SubResource("QuadMesh_x8ck2")
+mesh = SubResource("QuadMesh_tk8so")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ax301"]
 vertices = PackedVector2Array(32.8672, -663.023, 199.531, -628.289, 385.359, -575.203, 472.398, -473.5, 573.289, -354.789, 638.344, -189.203, 679.813, 33.9219, 640.461, 228.68, 540.141, 428.352, 380.609, 544.547, 220.242, 634.203, 123.141, 684.219, -1.07031, 695.953, -148.578, 683.172, -318.398, 612.078, -451.492, 531.25, -567.141, 399.781, -659.273, 268.453, -678.039, 53.1563, -688.867, -75.8516, -623.883, -280.68, -475.07, -510.297, -294.133, -602.727, -100.508, -665.961)
@@ -91,14 +92,14 @@ tile_set = SubResource("TileSet_5p0tm")
 z_index = -2
 position = Vector2(10000, 0)
 
+[node name="BloodManager" parent="Level" instance=ExtResource("1_o4hei")]
+multimesh = SubResource("MultiMesh_4ae0g")
+
 [node name="TopLeft" type="Marker2D" parent="Level"]
 position = Vector2(-1020, -1020)
 
 [node name="BottomRight" type="Marker2D" parent="Level"]
 position = Vector2(1020, 1020)
-
-[node name="BloodManager" parent="Level" instance=ExtResource("1_o4hei")]
-multimesh = SubResource("MultiMesh_5ug5k")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Level"]
 collision_layer = 9
@@ -146,3 +147,7 @@ process_mode = 3
 script = ExtResource("8_3v1p3")
 
 [node name="UpgradeScreen" parent="CanvasLayer/UpgradeManager" instance=ExtResource("9_4ae0g")]
+
+[node name="Wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_4ae0g")
+autoplay = true

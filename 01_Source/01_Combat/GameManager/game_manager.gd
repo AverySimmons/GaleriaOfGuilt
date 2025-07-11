@@ -63,6 +63,9 @@ func transition_levels(dir: Vector2) -> void:
 	if !is_inside_tree(): return
 	await get_tree().create_timer(0.1, false).timeout
 	level_enter.emit()
+	await get_tree().create_timer(0.1, false).timeout
+	if not Input.is_action_pressed("map"):
+		$CanvasLayer/MapOverlay/AnimationPlayer.play("off")
 
 func item_picked_up():
 	GameData.is_escaping = true
