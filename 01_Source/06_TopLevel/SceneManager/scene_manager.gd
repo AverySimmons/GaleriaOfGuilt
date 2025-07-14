@@ -48,7 +48,7 @@ func _ready() -> void:
 	GameData.music_event = $GameMusic
 	
 	var t = create_tween()
-	t.tween_property($MenuMusic, "volume", 1.5, 0.5)
+	t.tween_property($MenuMusic, "volume", 1.5, 3)
 	
 	if test_game:
 		$TitleScreen.call_deferred("queue_free")
@@ -359,7 +359,7 @@ func boss_defeated() -> void:
 	
 	$EndingMusic.play()
 	var t2 = create_tween()
-	t2.tween_property($EndingMusic, "volume", 0.5, 1)
+	t2.tween_property($EndingMusic, "volume", 0.75, 1)
 	
 	ending = ending_scene.instantiate()
 	add_child(ending)
