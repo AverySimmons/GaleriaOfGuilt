@@ -139,13 +139,14 @@ var movement_animations = {
 	"run_down" : null
 }
 
+@onready var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
+
 func _ready() -> void:
 	current_hp = max_hp
 	GameData.player = self
 	SignalBus.death.connect(gain_exp)
 	SignalBus.unpause.connect(correct_most_recent_press)
 	# Set special ability to bite
-	var bite_scene = preload("res://03_Components/00_Special_Abilities/bite.tscn")
 	set_ability(bite_scene)
 	#var shotgun_scene = preload("res://03_Components/00_Special_Abilities/shotgun.tscn")
 	#set_ability(shotgun_scene)
