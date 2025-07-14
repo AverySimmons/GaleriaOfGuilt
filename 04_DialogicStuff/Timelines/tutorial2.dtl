@@ -1,7 +1,8 @@
 [signal arg="pause_game"]
-marie_character: When I reach maximum blood, I enter a blood rage state.
-marie_character: My attacks and movement get stronger and better!
-marie_character: When I'm not fighting my blood bar will drain and I'll heal a little. 
+marie_character: When I hit omens I get blood and xp.
+marie_character: The more blood I have the faster I move and attack!
+marie_character: When I'm not fighting my blood bar will drain and I'll heal a little.
 marie_character: When my blood is over half full, it'll start draining over time.
-marie_character: Let's dust these puny omens!
+marie_character: If I can get to maximum blood I'll enter a blood rage...
+Enough chatting, let's find that signal!
 [signal arg="tutorial_over"]
