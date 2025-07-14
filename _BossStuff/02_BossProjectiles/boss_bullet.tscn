@@ -32,7 +32,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
-"values": [Vector2(0.75, 0.75), Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(1.75, 1.75)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iv4el"]
@@ -52,6 +52,7 @@ collision_layer = 0
 script = ExtResource("1_xp4ff")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0, 0.95, 1)
 rotation = -1.5708
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pnhoq")

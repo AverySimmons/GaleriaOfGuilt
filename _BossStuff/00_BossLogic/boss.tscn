@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cm3gximniggbi"]
+[gd_scene load_steps=38 format=3 uid="uid://cm3gximniggbi"]
 
 [ext_resource type="Script" uid="uid://crlt2biu8wmc0" path="res://_BossStuff/00_BossLogic/boss.gd" id="1_cymkw"]
 [ext_resource type="Script" uid="uid://bpuy6arfybv37" path="res://_BossStuff/00_BossLogic/movement_point.gd" id="2_xthuc"]
@@ -210,6 +210,13 @@ stream_0/stream = ExtResource("11_bnn20")
 resource_local_to_scene = true
 shader = ExtResource("10_wx8sf")
 shader_parameter/z = 0.0
+
+[sub_resource type="Gradient" id="Gradient_hdxcd"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.28, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e3top"]
+gradient = SubResource("Gradient_hdxcd")
 
 [sub_resource type="Animation" id="Animation_hdxcd"]
 length = 0.001
@@ -429,6 +436,7 @@ show_behind_parent = true
 material = SubResource("ShaderMaterial_phhev")
 position = Vector2(-27, -10)
 scale = Vector2(64, 32)
+texture = SubResource("GradientTexture2D_e3top")
 
 [node name="Phase3" type="AnimationPlayer" parent="."]
 libraries = {

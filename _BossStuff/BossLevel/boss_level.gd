@@ -204,7 +204,9 @@ func lock_level() -> void:
 	spawn_boss()
 
 func upgrade_enemy(enemy: Enemy) -> void:
+	if not is_instance_valid(enemy): return
 	var new_enemy: Enemy = upgraded_scenes[enemy.type].instantiate()
+	var hp_loss = enemy.hp_max - enemy.hp
 	new_enemy.global_position = enemy.global_position
 	new_enemy.level = self
 	new_enemy.indicator_node = attack_indicators
@@ -212,6 +214,7 @@ func upgrade_enemy(enemy: Enemy) -> void:
 	if enemy.target_ind: enemy.target_ind.conceal()
 	enemy.queue_free()
 	entities.add_child(new_enemy)
+	new_enemy.take_damage(hp_loss, 0, 0)
 
 func enemy_died(enemy) -> void:
 	enemies_left -= 1

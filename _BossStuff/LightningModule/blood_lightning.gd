@@ -3,8 +3,8 @@ extends Area2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var is_active: bool = false
-var active_time: float = 1.
-var active_timer: float = 1.
+var active_time: float = 0.5
+var active_timer: float = 0.5
 var damage : float = 15
 
 func _ready() -> void:
