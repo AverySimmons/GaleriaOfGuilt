@@ -123,6 +123,7 @@ var is_in_boss_level: bool = false
 var boss_intro_ended: bool = false
 var zoom_out_timer: float = 19
 
+var test_timer: float = 5
 
 @onready var swipe_sound = $SwipeSound
 @onready var dash_sound = $DashSound
@@ -189,7 +190,7 @@ func _physics_process(delta: float) -> void:
 			footstep_base_time = 0.3 + (0.075 - (0.075*cur_step_slowdown))
 			zoom_out_timer -= delta
 			if zoom_out_timer <= 0:
-				footstep_sound.volume_db = move_toward(footstep_sound.volume_db, -24., delta*2.)
+				footstep_sound.volume_db = move_toward(footstep_sound.volume_db, -24., delta*1.)
 				if footstep_sound.volume_db <= -24: footstep_timer = 10000000
 			if is_walking && footstep_timer <= 0:
 				footstep_sound.play()
@@ -371,14 +372,14 @@ func _physics_process(delta: float) -> void:
 		bb_decrease += bb_decrease_rate * delta
 		var heal_amt = blood_bar
 		blood_bar = move_toward(blood_bar, 0, bb_decrease * delta)
+		if !bb_is_decreasing:
+			bb_is_decreasing = true
+			$BloodHealing.play()
 		SignalBus.bb_change.emit()
 		heal_amt -= blood_bar
 		if !UpgradeData.upgrades_gained[UpgradeData.HIGH_BLOOD_REGEN]:
-			if not bb_is_decreasing and current_hp < max_hp:
-				bb_is_decreasing = true
-				$BloodHealing.play()
 			heal_damage(heal_amt * bb_to_health_ratio)
-	if bb_timer != 0 or current_hp >= max_hp:
+	elif bb_timer != 0:
 		bb_is_decreasing = false
 		if $BloodHealing.playing:
 			$BloodHealing.stop()
@@ -426,7 +427,13 @@ func _physics_process(delta: float) -> void:
 	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.35*bb_multiplier2)
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
-	
+	if test_timer <= 0:
+		print("bb_hitspd: ", bb_hitspd)
+		print("bb_spd: ", bb_spd)
+		print(attack_cooldown * bb_hitspd_inc)
+		test_timer = 5
+	else:
+		test_timer -= delta
 	# Animation stuff -------------------------------------------------------
 	if is_dashing:
 		return

@@ -176,6 +176,8 @@ func pause_game() -> void:
 
 func unpause_game() -> void:
 	get_tree().paused = false
+	if GameData.mall_ind == 5:
+		$BossMusic.paused = false
 
 func ending_over():
 	transition_player.speed_scale = 0.25

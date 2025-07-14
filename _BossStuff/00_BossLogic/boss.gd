@@ -17,7 +17,6 @@ extends Node2D
 @onready var sprinkler_scene = preload("res://_BossStuff/02_BossProjectiles/boss_tornado.tscn")
 
 signal spawn_enemies()
-
 ## boss should go to the middle of the player's screen when phase transitioning
 
 ## boss should drop down a little when attacking so its more clearly in view?
@@ -35,7 +34,7 @@ var cur_state: int = MOVING
 
 var phase: int = 1
 var changing_phase: bool = false
-var can_attack: bool = true
+var can_attack: bool = false
 
 # Movement variables ==============================================================
 @onready var movement_point: Node2D = $MovementPoint
@@ -49,7 +48,7 @@ var y_direction: int = -1 # 1 is down, -1 is up
 var y_acceleration: float = y_top_speed/0.2
 
 # HP/Ground state variables ======================================================
-const MAX_HP: float = 55
+const MAX_HP: float = 1000
 const MAX_TIME_ON_GROUND: float = 8
 const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
 const PHASE_2_THRESHOLD: float = MAX_HP*0.667
@@ -63,9 +62,10 @@ signal boss_dies()
 
 # Special Move Timers ============================================================
 var special_move_time_phase2: float = 7.0
-var special_move_time_phase3: float = 5.0
+var special_move_time_phase3: float = 5.5
 var special_move_timer: float = 7.0
 var will_be_lightning: bool = false
+var dropped: bool = false
 
 # Lightning variables ============================================================
 const MAX_LIGHTNING_AMT_P2: int = 2
@@ -75,8 +75,8 @@ var lightning_timer: float = lightning_time
 var lightning_amt: int = 0
 
 # Sprinkler variables =============================================================
-const AMT_SPRINKLERS_P2: int = 2
-const AMT_SPRINKLERS_P3: int = 3
+const AMT_SPRINKLERS_P2: int = 1
+const AMT_SPRINKLERS_P3: int = 2
 const BETWEEN_SPRINKLERS_TIME: float = 1.5
 var amt_sprinklers: int
 var sprinkler_timer: float
@@ -88,12 +88,12 @@ var radius_from_player: Vector2 = Vector2(400, 0)
 # Enemy upgrade ===================================================================
 signal upgrade_enemy(enemy: Enemy)
 
-const ENEMY_INTERVAL_LOWER: int = 2
-const ENEMY_INTERVAL_UPPER: int = 4
-const TIME_UNTIL_UPGRADE_SHOT: int = 2
+const ENEMY_INTERVAL_LOWER: int = 4
+const ENEMY_INTERVAL_UPPER: int = 7
+const TIME_UNTIL_UPGRADE_SHOT: int = 4
 
 var upgrade_timer: float = 4
-var amt_to_upgrade: float = 4
+var amt_to_upgrade: float = 3
 var chosen_interval: float = 4
 var was_before_threshold: bool = true
 
@@ -149,6 +149,7 @@ func _physics_process(delta: float) -> void:
 			if lightning_timer <= 0:
 				cur_state = MOVING
 				lightning_spawn.visible = false
+				y_offset += 150
 		SPRINKLER:
 			if !tornado_spawn_ap.is_playing():
 				tornado_spawn_ap.play("tornado_spawn")
@@ -164,6 +165,7 @@ func _physics_process(delta: float) -> void:
 				tornado_spawn.visible = false
 				amt_sprinklers = 0
 				sprinklers_placed = 0
+				y_offset += 150
 			# Control when it should place sprinklers
 			between_sprinklers_timer = move_toward(between_sprinklers_timer, 0, delta)
 			if between_sprinklers_timer <= 0:
@@ -175,7 +177,7 @@ func _physics_process(delta: float) -> void:
 			time_on_ground = move_toward(time_on_ground, MAX_TIME_ON_GROUND, delta)
 			hp_lost_this_phase += (prev_hp-cur_hp)
 			prev_hp = cur_hp
-			if (hp_lost_this_phase >= LOSABLE_HP_PER_PHASE) || (time_on_ground >= MAX_TIME_ON_GROUND):
+			if (phase != 3) && ((hp_lost_this_phase >= LOSABLE_HP_PER_PHASE) || (time_on_ground >= MAX_TIME_ON_GROUND)):
 				initiate_rising()
 			pass
 		RISING: 
@@ -229,12 +231,13 @@ func change_phase(current_phase: int) -> void:
 	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
 		GameData.player.gain_blood_other(80)
 		GameData.player.dealt_damage_took_damage = true
+	will_be_lightning = true
 	return
 
 func choose_enemies() -> Array[Enemy]:
 	var chosen_enemies: Array[Enemy]
 	if list_of_unupgraded_enemies.size() <= amt_to_upgrade:
-		chosen_enemies = list_of_unupgraded_enemies
+		chosen_enemies = list_of_unupgraded_enemies.duplicate()
 		list_of_unupgraded_enemies.clear()
 		return chosen_enemies
 	
@@ -255,13 +258,12 @@ func upgrade_enemies() -> void:
 		was_before_threshold = true
 		return
 	var chosen_enemies: Array[Enemy] = choose_enemies()
-	
 	for enemy in chosen_enemies:
 		if !is_instance_valid(enemy):
 			continue
 		enemy.mark_for_upgrade()
 	
-	await get_tree().create_timer(2, false).timeout
+	await get_tree().create_timer(TIME_UNTIL_UPGRADE_SHOT, false).timeout
 	if cur_state in [FALLING, GROUND, RISING] || !is_inside_tree():
 		return
 	for enemy in chosen_enemies:
@@ -281,11 +283,11 @@ func reset_upgrade_timer() -> void:
 	upgrade_timer = upgrade_time
 	chosen_interval = upgrade_timer
 	if phase == 1:
-		amt_to_upgrade = upgrade_time
+		amt_to_upgrade = int(upgrade_time/2)
 	elif phase == 2:
-		amt_to_upgrade = int(round(upgrade_time * 1.5))
+		amt_to_upgrade = int(round(upgrade_time * 1.3)/2)
 	elif phase == 3:
-		amt_to_upgrade = int(round(upgrade_time * 2))
+		amt_to_upgrade = int(round(upgrade_time * 1.5)/2)
 	return
 
 func remove_from_selectable(enemy: Enemy) -> void:
@@ -304,6 +306,7 @@ func initiate_attack() -> void:
 			start_lightning_attack()
 		1:
 			start_sprinkler_attack()
+	y_offset -= 150
 	return
 
 func choose_attack() -> int:
@@ -324,7 +327,7 @@ func start_lightning_attack() -> void:
 			return
 		2:
 			if lightning_amt < MAX_LIGHTNING_AMT_P2:
-				lightning_module.add_lightning(1)
+				lightning_module.add_lightning(2)
 				lightning_amt += 1
 			special_move_timer = special_move_time_phase2 + lightning_time
 		3:
@@ -368,7 +371,7 @@ func place_sprinkler() -> void:
 	var angle_to_place: float
 	
 	if sprinklers_placed == 0:
-		angle_to_place = randf_range(0, TAU)
+		angle_to_place = (GameData.boss_fight_offset - player.global_position).angle() + randf_range(-TAU/5., TAU/5.)
 	else:
 		var bounds: float = last_sprinkler_angle + TAU/2.
 		angle_to_place = randf_range(bounds-(TAU/4.0), bounds+(TAU/4.0))
@@ -481,7 +484,7 @@ func initiate_rising() -> void:
 		heart_sprite.scale = Vector2(1.0, 1.0)
 	if phase != 1:
 		can_attack = true
-		special_move_timer = 6.0
+		special_move_timer = 4.0
 	reset_upgrade_timer()
 	lightning_module.resume()
 	cur_state = MOVING

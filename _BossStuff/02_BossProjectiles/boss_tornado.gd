@@ -10,7 +10,7 @@ var entities_node
 var z_offset: float = 400
 var fall_speed = 1000
 var total_waves = 30
-var wave_cooldown = 0.1
+var wave_cooldown = 0.2
 var bullet_num = 5
 var wave_timer = wave_cooldown
 var cur_rot = randf_range(0, TAU)

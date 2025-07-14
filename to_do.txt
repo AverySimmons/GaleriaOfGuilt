@@ -1,7 +1,8 @@
 fmod bug stuff - combine banks, add ending track
+^^^^^ No music outside of boss lol
 balance and tweaking
 
 stuff ive (avery) noticed in playtesting:
-movement is still weird i swear, nobody belives me but it is!!!!
+movement is still weird i swear, nobody belives me but it is!!!! Schizo
 sometimes i have special costs blood and i dont realize \
 	and i think the game is glitched bc i cant special

@@ -197,7 +197,7 @@ func get_marked() -> void:
 	
 func mark_for_upgrade() -> void:
 	$MarkForUpgrade.play('upgrade_mark')
-	await get_tree().create_timer(2, false).timeout
+	await get_tree().create_timer(4, false).timeout
 	
 	
 	velocity = Vector2.ZERO
@@ -207,7 +207,7 @@ func mark_for_upgrade() -> void:
 	
 	if !is_inside_tree():
 		return
-	await get_tree().create_timer(0.3, false).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	if death_state:
 		return
 	level.upgrade_enemy(self)

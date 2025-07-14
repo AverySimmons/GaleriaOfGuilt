@@ -32,8 +32,8 @@ var boss_scene = preload("res://_BossStuff/00_BossLogic/boss.tscn")
 
 @export var try_again_mode = false
 
-var max_enemies_in_wave = 10
-var enemy_credits = 5
+var max_enemies_in_wave = 5
+var enemy_credits = 150
 var level_radius = 720 - 100
 var enemy_player_spacing = 200
 var enemy_spacing = 100
@@ -236,6 +236,8 @@ func phase2() -> void:
 	t.tween_property($Wind, "pitch_scale", 1.5, 0.5)
 	inner_wall_rot_speed = 4.
 	shader_wind_speed = 2
+	
+	enemy_credits += 50
 
 func phase3() -> void:
 	
@@ -243,6 +245,8 @@ func phase3() -> void:
 	t.tween_property($Wind, "pitch_scale", 2, 0.5)
 	inner_wall_rot_speed = 8.
 	shader_wind_speed = 4.
+	
+	enemy_credits += 50
 
 func phase_3_wind_down(anim) -> void:
 	var t = create_tween()
