@@ -29,12 +29,14 @@ var boss_level
 var player_dying = false
 
 var test_game = true
-var test_boss = true
+var test_boss = false
 
 var tut2 = false
-var boss_intro_played = true
+var boss_intro_played = false
 
 var cur_tint
+
+var cant_start = true
 
 func _ready() -> void:
 	if test_boss:
@@ -49,6 +51,8 @@ func _ready() -> void:
 	
 	var t = create_tween()
 	t.tween_property($MenuMusic, "volume", 1.5, 3)
+	await t.finished
+	cant_start = false
 	
 	if test_game:
 		$TitleScreen.call_deferred("queue_free")
@@ -154,7 +158,8 @@ func stage_complete():
 	add_van(true)
 	transition_player.play("line_wipe_in")
 	await transition_player.animation_finished
-	Dialogic.start("post_mall_" + str(GameData.mall_ind))
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	Dialogic.start("post_mall_" + str(GameData.mall_ind)).process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	await t.finished
 	$GameMusic.stop()
@@ -187,6 +192,7 @@ func ending_over():
 	get_tree().quit()
 
 func _on_button_pressed() -> void:
+	if cant_start: return
 	$ButtonClick.play()
 	var t = create_tween()
 	t.tween_property($MenuMusic, "volume", 0., 0.5)
@@ -207,10 +213,10 @@ func _on_button_pressed() -> void:
 	
 	transition_player.play("fade_in")
 	await transition_player.animation_finished
-	
-	Dialogic.start("intro")
-	
 	$MenuMusic.stop()
+	
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	Dialogic.start("intro").process_mode = Node.PROCESS_MODE_ALWAYS
 
 func intro_finished():
 	fade_rect.self_modulate = Color("06000d")
@@ -228,7 +234,8 @@ func intro_finished():
 	var t2 = create_tween()
 	t2.tween_property($CarMusic, "volume", 0.5, 1)
 	await t2.finished
-	Dialogic.start("post_intro")
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	Dialogic.start("post_intro").process_mode = Node.PROCESS_MODE_ALWAYS
 
 func post_mall_finished(): # or post intro finished
 	var t = create_tween()
@@ -249,7 +256,8 @@ func post_mall_finished(): # or post intro finished
 	var t2 = create_tween()
 	t2.tween_property($CarMusic, "volume", 0.5, 1)
 	await t2.finished
-	Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1))
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	Dialogic.start("pre_mall_" + str(GameData.mall_ind + 1)).process_mode = Node.PROCESS_MODE_ALWAYS
 
 func pre_mall_finished():
 	var t = create_tween()
@@ -365,4 +373,5 @@ func boss_defeated() -> void:
 	add_child(ending)
 	transition_player.play("fade_in")
 	await transition_player.animation_finished
-	Dialogic.start("ending")
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	Dialogic.start("ending").process_mode = Node.PROCESS_MODE_ALWAYS

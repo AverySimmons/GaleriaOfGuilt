@@ -10,8 +10,8 @@ void vertex() {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	vec2 uv = UV * 2. - 1.;
-	
-	float mask = (length(uv) - 0.6) * strength;
+	float true_str = min(pink_mix*0.5+strength, 1.);
+	float mask = (length(uv) - 0.6) * true_str;
 	
 	vec3 color = mix(vec3(1,0,0),vec3(1,0,1.),pink_mix);
 	

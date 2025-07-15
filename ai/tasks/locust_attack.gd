@@ -24,6 +24,7 @@ func _setup() -> void:
 	
 	
 func _enter() -> void:
+	enemy.hurtbox.monitoring = true
 	dash_duration = 0
 	find_player_timer = 0.1
 	## I'm changing this slightly so that the dash is towards a location
@@ -62,6 +63,7 @@ func _tick(delta: float) -> Status:
 	return RUNNING
 	
 func _exit() -> void:
+	enemy.hurtbox.monitoring = false
 	find_player_timer = 0.1
 	enemy.velocity = Vector2.ZERO 
 

@@ -434,13 +434,13 @@ func _physics_process(delta: float) -> void:
 	bb_multiplier = max(bb_multiplier2*bb_hitspd_inc*bb_hitspd_inc, 0.35*bb_multiplier2)
 	swipe_bb_actual = swipe_bb_gain * bb_multiplier
 	special_bb_actual = special_bb_gain * bb_multiplier
-	if test_timer <= 0:
-		print("bb_hitspd: ", bb_hitspd)
-		print("bb_spd: ", bb_spd)
-		print(attack_cooldown * bb_hitspd_inc)
-		test_timer = 5
-	else:
-		test_timer -= delta
+	#if test_timer <= 0:
+		#print("bb_hitspd: ", bb_hitspd)
+		#print("bb_spd: ", bb_spd)
+		#print(attack_cooldown * bb_hitspd_inc)
+		#test_timer = 5
+	#else:
+		#test_timer -= delta
 	# Animation stuff -------------------------------------------------------
 	if is_dashing:
 		return
@@ -599,6 +599,7 @@ func set_ability(ability) -> void:
 		remove_child(current_ability)
 		current_ability.queue_free()
 	current_ability = new_ability
+	using_attack_or_special_or_dash = false
 	return
 
 func is_moving() -> bool:
