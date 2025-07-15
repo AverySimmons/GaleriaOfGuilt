@@ -49,7 +49,7 @@ var y_acceleration: float = y_top_speed/0.2
 
 # HP/Ground state variables ======================================================
 const MAX_HP: float = 1000
-const MAX_TIME_ON_GROUND: float = 8
+const MAX_TIME_ON_GROUND: float = 11
 const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
 const PHASE_2_THRESHOLD: float = MAX_HP*0.667
 const PHASE_3_THRESHOLD: float = MAX_HP*0.334
