@@ -49,7 +49,7 @@ var y_acceleration: float = y_top_speed/0.2
 
 # HP/Ground state variables ======================================================
 const MAX_HP: float = 1000
-const MAX_TIME_ON_GROUND: float = 8
+const MAX_TIME_ON_GROUND: float = 11
 const LOSABLE_HP_PER_PHASE: float = MAX_HP/5
 const PHASE_2_THRESHOLD: float = MAX_HP*0.667
 const PHASE_3_THRESHOLD: float = MAX_HP*0.334
@@ -230,10 +230,6 @@ func change_phase(current_phase: int) -> void:
 			special_move_timer = special_move_time_phase2/2.0
 		3:
 			special_move_timer = special_move_time_phase3/2.0
-	# Enter room gain blood upgrade lets you gain blood when phase changes
-	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
-		GameData.player.gain_blood_other(80)
-		GameData.player.dealt_damage_took_damage = true
 	will_be_lightning = true
 	return
 
@@ -496,6 +492,10 @@ func initiate_rising() -> void:
 	is_invincible = false
 	time_on_ground = 0
 	hp_lost_this_phase = 0
+	# Enter room gain blood upgrade lets you gain blood when phase changes
+	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
+		GameData.player.gain_blood_other(65)
+		GameData.player.dealt_damage_took_damage = true
 	#test_timer = 5
 	
 	spawn_enemies.emit()

@@ -103,7 +103,7 @@ func _ready() -> void:
 	
 	# HEY IT"S Me JOEY
 	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
-		GameData.player.gain_blood_other(80)
+		GameData.player.gain_blood_other(65)
 		GameData.player.dealt_damage_took_damage = true
 	
 	#var center = Vector3((top_left.x+bot_right.x) * 0.5, (top_left.y+bot_right.y) * 0.5, 0)

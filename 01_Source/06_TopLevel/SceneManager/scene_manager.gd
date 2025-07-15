@@ -28,7 +28,7 @@ var boss_level
 
 var player_dying = false
 
-var test_game = true
+var test_game = false
 var test_boss = false
 
 var tut2 = false

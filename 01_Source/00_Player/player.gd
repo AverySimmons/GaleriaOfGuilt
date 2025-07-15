@@ -319,7 +319,7 @@ func _physics_process(delta: float) -> void:
 				special_ability_timer = actual_special_cooldown
 	
 	if Input.is_action_just_pressed("dash"):
-		if (dash_charges > 0 || (UpgradeData.upgrades_gained[UpgradeData.DASH_INFINITE] && blood_bar>=dash_blood_cost)) \
+		if (dash_charges > 0 || (UpgradeData.upgrades_gained[UpgradeData.DASH_INFINITE] && blood_bar>dash_blood_cost)) \
 		&& is_dashing == false:
 			if movement_vector == Vector2.ZERO:
 				movement_vector = Vector2(0, 1)
