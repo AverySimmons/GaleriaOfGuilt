@@ -73,6 +73,7 @@ func start_death() -> void:
 		upgrade_mark_sprite.visible = false
 	if beating_heart_sprite != null:
 		beating_heart_sprite.visible = false
+	$DashMark.visible = false
 	var hurtbox = $Hurtbox
 	if hurtbox != null:
 		hurtbox.monitorable = false

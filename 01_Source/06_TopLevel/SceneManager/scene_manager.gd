@@ -29,10 +29,10 @@ var boss_level
 var player_dying = false
 
 var test_game = true
-var test_boss = true
+var test_boss = false
 
 var tut2 = false
-var boss_intro_played = true
+var boss_intro_played = false
 
 var cur_tint
 

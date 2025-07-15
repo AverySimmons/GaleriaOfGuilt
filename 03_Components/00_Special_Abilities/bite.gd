@@ -12,6 +12,7 @@ func _ready() -> void:
 	flinch_amount = 1.2
 	blood_gain_multiplier = 1.5
 	chargeup_slowdown = 0.3
+	stupid_mult = 1.0
 	
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	parent.start_dash.connect(dash_cancel)
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 			continue
 		parent.gain_blood("special", blood_gain_multiplier, enemy)
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amount, 0)
+		enemy.take_damage(damage * GameData.player.special_damage_increase * stupid_mult, flinch_amount, 0)
 		parent.dealt_damage_took_damage = true
 		
 	enemies_just_entered.clear()
@@ -46,9 +47,9 @@ func _physics_process(delta: float) -> void:
 	pass
 
 
-func use_ability() -> void:
-	
-	super.use_ability()
+func use_ability(stupid: float) -> void:
+	stupid_mult = stupid
+	super.use_ability(stupid_mult)
 	# Chargeup
 	special_slowdown_actual = chargeup_slowdown
 	await get_tree().create_timer(chargeup).timeout
@@ -84,7 +85,7 @@ func use_ability() -> void:
 			continue
 		parent.gain_blood("special", blood_gain_multiplier, enemy)
 		hit_enemies[enemy] = null
-		enemy.take_damage(damage * GameData.player.special_damage_increase, flinch_amount, 0)
+		enemy.take_damage(damage * GameData.player.special_damage_increase * stupid_mult, flinch_amount, 0)
 	return
 
 func _on_area_entered(area: Area2D) -> void:

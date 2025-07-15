@@ -15,6 +15,7 @@ var special_slowdown: float
 var special_slowdown_actual: float = 1.0
 var flinch_amount: float
 var blood_gain_multiplier: float = 1.0
+var stupid_mult: float = 1.0
 
 func _ready() -> void:
 	monitoring = false
@@ -26,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	
 	pass
 
-func use_ability() -> void:
+func use_ability(stupid: float) -> void:
 	is_active = true
 	active_timer = active_time * parent.bb_hitspd_inc + chargeup
 	parent.using_attack_or_special_or_dash = true

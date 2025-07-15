@@ -28,13 +28,13 @@ func _physics_process(delta: float) -> void:
 	
 	pass
 
-func use_ability() -> void:
+func use_ability(stupid: float) -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = mouse_pos - global_position
 	var angle: float = direction.angle()
 	rotation = angle
-	
-	super.use_ability()
+	stupid_mult = stupid
+	super.use_ability(stupid_mult)
 	# For shooting out bullets semi-randomly
 	var angle_variance: float = -80/180.0
 	var angle_randomness: float = 5.0/180.0
@@ -53,7 +53,7 @@ func use_ability() -> void:
 		new_bullet.global_position = muzzle_position + (Vector2(0, offset).rotated(angle))
 		new_bullet.rotation = angle
 		var angle_shot_out: float = angle + angle_variance
-		new_bullet.get_shot(angle_shot_out-angle_randomness, angle_shot_out+angle_randomness, cur_bullet_speed, damage, flinch_amount)
+		new_bullet.get_shot(angle_shot_out-angle_randomness, angle_shot_out+angle_randomness, cur_bullet_speed, damage*stupid_mult, flinch_amount)
 		angle_variance += 10/180.0
 		
 		offset += 1

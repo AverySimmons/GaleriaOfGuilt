@@ -125,6 +125,8 @@ var zoom_out_timer: float = 19
 
 var test_timer: float = 5
 
+var stupid_stupid_stupid: float = 1.0
+
 @onready var swipe_sound = $SwipeSound
 @onready var dash_sound = $DashSound
 @onready var bite_sound = $BiteSound
@@ -278,8 +280,7 @@ func _physics_process(delta: float) -> void:
 			attack_timer = attack_cooldown * bb_hitspd_inc
 	
 	if Input.is_action_just_pressed("special_attack"):
-		if special_ability_timer == 0 && using_attack_or_special_or_dash == false \
-				and blood_bar >= special_blood_cost:
+		if special_ability_timer == 0 && using_attack_or_special_or_dash == false:
 			# Sorry this is basically to check just for one upgrade, usually it doesn't matter so completely ignore it
 			var guysthiscodesucksbutimrushing: bool = true
 			if UpgradeData.upgrades_gained[UpgradeData.SPECIAL_CD_RED_COST_HP]:
@@ -289,8 +290,13 @@ func _physics_process(delta: float) -> void:
 					sorryguysthisisstupidbutwererushing = true
 					take_damage(max_hp/10.0)
 			## same here as above (blah blah blah repeating code)
+			stupid_stupid_stupid = 1.0
 			if guysthiscodesucksbutimrushing:
-				blood_bar -= special_blood_cost
+				if blood_bar >= special_blood_cost:
+					blood_bar = move_toward(blood_bar, 0, special_blood_cost)
+				elif UpgradeData.upgrades_gained[UpgradeData.SP_DAMAGE_COST_BLOOD]:
+					stupid_stupid_stupid = 0.5
+				
 				SignalBus.bb_change.emit()
 				var dir = global_position.direction_to(get_global_mouse_position())
 				var facing_dir = name_from_vect_dir(dir)
@@ -307,8 +313,8 @@ func _physics_process(delta: float) -> void:
 					3:
 						animation_player.play("special_" + facing_dir)
 						AudioData.play_sound("shotgun", shotgun_sound)
-			
-				current_ability.use_ability()
+				print(stupid_stupid_stupid)
+				current_ability.use_ability(stupid_stupid_stupid)
 				actual_special_cooldown = current_ability.cooldown * bb_hitspd_inc * spcd_increase
 				special_ability_timer = actual_special_cooldown
 	

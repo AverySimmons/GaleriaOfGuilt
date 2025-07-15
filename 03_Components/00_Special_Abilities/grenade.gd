@@ -27,13 +27,13 @@ func _physics_process(delta: float) -> void:
 	active_timer = move_toward(active_timer, 0, delta)
 	pass
 
-func use_ability() -> void:
+func use_ability(stupid: float) -> void:
+	stupid_mult = stupid
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = (mouse_pos - global_position).normalized()
 	var angle: float = direction.angle()
 	rotation = angle
-	
-	super.use_ability()
+	super.use_ability(stupid_mult)
 	if !is_inside_tree(): return
 	var projectiles_scene = get_tree().current_scene.get_node_or_null("Projectiles")
 	if !projectiles_scene:
@@ -42,7 +42,7 @@ func use_ability() -> void:
 	var grenade = grenade_scene.instantiate()
 	grenade.global_position = global_position
 	projectiles_scene.add_child(grenade)
-	grenade.get_thrown(mouse_pos, speed, damage, flinch_amount, knockback_amount)
+	grenade.get_thrown(mouse_pos, speed, damage*stupid_mult, flinch_amount, knockback_amount)
 	return
 
 func dash_cancel() -> void:
