@@ -494,7 +494,7 @@ func initiate_rising() -> void:
 	hp_lost_this_phase = 0
 	# Enter room gain blood upgrade lets you gain blood when phase changes
 	if UpgradeData.upgrades_gained[UpgradeData.ENTER_ROOM]:
-		GameData.player.gain_blood_other(80)
+		GameData.player.gain_blood_other(65)
 		GameData.player.dealt_damage_took_damage = true
 	#test_timer = 5
 	
