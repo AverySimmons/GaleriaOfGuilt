@@ -13,7 +13,7 @@ func choose_upgrade() -> void:
 	super.choose_upgrade()
 	var player = GameData.player
 	var percent_hp = player.current_hp/player.max_hp
-	player.max_hp *= 0.75
+	player.max_hp *= 0.85
 	player.current_hp = player.max_hp*percent_hp
 	player.get_signal_upgrade("kill_blood_gain")
 	return

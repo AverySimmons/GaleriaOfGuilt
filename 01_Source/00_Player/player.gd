@@ -313,7 +313,6 @@ func _physics_process(delta: float) -> void:
 					3:
 						animation_player.play("special_" + facing_dir)
 						AudioData.play_sound("shotgun", shotgun_sound)
-				print(stupid_stupid_stupid)
 				current_ability.use_ability(stupid_stupid_stupid)
 				actual_special_cooldown = current_ability.cooldown * bb_hitspd_inc * spcd_increase
 				special_ability_timer = actual_special_cooldown

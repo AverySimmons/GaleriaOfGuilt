@@ -15,6 +15,6 @@ func choose_upgrade() -> void:
 	player.bb_spd *= 1.5
 	player.bb_hitspd *= 1.3334
 	var percent_hp = player.current_hp/player.max_hp
-	player.max_hp *= 0.6667
+	player.max_hp *= 0.7
 	player.current_hp = player.max_hp*percent_hp
 	return

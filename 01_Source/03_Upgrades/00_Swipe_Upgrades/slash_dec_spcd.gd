@@ -12,6 +12,4 @@ func _init() -> void:
 func choose_upgrade() -> void:
 	
 	super.choose_upgrade()
-	print("picked!")
-	print(UpgradeData.upgrades_gained[UpgradeData.SLASH_SPCD])
 	return
