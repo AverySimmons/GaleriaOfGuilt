@@ -368,7 +368,6 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("1_nis2y")
 hp_max = 80.0
-flinch_guard = 1.5
 upgraded = true
 shake_length = 0.6
 arrow_dist = 500.0
