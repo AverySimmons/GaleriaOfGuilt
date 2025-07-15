@@ -12,6 +12,5 @@ func _init() -> void:
 func choose_upgrade() -> void:
 	super.choose_upgrade()
 	GameData.player.dash_speed *= 2.0
-	GameData.player.dash_cd = 0.25
 	GameData.player.dash_blood_cost = 7
 	return

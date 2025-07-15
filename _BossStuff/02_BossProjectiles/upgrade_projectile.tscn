@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://8qw4audbqwng"]
 
 [ext_resource type="Script" uid="uid://2qfcakh205dj" path="res://_BossStuff/02_BossProjectiles/upgrade_projectile.gd" id="1_tfsfq"]
-[ext_resource type="Texture2D" uid="uid://0ng1wa323bh2" path="res://_BossStuff/00_Sprites/boss_sprites/knife_that_transforms_the_baddies_into_bigger_baddies.png" id="2_e05jh"]
+[ext_resource type="Texture2D" uid="uid://drrpsg5is1e4l" path="res://_BossStuff/00_Sprites/boss_sprites/knife_that_transforms_the_baddies_into_bigger_baddies.png" id="2_e05jh"]
 [ext_resource type="PackedScene" uid="uid://bb064mi715uwj" path="res://_BossStuff/ScalingShadow/scaling_shadow.tscn" id="3_dusmn"]
 [ext_resource type="Shader" uid="uid://mottcjfppnv4" path="res://_BossStuff/ScalingShadow/scaling_shadow.gdshader" id="4_kympm"]
 
