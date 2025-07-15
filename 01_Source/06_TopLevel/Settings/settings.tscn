@@ -1,15 +1,15 @@
 [gd_scene load_steps=18 format=3 uid="uid://x4hnxtibjtu6"]
 
 [ext_resource type="Script" uid="uid://bodr6wa1h4hrd" path="res://01_Source/06_TopLevel/Settings/settings.gd" id="1_2rbca"]
-[ext_resource type="Texture2D" uid="uid://dtitbxq47t27p" path="res://00_Assets/00_Sprites/UI_sprites/pause_menu_base.png" id="1_mxjcm"]
-[ext_resource type="Texture2D" uid="uid://cq4yx557p6scx" path="res://00_Assets/00_Sprites/UI_sprites/quit_button.png" id="2_2rbca"]
-[ext_resource type="Texture2D" uid="uid://dqedv1ju8tjiy" path="res://00_Assets/00_Sprites/UI_sprites/resume_button.png" id="3_51ivv"]
-[ext_resource type="Texture2D" uid="uid://cal4x7642mvfq" path="res://00_Assets/00_Sprites/UI_sprites/volume_button.png" id="4_kcbnx"]
-[ext_resource type="Texture2D" uid="uid://d32ywa13jfb2i" path="res://00_Assets/00_Sprites/UI_sprites/volume_bar.png" id="5_euhdr"]
+[ext_resource type="Texture2D" uid="uid://bh3xub27yqqh6" path="res://00_Assets/00_Sprites/UI_sprites/pause_menu_base.png" id="1_mxjcm"]
+[ext_resource type="Texture2D" uid="uid://bwhqh7tp50ryd" path="res://00_Assets/00_Sprites/UI_sprites/quit_button.png" id="2_2rbca"]
+[ext_resource type="Texture2D" uid="uid://pjok5m0vubjm" path="res://00_Assets/00_Sprites/UI_sprites/resume_button.png" id="3_51ivv"]
+[ext_resource type="Texture2D" uid="uid://bc6ofiscjjg8n" path="res://00_Assets/00_Sprites/UI_sprites/volume_button.png" id="4_kcbnx"]
+[ext_resource type="Texture2D" uid="uid://ro0dhik8dm8x" path="res://00_Assets/00_Sprites/UI_sprites/volume_bar.png" id="5_euhdr"]
 [ext_resource type="Script" uid="uid://cbl1x8cyborsr" path="res://01_Source/06_TopLevel/Settings/volume_slider.gd" id="6_euyi2"]
-[ext_resource type="AudioStream" uid="uid://dod3v7ehkhqa2" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="8_kcbnx"]
-[ext_resource type="AudioStream" uid="uid://b3jo7qog5p7bt" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="9_euhdr"]
-[ext_resource type="AudioStream" uid="uid://cgogu5xi8pmo7" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="10_euhdr"]
+[ext_resource type="AudioStream" uid="uid://ci1kjwsekd1mb" path="res://00_Assets/02_SoundEffects/menu_select.wav" id="8_kcbnx"]
+[ext_resource type="AudioStream" uid="uid://22sqwsqcmn6k" path="res://00_Assets/02_SoundEffects/menu_hover.wav" id="9_euhdr"]
+[ext_resource type="AudioStream" uid="uid://cr1d5n16llk4i" path="res://00_Assets/02_SoundEffects/player_swipe.wav" id="10_euhdr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svc54"]
 

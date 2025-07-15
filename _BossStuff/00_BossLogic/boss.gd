@@ -57,6 +57,9 @@ var cur_hp: float = MAX_HP
 var prev_hp: float = MAX_HP
 var hp_lost_this_phase: float = 0
 var time_on_ground: float = 0
+var one_shot_prot_p2: bool = true
+var one_shot_prot_p3: bool = true
+var is_invincible: bool = false
 
 signal boss_dies()
 
@@ -431,6 +434,7 @@ func initiate_falling() -> void:
 
 func initiate_ground() -> void:
 	cur_state = GROUND
+	is_invincible = false
 	# Hurtbox stuff
 	hurtbox.monitorable = true
 	time_on_ground = 0
@@ -488,6 +492,10 @@ func initiate_rising() -> void:
 	reset_upgrade_timer()
 	lightning_module.resume()
 	cur_state = MOVING
+	hurtbox.monitorable = false
+	is_invincible = false
+	time_on_ground = 0
+	hp_lost_this_phase = 0
 	#test_timer = 5
 	
 	spawn_enemies.emit()
@@ -495,6 +503,27 @@ func initiate_rising() -> void:
 	return
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
+	if is_invincible: return
+	if one_shot_prot_p2 && phase == 1 && (cur_hp-damage < MAX_HP*0.5):
+		is_invincible = true
+		cur_hp = MAX_HP*0.5
+		time_on_ground = 10000
+		$HitFlash.play("RESET")
+		$HitFlash.play("hit_flash")
+		$HitSound.play()
+		SignalBus.boss_health_changed.emit(cur_hp/float(MAX_HP))
+		one_shot_prot_p2 = false
+		return
+	if (one_shot_prot_p3) && phase == 2 && (cur_hp-damage < MAX_HP*0.2):
+		is_invincible = true
+		cur_hp = MAX_HP*0.2
+		time_on_ground = 10000
+		$HitFlash.play("RESET")
+		$HitFlash.play("hit_flash")
+		$HitSound.play()
+		SignalBus.boss_health_changed.emit(cur_hp/float(MAX_HP))
+		one_shot_prot_p3 = false
+		return
 	cur_hp -= damage
 	$HitFlash.play("RESET")
 	$HitFlash.play("hit_flash")
