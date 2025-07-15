@@ -25,7 +25,7 @@ var big_level_scenes: Array[PackedScene] = [
 ]
 
 var starting_level_scene = preload("res://01_Source/02_Level/Levels/starting_room.tscn")
-var secret_level_scene = preload("res://01_Source/02_Level/Levels/starting_room.tscn")
+var secret_level_scene = preload("res://01_Source/02_Level/Levels/BigLevels/levelsecret.tscn")
 
 var tint
 
