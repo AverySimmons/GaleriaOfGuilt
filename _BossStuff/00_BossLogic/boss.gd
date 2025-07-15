@@ -504,9 +504,9 @@ func initiate_rising() -> void:
 
 func take_damage(damage: float, flinch: float, knockback: float) -> void:
 	if is_invincible: return
-	if one_shot_prot_p2 && phase == 1 && (cur_hp-damage < MAX_HP*0.5):
+	if one_shot_prot_p2 && phase == 1 && (cur_hp-damage < MAX_HP*0.4):
 		is_invincible = true
-		cur_hp = MAX_HP*0.5
+		cur_hp = MAX_HP*0.4
 		time_on_ground = 10000
 		$HitFlash.play("RESET")
 		$HitFlash.play("hit_flash")
@@ -514,9 +514,9 @@ func take_damage(damage: float, flinch: float, knockback: float) -> void:
 		SignalBus.boss_health_changed.emit(cur_hp/float(MAX_HP))
 		one_shot_prot_p2 = false
 		return
-	if (one_shot_prot_p3) && phase == 2 && (cur_hp-damage < MAX_HP*0.2):
+	if (one_shot_prot_p3) && phase == 2 && (cur_hp-damage < MAX_HP*0.1):
 		is_invincible = true
-		cur_hp = MAX_HP*0.2
+		cur_hp = MAX_HP*0.1
 		time_on_ground = 10000
 		$HitFlash.play("RESET")
 		$HitFlash.play("hit_flash")
