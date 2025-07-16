@@ -28,7 +28,7 @@ DSP/dsp_buffer_count=4
 
 [application]
 
-config/name="Blood"
+config/name="Galleria of Guilt"
 run/main_scene="uid://iudn154k7uar"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -105,6 +105,7 @@ text/autoskip_time_per_event=0.5
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
